@@ -64,48 +64,4 @@ export class Virus extends BaseModel implements IVirus {
             this.fkTestNodo = virus.fkTestNodo;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        if(this.archivoIcono != null && Defaults.allowBase64Types.includes(this.mimetypeIcono)) {
-            this.archivoIcono = fileToBase64(this.mimetypeIcono, this.archivoIcono);
-        } else {
-            delete this.archivoIcono;
-        }
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...Virus.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-        MedicoVirus: {
-            relation: Model.HasManyRelation,
-            modelClass: 'MedicoVirus',
-            join: { from: 'Virus.idVirus', to: 'MedicoVirus.fkVirus' }
-        },
-        TestNodos: {
-            relation: Model.HasManyRelation,
-            modelClass: 'TestNodo',
-            join: { from: 'Virus.idVirus', to: 'TestNodo.fkVirus' }
-        },
-        //------------------------------------- HasOneRelation
-        //------------------------------------- BelongsToOneRelation  
-
-        TestNodo: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'TestNodo',
-            join: { from: 'Virus.fkTestNodo', to: 'TestNodo.idTestNodo' }
-        }
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

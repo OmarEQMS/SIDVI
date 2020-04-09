@@ -54,45 +54,4 @@ export class Estadistica extends BaseModel implements IEstadistica {
             this.categoriaEstadistica = new CategoriaEstadistica(estadistica.CategoriaEstadistica);
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...Estadistica.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-
-        //------------------------------------- BelongsToOneRelation  
-        Virus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Virus',
-            join: { from: 'Estadistica.fkVirus', to: 'Virus.idVirus' }
-        },
-        Ubicacion: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Ubicacion',
-            join: { from: 'Estadistica.fkUbicacion', to: 'Ubicacion.idUbicacion' }
-        },
-        CategoriaEstadistica: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'CategoriaEstadistica',
-            join: { from: 'Estadistica.fkCategoriaEstadistica', to: 'CategoriaEstadistica.idCategoriaEstadistica' }
-        }
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

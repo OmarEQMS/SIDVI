@@ -53,35 +53,4 @@ export class CelularEstado extends BaseModel implements ICelularEstado {
             this.fk = celularEstado.fk;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...CelularEstado.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-
-        //------------------------------------- BelongsToOneRelation          
-        Virus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Virus',
-            join: { from: 'CelularEstado.fkVirus', to: 'Virus.idVirus' }
-        }
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

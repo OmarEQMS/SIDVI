@@ -38,35 +38,4 @@ export class CategoriaEstadistica extends BaseModel implements ICategoriaEstadis
             this.nombre = categoriaEstadistica.nombre;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...CategoriaEstadistica.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-        Estadistica: {
-            relation: Model.HasManyRelation,
-            modelClass: 'Estadistica',
-            join: { from: 'CategoriaEstadistica.idCategoriaEstadistica', to: 'Estadistica.fkCategoriaEstadistica' }
-        }
-
-        //------------------------------------- HasOneRelation
-        
-        //------------------------------------- BelongsToOneRelation  
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

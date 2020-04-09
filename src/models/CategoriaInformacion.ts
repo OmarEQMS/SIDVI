@@ -41,35 +41,4 @@ export class CategoriaInformacion extends BaseModel implements ICategoriaInforma
             this.nombre = categoriaInformacion.nombre;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...CategoriaInformacion.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-        Informacion: {
-            relation: Model.HasManyRelation,
-            modelClass: 'Informacion',
-            join: { from: 'CategoriaInformacion.idCategoriaInformacion', to: 'Informacion.fkCategoriaInformacion' }
-        }
-
-        //------------------------------------- HasOneRelation
-        
-        //------------------------------------- BelongsToOneRelation  
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

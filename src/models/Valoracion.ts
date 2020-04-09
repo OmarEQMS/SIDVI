@@ -48,40 +48,4 @@ export class Valoracion extends BaseModel implements IValoracion {
             this.valoracion = valoracion.valoracion;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...Valoracion.columnList);
-            }
-        };
-    }
-
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-        //------------------------------------- BelongsToOneRelation  
-        MedicoVirus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'MedicoVirus',
-            join: { from: 'Valoracion.fkMedicoVirus', to: 'MedicoVirus.idMedicoVirus' }
-        },
-        Usuario: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Usuario',
-            join: { from: 'Valoracion.fkUsuario', to: 'Usuario.idUsuario' }
-        }
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

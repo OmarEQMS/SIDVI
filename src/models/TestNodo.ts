@@ -58,47 +58,4 @@ export class TestNodo extends BaseModel implements ITestNodo {
             this.archivo = testNodo.archivo;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        if(this.archivo != null && Defaults.allowBase64Types.includes(this.mimetype)) {
-            this.archivo = fileToBase64(this.mimetype, this.archivo);
-        } else {
-            delete this.archivo;
-        }
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...TestNodo.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-        TestOpcion: {
-            relation: Model.HasManyRelation,
-            modelClass: 'TestOpcion',
-            join: { from: 'TestNodo.idTestNodo', to: 'TestOpcion.fkTestNodo' }
-        },
-        Viruss: {
-            relation: Model.HasManyRelation,
-            modelClass: 'Virus',
-            join: { from: 'TestNodo.idTestNodo', to: 'Virus.fkTestNodo' }
-        },
-        //------------------------------------- HasOneRelation
-        //------------------------------------- BelongsToOneRelation  
-        Virus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Virus',
-            join: { from: 'TestNodo.fkVirus', to: 'Virus.idVirus' }
-        }
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

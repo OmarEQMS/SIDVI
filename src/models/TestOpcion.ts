@@ -61,45 +61,4 @@ export class TestOpcion extends BaseModel implements ITestOpcion {
             this.archivo = testOpcion.archivo;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        if(this.archivo != null && Defaults.allowBase64Types.includes(this.mimetype)) {
-            this.archivo = fileToBase64(this.mimetype, this.archivo);
-        } else {
-            delete this.archivo;
-        }
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...TestOpcion.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-
-        //------------------------------------- BelongsToOneRelation  
-        TestNodo: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'TestNodo',
-            join: { from: 'TestOpcion.fkTestNodo', to: 'TestNodo.idTestNodo' }
-        },
-        TestNodoSiguiente: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'TestNodo',
-            join: { from: 'TestOpcion.fkTestNodoSig', to: 'TestNodo.idTestNodo' }
-        }
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

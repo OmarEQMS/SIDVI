@@ -45,38 +45,4 @@ export class MedicoVirus extends BaseModel implements IMedicoVirus {
             this.fkVirus = medicoVirus.fkVirus;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...MedicoVirus.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-        //------------------------------------- BelongsToOneRelation  
-        Medico: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Medico',
-            join: { from: 'MedicoVirus.fkMedico', to: 'Medico.idMedico' }
-        },
-        Virus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Virus',
-            join: { from: 'MedicoVirus.fkVirus', to: 'Virus.idVirus' }
-        }
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

@@ -57,45 +57,4 @@ export class Informacion extends BaseModel implements IInformacion {
             this.categoriaInformacion = new CategoriaInformacion(informacion.CategoriaInformacion);
         }
     }
-
-    // Respond Object
-    toJSON() {
-        if(this.archivo != null && Defaults.allowBase64Types.includes(this.mimetype)) {
-            this.archivo = fileToBase64(this.mimetype, this.archivo);
-        } else {
-            delete this.archivo;
-        }
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {
-            defaultSelect(builder) {
-                builder.select(...Informacion.columnList);
-            }
-        };
-    }
-
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-
-        //------------------------------------- HasOneRelation
-
-        //------------------------------------- BelongsToOneRelation  
-        Virus: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Virus',
-            join: { from: 'Informacion.fkVirus', to: 'Virus.idVirus' }
-        },
-        CategoriaInformacion: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'CategoriaInformacion',
-            join: { from: 'Informacion.fkCategoriaInformacion', to: 'CategoriaInformacion.idCategoriaInformacion' }
-        }
-
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

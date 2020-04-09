@@ -46,42 +46,4 @@ export class Ubicacion extends BaseModel implements IUbicacion {
             this.nombre = ubicacion.nombre;
         }
     }
-    
-    // Respond Object
-    toJSON() {
-        return this;
-    }
-
-    // Objection: Modifiers
-    static get modifiers() {
-        return {   
-            defaultSelect(builder) {
-                builder.select(...Ubicacion.columnList);
-            }
-        };
-    }
-    // Objection: Relations
-    static relationMappings: RelationMappings = {
-        //------------------------------------- HasManyRelation
-        Ubicaciones: {
-            relation: Model.HasManyRelation,
-            modelClass: 'Ubicacion',
-            join: { from: 'Ubicacion.idUbicacion', to: 'Ubicacion.fkUbicacion' }
-        },
-        Medico: {
-            relation: Model.HasManyRelation,
-            modelClass: 'Medico',
-            join: { from: 'Ubicacion.idUbicacion', to: 'Medico.fkUbicacion' }
-        },
-
-        //------------------------------------- HasOneRelation
-        //------------------------------------- BelongsToOneRelation  
-        Ubicacion: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: 'Ubicacion',
-            join: { from: 'Ubicacion.fkUbicacion', to: 'Ubicacion.idUbicacion' }
-        }
-        //------------------------------------- HasOneThroughRelation
-    };
-
 }

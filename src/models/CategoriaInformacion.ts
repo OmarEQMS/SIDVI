@@ -1,9 +1,8 @@
 import { Informacion } from './Informacion';
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
 
+// tslint:disable-next-line:no-namespace
 export namespace _CategoriaInformacion {
-
 }
 
 export interface ICategoriaInformacion {
@@ -13,13 +12,12 @@ export interface ICategoriaInformacion {
 }
 
 export class CategoriaInformacion implements ICategoriaInformacion {
-    
     // Columns
     idCategoriaInformacion?: number;
     clave?: string;
     nombre?: string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
 
     // Relations: HasMany
     informaciones: Informacion[];
@@ -33,12 +31,12 @@ export class CategoriaInformacion implements ICategoriaInformacion {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idCategoriaInformacion: this.idCategoriaInformacion,
             clave: this.clave,
             nombre: this.nombre
-        }
+        };
     }
 }

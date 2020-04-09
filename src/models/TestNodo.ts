@@ -1,12 +1,12 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Virus } from './Virus';
 import { TestOpcion } from './TestOpcion';
 
+// tslint:disable-next-line:no-namespace
 export namespace _TestNodo {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.PDF, ContentTypeEnum.JPG, ContentTypeEnum.PNG, ContentTypeEnum.MP4];
     export let archivoFileSize: number = 128 * 1024 * 1024;
-
 }
 
 export interface ITestNodo {
@@ -16,11 +16,9 @@ export interface ITestNodo {
     descripcion?: string;
     mimetype?: string;
     archivo?: ArrayBuffer | string;
-
 }
 
 export class TestNodo implements ITestNodo {
-
     // Columns
     idTestNodo?: number;
     fkVirus?: number;
@@ -29,7 +27,7 @@ export class TestNodo implements ITestNodo {
     mimetype?: ContentTypeEnum;
     archivo?: ArrayBuffer | string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     virus?: Virus;
 
     // Relations: HasMany
@@ -49,8 +47,8 @@ export class TestNodo implements ITestNodo {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idTestNodo: this.idTestNodo,
             fkVirus: this.fkVirus,
@@ -58,6 +56,6 @@ export class TestNodo implements ITestNodo {
             descripcion: this.descripcion,
             mimetype: this.mimetype,
             archivo: this.archivo
-        }
+        };
     }
 }

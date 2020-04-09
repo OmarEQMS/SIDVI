@@ -1,9 +1,8 @@
 import { Estadistica } from './Estadistica';
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
 
+// tslint:disable-next-line:no-namespace
 export namespace _CategoriaEstadistica {
-
 }
 
 export interface ICategoriaEstadistica {
@@ -12,12 +11,11 @@ export interface ICategoriaEstadistica {
 }
 
 export class CategoriaEstadistica implements ICategoriaEstadistica {
-
     // Columns
     idCategoriaEstadistica?: number;
     nombre?: string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
 
     // Relations: HasMany
     estadisticas: Estadistica[];
@@ -30,11 +28,11 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idCategoriaEstadistica: this.idCategoriaEstadistica,
             nombre: this.nombre
-        }
+        };
     }
 }

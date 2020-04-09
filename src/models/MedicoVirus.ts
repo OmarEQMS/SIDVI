@@ -1,10 +1,10 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Medico } from './Medico';
 import { Virus } from './Virus';
 
+// tslint:disable-next-line:no-namespace
 export namespace _MedicoVirus {
-
 }
 
 export interface IMedicoVirus {
@@ -20,7 +20,7 @@ export class MedicoVirus implements IMedicoVirus {
     fkMedico?: number;
     fkVirus?: number;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     medico?: Medico;
     virus?: Virus;
     // Relations: HasMany
@@ -34,12 +34,12 @@ export class MedicoVirus implements IMedicoVirus {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idMedicoVirus: this.idMedicoVirus,
             fkMedico: this.fkMedico,
             fkVirus: this.fkVirus
-        }
+        };
     }
 }

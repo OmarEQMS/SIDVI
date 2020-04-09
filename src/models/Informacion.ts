@@ -1,8 +1,8 @@
 import { Virus } from './Virus';
 import { CategoriaInformacion } from './CategoriaInformacion';
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Informacion {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
@@ -29,7 +29,7 @@ export class Informacion implements IInformacion {
     mimetype?: ContentTypeEnum;
     archivo?: ArrayBuffer | string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     virus: Virus;
     categoriaInformacion: CategoriaInformacion;
 
@@ -50,8 +50,8 @@ export class Informacion implements IInformacion {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idInformacion: this.idInformacion,
             fkVirus: this.fkVirus,
@@ -60,6 +60,6 @@ export class Informacion implements IInformacion {
             descripcion: this.descripcion,
             mimetype: this.mimetype,
             archivo: this.archivo
-        }
+        };
     }
 }

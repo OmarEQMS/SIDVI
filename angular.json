@@ -32,14 +32,24 @@
               }
             ],
             "styles": [
-              {
-                "input": "src/theme/variables.scss"
-              },
-              {
-                "input": "src/global.scss"
-              }
+                { "input": "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss" },
+                { "input": "node_modules/@fortawesome/fontawesome-free/scss/solid.scss" },
+                { "input": "node_modules/@fortawesome/fontawesome-free/scss/regular.scss" },
+                { "input": "node_modules/@fortawesome/fontawesome-free/scss/brands.scss" },
+                { "input": "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss" },
+                { "input": "node_modules/angular-bootstrap-md/assets/scss/mdb.scss" },
+                { "input": "node_modules/animate.css/animate.css" },
+                { "input": "node_modules/bootstrap/dist/css/bootstrap.min.css" },
+                { "input": "node_modules/videogular2/fonts/videogular.css" },
+                { "input": "src/theme/variables.scss" },
+                { "input": "src/global.scss" }
             ],
-            "scripts": []
+            "scripts": [
+                "node_modules/chart.js/dist/Chart.js",
+                "node_modules/hammerjs/hammer.min.js",
+                "node_modules/jquery/dist/jquery.min.js",
+                "node_modules/bootstrap/dist/js/bootstrap.min.js",
+            ]
           },
           "configurations": {
             "production": {

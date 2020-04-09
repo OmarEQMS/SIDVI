@@ -66,7 +66,7 @@ export class VirusService {
 
         // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/virus`,
-            virus, { headers, observe: 'body', reportProgress: true }
+            virus.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -109,7 +109,7 @@ export class VirusService {
 
         // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/virus/${encodeURIComponent(String(idVirus))}`,
-            virus, { headers, observe: 'body', reportProgress: true }
+            virus.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -155,7 +155,7 @@ export class VirusService {
 
     public urlVirusIcono(idVirus: number): string {
         return `${this.manager.basePath}/virus/${encodeURIComponent(String(idVirus))}/icono` +
-            `?TokenUsuario=${encodeURIComponent(this.manager.tokenUsuario)}`;
+               `?TokenUsuario=${encodeURIComponent(this.manager.tokenUsuario)}`;
     }
 
     public cargarVirusIcono(idVirus: number, icono: Blob): Observable<any> {

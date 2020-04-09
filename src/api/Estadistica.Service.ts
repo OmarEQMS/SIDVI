@@ -15,214 +15,118 @@ export class EstadisticaService {
 
     public listarEstadisticas(fkVirus?: number, fkUbicacion?: number, fkCategoriaEstadistica?: number, ordenarPor?: string,
                               ordenarModo?: OrderModeEnum): Observable<any> {
+        // Params
         let queryParameters = new HttpParams();
         if (fkVirus !== undefined && fkVirus !== null) {
-            queryParameters = queryParameters.set('fkVirus', <any>fkVirus);
+            queryParameters = queryParameters.set('fkVirus', fkVirus.toString());
         }
         if (fkUbicacion !== undefined && fkUbicacion !== null) {
-            queryParameters = queryParameters.set('fkUbicacion', <any>fkUbicacion);
+            queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
         }
         if (fkCategoriaEstadistica !== undefined && fkCategoriaEstadistica !== null) {
-            queryParameters = queryParameters.set('fkCategoriaEstadistica', <any>fkCategoriaEstadistica);
+            queryParameters = queryParameters.set('fkCategoriaEstadistica', fkCategoriaEstadistica.toString());
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
-            queryParameters = queryParameters.set('ordenarPor', <any>ordenarPor);
+            queryParameters = queryParameters.set('ordenarPor', ordenarPor);
         }
         if (ordenarModo !== undefined && ordenarModo !== null) {
-            queryParameters = queryParameters.set('ordenarModo', <any>ordenarModo);
+            queryParameters = queryParameters.set('ordenarModo', ordenarModo);
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/estadistica`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
-    
-    public actualizarEstadistica(idEstadistica: number, estadistica: Estadistica): Observable<any> {
 
+    public actualizarEstadistica(idEstadistica: number, estadistica: Estadistica): Observable<any> {
+        // Validate
         if (idEstadistica === null || idEstadistica === undefined) {
             throw new Error('Required parameter idEstadistica was null or undefined when calling actualizarEstadistica.');
         }
-
         if (estadistica === null || estadistica === undefined) {
             throw new Error('Required parameter estadistica was null or undefined when calling actualizarEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
-            estadistica,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            estadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public crearEstadistica(estadistica: Estadistica): Observable<any> {
-
+        // Validate
         if (estadistica === null || estadistica === undefined) {
             throw new Error('Required parameter estadistica was null or undefined when calling crearEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/estadistica`,
-            estadistica,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            estadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public eliminarEstadistica(idEstadistica: number): Observable<any> {
-
+        // Validate
         if (idEstadistica === null || idEstadistica === undefined) {
             throw new Error('Required parameter idEstadistica was null or undefined when calling eliminarEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public obtenerEstadistica(idEstadistica: number): Observable<any> {
-
+        // Validate
         if (idEstadistica === null || idEstadistica === undefined) {
             throw new Error('Required parameter idEstadistica was null or undefined when calling obtenerEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 

@@ -14,212 +14,115 @@ export class CategoriaEstadisticaService {
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
     public listarCategoriasEstadistica(nombre?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
-
-
-
-
+        // Params
         let queryParameters = new HttpParams();
         if (nombre !== undefined && nombre !== null) {
-            queryParameters = queryParameters.set('nombre', <any>nombre);
+            queryParameters = queryParameters.set('nombre', nombre);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
-            queryParameters = queryParameters.set('ordenarPor', <any>ordenarPor);
+            queryParameters = queryParameters.set('ordenarPor', ordenarPor);
         }
         if (ordenarModo !== undefined && ordenarModo !== null) {
-            queryParameters = queryParameters.set('ordenarModo', <any>ordenarModo);
+            queryParameters = queryParameters.set('ordenarModo', ordenarModo);
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/categoriaEstadistica`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
     public crearCategoriaEstadistica(categoriaEstadistica: CategoriaEstadistica): Observable<any> {
-
+        // Validate
         if (categoriaEstadistica === null || categoriaEstadistica === undefined) {
             throw new Error('Required parameter categoriaEstadistica was null or undefined when calling crearCategoriaEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/categoriaEstadistica`,
-            categoriaEstadistica,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            categoriaEstadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public obtenerCategoriaEstadistica(idCategoriaEstadistica: number): Observable<any> {
-
+        // Validate
         if (idCategoriaEstadistica === null || idCategoriaEstadistica === undefined) {
             throw new Error('Required parameter idCategoriaEstadistica was null or undefined when calling obtenerCategoriaEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<any>(`${this.manager.basePath}/categoriaEstadistica/${encodeURIComponent(String(idCategoriaEstadistica))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+        // Request
+        return this.httpClient.get<any>(`${this.manager.basePath}/categoriaEstadistica/
+                                         ${encodeURIComponent(String(idCategoriaEstadistica))}`,
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public actualizarCategoriaEstadistica(idCategoriaEstadistica: number, categoriaEstadistica: CategoriaEstadistica): Observable<any> {
-
+        // Validate
         if (idCategoriaEstadistica === null || idCategoriaEstadistica === undefined) {
             throw new Error('Required parameter idCategoriaEstadistica was null or undefined when calling actualizarCategoriaEstadistica.');
         }
-
         if (categoriaEstadistica === null || categoriaEstadistica === undefined) {
             throw new Error('Required parameter categoriaEstadistica was null or undefined when calling actualizarCategoriaEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<APIResponse>(`${this.manager.basePath}/categoriaEstadistica/${encodeURIComponent(String(idCategoriaEstadistica))}`,
-            categoriaEstadistica,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+        // Request
+        return this.httpClient.put<APIResponse>(`${this.manager.basePath}/categoriaEstadistica/
+                                                 ${encodeURIComponent(String(idCategoriaEstadistica))}`,
+            categoriaEstadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public eliminarCategoriaEstadistica(idCategoriaEstadistica: number): Observable<any> {
-
+        // Validate
         if (idCategoriaEstadistica === null || idCategoriaEstadistica === undefined) {
             throw new Error('Required parameter idCategoriaEstadistica was null or undefined when calling eliminarCategoriaEstadistica.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/categoriaEstadistica/${encodeURIComponent(String(idCategoriaEstadistica))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+        // Request
+        return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/categoriaEstadistica/
+                                                    ${encodeURIComponent(String(idCategoriaEstadistica))}`,
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 

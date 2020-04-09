@@ -15,220 +15,118 @@ export class UbicacionService {
 
     public listarUbicaciones(fkUbicacion?: number, clave?: string, nombre?: string, ordenarPor?: string,
                              ordenarModo?: OrderModeEnum): Observable<any> {
-
-
-
-
-
-
+        // Params
         let queryParameters = new HttpParams();
         if (fkUbicacion !== undefined && fkUbicacion !== null) {
-            queryParameters = queryParameters.set('fkUbicacion', <any>fkUbicacion);
+            queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
         }
         if (clave !== undefined && clave !== null) {
-            queryParameters = queryParameters.set('clave', <any>clave);
+            queryParameters = queryParameters.set('clave', clave);
         }
         if (nombre !== undefined && nombre !== null) {
-            queryParameters = queryParameters.set('nombre', <any>nombre);
+            queryParameters = queryParameters.set('nombre', nombre);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
-            queryParameters = queryParameters.set('ordenarPor', <any>ordenarPor);
+            queryParameters = queryParameters.set('ordenarPor', ordenarPor);
         }
         if (ordenarModo !== undefined && ordenarModo !== null) {
-            queryParameters = queryParameters.set('ordenarModo', <any>ordenarModo);
+            queryParameters = queryParameters.set('ordenarModo', ordenarModo);
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/ubicacion`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
     public crearUbicacion(ubicacion: Ubicacion): Observable<any> {
-
+        // VAlidate
         if (ubicacion === null || ubicacion === undefined) {
             throw new Error('Required parameter ubicacion was null or undefined when calling crearUbicacion.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/ubicacion`,
-            ubicacion,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            ubicacion.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public obtenerUbicacion(idUbicacion: number): Observable<any> {
-
+        // Validate
         if (idUbicacion === null || idUbicacion === undefined) {
             throw new Error('Required parameter idUbicacion was null or undefined when calling obtenerUbicacion.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/ubicacion/${encodeURIComponent(String(idUbicacion))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public actualizarUbicacion(idUbicacion: number, ubicacion: Ubicacion): Observable<any> {
-
+        // Validate
         if (idUbicacion === null || idUbicacion === undefined) {
             throw new Error('Required parameter idUbicacion was null or undefined when calling actualizarUbicacion.');
         }
-
         if (ubicacion === null || ubicacion === undefined) {
             throw new Error('Required parameter ubicacion was null or undefined when calling actualizarUbicacion.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/ubicacion/${encodeURIComponent(String(idUbicacion))}`,
-            ubicacion,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            ubicacion.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
     public eliminarUbicacion(idUbicacion: number): Observable<any> {
-
+        // Validate
         if (idUbicacion === null || idUbicacion === undefined) {
             throw new Error('Required parameter idUbicacion was null or undefined when calling eliminarUbicacion.');
         }
 
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
+        // Request
         return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/ubicacion/${encodeURIComponent(String(idUbicacion))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 

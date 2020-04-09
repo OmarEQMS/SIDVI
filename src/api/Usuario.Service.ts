@@ -25,10 +25,10 @@ export class UsuarioService {
         // Params
         let queryParameters = new HttpParams();
         if (usuario !== undefined && usuario !== null) {
-            queryParameters = queryParameters.set('usuario', <any>usuario);
+            queryParameters = queryParameters.set('usuario', usuario);
         }
         if (contrasena !== undefined && contrasena !== null) {
-            queryParameters = queryParameters.set('contrasena', <any>contrasena);
+            queryParameters = queryParameters.set('contrasena', contrasena);
         }
 
         // Headers
@@ -41,13 +41,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<APIResponse>(`${this.manager.basePath}/usuario/autenticacion`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -62,12 +56,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<APIResponse>(`${this.manager.basePath}/usuario/cerrarSesion`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -75,13 +64,13 @@ export class UsuarioService {
         // Params
         let queryParameters = new HttpParams();
         if (usuario !== undefined && usuario !== null) {
-            queryParameters = queryParameters.set('usuario', <any>usuario);
+            queryParameters = queryParameters.set('usuario', usuario);
         }
         if (contrasena !== undefined && contrasena !== null) {
-            queryParameters = queryParameters.set('contrasena', <any>contrasena);
+            queryParameters = queryParameters.set('contrasena', contrasena);
         }
         if (nuevaContrasena !== undefined && nuevaContrasena !== null) {
-            queryParameters = queryParameters.set('nuevaContrasena', <any>nuevaContrasena);
+            queryParameters = queryParameters.set('nuevaContrasena', nuevaContrasena);
         }
 
         // Headers
@@ -94,13 +83,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<APIResponse>(`${this.manager.basePath}/usuario/cambiarContrasena`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -108,7 +91,7 @@ export class UsuarioService {
         // Params
         let queryParameters = new HttpParams();
         if (usuario !== undefined && usuario !== null) {
-            queryParameters = queryParameters.set('usuario', <any>usuario);
+            queryParameters = queryParameters.set('usuario', usuario);
         }
 
         // Headers
@@ -121,13 +104,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<APIResponse>(`${this.manager.basePath}/usuario/recuperacion`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -135,13 +112,13 @@ export class UsuarioService {
         // Params
         let queryParameters = new HttpParams();
         if (token !== undefined && token !== null) {
-            queryParameters = queryParameters.set('token', <any>token);
+            queryParameters = queryParameters.set('token', token);
         }
         if (usuario !== undefined && usuario !== null) {
-            queryParameters = queryParameters.set('usuario', <any>usuario);
+            queryParameters = queryParameters.set('usuario', usuario);
         }
         if (nuevaContrasena !== undefined && nuevaContrasena !== null) {
-            queryParameters = queryParameters.set('nuevaContrasena', <any>nuevaContrasena);
+            queryParameters = queryParameters.set('nuevaContrasena', nuevaContrasena);
         }
 
         // Headers
@@ -154,13 +131,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<APIResponse>(`${this.manager.basePath}/usuario/restablecer`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -169,31 +140,31 @@ export class UsuarioService {
         // Params
         let queryParameters = new HttpParams();
         if (nombreCompleto !== undefined && nombreCompleto !== null) {
-            queryParameters = queryParameters.set('nombreCompleto', <any>nombreCompleto);
+            queryParameters = queryParameters.set('nombreCompleto', nombreCompleto);
         }
         if (usuario !== undefined && usuario !== null) {
-            queryParameters = queryParameters.set('usuario', <any>usuario);
+            queryParameters = queryParameters.set('usuario', usuario);
         }
         if (correo !== undefined && correo !== null) {
-            queryParameters = queryParameters.set('correo', <any>correo);
+            queryParameters = queryParameters.set('correo', correo);
         }
         if (celular !== undefined && celular !== null) {
-            queryParameters = queryParameters.set('celular', <any>celular);
+            queryParameters = queryParameters.set('celular', celular);
         }
         if (rol !== undefined && rol !== null) {
-            queryParameters = queryParameters.set('rol', <any>rol);
+            queryParameters = queryParameters.set('rol', rol);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
-            queryParameters = queryParameters.set('ordenarPor', <any>ordenarPor);
+            queryParameters = queryParameters.set('ordenarPor', ordenarPor);
         }
         if (ordenarModo !== undefined && ordenarModo !== null) {
-            queryParameters = queryParameters.set('ordenarModo', <any>ordenarModo);
+            queryParameters = queryParameters.set('ordenarModo', ordenarModo);
         }
         if (tamanoPagina !== undefined && tamanoPagina !== null) {
-            queryParameters = queryParameters.set('tamanoPagina', <any>tamanoPagina);
+            queryParameters = queryParameters.set('tamanoPagina', tamanoPagina.toString());
         }
         if (indicePagina !== undefined && indicePagina !== null) {
-            queryParameters = queryParameters.set('indicePagina', <any>indicePagina);
+            queryParameters = queryParameters.set('indicePagina', indicePagina.toString());
         }
 
         // Headers
@@ -206,13 +177,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/usuario`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -232,13 +197,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/usuario`,
-            usuario,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            usuario.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -258,12 +217,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -286,13 +240,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}`,
-            usuario,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            usuario.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -312,12 +260,7 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -337,14 +280,13 @@ export class UsuarioService {
 
         // Request
         return this.httpClient.get(`${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}/foto`,
-            {
-                responseType: 'blob',
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { responseType: 'blob', headers, observe: 'body', reportProgress: true }
         );
+    }
+
+    public urlUsuarioFoto(idUsuario: number): string {
+        return `${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}/foto` +
+               `?TokenUsuario=${encodeURIComponent(this.manager.tokenUsuario)}`;
     }
 
     public cargarUsuarioFoto(idUsuario: number, foto: Blob): Observable<any> {
@@ -356,53 +298,23 @@ export class UsuarioService {
             throw new Error('Required parameter foto was null or undefined when calling cargarUsuarioFoto.');
         }
  
+        // Headers
         let headers = this.defaultHeaders;
-
-        // authentication (TokenUsuario) required
-        if (this.configuration.apiKeys["TokenUsuario"]) {
-            headers = headers.set('TokenUsuario', this.configuration.apiKeys["TokenUsuario"]);
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams();
-        }
-
+        // FormParams
+        const formParams = new FormData();
         if (foto !== undefined) {
-            formParams = formParams.append('foto', <any>foto) || formParams;
+            formParams.append('foto', foto);
         }
 
+        // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/usuario/${encodeURIComponent(String(idUsuario))}/foto`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            formParams, { headers, observe: 'body', reportProgress: true }
         );
     }
 

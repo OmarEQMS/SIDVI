@@ -13,20 +13,21 @@ export class ValoracionService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarValoraciones(fkMedico?: number, fkUsuario?: number, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarValoraciones(fkMedicoVirus?: number, fkUsuario?: number, ordenarPor?: string, ordenarModo?: OrderModeEnum):
+                              Observable<any> {
         // Params
         let queryParameters = new HttpParams();
-        if (fkMedico !== undefined && fkMedico !== null) {
-            queryParameters = queryParameters.set('fkMedico', <any>fkMedico);
+        if (fkMedicoVirus !== undefined && fkMedicoVirus !== null) {
+            queryParameters = queryParameters.set('fkMedicoVirus', fkMedicoVirus.toString());
         }
         if (fkUsuario !== undefined && fkUsuario !== null) {
-            queryParameters = queryParameters.set('fkUsuario', <any>fkUsuario);
+            queryParameters = queryParameters.set('fkUsuario', fkUsuario.toString());
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
-            queryParameters = queryParameters.set('ordenarPor', <any>ordenarPor);
+            queryParameters = queryParameters.set('ordenarPor', ordenarPor);
         }
         if (ordenarModo !== undefined && ordenarModo !== null) {
-            queryParameters = queryParameters.set('ordenarModo', <any>ordenarModo);
+            queryParameters = queryParameters.set('ordenarModo', ordenarModo);
         }
 
         // Headers
@@ -39,13 +40,7 @@ export class ValoracionService {
 
         // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/valoracion`,
-            {
-                params: queryParameters,
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -65,13 +60,7 @@ export class ValoracionService {
 
         // Request
         return this.httpClient.post<APIResponse>(`${this.manager.basePath}/valoracion`,
-            valoracion,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            valoracion.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -91,12 +80,7 @@ export class ValoracionService {
 
         // Request
         return this.httpClient.get<any>(`${this.manager.basePath}/valoracion/${encodeURIComponent(String(idValoracion))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -119,13 +103,7 @@ export class ValoracionService {
 
         // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/valoracion/${encodeURIComponent(String(idValoracion))}`,
-            valoracion,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            valoracion.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
 
@@ -145,12 +123,7 @@ export class ValoracionService {
 
         // Request
         return this.httpClient.delete<APIResponse>(`${this.manager.basePath}/valoracion/${encodeURIComponent(String(idValoracion))}`,
-            {
-                
-                headers,
-                observe: 'body',
-                reportProgress: true
-            }
+            { headers, observe: 'body', reportProgress: true }
         );
     }
 

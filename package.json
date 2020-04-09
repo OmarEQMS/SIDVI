@@ -1,8 +1,8 @@
 {
   "name": "SIDVI",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Fernanda Orduña, Diego Montoya, Omar Quintero",
+  "homepage": "https://sidvi.omarquintero.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -52,5 +52,5 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "Sistema de Informacion y Diagnostico de Virus"
 }

@@ -1,4 +1,4 @@
-import { _APIResponse } from 'src/models/APIResponse';
+import { _APIResponse } from './APIResponse';
 
 // Types
 export type OrderModeEnum = 'ASC' | 'DESC';

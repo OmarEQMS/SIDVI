@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@a
 import { Observable } from 'rxjs';
 
 import { APIResponse } from './APIResponse';
-import { TestOpcion, _TestOpcion } from '../models/TestOpcion';
+import { TestOpcion, _TestOpcion } from '../models';
 import { ManagerService } from './Manager.Service';
 import { OrderModeEnum } from './API';
 

@@ -1,6 +1,6 @@
 import { Virus } from './Virus';
 import { CategoriaInformacion } from './CategoriaInformacion';
-import { ContentTypeEnum, Defaults } from '../api';
+import { ContentTypeEnum, Defaults } from '../api/API';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Informacion {

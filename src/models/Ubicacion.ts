@@ -1,13 +1,9 @@
- 
-
- 
-import { fileToBase64 } from '../tools/Utils';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 import { Medico } from './Medico';
 
 export namespace _Ubicacion {
-    
+
 }
 
 export interface IUbicacion {
@@ -18,11 +14,6 @@ export interface IUbicacion {
 }
 
 export class Ubicacion implements IUbicacion {
-    // Objection
-    static tableName = 'Ubicacion';
-    static idColumn = 'idUbicacion';
-    // Objection Modifiers
-    static columnList = ['idUbicacion', 'fkUbicacion', 'clave', 'nombre'];
 
     // Columns
     idUbicacion?: number;
@@ -37,9 +28,8 @@ export class Ubicacion implements IUbicacion {
     medicos?: Medico[];
 
     // Constructor
-    constructor(ubicacion?: any){
-         
-        if(ubicacion!==undefined){
+    constructor(ubicacion?: any) {
+        if (ubicacion !== undefined) {
             this.idUbicacion = ubicacion.idUbicacion;
             this.fkUbicacion = ubicacion.fkUbicacion;
             this.clave = ubicacion.dave;

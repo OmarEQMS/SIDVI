@@ -1,7 +1,4 @@
- 
-
-import { BaseModel, Virus } from '../models';
-import { fileToBase64 } from '../tools/Utils';
+import { Virus } from './Virus';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 
@@ -24,11 +21,6 @@ export interface ICelularEstado {
 }
 
 export class CelularEstado implements ICelularEstado {
-    // Objection
-    static tableName = 'CelularEstado';
-    static idColumn = 'idCelularEstado';
-    // Objection Modifiers
-    static columnList = ['idCelularEstado', 'celular', 'fkVirus', 'seccion', 'fk'];
 
     // Columns
     idCelularEstado?: number;
@@ -43,9 +35,8 @@ export class CelularEstado implements ICelularEstado {
     // Relations: HasMany
 
     // Constructor
-    constructor(celularEstado?: any){
-         
-        if(celularEstado!==undefined){
+    constructor(celularEstado?: any) {
+        if (celularEstado !== undefined) {
             this.idCelularEstado = celularEstado.idCelularEstado;
             this.celular = celularEstado.celular;
             this.fkVirus = celularEstado.fkVirus;

@@ -1,4 +1,3 @@
-import { fileToBase64 } from '../tools/Utils';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 import { Medico } from './Medico';
@@ -6,7 +5,7 @@ import { Usuario } from './Usuario';
 import { MedicoVirus } from './MedicoVirus';
 
 export namespace _Valoracion {
-    
+
 }
 
 export interface IValoracion {
@@ -17,11 +16,6 @@ export interface IValoracion {
 }
 
 export class Valoracion implements IValoracion {
-    // Objection
-    static tableName = 'Valoracion';
-    static idColumn = 'idValoracion';
-    // Objection Modifiers
-    static columnList = ['idValoracion', 'fkMedicoVirus', 'fkUsuario', 'valoracion'];
 
     // Columns
     idValoracion?: number;
@@ -36,9 +30,8 @@ export class Valoracion implements IValoracion {
     // Relations: HasMany
 
     // Constructor
-    constructor(valoracion?: any){
-         
-        if(valoracion!==undefined){
+    constructor(valoracion?: any) {
+        if (valoracion !== undefined) {
             this.idValoracion = valoracion.idValoracion;
             this.fkMedicoVirus = valoracion.fkMedicoVirus;
             this.fkUsuario = valoracion.fkUsuario;

@@ -1,11 +1,7 @@
- 
-
- 
-import { fileToBase64 } from '../tools/Utils';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 import { Medico } from './Medico';
-import { Valoracion} from './Valoracion';
+import { Valoracion } from './Valoracion';
 
 export namespace _Usuario {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
@@ -32,12 +28,6 @@ export interface IUsuario {
 }
 
 export class Usuario implements IUsuario {
-    // Objection
-    static tableName = 'Usuario';
-    static idColumn = 'idUsuario';
-    // Objection Modifiers
-    static columnList = ['idUsuario', 'nombreCompleto', 'usuario', 'correo', 'celular', 'mimetypeFoto', 'rol'];
-    static columnListAuthorization = ['idUsuario', 'nombreCompleto', 'usuario', 'contrasena', 'token', 'rol'];
 
     // Columns
     idUsuario?: number;
@@ -52,15 +42,14 @@ export class Usuario implements IUsuario {
     rol?: _Usuario.Rol;
 
     //Relations: BelongsToOne
-    
+
     // Relations: HasMany
     medicos: Medico[];
     valoraciones?: Valoracion[];
 
     // Constructor
-    constructor(usuario?: any){
-         
-        if(usuario!==undefined){
+    constructor(usuario?: any) {
+        if (usuario !== undefined) {
             this.idUsuario = usuario.idUsuario;
             this.nombreCompleto = usuario.nombreCompleto;
             this.usuario = usuario.usuario;

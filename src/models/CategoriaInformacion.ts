@@ -1,12 +1,9 @@
- 
-
-import { BaseModel, Informacion } from '../models';
-import { fileToBase64 } from '../tools/Utils';
+import { Informacion } from './Informacion';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 
 export namespace _CategoriaInformacion {
-    
+
 }
 
 export interface ICategoriaInformacion {
@@ -16,26 +13,20 @@ export interface ICategoriaInformacion {
 }
 
 export class CategoriaInformacion implements ICategoriaInformacion {
-    // Objection
-    static tableName = 'CategoriaInformacion';
-    static idColumn = 'idCategoriaInformacion';
-    // Objection Modifiers
-    static columnList = ['idCategoriaInformacion', 'clave', 'nombre'];
-
+    
     // Columns
     idCategoriaInformacion?: number;
     clave?: string;
     nombre?: string;
 
     //Relations: BelongsToOne
-    
+
     // Relations: HasMany
     informaciones: Informacion[];
 
     // Constructor
-    constructor(categoriaInformacion?: any){
-         
-        if(categoriaInformacion!==undefined){
+    constructor(categoriaInformacion?: any) {
+        if (categoriaInformacion !== undefined) {
             this.idCategoriaInformacion = categoriaInformacion.idCategoriaInformacion;
             this.clave = categoriaInformacion.clave;
             this.nombre = categoriaInformacion.nombre;

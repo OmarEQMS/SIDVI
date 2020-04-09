@@ -1,12 +1,11 @@
- 
-
-import { BaseModel, Virus, Ubicacion, CategoriaEstadistica } from '../models';
-import { fileToBase64 } from '../tools/Utils';
+import { Virus } from './Virus';
+import { Ubicacion } from './Ubicacion';
+import { CategoriaEstadistica } from './CategoriaEstadistica';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 
 export namespace _Estadistica {
-    
+
 }
 
 export interface IEstadistica {
@@ -19,11 +18,6 @@ export interface IEstadistica {
 }
 
 export class Estadistica implements IEstadistica {
-    // Objection
-    static tableName = 'Estadistica';
-    static idColumn = 'idEstadistica';
-    // Objection Modifiers
-    static columnList = ['idEstadistica', 'fkVirus', 'fkUbicacion', 'fkCategoriaEstadistica', 'valor', 'fecha'];
 
     // Columns
     idEstadistica?: number;
@@ -41,9 +35,8 @@ export class Estadistica implements IEstadistica {
     // Relations: HasMany
 
     // Constructor
-    constructor(estadistica?: any){
-         
-        if(estadistica!==undefined){
+    constructor(estadistica?: any) {
+        if (estadistica !== undefined) {
             this.idEstadistica = estadistica.idEstadistica;
             this.fkVirus = estadistica.fkVirus;
             this.fkUbicacion = estadistica.fkUbicacion;

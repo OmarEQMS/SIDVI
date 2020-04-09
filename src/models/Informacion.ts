@@ -1,7 +1,5 @@
- 
-
-import { BaseModel, Virus, CategoriaInformacion } from '../models';
-import { fileToBase64 } from '../tools/Utils';
+import { Virus } from './Virus';
+import { CategoriaInformacion } from './CategoriaInformacion';
 import { ContentTypeEnum, Defaults } from '../api';
 import { Log } from '../tools';
 
@@ -21,11 +19,6 @@ export interface IInformacion {
 }
 
 export class Informacion implements IInformacion {
-    // Objection
-    static tableName = 'Informacion';
-    static idColumn = 'idInformacion';
-    // Objection Modifiers
-    static columnList = ['idInformacion', 'fkVirus', 'fkCategoriaInformacion', 'texto', 'descripcion', 'mimetype'];
 
     // Columns
     idInformacion?: number;
@@ -44,14 +37,13 @@ export class Informacion implements IInformacion {
 
     // Constructor
     constructor(informacion?: any) {
-         
         if (informacion !== undefined) {
             this.idInformacion = informacion.idInformacion;
-            this.fkVirus =  informacion.fkVirus;
-            this.fkCategoriaInformacion =  informacion.fkCategoriaInformacion;
-            this.texto =  informacion.texto;
-            this.descripcion =  informacion.descripcion;
-            this.mimetype =  informacion.mimetype;
+            this.fkVirus = informacion.fkVirus;
+            this.fkCategoriaInformacion = informacion.fkCategoriaInformacion;
+            this.texto = informacion.texto;
+            this.descripcion = informacion.descripcion;
+            this.mimetype = informacion.mimetype;
             this.archivo = informacion.archivo;
             // Relations
             this.categoriaInformacion = new CategoriaInformacion(informacion.CategoriaInformacion);

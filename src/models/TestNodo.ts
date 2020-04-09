@@ -1,4 +1,4 @@
-import { ContentTypeEnum, Defaults } from '../api';
+import { ContentTypeEnum, Defaults } from '../api/API';
 
 import { Virus } from './Virus';
 import { TestOpcion } from './TestOpcion';

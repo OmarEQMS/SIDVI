@@ -1,11 +1,10 @@
 import { Virus } from './Virus';
 import { Ubicacion } from './Ubicacion';
 import { CategoriaEstadistica } from './CategoriaEstadistica';
-import { ContentTypeEnum, Defaults } from '../api';
+import { ContentTypeEnum, Defaults } from '../api/API';
 
-
+// tslint:disable-next-line:no-namespace
 export namespace _Estadistica {
-
 }
 
 export interface IEstadistica {

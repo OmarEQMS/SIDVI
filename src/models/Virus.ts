@@ -1,7 +1,8 @@
-import { ContentTypeEnum, Defaults } from '../api';
+import { ContentTypeEnum, Defaults } from '../api/API';
 import { TestNodo } from './TestNodo';
 import { MedicoVirus } from './MedicoVirus';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Virus {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
@@ -25,7 +26,6 @@ export interface IVirus {
 }
 
 export class Virus implements IVirus {
-    
     // Columns
     idVirus?: number;
     clave?: string;

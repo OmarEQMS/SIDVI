@@ -32,4 +32,13 @@ export class CategoriaInformacion implements ICategoriaInformacion {
             this.nombre = categoriaInformacion.nombre;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idCategoriaInformacion: this.idCategoriaInformacion,
+            clave: this.clave,
+            nombre: this.nombre
+        }
+    }
 }

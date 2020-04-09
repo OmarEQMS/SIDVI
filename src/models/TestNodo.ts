@@ -48,4 +48,16 @@ export class TestNodo implements ITestNodo {
             this.archivo = testNodo.archivo;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idTestNodo: this.idTestNodo,
+            fkVirus: this.fkVirus,
+            texto: this.texto,
+            descripcion: this.descripcion,
+            mimetype: this.mimetype,
+            archivo: this.archivo
+        }
+    }
 }

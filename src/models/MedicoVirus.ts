@@ -33,4 +33,13 @@ export class MedicoVirus implements IMedicoVirus {
             this.fkVirus = medicoVirus.fkVirus;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idMedicoVirus: this.idMedicoVirus,
+            fkMedico: this.fkMedico,
+            fkVirus: this.fkVirus
+        }
+    }
 }

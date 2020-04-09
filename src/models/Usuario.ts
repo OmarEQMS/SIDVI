@@ -62,4 +62,20 @@ export class Usuario implements IUsuario {
             this.rol = usuario.rol;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idUsuario: this.idUsuario,
+            nombreCompleto: this.nombreCompleto,
+            usuario: this.usuario,
+            contrasena: this.contrasena,
+            token: this.token,
+            correo: this.correo,
+            celular: this.celular,
+            mimetypeFoto: this.mimetypeFoto,
+            archivoFoto: this.archivoFoto,        
+            rol: this.rol
+        }
+    }
 }

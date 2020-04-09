@@ -47,4 +47,16 @@ export class Estadistica implements IEstadistica {
             this.categoriaEstadistica = new CategoriaEstadistica(estadistica.CategoriaEstadistica);
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idEstadistica: this.idEstadistica,
+            fkVirus: this.fkVirus,
+            fkUbicacion: this.fkUbicacion,
+            fkCategoriaEstadistica: this.fkCategoriaEstadistica,
+            valor: this.valor,
+            fecha: this.fecha
+        }
+    }
 }

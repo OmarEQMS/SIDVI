@@ -62,4 +62,20 @@ export class Medico implements IMedico {
 
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idMedico: this.idMedico,
+            fkUsuario: this.fkUsuario,
+            fkUbicacion: this.fkUbicacion,
+            nombreConsultorio: this.nombreConsultorio,
+            nombreDoctor: this.nombreDoctor,
+            direccionConsultorio: this.direccionConsultorio,
+            telefonoConsultorio: this.telefonoConsultorio,
+            descripcion: this.descripcion,            
+            mimetypeFoto: this.mimetypeFoto,
+            archivoFoto: this.archivoFoto            
+        }
+    }
 }

@@ -42,11 +42,25 @@ export class TestOpcion implements ITestOpcion {
             this.idTestOpcion = testOpcion.idTestOpcion;
             this.fkTestNodo = testOpcion.fkTestNodo;
             this.fkTestNodoSig = testOpcion.fkTestNodoSig;
-            this.clave = testOpcion.dave;
+            this.clave = testOpcion.clave;
             this.texto = testOpcion.texto;
             this.descripcion = testOpcion.descripcion;
             this.mimetype = testOpcion.mimetype;
             this.archivo = testOpcion.archivo;
+        }
+    }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idTestOpcion: this.idTestOpcion,
+            fkTestNodo: this.fkTestNodo,
+            fkTestNodoSig: this.descripcion,
+            clave: this.clave,
+            texto: this.texto,
+            descripcion: this.descripcion,
+            mimetype: this.mimetype,
+            archivo: this.archivo
         }
     }
 }

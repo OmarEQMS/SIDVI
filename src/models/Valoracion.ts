@@ -38,4 +38,14 @@ export class Valoracion implements IValoracion {
             this.valoracion = valoracion.valoracion;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idValoracion: this.idValoracion,
+            fkMedicoVirus: this.fkMedicoVirus,
+            fkUsuario: this.fkUsuario,
+            valoracion: this.valoracion
+        }
+    }
 }

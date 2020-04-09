@@ -12,12 +12,6 @@ export interface ICategoriaEstadistica {
 }
 
 export class CategoriaEstadistica implements ICategoriaEstadistica {
-    
-    // Objection
-    static tableName = 'CategoriaEstadistica';
-    static idColumn = 'idCategoriaEstadistica';
-    // Objection Modifiers
-    static columnList = ['idCategoriaEstadistica', 'nombre'];
 
     // Columns
     idCategoriaEstadistica?: number;
@@ -33,6 +27,14 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
         if (categoriaEstadistica !== undefined) {
             this.idCategoriaEstadistica = categoriaEstadistica.idCategoriaEstadistica;
             this.nombre = categoriaEstadistica.nombre;
+        }
+    }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idCategoriaEstadistica: this.idCategoriaEstadistica,
+            nombre: this.nombre
         }
     }
 }

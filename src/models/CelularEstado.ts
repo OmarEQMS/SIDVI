@@ -44,4 +44,15 @@ export class CelularEstado implements ICelularEstado {
             this.fk = celularEstado.fk;
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idCelularEstado: this.idCelularEstado,
+            celular: this.celular,
+            fkVirus: this.fkVirus,
+            seccion: this.seccion,
+            fk: this.fk
+        }
+    }
 }

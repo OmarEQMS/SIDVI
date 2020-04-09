@@ -46,7 +46,7 @@ export class Virus implements IVirus {
     constructor(virus?: any) {
         if (virus !== undefined) {
             this.idVirus = virus.idVirus;
-            this.clave = virus.dave;
+            this.clave = virus. clave;
             this.nombre = virus.nombre;
             this.mimetypeIcono = virus.mimetypeIcono;
             this.archivoIcono = virus.archivoIcono;

@@ -49,4 +49,17 @@ export class Informacion implements IInformacion {
             this.categoriaInformacion = new CategoriaInformacion(informacion.CategoriaInformacion);
         }
     }
+
+    //ToObjectDB
+    toObjectDB(){
+        return {
+            idInformacion: this.idInformacion,
+            fkVirus: this.fkVirus,
+            fkCategoriaInformacion: this.fkCategoriaInformacion,
+            texto: this.texto,
+            descripcion: this.descripcion,
+            mimetype: this.mimetype,
+            archivo: this.archivo
+        }
+    }
 }

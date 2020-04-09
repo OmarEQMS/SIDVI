@@ -2,7 +2,7 @@ import { Virus } from './Virus';
 import { Ubicacion } from './Ubicacion';
 import { CategoriaEstadistica } from './CategoriaEstadistica';
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 
 export namespace _Estadistica {
 

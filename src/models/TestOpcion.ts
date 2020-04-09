@@ -1,11 +1,11 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { TestNodo } from './TestNodo';
 
+// tslint:disable-next-line:no-namespace
 export namespace _TestOpcion {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.PDF, ContentTypeEnum.JPG, ContentTypeEnum.PNG, ContentTypeEnum.MP4];
     export let archivoFileSize: number = 128 * 1024 * 1024;
-
 }
 
 export interface ITestOpcion {
@@ -31,7 +31,7 @@ export class TestOpcion implements ITestOpcion {
     mimetype?: ContentTypeEnum;
     archivo?: ArrayBuffer | string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     testNodo?: TestNodo;
     testNodoSig?: TestNodo;
     // Relations: HasMany
@@ -50,8 +50,8 @@ export class TestOpcion implements ITestOpcion {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idTestOpcion: this.idTestOpcion,
             fkTestNodo: this.fkTestNodo,
@@ -61,6 +61,6 @@ export class TestOpcion implements ITestOpcion {
             descripcion: this.descripcion,
             mimetype: this.mimetype,
             archivo: this.archivo
-        }
+        };
     }
 }

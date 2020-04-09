@@ -1,11 +1,11 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Medico } from './Medico';
 import { Usuario } from './Usuario';
 import { MedicoVirus } from './MedicoVirus';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Valoracion {
-
 }
 
 export interface IValoracion {
@@ -23,7 +23,7 @@ export class Valoracion implements IValoracion {
     fkUsuario?: number;
     valoracion?: number;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     medicoVirus?: MedicoVirus;
     usuario?: Usuario;
 
@@ -39,13 +39,13 @@ export class Valoracion implements IValoracion {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idValoracion: this.idValoracion,
             fkMedicoVirus: this.fkMedicoVirus,
             fkUsuario: this.fkUsuario,
             valoracion: this.valoracion
-        }
+        };
     }
 }

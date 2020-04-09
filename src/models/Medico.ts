@@ -1,10 +1,11 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Usuario } from './Usuario';
 import { Ubicacion } from './Ubicacion';
 import { MedicoVirus } from './MedicoVirus';
 import { Valoracion } from './Valoracion';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Medico {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
@@ -22,7 +23,6 @@ export interface IMedico {
     descripcion?: string;
     mimetypeFoto?: string;
     archivoFoto?: ArrayBuffer | string;
-
 }
 
 export class Medico implements IMedico {
@@ -39,7 +39,7 @@ export class Medico implements IMedico {
     mimetypeFoto?: ContentTypeEnum;
     archivoFoto?: ArrayBuffer | string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     usuario?: Usuario;
     ubicacion?: Ubicacion;
 
@@ -63,8 +63,8 @@ export class Medico implements IMedico {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idMedico: this.idMedico,
             fkUsuario: this.fkUsuario,
@@ -73,9 +73,9 @@ export class Medico implements IMedico {
             nombreDoctor: this.nombreDoctor,
             direccionConsultorio: this.direccionConsultorio,
             telefonoConsultorio: this.telefonoConsultorio,
-            descripcion: this.descripcion,            
+            descripcion: this.descripcion,
             mimetypeFoto: this.mimetypeFoto,
-            archivoFoto: this.archivoFoto            
-        }
+            archivoFoto: this.archivoFoto
+        };
     }
 }

@@ -1,9 +1,9 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Medico } from './Medico';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Ubicacion {
-
 }
 
 export interface IUbicacion {
@@ -21,7 +21,7 @@ export class Ubicacion implements IUbicacion {
     clave?: string;
     nombre?: string;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     ubicacion?: Ubicacion;
     // Relations: HasMany
     ubicaciones?: Ubicacion[];
@@ -37,13 +37,13 @@ export class Ubicacion implements IUbicacion {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idUbicacion: this.idUbicacion,
             fkUbicacion: this.fkUbicacion,
             clave: this.clave,
             nombre: this.nombre
-        }
+        };
     }
 }

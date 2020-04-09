@@ -1,8 +1,9 @@
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
+
 import { Medico } from './Medico';
 import { Valoracion } from './Valoracion';
 
+// tslint:disable-next-line:no-namespace
 export namespace _Usuario {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
@@ -41,7 +42,7 @@ export class Usuario implements IUsuario {
     archivoFoto?: ArrayBuffer | string;
     rol?: _Usuario.Rol;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
 
     // Relations: HasMany
     medicos: Medico[];
@@ -54,7 +55,7 @@ export class Usuario implements IUsuario {
             this.nombreCompleto = usuario.nombreCompleto;
             this.usuario = usuario.usuario;
             this.contrasena = usuario.contrasena;
-            this.token = usuario.token
+            this.token = usuario.token;
             this.correo = usuario.correo;
             this.celular = usuario.celular;
             this.mimetypeFoto = usuario.mimetypeFoto;
@@ -63,8 +64,8 @@ export class Usuario implements IUsuario {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idUsuario: this.idUsuario,
             nombreCompleto: this.nombreCompleto,
@@ -74,8 +75,8 @@ export class Usuario implements IUsuario {
             correo: this.correo,
             celular: this.celular,
             mimetypeFoto: this.mimetypeFoto,
-            archivoFoto: this.archivoFoto,        
+            archivoFoto: this.archivoFoto,
             rol: this.rol
-        }
+        };
     }
 }

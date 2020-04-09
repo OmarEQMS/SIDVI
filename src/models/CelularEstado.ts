@@ -1,7 +1,8 @@
 import { Virus } from './Virus';
 import { ContentTypeEnum, Defaults } from '../api';
-import { Log } from '../tools';
 
+
+// tslint:disable-next-line:no-namespace
 export namespace _CelularEstado {
     export type Seccion = 'MEDICO' | 'INFORMACION' | 'TEST' | 'ESTADISTICA';
     export const Seccion = {
@@ -9,7 +10,7 @@ export namespace _CelularEstado {
         INFORMACION: 'INFORMACION' as Seccion,
         TEST: 'TEST' as Seccion,
         ESTADISTICA: 'ESTADISTICA' as Seccion,
-    }
+    };
 }
 
 export interface ICelularEstado {
@@ -29,7 +30,7 @@ export class CelularEstado implements ICelularEstado {
     seccion?: _CelularEstado.Seccion;
     fk?: number;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     virus: Virus;
 
     // Relations: HasMany
@@ -45,14 +46,14 @@ export class CelularEstado implements ICelularEstado {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idCelularEstado: this.idCelularEstado,
             celular: this.celular,
             fkVirus: this.fkVirus,
             seccion: this.seccion,
             fk: this.fk
-        }
+        };
     }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 
 // Imports
@@ -8,6 +8,13 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VgCoreModule } from 'videogular2/compiled/core';
+import { VgControlsModule } from 'videogular2/compiled/controls';
+import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
+import { VgBufferingModule } from 'videogular2/compiled/buffering';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Components
 import { AppComponent } from './app.component';
@@ -21,6 +28,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
+import { InformacionComponent } from './components/informacion/informacion.component';
 
 
 @NgModule({
@@ -28,16 +36,24 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     AppComponent,
     VirusListAllComponent,
     LoginComponent,
-    NavigationComponent
+    NavigationComponent,
+    InformacionComponent
   ],
   entryComponents: [],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    PdfViewerModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     StatusBar,

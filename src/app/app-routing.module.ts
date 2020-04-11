@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'listVirus',
     component: VirusListAllComponent
   },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)

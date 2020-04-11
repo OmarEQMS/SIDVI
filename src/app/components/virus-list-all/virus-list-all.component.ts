@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {SIDVIServices} from '../../../api';
+import {Router} from '@angular/router';
+import { Virus } from 'src/models';
 
 @Component({
   selector: 'app-virus-list-all',
@@ -7,8 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VirusListAllComponent implements OnInit {
 
-  constructor() { }
+   viruss: Virus[];
+  constructor(private SIDVI: SIDVIServices, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getViruss();
+  }
+
+  getViruss() {
+    this.SIDVI.virus.listarVirus().subscribe(
+      res => {
+        this.viruss = res.resultados;
+        console.log(this.viruss);
+      },
+      err => {
+        console.log(err);
+
+      }
+    );
+  }
 
 }

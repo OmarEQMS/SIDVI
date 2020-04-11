@@ -1,3 +1,26 @@
-<p>
-  virus-list-all works!
-</p>
+<div class="d-flex justify-content-center">
+  <div class="contenedorVirus">
+    <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
+      <div class="card text-center" >
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+          {{virus.nombre}}
+        </div>
+        <div class="card-body  ">
+          <p>{{virus.clave}}</p>
+            <a class="btn btn-info d-inline-block text-white m-1">
+              Información
+            </a>
+            <a class="btn btn-info d-inline-block text-white m-1">
+              Estadísticas
+            </a>
+            <a class="btn btn-info d-inline-block text-white m-1">
+              Médicos disponibles
+            </a>
+            <a class="btn btn-info d-inline-block text-white m-1">
+              Test de síntomas
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

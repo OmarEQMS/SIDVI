@@ -6,6 +6,7 @@ import { APIResponse } from './APIResponse';
 import { Virus, _Virus } from '../models';
 import { ManagerService } from './Manager.Service';
 import { OrderModeEnum } from './API';
+import { Coleccion } from 'src/models/Coleccion';
 
 @Injectable()
 export class VirusService {
@@ -14,7 +15,7 @@ export class VirusService {
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
     public listarVirus(clave?: string, nombre?: string, fkTestNodo?: number, estatus?: _Virus.Estatus, ordenarPor?: string,
-                       ordenarModo?: OrderModeEnum): Observable<any> {
+                       ordenarModo?: OrderModeEnum): Observable<Coleccion<Virus>> {
         // Params
         let queryParameters = new HttpParams();
         if (clave !== undefined && clave !== null) {
@@ -45,7 +46,7 @@ export class VirusService {
         headers = headers.set('Content-Type', 'application/json');
 
         // Request
-        return this.httpClient.get<any>(`${this.manager.basePath}/virus`,
+        return this.httpClient.get<Coleccion<Virus>>(`${this.manager.basePath}/virus`,
             { params: queryParameters, headers, observe: 'body', reportProgress: true }
         );
     }

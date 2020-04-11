@@ -1,5 +1,5 @@
 export * from './API';
-export * from './Manager.service';
+export * from './Manager.Service';
 export * from './CategoriaEstadistica.Service';
 export * from './CategoriaInformacion.Service';
 export * from './CelularEstado.Service';
@@ -10,14 +10,14 @@ export * from './MedicoVirus.Service';
 export * from './TestNodo.Service';
 export * from './TestOpcion.Service';
 export * from './Ubicacion.Service';
-export * from './Usuario.service';
+export * from './Usuario.Service';
 export * from './Valoracion.Service';
 export * from './Virus.Service';
 
 import { Injectable } from '@angular/core';
 import * as API from './API';
 import * as Tools from './Tools';
-import { ManagerService } from './Manager.service';
+import { ManagerService } from './Manager.Service';
 import { CategoriaEstadisticaService } from './CategoriaEstadistica.Service';
 import { CategoriaInformacionService } from './CategoriaInformacion.Service';
 import { CelularEstadoService } from './CelularEstado.Service';
@@ -28,7 +28,7 @@ import { MedicoVirusService } from './MedicoVirus.Service';
 import { TestNodoService } from './TestNodo.Service';
 import { TestOpcionService } from './TestOpcion.Service';
 import { UbicacionService } from './Ubicacion.Service';
-import { UsuarioService } from './Usuario.service';
+import { UsuarioService } from './Usuario.Service';
 import { ValoracionService } from './Valoracion.Service';
 import { VirusService } from './Virus.Service';
 

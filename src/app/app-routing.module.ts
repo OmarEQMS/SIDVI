@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { VirusListAllComponent } from './components/virus-list-all/virus-list-all.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+
+  // Components
   { path: '', redirectTo: 'listVirus', pathMatch: 'full' },
   {
     path: 'listVirus',
     component: VirusListAllComponent
   },
-  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    component: LoginComponent
   },
+
+  // Pages
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
   {
     path: 'administrador',
     loadChildren: () => import('./pages/administrador/administrador.module').then(m => m.AdministradorPageModule)

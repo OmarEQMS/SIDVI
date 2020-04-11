@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsuarioService, SIDVIServices } from 'src/api';
+import { SIDVIServices } from 'src/api';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 

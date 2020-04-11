@@ -30,10 +30,15 @@ export class LoginComponent implements OnInit {
     this._SIDVI.usuario.autenticacion(usuario, password).subscribe(
       res => {
         if (res) {
-          console.log(res);
 
-          // TODO: Checar si es admin o no y redirigir al usuario
-          this._router.navigate(['/administrador']);
+          // tslint:disable-next-line: triple-equals
+          if (res.statusCode == 200) {
+            this._router.navigate(['./administrador']);
+          } else {
+            alert('Nombre de usuario o contraseña inválidos');
+            this._router.navigate(['./listVirus']);
+          }
+
         }
       },
       error => {

@@ -1,14 +1,16 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-	<ion-item>
-		<ion-label position="floating">Usuario</ion-label>
-		<ion-input required type="text" formControlName="usuario"></ion-input>
-	</ion-item>
-	<ion-item>
-		<ion-label position="floating">Contraseña</ion-label>
-		<ion-input type="password" formControlName="password"></ion-input>
-	</ion-item>
+<div class="centrado">
+	<form [formGroup]="loginForm" (ngSubmit)="login()" class="formularioLogin">
+		<ion-item>
+			<ion-label position="floating">Usuario</ion-label>
+			<ion-input required type="text" formControlName="usuario"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Contraseña</ion-label>
+			<ion-input type="password" formControlName="password"></ion-input>
+		</ion-item>
 
-	<div class="ion-padding">
-		<ion-button expand="block" type="submit" class="ion-no-margin">Iniciar sesión</ion-button>			
-	</div>											
-</form>
+		<div class="ion-padding">
+			<ion-button expand="block" type="submit" class="ion-no-margin">Iniciar sesión</ion-button>			
+		</div>											
+	</form>
+</div>

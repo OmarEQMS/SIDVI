@@ -1,6 +1,7 @@
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { TestNodo } from './TestNodo';
 import { MedicoVirus } from './MedicoVirus';
+import { Informacion } from './Informacion';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Virus {
@@ -35,7 +36,7 @@ export class Virus implements IVirus {
     fkTestNodo?: number;
     estatus?: _Virus.Estatus;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     testNodo?: TestNodo;
 
     // Relations: HasMany
@@ -55,15 +56,14 @@ export class Virus implements IVirus {
         }
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idVirus: this.idVirus,
             clave: this.clave,
             nombre: this.nombre,
             mimetypeIcono: this.mimetypeIcono,
-            archivoIcono: this.archivoIcono,
             fkTestNodo: this.fkTestNodo
-        }
+        };
     }
 }

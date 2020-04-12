@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { VirusListAllComponent } from './components/virus-list-all/virus-list-all.component';
 import { LoginComponent } from './components/login/login.component';
+import { InformacionComponent } from './components/informacion/informacion.component';
 
 const routes: Routes = [
 
@@ -15,12 +16,15 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'informacion/:idVirus',
+    component: InformacionComponent
+  },
 
   // Pages
-  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
   {
     path: 'administrador',
-    loadChildren: () => import('./pages/administrador/administrador.module').then(m => m.AdministradorPageModule)
+    loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule)
   },
 
 ];

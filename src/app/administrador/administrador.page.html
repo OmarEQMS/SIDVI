@@ -1,0 +1,35 @@
+<ion-split-pane contentId='main'>
+    <ion-menu menuId='sidebar' contentId='main'>
+        <ion-content class='sidebar-menu'>
+            <div id='card-usuario'>
+                <div id='user-img' class='d-inline-block'>
+                    <img class='imagen-perfil' src='../../assets/images/user.png'>
+                </div>
+                <div id='user-data' class='d-inline-block'>
+                    <span id='user-name' class='d-block'>USUARIO</span>
+                    <span id='user-role' class='d-block'>Rol</span>
+                </div>
+            </div>
+            <ion-list>
+                <div class='btn-item' (click)="abrirPerfil()">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
+                    <div class='btn-text d-inline-block'>Mi Perfil</div>
+                </div>
+
+                <div *ngFor="let virus of viruss">
+                    <div class='btn-item' (click)="abrirVirus(virus)" >
+                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
+                        <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
+                    </div>                  
+                </div>
+
+                <div class='btn-item' (click)="cerrarSesion()">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
+                    <div class='btn-text d-inline-block'>Cerrar Sesion</div>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id='main'></ion-router-outlet>
+</ion-split-pane>
+  

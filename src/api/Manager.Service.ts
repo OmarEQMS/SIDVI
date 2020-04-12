@@ -44,7 +44,7 @@ export class ManagerService {
         try {
             this.tokenUsuario = localStorage.getItem('sidvi-tokenUsuario');
             this.usuario = JSON.parse(localStorage.getItem('sidvi-usuario'));
-            if(this.tokenUsuario === 'null' || this.usuario as any === 'null') {
+            if (this.tokenUsuario === 'null' || this.usuario as any === 'null') {
                 this.unsetItems();
             }
         } catch {

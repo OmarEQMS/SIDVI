@@ -1,6 +1,8 @@
 import { Virus } from './Virus';
 import { CategoriaInformacion } from './CategoriaInformacion';
 import { ContentTypeEnum, Defaults } from '../api/API';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { VgAPI } from 'videogular2/compiled/core';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Informacion {
@@ -35,6 +37,13 @@ export class Informacion implements IInformacion {
 
     // Relations: HasMany
 
+    // Extras
+    archivoImg: SafeResourceUrl;
+    archivoPdf: string;
+    archivoPdfZoom: number;
+    archivoVideo: string;
+    archivoVideoAPI: VgAPI;
+
     // Constructor
     constructor(informacion?: any) {
         if (informacion !== undefined) {
@@ -46,7 +55,7 @@ export class Informacion implements IInformacion {
             this.mimetype = informacion.mimetype;
             this.archivo = informacion.archivo;
             // Relations
-            this.categoriaInformacion = new CategoriaInformacion(informacion.CategoriaInformacion);
+            this.categoriaInformacion = new CategoriaInformacion(informacion.categoriaInformacion);
         }
     }
 

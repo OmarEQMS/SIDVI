@@ -1,6 +1,9 @@
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { TestNodo } from './TestNodo';
 import { MedicoVirus } from './MedicoVirus';
+import { VgAPI } from 'videogular2/compiled/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { Informacion } from './Informacion';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Virus {
@@ -35,12 +38,16 @@ export class Virus implements IVirus {
     fkTestNodo?: number;
     estatus?: _Virus.Estatus;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     testNodo?: TestNodo;
 
     // Relations: HasMany
     medicosVirus?: MedicoVirus[];
     testNodos?: TestNodo[];
+    informaciones?: Informacion[];
+
+    // Extras
+    archivoIconoImg: SafeResourceUrl;
 
     // Constructor
     constructor(virus?: any) {
@@ -52,17 +59,17 @@ export class Virus implements IVirus {
             this.archivoIcono = virus.archivoIcono;
             this.fkTestNodo = virus.fkTestNodo;
         }
+        this.informaciones = new Array(0);
     }
 
-    //ToObjectDB
-    toObjectDB(){
+    // ToObjectDB
+    toObjectDB() {
         return {
             idVirus: this.idVirus,
             clave: this.clave,
             nombre: this.nombre,
             mimetypeIcono: this.mimetypeIcono,
-            archivoIcono: this.archivoIcono,
             fkTestNodo: this.fkTestNodo
-        }
+        };
     }
 }

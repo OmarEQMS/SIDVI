@@ -151,8 +151,12 @@ export class InformacionService {
     }
 
     public urlInformacionArchivo(idInformacion: number): string {
-        return `${this.manager.basePath}/informacion/${encodeURIComponent(String(idInformacion))}/archivo` +
+        if (this.manager.tokenUsuario != null) {
+            return `${this.manager.basePath}/informacion/${encodeURIComponent(String(idInformacion))}/archivo` +
                `?TokenUsuario=${encodeURIComponent(this.manager.tokenUsuario)}`;
+        } else {
+            return `${this.manager.basePath}/informacion/${encodeURIComponent(String(idInformacion))}/archivo`;
+        }
     }
 
     public cargarInformacionArchivo(idInformacion: number, archivo: Blob): Observable<any> {

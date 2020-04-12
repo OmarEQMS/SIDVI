@@ -1,11 +1,56 @@
-.centrado{
-    display: flex;
-    justify-content: center;    
-    align-items: center;
-    height: 100vh;    
+.centrado {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 
-.formularioLogin{
+.pagina {
+  background-image: url("../../../assets/images/LoginBackground.jpg");
+
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  height: 100vh;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formBox {
+
     width: 100%;
+    max-width: 350px;
+
+    height: 100%;
+    max-height: 400px;
+    
+    background-color: rgba(230, 230, 230, 0.6); /* Black w/opacity/see-through */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.formularioLogin {
+    width: 50%;
     max-width: 450px;
+
+    height: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.passwordButton{
+    width: 100%; 
+    font-size: 11px; 
+    
+    --background-hover: rgb(0,0,0,0);
 }

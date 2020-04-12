@@ -41,6 +41,7 @@ export class Virus implements IVirus {
     // Relations: HasMany
     medicosVirus?: MedicoVirus[];
     testNodos?: TestNodo[];
+    informaciones?: Informacion[];
 
     // Constructor
     constructor(virus?: any) {

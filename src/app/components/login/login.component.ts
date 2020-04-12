@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SIDVIServices } from 'src/api';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
           if (res.statusCode == 200) {
             this._router.navigate(['./administrador']);
           } else {
-            alert('Nombre de usuario o contraseña inválidos');
+            Swal.fire({title: 'Actualizado', text:'Nombre de usuario o contraseña inválidos', icon:'success', backdrop: false});
             this._router.navigate(['./listVirus']);
           }
 

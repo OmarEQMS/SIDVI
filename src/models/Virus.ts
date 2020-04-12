@@ -3,6 +3,7 @@ import { TestNodo } from './TestNodo';
 import { MedicoVirus } from './MedicoVirus';
 import { VgAPI } from 'videogular2/compiled/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
+
 import { Informacion } from './Informacion';
 
 // tslint:disable-next-line:no-namespace

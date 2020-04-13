@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SIDVIServices} from '../../../api';
 import {Router} from '@angular/router';
 import { Virus } from 'src/models';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-virus-list-all',
@@ -11,7 +12,7 @@ import { Virus } from 'src/models';
 export class VirusListAllComponent implements OnInit {
 
    viruss: Virus[];
-  constructor(private SIDVI: SIDVIServices, private router: Router) { }
+  constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getViruss();
@@ -21,6 +22,9 @@ export class VirusListAllComponent implements OnInit {
     this.SIDVI.virus.listarVirus().subscribe(
       res => {
         this.viruss = res.resultados;
+        for (const virus of this.viruss) {
+          virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
+        }
         console.log(this.viruss);
       },
       err => {

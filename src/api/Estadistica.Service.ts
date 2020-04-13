@@ -13,7 +13,7 @@ export class EstadisticaService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number, fkCategoriaEstadistica?: number, ordenarPor?: string,
+    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number[], fkCategoriaEstadistica?: number, ordenarPor?: string,
                               ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();

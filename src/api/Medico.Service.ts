@@ -13,7 +13,7 @@ export class MedicoService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarMedicos(fkUsuario?: number, fkUbicacion?: number, nombreConsultorio?: string, nombreDoctor?: string,
+    public listarMedicos(fkUsuario?: number, fkUbicacion?: number[], nombreConsultorio?: string, nombreDoctor?: string,
                          ordenarPor?: string, ordenarModo?: OrderModeEnum, tamanoPagina?: number, indicePagina?: number): Observable<any> {
         // Params
         let queryParameters = new HttpParams();

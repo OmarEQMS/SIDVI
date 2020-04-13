@@ -22,13 +22,15 @@ import { VirusListAllComponent } from './components/virus-list-all/virus-list-al
 import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { InformacionComponent } from './components/informacion/informacion.component';
+import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
+
 
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
-import { InformacionComponent } from './components/informacion/informacion.component';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { InformacionComponent } from './components/informacion/informacion.compo
     VirusListAllComponent,
     LoginComponent,
     NavigationComponent,
-    InformacionComponent
+    InformacionComponent,
+    MedicoVirusListComponent,
   ],
   entryComponents: [],
   imports: [

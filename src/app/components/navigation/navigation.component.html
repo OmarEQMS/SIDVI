@@ -1,7 +1,20 @@
 <ion-header>  
-    <ion-toolbar>
-        <ion-title>
-            <span>NavBAr</span>
-        </ion-title>
-    </ion-toolbar>
+    <nav  class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">    
+      <div class="container">
+        <a class="navbar-brand" routerLink="/listVirus"> SIDVI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto ">    
+            <li class="nav-item" [ngClass]="{'active': rout =='/miPerfil'}" >
+              <a class="nav-link" routerLink="/miPerfil"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> Acerca De</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/"> <i class="fa fa-sign-out" aria-hidden="true" (click)="logout()"></i> Iniciar Sesión</a>
+            </li>    
+          </ul>
+        </div>
+      </div>
+    </nav>    
 </ion-header>

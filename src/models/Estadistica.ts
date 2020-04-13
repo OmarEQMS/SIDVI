@@ -43,11 +43,11 @@ export class Estadistica implements IEstadistica {
             this.valor = estadistica.valor;
             this.fecha = estadistica.fecha;
             // Relations
-            this.categoriaEstadistica = new CategoriaEstadistica(estadistica.CategoriaEstadistica);
+            this.categoriaEstadistica = new CategoriaEstadistica(estadistica.categoriaEstadistica);
         }
     }
 
-    //ToObjectDB
+    // ToObjectDB
     toObjectDB(){
         return {
             idEstadistica: this.idEstadistica,

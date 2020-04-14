@@ -1,0 +1,39 @@
+.cartaVirus {
+    width: 450px;
+}
+
+.contenedorVirus{
+    width: 90%;
+    flex-wrap: wrap;
+}
+
+.contenedor {
+    margin-top: 100px;
+    width: 100%;
+}
+
+.imagen-icono {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
+
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
+
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
+
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
+}
+
+.card-body {
+    background-color: #C5ECFC;
+}

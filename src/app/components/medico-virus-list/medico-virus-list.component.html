@@ -1,3 +1,17 @@
-<p>
-  medico-virus-list works!
-</p>
+<ion-content class="fondo">
+
+  <div class="d-flex justify-content-center contenedor">
+    <div class="d-flex justify-content-center contenedorVirus">
+      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medico of medicos">
+        <div class="card text-center" >
+          <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            {{medico.nombreDoctor}}
+          </div>
+          <div class="card-body">
+            <p>{{medico.nombreConsultorio}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</ion-content>>

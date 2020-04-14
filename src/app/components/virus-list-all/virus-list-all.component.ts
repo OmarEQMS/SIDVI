@@ -15,10 +15,9 @@ export class VirusListAllComponent implements OnInit {
   constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.getViruss();
   }
 
-  getViruss() {
+  ionViewWillEnter() {
     this.SIDVI.virus.listarVirus().subscribe(
       res => {
         this.viruss = res.resultados;

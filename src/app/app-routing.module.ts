@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: 'listVirus', component: VirusListAllComponent },
     { path: 'login', component: LoginComponent },
     { path: 'informacion/:idVirus', component: InformacionComponent },
-    { path: 'listMedicoVirus', component: MedicoVirusListComponent},
+    { path: 'listMedicoVirus/:idVirus', component: MedicoVirusListComponent},
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

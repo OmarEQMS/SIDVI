@@ -1,35 +1,37 @@
 .cartaVirus {
-    width: 550px;
+    width: 450px;
 }
 
 .contenedorVirus{
-    width: auto;
+    width: 90%;
+    flex-wrap: wrap;
 }
 
-.container {
+.contenedor {
     margin-top: 100px;
+    width: 100%;
 }
 
 .imagen-icono {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
 
-    border-top-left-radius: 100px;
-    -webkit-border-top-left-radius: 100px;
-    -moz-border-top-left-radius: 100px;
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
 
-    border-bottom-right-radius: 100px;
-    -webkit-border-bottom-right-radius: 100px;
-    -moz-border-bottom-right-radius: 100px;
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
 
-    border-top-right-radius: 100px;
-    -webkit-border-top-right-radius: 100px;
-    -moz-border-top-right-radius: 100px;
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
 
-    border-bottom-left-radius: 100px;
-    -webkit-border-bottom-left-radius: 100px;
-    -moz-border-bottom-left-radius: 100px;
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
 }
 
 .card-body {

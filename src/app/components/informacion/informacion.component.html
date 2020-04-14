@@ -1,49 +1,53 @@
 <ion-content>
     <div class='pagina'>
         <div class='contenedor'>
-            <div class='card-informacion'>
-                <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono' [src]="virus.archivoIconoImg">
-                <span>{{virus.nombre}}</span>
-                <span>{{virus.clave}}</span>
+            <div class='card'>
+                <div class='card-header bg-dark text-white '>
+                    <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono' [src]="virus.archivoIconoImg">
+                    <span>{{virus.nombre}}</span>
+                    <span>{{virus.clave}}</span>
+                </div>
             </div>
 
-            <div class='card-informacion' *ngFor="let infoormacion of virus.informaciones">
-                <div class='mb-2 ml-2'>
+            <div class='card mt-5' *ngFor="let infoormacion of virus.informaciones">
+                <div class='card-header bg-dark text-white'>
                     <div class='d-inline-block titulo-contenido'>{{infoormacion.texto}}</div>            
                 </div>
-                <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoImg!=null">
-                    <img class='img-contenido' [src]="infoormacion.archivoImg" >
-                </div>
-                <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoVideo!=null">
-                    <vg-player class='video-contenido' (onPlayerReady)="onPlayerReady(infoormacion, $event)">
-                        <vg-overlay-play></vg-overlay-play>
-                        <vg-buffering></vg-buffering>            
-                        <vg-controls>
-                            <vg-play-pause></vg-play-pause>
-                            <vg-playback-button></vg-playback-button>            
-                            <vg-time-display vgProperty='current' vgFormat='mm:ss'></vg-time-display>
-                            <vg-scrub-bar>
-                                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                            </vg-scrub-bar>            
-                            <vg-time-display vgProperty='total' vgFormat='mm:ss'></vg-time-display>            
-                            <vg-mute></vg-mute>
-                            <vg-volume></vg-volume>            
-                            <vg-fullscreen></vg-fullscreen>
-                        </vg-controls>            
-                        <video [vgMedia]="media" #media preload='auto' crossorigin>
-                            <source [src]="infoormacion.archivoVideo" type='video/mp4'>
-                        </video>
-                    </vg-player>
-                </div>
-                <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoPdf!=null">
-                    <pdf-viewer class='pdf-contenido d-inline-block' [src]="infoormacion.archivoPdf" [zoom]="infoormacion.archivoPdfZoom" render-text='true' style='display: block;'></pdf-viewer>
-                    <div class='pdf-zoom d-inline-block'>
-                        <fa-icon class='btn-zoom d-block' [icon]="icons.zoomOut" (click)="pdfZoomOut(infoormacion)"></fa-icon>
-                        <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn(infoormacion)"></fa-icon>
+                <div class='card-body'>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoImg!=null">
+                        <img class='img-contenido' [src]="infoormacion.archivoImg" >
                     </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoVideo!=null">
+                        <vg-player class='video-contenido' (onPlayerReady)="onPlayerReady(infoormacion, $event)">
+                            <vg-overlay-play></vg-overlay-play>
+                            <vg-buffering></vg-buffering>            
+                            <vg-controls>
+                                <vg-play-pause></vg-play-pause>
+                                <vg-playback-button></vg-playback-button>            
+                                <vg-time-display vgProperty='current' vgFormat='mm:ss'></vg-time-display>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>            
+                                <vg-time-display vgProperty='total' vgFormat='mm:ss'></vg-time-display>            
+                                <vg-mute></vg-mute>
+                                <vg-volume></vg-volume>            
+                                <vg-fullscreen></vg-fullscreen>
+                            </vg-controls>            
+                            <video [vgMedia]="media" #media preload='auto' crossorigin>
+                                <source [src]="infoormacion.archivoVideo" type='video/mp4'>
+                            </video>
+                        </vg-player>
+                    </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="infoormacion.archivoPdf!=null">
+                        <pdf-viewer class='pdf-contenido d-inline-block' [src]="infoormacion.archivoPdf" [zoom]="infoormacion.archivoPdfZoom" render-text='true' style='display: block;'></pdf-viewer>
+                        <div class='pdf-zoom d-inline-block'>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomOut" (click)="pdfZoomOut(infoormacion)"></fa-icon>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn(infoormacion)"></fa-icon>
+                        </div>
+                    </div>
+                    <span class='contenido-descripcion'>{{infoormacion.descripcion}}</span>
                 </div>
-                <span class='contenido-descripcion'>{{infoormacion.descripcion}}</span>
             </div>
         </div>
     </div>

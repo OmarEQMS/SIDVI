@@ -1,7 +1,7 @@
 <ion-content class="fondo">
 
-  <div class="d-flex justify-content-center container">
-    <div class="contenedorVirus">
+  <div class="d-flex justify-content-center contenedor">
+    <div class="d-flex justify-content-center contenedorVirus">
       <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
         <div class="card text-center" >
           <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
@@ -9,11 +9,11 @@
           </div>
           <div class="card-body">
             <p>{{virus.clave}}</p>
-              <div>
+              <div class='mb-3 mt-2'>
                 <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono' [src]="virus.archivoIconoImg">
               </div>
              <div>
-              <a class="btn btn-info d-inline-block text-white m-1">
+              <a class="btn btn-info d-inline-block text-white m-1" routerLink='/informacion/{{virus.idVirus}}'>
                 Información
               </a>
               <a class="btn btn-info d-inline-block text-white m-1">

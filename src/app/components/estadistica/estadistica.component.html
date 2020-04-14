@@ -1,41 +1,23 @@
 <ion-split-pane contentId='main'>
     <ion-menu menuId='sidebar' contentId='main'>
         <ion-content class='sidebar-menu'>
-            <div id='card-usuario'>
-
-            </div>
-            <ion-list>
-                <div *ngFor="let ubicacion of ubicacion.ubicaciones">
-                    <div class='btn-item' (click)="expandUbicacion(ubicacion)">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="curso.profLocalIcono"></fa-icon>
-                        <div class='btn-text d-inline-block'>{{ubicacion.nombre}}</div>
-                    </div>                    
-                    <ion-list *ngIf="curso.profLocalVisible" class='list-tema'>
-                        <div class='btn-item'>
-                            <fa-icon class='btn-icono d-inline-block' [icon]="icons.matricula"></fa-icon>
-                            <div class='btn-text d-inline-block' (click)="expandUbicacion(ubicacion)">{{ubicacion.nombre}}</div>
-                        </div>       
-                    </ion-list>
-                </div>
-
-            </ion-list>
+            <div class='card text-center m-3 p-2'>
+                Ubicaciones
+            </div>            
+            <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
+            <div class='text-center btn-primary m-3 p-2' (click)="filtrar()">
+                Filtrar
+            </div>   
         </ion-content>
     </ion-menu>
+    <ion-router-outlet id="main">
+        <div class='p-3'>
+            <ion-menu-button></ion-menu-button>
+        </div>
+        <ion-content>
 
-    <ion-header>
-        <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-menu-button></ion-menu-button>
-            </ion-buttons>
-            <ion-title>
-                <span>Estadisticas</span>
-            </ion-title>
-        </ion-toolbar>
-    </ion-header>
-    <ion-content>
-
-    </ion-content>
+        </ion-content>
+    </ion-router-outlet>
 </ion-split-pane>
-
 
   

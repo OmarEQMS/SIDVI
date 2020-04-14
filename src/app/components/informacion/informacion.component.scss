@@ -17,25 +17,24 @@
 
 .titulo-contenido {
     text-align: center;
-    width: calc(100% - 31px);
     font-size: 25px;
 }
 .contenido-descripcion {
     padding-top: 5px;
-    padding-bottom: 5px;
+    font-size: 20px;
 }
 
 .img-contenido {
-    max-height: 70vh;
+    max-height: 50vh;
     width: 90%;
     object-fit: contain;
 }
 .video-contenido {
-    height: 70vh;
+    height: 50vh;
     width: 90%;
 }
 .pdf-contenido {
-    height: 70vh;
+    height: 50vh;
     width: calc(100% - 30px);
 }
 .btn-zoom {
@@ -49,24 +48,27 @@
     background-color: #ffbd99;
 }
 
+.titulo-virus {
+    width: calc(100% - 220px);
+}
 .imagen-icono {
     width: 200px;
     height: 200px;
     object-fit: cover;
 
-    border-top-left-radius: 100px;
-    -webkit-border-top-left-radius: 100px;
-    -moz-border-top-left-radius: 100px;
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
 
-    border-bottom-right-radius: 100px;
-    -webkit-border-bottom-right-radius: 100px;
-    -moz-border-bottom-right-radius: 100px;
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
 
-    border-top-right-radius: 100px;
-    -webkit-border-top-right-radius: 100px;
-    -moz-border-top-right-radius: 100px;
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
 
-    border-bottom-left-radius: 100px;
-    -webkit-border-bottom-left-radius: 100px;
-    -moz-border-bottom-left-radius: 100px;
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
 }

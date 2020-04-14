@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ubicacion } from 'src/models';
 
 @Component({
   selector: 'app-estadistica',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./estadistica.component.scss'],
 })
 export class EstadisticaComponent implements OnInit {
+    ubicacion: Ubicacion;
 
-  constructor() { }
+    constructor() {
+        this.ubicacion = new Ubicacion();
+    }
 
-  ngOnInit() {}
+    ngOnInit() {}
+    ionViewWillEnter() {
+        this.ubicacion = new Ubicacion();
+    }
 
 }

@@ -20,7 +20,7 @@ export class EstadisticaService {
         if (fkVirus !== undefined && fkVirus !== null) {
             queryParameters = queryParameters.set('fkVirus', fkVirus.toString());
         }
-        if (fkUbicacion !== undefined && fkUbicacion !== null) {
+        if (fkUbicacion !== undefined && fkUbicacion !== null && fkUbicacion.length > 0) {
             queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
         }
         if (fkCategoriaEstadistica !== undefined && fkCategoriaEstadistica !== null) {

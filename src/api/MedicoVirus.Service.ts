@@ -13,7 +13,8 @@ export class MedicoVirusService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarMedicosVirus(fkMedico?: number, fkVirus?: number, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarMedicosVirus(fkMedico?: number, fkVirus?: number, fkUbicacion?: number[], ordenarPor?: string,
+                              ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (fkMedico !== undefined && fkMedico !== null) {
@@ -21,6 +22,9 @@ export class MedicoVirusService {
         }
         if (fkVirus !== undefined && fkVirus !== null) {
             queryParameters = queryParameters.set('fkVirus', fkVirus.toString());
+        }
+        if (fkUbicacion !== undefined && fkUbicacion !== null && fkUbicacion.length > 0) {
+            queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
             queryParameters = queryParameters.set('ordenarPor', ordenarPor);

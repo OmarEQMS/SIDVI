@@ -31,6 +31,12 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
+<<<<<<< HEAD
+=======
+import { InformacionComponent } from './components/informacion/informacion.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
+import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
+>>>>>>> origin
 
 
 @NgModule({
@@ -40,7 +46,12 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     LoginComponent,
     NavigationComponent,
     InformacionComponent,
+<<<<<<< HEAD
     MedicoVirusListComponent,
+=======
+    EstadisticaComponent,
+    UbicacionListComponent
+>>>>>>> origin
   ],
   entryComponents: [],
   imports: [

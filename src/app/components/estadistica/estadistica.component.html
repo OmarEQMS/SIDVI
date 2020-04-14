@@ -1,3 +1,23 @@
-<p>
-  estadistica works!
-</p>
+<ion-split-pane contentId='main'>
+    <ion-menu menuId='sidebar' contentId='main'>
+        <ion-content class='sidebar-menu'>
+            <div class='card text-center m-3 p-2'>
+                Ubicaciones
+            </div>            
+            <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
+            <div class='text-center btn-primary m-3 p-2' (click)="filtrar()">
+                Filtrar
+            </div>   
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main">
+        <div class='p-3'>
+            <ion-menu-button></ion-menu-button>
+        </div>
+        <ion-content>
+
+        </ion-content>
+    </ion-router-outlet>
+</ion-split-pane>
+
+  

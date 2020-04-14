@@ -6,6 +6,7 @@ import { InformacionComponent } from './components/informacion/informacion.compo
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'listVirus', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'informacion/:idVirus', component: InformacionComponent },
     { path: 'listMedicoVirus/:idVirus', component: MedicoVirusListComponent},
+    { path: 'estadistica/:idVirus', component: EstadisticaComponent },
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

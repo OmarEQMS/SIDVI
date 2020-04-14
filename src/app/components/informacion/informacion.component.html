@@ -3,9 +3,13 @@
         <div class='contenedor'>
             <div class='card'>
                 <div class='card-header bg-dark text-white '>
-                    <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono' [src]="virus.archivoIconoImg">
-                    <span>{{virus.nombre}}</span>
-                    <span>{{virus.clave}}</span>
+                    <div>
+                        <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono d-inline-block' [src]="virus.archivoIconoImg">
+                        <div class='d-inline-block text-center titulo-virus'>
+                            <span class='d-block titulo-contenido'>{{virus.nombre}}</span>
+                            <span class='d-block contenido-descripcion'>{{virus.clave}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -46,7 +50,7 @@
                             <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn(infoormacion)"></fa-icon>
                         </div>
                     </div>
-                    <span class='contenido-descripcion'>{{infoormacion.descripcion}}</span>
+                    <span class='contenido-descripcion pt-3 pb-2'>{{infoormacion.descripcion}}</span>
                 </div>
             </div>
         </div>

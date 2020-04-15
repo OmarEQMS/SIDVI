@@ -1,14 +1,20 @@
 <ion-content class="fondo">
 
   <div class="d-flex justify-content-center contenedor">
-    <div class="d-flex justify-content-center contenedorVirus">
-      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medico of medicos">
+    <div class="d-flex justify-content-center contenedorMedico">
+      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medicoVirus of medicosVirus">
         <div class="card text-center" >
           <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            {{medico.nombreDoctor}}
+            {{medicoVirus.medico.nombreDoctor}}
           </div>
           <div class="card-body">
-            <p>{{medico.nombreConsultorio}}</p>
+            <p>{{medicoVirus.medico.nombreConsultorio}}</p>
+          </div>
+          <div class='mb-3 mt-2'>
+            <img *ngIf="medicoVirus.medico.archivoIconoImg!=null" class='imagen-icono' [src]="medicoVirus.medico.archivoIconoImg">
+          </div>
+          <div class="card-footer ">
+            {{medicoVirus.medico.direccionConsultorio}}
           </div>
         </div>
       </div>

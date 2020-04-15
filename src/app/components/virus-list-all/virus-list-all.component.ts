@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import {SIDVIServices} from '../../../api';
 import {Router} from '@angular/router';
 import { Virus } from 'src/models';
@@ -23,6 +23,7 @@ export class VirusListAllComponent implements OnInit {
         this.viruss = res.resultados;
         for (const virus of this.viruss) {
           virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
+          console.log(virus.archivoIconoImg);
         }
         console.log(this.viruss);
       },

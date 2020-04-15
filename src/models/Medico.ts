@@ -1,5 +1,5 @@
 import { ContentTypeEnum, Defaults } from '../api/API';
-
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { Usuario } from './Usuario';
 import { Ubicacion } from './Ubicacion';
 import { MedicoVirus } from './MedicoVirus';
@@ -46,6 +46,10 @@ export class Medico implements IMedico {
     // Relations: HasMany
     medicosVirus?: MedicoVirus[];
     valoraciones?: Valoracion[];
+
+    // Extras
+    archivoIconoImg: SafeResourceUrl;
+
     // Constructor
     constructor(medico?: any) {
         if (medico !== undefined) {

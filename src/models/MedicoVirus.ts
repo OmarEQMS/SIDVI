@@ -1,5 +1,4 @@
 import { ContentTypeEnum, Defaults } from '../api/API';
-
 import { Medico } from './Medico';
 import { Virus } from './Virus';
 

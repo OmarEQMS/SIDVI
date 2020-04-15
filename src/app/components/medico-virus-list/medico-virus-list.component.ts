@@ -10,7 +10,6 @@ import { Medico, MedicoVirus} from 'src/models';
   styleUrls: ['./medico-virus-list.component.scss'],
 })
 export class MedicoVirusListComponent implements OnInit {
-  medicos: Medico[];
   medicosVirus: MedicoVirus[];
   idVirus: number;
   constructor(  private sidvi: SIDVIServices,
@@ -21,12 +20,13 @@ export class MedicoVirusListComponent implements OnInit {
 
   ngOnInit() {}
   ionViewWillEnter() {
-    console.log('MEDICOS1');
     this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
-    this.sidvi.medicoVirus.listarMedicosVirus().subscribe(
+    this.sidvi.medicoVirus.listarMedicosVirus(null , this.idVirus).subscribe(
       res => {
-       for (const resultado of res.resultados) {
-          this.medicos = resultado.medico;
+        this.medicosVirus = res.resultados.map((item: any) => new MedicoVirus(item));
+        for (const medicoVirus of this.medicosVirus) {
+          medicoVirus.medico.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(medicoVirus.medico.archivoFoto as string);
+          console.log( medicoVirus.medico.archivoIconoImg);
         }
       },
       err => {

@@ -24,19 +24,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { InformacionComponent } from './components/informacion/informacion.component';
 import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
-
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
+import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
 
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
-<<<<<<< HEAD
-=======
-import { InformacionComponent } from './components/informacion/informacion.component';
-import { EstadisticaComponent } from './components/estadistica/estadistica.component';
-import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
->>>>>>> origin
+
+
 
 
 @NgModule({
@@ -46,12 +43,9 @@ import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-li
     LoginComponent,
     NavigationComponent,
     InformacionComponent,
-<<<<<<< HEAD
     MedicoVirusListComponent,
-=======
     EstadisticaComponent,
     UbicacionListComponent
->>>>>>> origin
   ],
   entryComponents: [],
   imports: [

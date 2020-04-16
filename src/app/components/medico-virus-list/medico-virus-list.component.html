@@ -1,5 +1,4 @@
-<ion-content class="fondo">
-  <ion-split-pane contentId='main'>
+<ion-split-pane contentId='main'>
     <ion-menu menuId='sidebar' contentId='main'>
         <ion-content class='sidebar-menu'>
             <div class='card text-center m-3 p-2'>
@@ -12,32 +11,37 @@
         </ion-content>
     </ion-menu>
     <ion-router-outlet id="main">
-        <div class='p-3'>
-            <ion-menu-button></ion-menu-button>
-        </div>
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>
+                    <span>Médicos</span>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
         <ion-content>
-
+            <div class="d-flex justify-content-center contenedor">
+                <div class="d-flex justify-content-center contenedorMedico">
+                  <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medicoVirus of medicosVirus">
+                    <div class="card text-center" >
+                      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        {{medicoVirus.medico.nombreDoctor}}
+                      </div>
+                      <div class="card-body">
+                        <p>{{medicoVirus.medico.nombreConsultorio}}</p>                      
+                        <div class='mb-3 mt-2'>
+                            <img *ngIf="medicoVirus.medico.archivoIconoImg != null" class='imagen-icono' [src]="medicoVirus.medico.archivoIconoImg">
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        {{medicoVirus.medico.direccionConsultorio}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
         </ion-content>
     </ion-router-outlet>
 </ion-split-pane>
-  <div class="d-flex justify-content-center contenedor">
-    <div class="d-flex justify-content-center contenedorMedico">
-      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medicoVirus of medicosVirus">
-        <div class="card text-center" >
-          <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            {{medicoVirus.medico.nombreDoctor}}
-          </div>
-          <div class="card-body">
-            <p>{{medicoVirus.medico.nombreConsultorio}}</p>
-          </div>
-          <div class='mb-3 mt-2'>
-            <img *ngIf="medicoVirus.medico.archivoIconoImg!=null" class='imagen-icono' [src]="medicoVirus.medico.archivoIconoImg">
-          </div>
-          <div class="card-footer ">
-            {{medicoVirus.medico.direccionConsultorio}}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  
-</ion-content>>

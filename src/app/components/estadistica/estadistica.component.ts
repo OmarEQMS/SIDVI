@@ -39,6 +39,7 @@ export class EstadisticaComponent implements OnInit {
         this.ubicacionesIds = new Array(0);
         this.collectIds(this.ubicacion);
         console.log(this.ubicacionesIds);
+
     }
     async collectIds(ubicacion: Ubicacion) {
         if (ubicacion.localSelected) {

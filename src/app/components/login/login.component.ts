@@ -25,18 +25,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    const usuario = this.loginForm.value.usuario;
-    const password = this.loginForm.value.password;
 
-    this._SIDVI.usuario.autenticacion(usuario, password).subscribe(
+    this._SIDVI.usuario.autenticacion(this.loginForm.value.usuario, this.loginForm.value.password).subscribe(
       res => {
         if (res) {
 
           // tslint:disable-next-line: triple-equals
           if (res.statusCode == 200) {
+            this._SIDVI.manager.setItems(res.extra.token, res.extra.usuario);
             this._router.navigate(['./administrador']);
           } else {
-            Swal.fire({title: 'Actualizado', text:'Nombre de usuario o contraseña inválidos', icon:'success', backdrop: false});
+            Swal.fire({title: 'Error', text:'Nombre de usuario o contraseña inválidos', icon:'error', backdrop: false});
             this._router.navigate(['./listVirus']);
           }
 

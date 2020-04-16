@@ -1,0 +1,64 @@
+<ion-content>
+    <div class="bloques-informacion">
+        <div class="card mt-5" *ngFor="let informacion of virus.informaciones">
+            <div class='card-header bg-dark text-light'>
+                <div class='titulo-contenido'>Título del bloque: </div>
+                <input #texto type="text" class="titulo-input bg-secondary" value="{{informacion.texto}}">
+                <div class='descripcion-contenido'>Descripcion</div>
+                <textarea #descripcion class="descripcion-input bg-secondary md-textarea-auto" mdbInput
+                    maxlength="1000">{{informacion.descripcion}}</textarea>
+            </div>
+            <div class='card-body'>
+                <div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="informacion.archivoImg!=null">
+                        <img class='img-contenido' [src]="informacion.archivoImg">
+                    </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="informacion.archivoVideo!=null">
+                        <vg-player class='video-contenido' (onPlayerReady)="onPlayerReady(informacion, $event)">
+                            <vg-overlay-play></vg-overlay-play>
+                            <vg-buffering></vg-buffering>
+                            <vg-controls>
+                                <vg-play-pause></vg-play-pause>
+                                <vg-playback-button></vg-playback-button>
+                                <vg-time-display vgProperty='current' vgFormat='mm:ss'></vg-time-display>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>
+                                <vg-time-display vgProperty='total' vgFormat='mm:ss'></vg-time-display>
+                                <vg-mute></vg-mute>
+                                <vg-volume></vg-volume>
+                                <vg-fullscreen></vg-fullscreen>
+                            </vg-controls>
+                            <video [vgMedia]="media" #media preload='auto' crossorigin>
+                                <source [src]="informacion.archivoVideo" type='video/mp4'>
+                            </video>
+                        </vg-player>
+                    </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="informacion.archivoPdf!=null">
+                        <pdf-viewer class='pdf-contenido d-inline-block' [src]="informacion.archivoPdf"
+                            [zoom]="informacion.archivoPdfZoom" render-text='true' style='display: block;'></pdf-viewer>
+                        <div class='pdf-zoom d-inline-block'>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomOut" (click)="pdfZoomOut(informacion)">
+                            </fa-icon>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn(informacion)">
+                            </fa-icon>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01" (change)="handleFileInput(informacion, $event.target.files)">
+                            <label class="custom-file-label" for="inputGroupFile01">{{informacion.localFileName}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="botones-guardar-borrar">
+                    <a class="btn btn-success text-white m-1"
+                        (click)="guardar(informacion, texto.value, descripcion.value)">Guardar cambios</a>
+                    <a class="btn btn-danger text-white m-1" (click)="eliminar(informacion)">Eliminar bloque</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,82 @@
+.bloques-informacion {
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+.titulo-contenido {
+  font-size: 25px;
+}
+.titulo-input {
+  font-size: 22px;
+}
+
+.descripcion-contenido {
+  padding-top: 5px;
+  font-size: 20px;
+}
+.descripcion-input {
+  font-size: 17px;
+  width: 100%;
+}
+
+.card-body {
+    background-color: #C5ECFC;
+}
+
+.img-contenido {
+    max-height: 30vh;
+    width: 90%;
+    object-fit: contain;
+}
+.video-contenido {
+    height: 30vh;
+    width: 90%;
+}
+.pdf-contenido {
+    height: 30vh;
+    width: calc(100% - 30px);
+}
+.btn-zoom {
+    border-radius: 9px;
+    background-color: #ffdecc;
+    font-size: 18px;
+    padding: 5px;
+    margin: 1px;
+}
+.btn-zoom:hover {
+    background-color: #ffbd99;
+}
+
+.titulo-virus {
+    width: calc(100% - 220px);
+}
+.imagen-icono {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
+
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
+
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
+
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
+}
+
+.botones-guardar-borrar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}

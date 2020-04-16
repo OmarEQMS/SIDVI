@@ -44,6 +44,10 @@ export class Informacion implements IInformacion {
     archivoVideo: string;
     archivoVideoAPI: VgAPI;
 
+    // Local
+    localFile: FileList;
+    localFileName: string;
+
     // Constructor
     constructor(informacion?: any) {
         if (informacion !== undefined) {
@@ -56,6 +60,7 @@ export class Informacion implements IInformacion {
             this.archivo = informacion.archivo;
             // Relations
             this.categoriaInformacion = new CategoriaInformacion(informacion.categoriaInformacion);
+            this.localFileName = 'Choose File';
         }
     }
 

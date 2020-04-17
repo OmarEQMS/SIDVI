@@ -10,6 +10,11 @@ export namespace _Medico {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
 
+    export type Estatus = 'ACEPTADO' | 'RECHAZADO';
+    export const Estatus = {
+        ACEPTADO: 'ACEPTADO' as Estatus,
+        RECHAZADO: 'RECHAZADO' as Estatus
+    };
 }
 
 export interface IMedico {
@@ -20,9 +25,11 @@ export interface IMedico {
     nombreDoctor?: string;
     direccionConsultorio?: string;
     telefonoConsultorio?: string;
+    cedulaProfesional?: string;
     descripcion?: string;
     mimetypeFoto?: string;
     archivoFoto?: ArrayBuffer | string;
+    estatus?: _Medico.Estatus;
 }
 
 export class Medico implements IMedico {
@@ -35,9 +42,11 @@ export class Medico implements IMedico {
     nombreDoctor?: string;
     direccionConsultorio?: string;
     telefonoConsultorio?: string;
+    cedulaProfesional?: string;
     descripcion?: string;
     mimetypeFoto?: ContentTypeEnum;
     archivoFoto?: ArrayBuffer | string;
+    estatus?: _Medico.Estatus;
 
     // Relations: BelongsToOne
     usuario?: Usuario;
@@ -60,10 +69,11 @@ export class Medico implements IMedico {
             this.nombreDoctor = medico.nombreDoctor;
             this.direccionConsultorio = medico.direccionConsultorio;
             this.telefonoConsultorio = medico.telefonoConsultorio;
+            this.cedulaProfesional = medico.cedulaProfesional;
             this.descripcion = medico.descripcion;
             this.mimetypeFoto = medico.mimetypeFoto;
             this.archivoFoto = medico.archivoFoto;
-
+            this.estatus = medico.estatus;
         }
     }
 
@@ -77,9 +87,11 @@ export class Medico implements IMedico {
             nombreDoctor: this.nombreDoctor,
             direccionConsultorio: this.direccionConsultorio,
             telefonoConsultorio: this.telefonoConsultorio,
+            cedulaProfesional: this.cedulaProfesional,
             descripcion: this.descripcion,
             mimetypeFoto: this.mimetypeFoto,
-            archivoFoto: this.archivoFoto
+            archivoFoto: this.archivoFoto.toString(),
+            estatus: this.estatus
         };
     }
 }

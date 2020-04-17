@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@a
 import { Observable } from 'rxjs';
 
 import { APIResponse } from './APIResponse';
-import { MedicoVirus, _MedicoVirus } from '../models';
+import { MedicoVirus, _MedicoVirus, _Medico } from '../models';
 import { ManagerService } from './Manager.Service';
 import { OrderModeEnum } from './API';
 
@@ -13,8 +13,8 @@ export class MedicoVirusService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarMedicosVirus(fkMedico?: number, fkVirus?: number, nombre?: string, fkUbicacion?: number[], ordenarPor?: string,
-                              ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarMedicosVirus(fkMedico?: number, fkVirus?: number, nombre?: string, fkUbicacion?: number[], estatus?: _Medico.Estatus,
+                              ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (fkMedico !== undefined && fkMedico !== null) {
@@ -28,6 +28,9 @@ export class MedicoVirusService {
         }
         if (fkUbicacion !== undefined && fkUbicacion !== null && fkUbicacion.length > 0) {
             queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
+        }
+        if (estatus !== undefined && estatus !== null) {
+            queryParameters = queryParameters.set('estatus', estatus);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
             queryParameters = queryParameters.set('ordenarPor', ordenarPor);

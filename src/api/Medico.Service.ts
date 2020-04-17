@@ -14,7 +14,8 @@ export class MedicoService {
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
     public listarMedicos(fkUsuario?: number, fkUbicacion?: number[], nombreConsultorio?: string, nombreDoctor?: string,
-                         ordenarPor?: string, ordenarModo?: OrderModeEnum, tamanoPagina?: number, indicePagina?: number): Observable<any> {
+                         estatus?: _Medico.Estatus, ordenarPor?: string, ordenarModo?: OrderModeEnum, tamanoPagina?: number,
+                         indicePagina?: number): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (fkUsuario !== undefined && fkUsuario !== null) {
@@ -28,6 +29,9 @@ export class MedicoService {
         }
         if (nombreDoctor !== undefined && nombreDoctor !== null) {
             queryParameters = queryParameters.set('nombreDoctor', nombreDoctor);
+        }
+        if (estatus !== undefined && estatus !== null) {
+            queryParameters = queryParameters.set('estatus', estatus);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
             queryParameters = queryParameters.set('ordenarPor', ordenarPor);

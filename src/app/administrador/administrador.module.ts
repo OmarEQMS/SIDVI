@@ -14,6 +14,9 @@ import { AdministradorPageRoutingModule } from './administrador-routing.module';
 
 import { AdministradorPage } from './administrador.page';
 import { PerfilComponent } from './perfil/perfil.component';
+import { VirusComponent } from './virus/virus.component';
+import { EditarInformacionComponent } from './editar-informacion/editar-informacion.component';
+import { EditarEstadisticaComponent } from './editar-estadistica/editar-estadistica.component';
 
 @NgModule({
   imports: [
@@ -29,6 +32,12 @@ import { PerfilComponent } from './perfil/perfil.component';
     VgBufferingModule,
     MDBBootstrapModule.forRoot()
   ],
-  declarations: [AdministradorPage, PerfilComponent]
+  declarations: [
+    AdministradorPage,
+    PerfilComponent,
+    VirusComponent,
+    EditarInformacionComponent,
+    EditarEstadisticaComponent
+  ]
 })
 export class AdministradorPageModule {}

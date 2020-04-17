@@ -13,18 +13,24 @@ export class EstadisticaService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number[], fkCategoriaEstadistica?: number, ordenarPor?: string,
-                              ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number, fkCategoriaEstadistica?: number, fechaInicio?: string,
+                              fechaFin?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (fkVirus !== undefined && fkVirus !== null) {
             queryParameters = queryParameters.set('fkVirus', fkVirus.toString());
         }
-        if (fkUbicacion !== undefined && fkUbicacion !== null && fkUbicacion.length > 0) {
+        if (fkUbicacion !== undefined && fkUbicacion !== null) {
             queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
         }
         if (fkCategoriaEstadistica !== undefined && fkCategoriaEstadistica !== null) {
             queryParameters = queryParameters.set('fkCategoriaEstadistica', fkCategoriaEstadistica.toString());
+        }
+        if (fechaInicio !== undefined && fechaInicio !== null) {
+            queryParameters = queryParameters.set('fechaInicio', fechaInicio);
+        }
+        if (fechaFin !== undefined && fechaFin !== null) {
+            queryParameters = queryParameters.set('fechaFin', fechaFin);
         }
         if (ordenarPor !== undefined && ordenarPor !== null) {
             queryParameters = queryParameters.set('ordenarPor', ordenarPor);

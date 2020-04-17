@@ -9,11 +9,11 @@ import { MedicoVirusListComponent } from './components/medico-virus-list/medico-
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'listVirus', pathMatch: 'full' },
-    { path: 'listVirus', component: VirusListAllComponent },
+    { path: '', redirectTo: 'virus', pathMatch: 'full' },
+    { path: 'virus', component: VirusListAllComponent },
     { path: 'login', component: LoginComponent },
     { path: 'informacion/:idVirus', component: InformacionComponent },
-    { path: 'listMedicoVirus/:idVirus', component: MedicoVirusListComponent},
+    { path: 'medicos/:idVirus', component: MedicoVirusListComponent},
     { path: 'estadistica/:idVirus', component: EstadisticaComponent },
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];

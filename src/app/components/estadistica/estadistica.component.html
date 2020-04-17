@@ -11,11 +11,18 @@
         </ion-content>
     </ion-menu>
     <ion-router-outlet id="main">
-        <div class='p-3'>
-            <ion-menu-button></ion-menu-button>
-        </div>
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>
+                    <span>Estadisticas</span>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
         <ion-content>
-
+            
         </ion-content>
     </ion-router-outlet>
 </ion-split-pane>

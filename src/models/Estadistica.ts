@@ -26,7 +26,7 @@ export class Estadistica implements IEstadistica {
     valor?: number;
     fecha?: Date;
 
-    //Relations: BelongsToOne
+    // Relations: BelongsToOne
     virus: Virus;
     ubicacion: Ubicacion;
     categoriaEstadistica: CategoriaEstadistica;

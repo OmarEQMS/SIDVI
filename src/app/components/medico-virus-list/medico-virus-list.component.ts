@@ -15,9 +15,9 @@ import { async } from '@angular/core/testing';
 export class MedicoVirusListComponent implements OnInit {
     medicosVirus: MedicoVirus[];
     idVirus: number;
+    nombre: string;
     ubicacion: Ubicacion;
     ubicacionesIds: number[];
-    filtrarNombre: string;
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -36,6 +36,7 @@ export class MedicoVirusListComponent implements OnInit {
     ngOnInit() { }
     ionViewWillEnter() {
         this.ubicacionesIds = null;
+        this.nombre = null;
         this.filtraUbicaciones();
     }
 
@@ -70,7 +71,7 @@ export class MedicoVirusListComponent implements OnInit {
 
     async filtraUbicaciones() {
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
-        this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.filtrarNombre, this.ubicacionesIds).subscribe(
+        this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds).subscribe(
         res => {
             this.medicosVirus = res.resultados.map((item: any) => new MedicoVirus(item));
             for (const medicoVirus of this.medicosVirus) {

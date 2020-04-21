@@ -31,7 +31,7 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 2
     }];
-    localChartOptions: any = { responsive: true };
+    localChartOptions: any = { responsive: true, scales: { yAxes: [{ ticks: { beginAtZero: true } }] } };
 
     // Constructor
     constructor(categoriaEstadistica?: any) {

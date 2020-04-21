@@ -33,9 +33,6 @@ export class EstadisticaComponent implements OnInit {
         guion: faMinus
     };
 
-    filtroFechaInicio: string;
-    filtroFechaFinal: string;
-
     constructor(
         private sidvi: SIDVIServices,
         private activatedRoute: ActivatedRoute
@@ -64,8 +61,7 @@ export class EstadisticaComponent implements OnInit {
     filtrarEstadisticas() {
         this.estadisticas = new Array(0);
 
-        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, this.filtroFechaInicio, this.filtroFechaFinal,
-                                                  'fecha', OrderModeEnum.ASC).subscribe(
+        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {
                 const arrEstadisticas: Estadistica[] = estadis.resultados.map((item: any) => new Estadistica(item));
 
@@ -111,7 +107,6 @@ export class EstadisticaComponent implements OnInit {
                     }
                     estadistica.localSetChart();
                 }
-
         });
     }
 

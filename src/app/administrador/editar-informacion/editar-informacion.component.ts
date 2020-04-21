@@ -135,6 +135,39 @@ export class EditarInformacionComponent implements OnInit {
     }
 
     eliminar(informacion: Informacion) {
+        // Mostrar mensaje de confirmación
+        Swal.fire({
+            title: 'Confirmación',
+            text: '¿Estás seguro que quieres eliminar esta información?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText: 'Cancelar',
+            heightAuto: false
+        }).then((result) => {
+            if (result.value) {
+                this.sidvi.informacion.eliminarInformacion(informacion.idInformacion).subscribe(
+                    res => {
+                        if (res && res.type == 'SUCCESS') {
+                            Swal.fire({
+                                title: 'Borrado completo',
+                                text: 'El bloque de información ha sido eliminado exitosamente',
+                                icon: 'success',
+                                heightAuto: false
+                            }).then((results) => {
+                                this.listarVirus();
+                            });
+                        }
+                    },
+                    error => {
+                        alert('No se pudo eliminar');
+                    }
+                );
+            }
+        });
+
 
     }
 

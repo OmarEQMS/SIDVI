@@ -5,7 +5,20 @@
                 Ubicaciones
             </div>            
             <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
-            <div class='text-center btn-primary m-3 p-2' (click)="filtrar()">
+
+            <div class='card text-center m-3 p-2'>
+                Fecha
+            </div> 
+            <div class='form-group mr-3 ml-3 mb-0 mt-0 p-2'>
+                <label for='fecha-inicio'>Fecha Inicio</label>
+                <input id='fecha-inicio' class='form-control' type='date' [(ngModel)]="filtroFechaInicio" placeholder='Fecha de Inicio' required>
+            </div>
+            <div class='form-group mr-3 ml-3 mb-0 mt-0 p-2'>
+                <label for='fecha-fin'>Fecha Fin</label>
+                <input id='fecha-fin' class='form-control' type='date' [(ngModel)]="filtroFechaFinal" placeholder='Fecha de Fin' required>
+            </div>
+
+            <div class='text-center btn-primary m-3 p-2' (click)="filtrarEstadisticas()">
                 Filtrar
             </div>   
         </ion-content>
@@ -17,12 +30,23 @@
                     <ion-menu-button></ion-menu-button>
                 </ion-buttons>
                 <ion-title>
-                    <span>Estadisticas</span>
+                    <span>Estadisticas ({{virus.nombre}})</span>
                 </ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            
+            <div class='m-5' *ngFor="let estadistica of estadisticas">
+                <div class='d-flex justify-content-center'>{{estadistica.nombre}}</div>
+                <div style="display: block;">
+                  <canvas mdbChart height='100px'
+                      [chartType]="estadistica.localChartType"
+                      [datasets]="estadistica.localChartDatasets"
+                      [labels]="estadistica.localChartLabels"
+                      [colors]="estadistica.localChartColors"
+                      [options]="estadistica.localChartOptions">
+                  </canvas>
+                </div>
+            </div>
         </ion-content>
     </ion-router-outlet>
 </ion-split-pane>

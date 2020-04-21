@@ -3,7 +3,7 @@
         <div class='card-header bg-dark text-light bloque-boton' *ngFor="let informacion of virus.informaciones">
 
             <!-- BOTÓN PARA EXPANDIR BLOQUE -->
-            <div data-toggle="collapse" [attr.data-target]="'#InformacionBloque-' + informacion.idInformacion" aria-expanded="false"
+            <div style="cursor:pointer;" data-toggle="collapse" [attr.data-target]="'#InformacionBloque-' + informacion.idInformacion" aria-expanded="false"
                 aria-controls="collapseExample">
                 <div class='titulo-bloque'>{{informacion.texto}} </div>
             </div>

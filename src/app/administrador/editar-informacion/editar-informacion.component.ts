@@ -102,8 +102,12 @@ export class EditarInformacionComponent implements OnInit {
                         return;
                     }
 
-                    // Mostrar mensaje de success
-                    Swal.fire({title: 'Success', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false});
+                    // tslint:disable-next-line: max-line-length
+                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                        if (result.value) {
+                            this.listarVirus();
+                        }
+                    });
                 }
             },
             error => {
@@ -112,36 +116,16 @@ export class EditarInformacionComponent implements OnInit {
         );
     }
 
-    async presentAlertConfirm() {
-        const alert = await this.alertController.create({
-          header: 'Confirm!',
-          message: 'Message <strong>text</strong>!!!',
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              cssClass: 'secondary',
-              handler: (blah) => {
-                console.log('Confirm Cancel: blah');
-              }
-            }, {
-              text: 'Okay',
-              handler: () => {
-                console.log('Confirm Okay');
-              }
-            }
-          ]
-        });
-    
-        await alert.present();
-      }
-
     actualizarInformacion(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
                 if (res) {
-                    console.log('Archivos actualizados correctamente');
-                    this.listarVirus();
+                    // tslint:disable-next-line: max-line-length
+                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                        if (result.value) {
+                            this.listarVirus();
+                        }
+                    });
                 }
             },
             error => {

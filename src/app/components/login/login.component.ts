@@ -35,8 +35,12 @@ export class LoginComponent implements OnInit {
             this._SIDVI.manager.setItems(res.extra.token, res.extra.usuario);
             this._router.navigate(['./administrador']);
           } else {
-            Swal.fire({title: 'Error', text: 'Nombre de usuario o contraseña inválidos', icon:'error', heightAuto: false});
-            this._router.navigate(['./virus']);
+            // tslint:disable-next-line: max-line-length
+            Swal.fire({ title: 'Error', text: 'Nombre de usuario o contraseña inválidos. Redireccionando a página principal', icon: 'error', heightAuto: false }).then((result) => {
+              if (result.value) {
+                this._router.navigate(['./virus']);
+              }
+            });
           }
 
         }

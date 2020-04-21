@@ -6,6 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
+import Swal from 'sweetalert2';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-editar-informacion',
@@ -24,7 +26,8 @@ export class EditarInformacionComponent implements OnInit {
     constructor(
         private sidvi: SIDVIServices,
         private activatedRoute: ActivatedRoute,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        public alertController: AlertController
     ) {
         this.virus = new Virus();
     }
@@ -32,8 +35,7 @@ export class EditarInformacionComponent implements OnInit {
     ngOnInit() {
         this.listarVirus();
     }
-    
-    
+
     listarVirus() {
         this.virus.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.sidvi.virus.obtenerVirus(this.virus.idVirus).subscribe(
@@ -100,8 +102,8 @@ export class EditarInformacionComponent implements OnInit {
                         return;
                     }
 
-                    // Mostrar un sweetalert de que se actualizó (si se puede como juliox en cuestionarios)
-                    console.log('Información actualizada correctamente');
+                    // Mostrar mensaje de success
+                    Swal.fire({title: 'Success', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false});
                 }
             },
             error => {
@@ -109,6 +111,30 @@ export class EditarInformacionComponent implements OnInit {
             }
         );
     }
+
+    async presentAlertConfirm() {
+        const alert = await this.alertController.create({
+          header: 'Confirm!',
+          message: 'Message <strong>text</strong>!!!',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: (blah) => {
+                console.log('Confirm Cancel: blah');
+              }
+            }, {
+              text: 'Okay',
+              handler: () => {
+                console.log('Confirm Okay');
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
+      }
 
     actualizarInformacion(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(

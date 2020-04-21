@@ -10,7 +10,7 @@ export namespace _Valoracion {
 
 export interface IValoracion {
     idValoracion?: number;
-    fkMedico?: number;
+    fkMedicoVirus?: number;
     fkUsuario?: number;
     valoracion?: number;
 }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
-import { Medico, MedicoVirus, Ubicacion, IUbicacion } from 'src/models';
+import { Medico, MedicoVirus, Ubicacion, IUbicacion, Valoracion } from 'src/models';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { async } from '@angular/core/testing';
+import { MDBModalRef } from 'angular-bootstrap-md';
 
 @Component({
     selector: 'app-medico-virus-list',
@@ -13,11 +14,16 @@ import { async } from '@angular/core/testing';
     styleUrls: ['./medico-virus-list.component.scss'],
 })
 export class MedicoVirusListComponent implements OnInit {
+    @ViewChild('modalEvaluarMedico', null) modalEvaluarMedico: MDBModalRef;
+
     medicosVirus: MedicoVirus[];
     idVirus: number;
     nombre: string;
     ubicacion: Ubicacion;
     ubicacionesIds: number[];
+    cal: number;
+    localMedVirus: MedicoVirus;
+    valoracion: Valoracion;
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -31,6 +37,9 @@ export class MedicoVirusListComponent implements OnInit {
             private sanitizer: DomSanitizer
     ) {
         this.ubicacion = new Ubicacion({ idUbicacion: -1 } as IUbicacion);
+        this.localMedVirus = new MedicoVirus();
+        this.localMedVirus.medico = new Medico();
+        this.cal = 0;
     }
 
     ngOnInit() { }
@@ -48,7 +57,8 @@ export class MedicoVirusListComponent implements OnInit {
         console.log(this.ubicacionesIds);
         this.filtraUbicaciones();
     }
-    async collectIds(ubicacion: Ubicacion) {
+
+    collectIds(ubicacion: Ubicacion) {
         if (ubicacion.localSelected) {
             this.ubicacionesIds.push(ubicacion.idUbicacion);
         }
@@ -69,7 +79,7 @@ export class MedicoVirusListComponent implements OnInit {
         }
     }
 
-    async filtraUbicaciones() {
+    filtraUbicaciones() {
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds).subscribe(
         res => {
@@ -87,6 +97,27 @@ export class MedicoVirusListComponent implements OnInit {
 
         }
         );
+    }
+
+    evaluarMedico(valor: number) {
+        this.cal = valor;
+    }
+
+    enviarEvaluacion() {
+        this.valoracion = new Valoracion({
+            fkMedicoVirus: this.localMedVirus.idMedicoVirus,
+            fkUsuario: 1,
+            valoracion: this.cal
+        });
+        this.sidvi.valoracion.crearValoracion(this.valoracion).subscribe(
+            res => {
+                console.log(res);
+                this.modalEvaluarMedico.hide();
+            },
+            err => {
+                console.log(err);
+            }
+            );
     }
 
 }

@@ -2,14 +2,28 @@ div, span {
     font-family: 'Alegreya-Medium';
 }
 .sidebar-menu{
-    --ion-background-color: #ccebff;
+    --ion-background-color: #326273;
 }
 
 #card-usuario {
-    background-color: #99d6ff;
+    background-color: #407289;
     height: 70px;
     border-radius: 8px;
-    margin: 10px;
+    margin: 15px;
+}
+
+.lista-opciones {
+    margin: 15px;
+    border-radius: 8px;
+    background-color: #508CA4;
+}
+
+.btn-item {
+    background-color: #508CA4;
+    cursor:pointer;
+}
+.btn-item:hover {
+    background-color: #437281;
 }
 
 #user-img {
@@ -51,13 +65,7 @@ div, span {
 }
 
 
-.btn-item {
-    background-color: #ccebff;
-    cursor:pointer;
-}
-.btn-item:hover {
-    background-color: #99d6ff;
-}
+
 .btn-icono {
     width: 15%;
     padding: 2px;

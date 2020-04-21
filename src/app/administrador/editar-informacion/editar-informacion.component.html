@@ -1,9 +1,14 @@
 <ion-content>
     <div class="bloques-informacion">
-        <div class='card-header bg-dark text-light bloque-boton' *ngFor="let informacion of virus.informaciones">
+
+        <div class='card-header bloque-titulo'>
+            <div class='titulo-pag'>{{virus.nombre}}: Información </div>
+        </div>
+
+        <div class='card-header bloque-boton' *ngFor="let informacion of virus.informaciones">
 
             <!-- BOTÓN PARA EXPANDIR BLOQUE -->
-            <div style="cursor:pointer;" data-toggle="collapse"
+            <div class="boton-expand" data-toggle="collapse"
                 [attr.data-target]="'#InformacionBloque-' + informacion.idInformacion" aria-expanded="false"
                 aria-controls="collapseExample">
                 <div class='titulo-bloque'>{{informacion.texto}} </div>
@@ -32,7 +37,7 @@
                 <!-- DESCRIPCIÓN -->
                 <div class='label-input'>
                     <label>Descripción</label>
-                    <textarea #descripcion class="descripcion-input bg-secondary md-textarea-auto" mdbInput
+                    <textarea #descripcion class="descripcion-input md-textarea-auto" mdbInput
                         maxlength="1000">{{informacion.descripcion}}</textarea>
                 </div>
 
@@ -96,10 +101,6 @@
             </div>
         </div>
     </div>
-
-    
-    <!-- MODAL AGREGAR INFORMACIÓN-->
-
-
-    
 </ion-content>
+
+<!-- MODAL AGREGAR INFORMACIÓN-->

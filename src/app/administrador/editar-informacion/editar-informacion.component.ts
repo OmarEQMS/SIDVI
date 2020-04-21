@@ -7,7 +7,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
-import { AlertController } from '@ionic/angular';
+
 
 @Component({
     selector: 'app-editar-informacion',
@@ -27,7 +27,6 @@ export class EditarInformacionComponent implements OnInit {
         private sidvi: SIDVIServices,
         private activatedRoute: ActivatedRoute,
         private sanitizer: DomSanitizer,
-        public alertController: AlertController
     ) {
         this.virus = new Virus();
     }
@@ -167,8 +166,6 @@ export class EditarInformacionComponent implements OnInit {
                 );
             }
         });
-
-
     }
 
     handleFileInput(informacion: Informacion, files: FileList) {

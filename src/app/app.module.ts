@@ -26,7 +26,7 @@ import { InformacionComponent } from './components/informacion/informacion.compo
 import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
-
+import {MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
@@ -45,7 +45,8 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     InformacionComponent,
     MedicoVirusListComponent,
     EstadisticaComponent,
-    UbicacionListComponent
+    UbicacionListComponent,
+    MiConsultorioComponent
   ],
   entryComponents: [],
   imports: [

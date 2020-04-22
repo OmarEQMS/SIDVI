@@ -7,11 +7,13 @@ import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
+import {MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'virus', pathMatch: 'full' },
     { path: 'virus', component: VirusListAllComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'mi-consultorio', component: MiConsultorioComponent },
     { path: 'informacion/:idVirus', component: InformacionComponent },
     { path: 'medicos/:idVirus', component: MedicoVirusListComponent},
     { path: 'estadistica/:idVirus', component: EstadisticaComponent },

@@ -1,0 +1,45 @@
+.fondo{
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+
+}
+.card-body {
+    background-color: #C5ECFC;
+}
+
+form{
+    width: 80vw;
+    margin-top: 5%;
+}
+
+#imagenConsultorio{
+    min-height: 215px;
+    max-height: 215px;
+}
+
+.imagenConsultorioContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.preguntasDoctor{
+    min-height: 215px;
+    max-height: 215px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.icon{ /*https://www.flaticon.com/packs/contact-us-6*/
+    width: 20px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.form-control-file{
+    margin-top: 2px;
+}

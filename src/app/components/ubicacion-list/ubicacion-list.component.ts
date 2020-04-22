@@ -22,22 +22,7 @@ export class UbicacionListComponent implements OnInit {
         private sidvi: SIDVIServices
     ) { }
 
-    ngOnInit() { this.cargarUbicaciones(); }
-
-    cargarUbicaciones() {
-        if (this.ubicacion.ubicaciones != null) { return; }
-
-        this.sidvi.ubicacion.listarUbicaciones(this.ubicacion.idUbicacion).subscribe(
-            ubicaciones => {
-                this.ubicacion.ubicaciones = ubicaciones.resultados.map((item: any) => new Ubicacion(item));
-
-                for (const ubicacion of this.ubicacion.ubicaciones) {
-                    ubicacion.localSelected = this.ubicacion.localSelected;
-                    this.sidvi.ubicacion.listarUbicaciones(ubicacion.idUbicacion).subscribe(
-                        res => { if (res.total > 0) { ubicacion.localPadre = true; ubicacion.localIcono = this.icons.plus; }} );
-                }
-        });
-    }
+    ngOnInit() { }
 
     expandUbicacion(ubicacion: Ubicacion) {
         if (ubicacion.localVisible) {

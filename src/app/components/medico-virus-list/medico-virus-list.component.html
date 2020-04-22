@@ -1,53 +1,106 @@
 <ion-split-pane contentId='main'>
-    <ion-menu menuId='sidebar' contentId='main'>
-        <ion-content class='sidebar-menu'>
-            <div class='card text-center m-3 p-2'>
-                Ubicaciones
-            </div>            
-            <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
-            <div class='card text-center m-3 p-2'>
-                Nombre
-            </div>
-            <div class="form-group m-3">
-            <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="Ingrese un nombre">
-          </div>
-            <div class='text-center btn-primary m-3 p-2' (click)="filtrar()">
-                Filtrar
-            </div>   
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main">
-        <ion-header>
-            <ion-toolbar>
-                <ion-buttons slot="start">
-                    <ion-menu-button></ion-menu-button>
-                </ion-buttons>
-                <ion-title>
-                    <span>Médicos</span>
-                </ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <div class="d-flex justify-content-center contenedor">
-                <div class="d-flex justify-content-center contenedorMedico">
-                  <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let medicoVirus of medicosVirus">
-                    <div class="card text-center" >
-                      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                        {{medicoVirus.medico.nombreDoctor}}
-                      </div>
-                      <div class="card-body">
-                        <p>{{medicoVirus.medico.nombreConsultorio}}</p>                      
-                        <div class='mb-3 mt-2'>
-                            <img *ngIf="medicoVirus.medico.archivoIconoImg != null" class='imagen-icono' [src]="medicoVirus.medico.archivoIconoImg">
-                        </div>
-                      </div>
-                      <div class="card-footer ">
-                        {{medicoVirus.medico.direccionConsultorio}}
-                      </div>
-                    </div>
+  <ion-menu menuId='sidebar' contentId='main'>
+    <ion-content class='sidebar-menu'>
+      <div class='card text-center m-3 p-2'>
+        Ubicaciones
+      </div>
+      <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
+      <div class='card text-center m-3 p-2'>
+        Nombre
+      </div>
+      <div class="form-group m-3">
+        <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="Ingrese un nombre">
+      </div>
+      <div class='text-center btn-primary m-3 p-2 botonAzul' (click)="filtrar()">
+        Filtrar
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+          <span>Médicos</span>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="d-flex justify-content-center contenedor">
+        <div class="d-flex justify-content-center contenedorMedico">
+          <div class=" d-inline-block cartaVirus  m-3" *ngFor="let medicoVirus of medicosVirus">
+            <div class="card text-center">
+              <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center ta">
+                <div class="tamanoTitulo">
+                  {{medicoVirus.medico.nombreDoctor}}
+                </div>
+                <div>
+                  <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <p>{{medicoVirus.medico.nombreConsultorio}}</p>
+                <div class='mb-3 mt-2'>
+                  <img *ngIf="medicoVirus.medico.archivoIconoImg != null" class='imagen-icono'
+                    [src]="medicoVirus.medico.archivoIconoImg">
+                </div>
+              </div>
+              <div class="card-footer ">
+                {{medicoVirus.medico.direccionConsultorio}}
+                <div>
+                  <div class='text-center btn-primary m-3 p-2 botonAzul'
+                    (click)="localMedVirus = medicoVirus; modalEvaluarMedico.show(); redireccion();">
+                    Evaluar Médico
                   </div>
                 </div>
-              </div>  
-        </ion-content>
-    </ion-router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Agregar Curso -->
+      <div mdbModal #modalEvaluarMedico="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+        [config]="{backdrop: false, ignoreBackdropClick: true}">
+        <div class='modal-dialog' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <span class='modal-title tamanoTitulo'>Calificar a {{localMedVirus.medico.nombreDoctor}}</span>
+              <button type='button' class='close pull-right' aria-label='Close' (click)="modalEvaluarMedico.hide()">
+                <span aria-hidden='true'>×</span>
+              </button>
+            </div>
+            <div class='modal-body pl-3 pr-3 pb-3 d-flex justify-content-center'>
+              <span *ngIf="valoracionUsuario>=1" class="fa fa-star checked tamanoEstrella" (click)="evaluarMedico(1)"></span>
+              <span *ngIf="1>valoracionUsuario" class="fa fa-star tamanoEstrella" (click)="evaluarMedico(1)"></span>
+              <span *ngIf="valoracionUsuario>=2" class="fa fa-star checked tamanoEstrella" (click)="evaluarMedico(2)"></span>
+              <span *ngIf="2>valoracionUsuario" class="fa fa-star tamanoEstrella" (click)="evaluarMedico(2)"></span>
+              <span *ngIf="valoracionUsuario>=3" class="fa fa-star checked tamanoEstrella" (click)="evaluarMedico(3)"></span>
+              <span *ngIf="3>valoracionUsuario" class="fa fa-star tamanoEstrella" (click)="evaluarMedico(3)"></span>
+              <span *ngIf="valoracionUsuario>=4" class="fa fa-star checked tamanoEstrella" (click)="evaluarMedico(4)"></span>
+              <span *ngIf="4>valoracionUsuario" class="fa fa-star tamanoEstrella" (click)="evaluarMedico(4)"></span>
+              <span *ngIf="valoracionUsuario>=5" class="fa fa-star checked tamanoEstrella" (click)="evaluarMedico(5)"></span>
+              <span *ngIf="5>valoracionUsuario" class="fa fa-star tamanoEstrella" (click)="evaluarMedico(5)"></span>
+
+            </div>
+            <div class='modal-footer'>
+              <input id='btn-agregar-curso' type='button' class='btn btn-block calificar botonAzul'
+                (click)="enviarEvaluacion()" value='Enviar calificación'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ion-router-outlet>
 </ion-split-pane>

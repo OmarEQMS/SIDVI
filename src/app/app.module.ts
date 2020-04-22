@@ -89,5 +89,6 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
 export class AppModule {
   constructor(private manager: ManagerService) {
     manager.basePath = 'http://localhost:8000';
+    // manager.basePath = 'http://sidvi.omarquintero.com/api';
   }
 }

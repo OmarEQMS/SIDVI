@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
 
           // tslint:disable-next-line: triple-equals
           if (res.statusCode == 200) {
+            console.log(res);
             this._SIDVI.manager.setItems(res.extra.token, res.extra.usuario);
             this._router.navigate(['./administrador']);
           } else {

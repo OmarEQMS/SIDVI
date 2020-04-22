@@ -34,4 +34,8 @@ export class VirusListAllComponent implements OnInit {
     );
   }
 
+  RegistrarConsultorio(){
+    //Revisar si el usuario ya inicio sesion
+    console.log(this.SIDVI.manager.tokenUsuario);
+  }
 }

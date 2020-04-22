@@ -169,6 +169,8 @@ export class MedicoVirusListComponent implements OnInit {
                     this.valoracionUsuario = res.resultados[0].valoracion;
                     this.localIdValoracion = res.resultados[0].idValoracion;
                     this.yaEvaluo = true;
+                    console.log(this.valoracionUsuario);
+                    console.log(this.localIdValoracion);
                 }
             },
             err => {

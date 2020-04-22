@@ -11,4 +11,9 @@ export class MiConsultorioComponent implements OnInit {
 
   ngOnInit() {}
 
+  registrar()
+  {
+    
+  }
+
 }

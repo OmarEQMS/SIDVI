@@ -127,6 +127,7 @@ export class MedicoVirusListComponent implements OnInit {
                 res => {
                     this.modalEvaluarMedico.hide();
                     Swal.fire({title: 'Valoración registrada correctamente', icon: 'success', backdrop: false});
+                    this.obtenerEvaluacion();
                 },
                 err => {
                     console.log(err);
@@ -138,6 +139,7 @@ export class MedicoVirusListComponent implements OnInit {
                 res => {
                     this.modalEvaluarMedico.hide();
                     Swal.fire({title: 'Valoración registrada correctamente', icon: 'success', backdrop: false});
+                    this.obtenerEvaluacion();
                 },
                 err => {
                     console.log(err);
@@ -183,7 +185,7 @@ export class MedicoVirusListComponent implements OnInit {
             this.promedioValoracion = 0;
             this.sidvi.valoracion.listarValoraciones(medicoVirus.idMedicoVirus, null).subscribe(
                 res => {
-                    if (res.total === 0){
+                    if (res.total === 0) {
                         medicoVirus.localPromValoracion = 0;
                         medicoVirus.localTotalValoracion = 0;
                     }   else {

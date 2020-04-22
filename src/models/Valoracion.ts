@@ -28,7 +28,6 @@ export class Valoracion implements IValoracion {
     usuario?: Usuario;
 
     // Relations: HasMany
-
     // Constructor
     constructor(valoracion?: any) {
         if (valoracion !== undefined) {

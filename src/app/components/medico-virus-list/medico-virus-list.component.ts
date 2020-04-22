@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
+import { SIDVIServices, Defaults, ContentTypeEnum, ManagerService } from 'src/api';
 import { Medico, MedicoVirus, Ubicacion, IUbicacion, Valoracion } from 'src/models';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { async } from '@angular/core/testing';
 import { MDBModalRef } from 'angular-bootstrap-md';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-medico-virus-list',
@@ -24,6 +25,11 @@ export class MedicoVirusListComponent implements OnInit {
     cal: number;
     localMedVirus: MedicoVirus;
     valoracion: Valoracion;
+    valoracionUsuario: Valoracion;
+    valoraciones: Valoracion[];
+    acumValoracion: number;
+    promedioValoracion: number;
+
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -34,7 +40,8 @@ export class MedicoVirusListComponent implements OnInit {
     constructor(
             private sidvi: SIDVIServices,
             private activatedRoute: ActivatedRoute,
-            private sanitizer: DomSanitizer
+            private sanitizer: DomSanitizer,
+            private router: Router
     ) {
         this.ubicacion = new Ubicacion({ idUbicacion: -1 } as IUbicacion);
         this.localMedVirus = new MedicoVirus();
@@ -48,6 +55,7 @@ export class MedicoVirusListComponent implements OnInit {
         this.nombre = null;
         await this.getUbicacionesHijo(this.ubicacion);
         this.filtraUbicaciones();
+
     }
 
 
@@ -84,6 +92,7 @@ export class MedicoVirusListComponent implements OnInit {
         this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds).subscribe(
         res => {
             this.medicosVirus = res.resultados.map((item: any) => new MedicoVirus(item));
+            this.obtenerEvaluacion();
             for (const medicoVirus of this.medicosVirus) {
                 if (medicoVirus.medico.archivoFoto != null) {
                     medicoVirus.medico.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -97,6 +106,7 @@ export class MedicoVirusListComponent implements OnInit {
 
         }
         );
+
     }
 
     evaluarMedico(valor: number) {
@@ -111,13 +121,47 @@ export class MedicoVirusListComponent implements OnInit {
         });
         this.sidvi.valoracion.crearValoracion(this.valoracion).subscribe(
             res => {
-                console.log(res);
                 this.modalEvaluarMedico.hide();
+                Swal.fire({title: 'Valoración registrada correctamente', icon: 'success', backdrop: false});
             },
             err => {
                 console.log(err);
+                Swal.fire({title: 'La valoración no se pudo registrar con éxito', icon: 'error', backdrop: false});
             }
             );
+    }
+
+    redireccion() {
+        if (this.sidvi.manager.usuario == null) {
+            Swal.fire({title: 'Primero debes iniciar sesión', icon: 'error', backdrop: false});
+            this.router.navigate(['login']);
+            this.modalEvaluarMedico.hide();
+        }
+    }
+
+
+    obtenerEvaluacion() {
+        for (const medicoVirus of this.medicosVirus) {
+            this.acumValoracion = 0;
+            this.promedioValoracion = 0;
+            this.sidvi.valoracion.listarValoraciones(medicoVirus.idMedicoVirus, null).subscribe(
+                res => {
+                    this.valoraciones = res.resultados.map((item: any) => new Valoracion(item));
+                    console.log(this.valoraciones);
+                    for (const valoracion of this.valoraciones) {
+                        this.acumValoracion += valoracion.valoracion;
+                    }
+                    this.promedioValoracion = this.acumValoracion / this.valoraciones.length;
+                    medicoVirus.localAcumValoracion = this.acumValoracion;
+                    medicoVirus.localPromValoracion = this.promedioValoracion;
+                    medicoVirus.localTotalValoracion = this.valoraciones.length;
+                },
+                err => {
+                    console.log(err);
+                }
+                );
+        }
+
     }
 
 }

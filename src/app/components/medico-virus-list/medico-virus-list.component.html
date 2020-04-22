@@ -47,8 +47,7 @@
                   <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
                   <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
                   <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <p>{{medicoVirus.localPromValoracion}} de promedio basado en {{medicoVirus.localTotalValoracion}}
-                    valoraciones.</p>
+                  <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
                 </div>
               </div>
               <div class="card-body">

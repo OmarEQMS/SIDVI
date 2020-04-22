@@ -2,6 +2,7 @@ import { Virus } from './Virus';
 import { Ubicacion } from './Ubicacion';
 import { CategoriaEstadistica } from './CategoriaEstadistica';
 import { ContentTypeEnum, Defaults } from '../api/API';
+import { DatePipe } from '@angular/common';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Estadistica {
@@ -33,6 +34,10 @@ export class Estadistica implements IEstadistica {
 
     // Relations: HasMany
 
+    // Local
+    localFecha: string;
+    localDatePipe = new DatePipe('en-US');
+
     // Constructor
     constructor(estadistica?: any) {
         if (estadistica !== undefined) {
@@ -41,21 +46,22 @@ export class Estadistica implements IEstadistica {
             this.fkUbicacion = estadistica.fkUbicacion;
             this.fkCategoriaEstadistica = estadistica.fkCategoriaEstadistica;
             this.valor = estadistica.valor;
-            this.fecha = estadistica.fecha;
+            this.fecha = new Date(estadistica.fecha);
+            this.localFecha = this.localDatePipe.transform(this.fecha, 'yyyy-MM-dd');
             // Relations
             this.categoriaEstadistica = new CategoriaEstadistica(estadistica.categoriaEstadistica);
         }
     }
 
     // ToObjectDB
-    toObjectDB(){
+    toObjectDB() {
         return {
             idEstadistica: this.idEstadistica,
             fkVirus: this.fkVirus,
             fkUbicacion: this.fkUbicacion,
             fkCategoriaEstadistica: this.fkCategoriaEstadistica,
             valor: this.valor,
-            fecha: this.fecha
-        }
+            fecha: this.fecha // new Date(this.localFecha);
+        };
     }
 }

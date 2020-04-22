@@ -34,9 +34,10 @@ export class MedicoVirusListComponent implements OnInit {
     }
 
     ngOnInit() { }
-    ionViewWillEnter() {
+    async ionViewWillEnter() {
         this.ubicacionesIds = null;
         this.nombre = null;
+        await this.getUbicacionesHijo(this.ubicacion);
         this.filtraUbicaciones();
     }
 
@@ -49,23 +50,22 @@ export class MedicoVirusListComponent implements OnInit {
     }
     async collectIds(ubicacion: Ubicacion) {
         if (ubicacion.localSelected) {
-        this.ubicacionesIds.push(ubicacion.idUbicacion);
-        if (ubicacion.ubicaciones == null) {
-            await this.getUbicacionesHijo(ubicacion);
-        }
+            this.ubicacionesIds.push(ubicacion.idUbicacion);
         }
         if (ubicacion.ubicaciones == null) { return; }
         for (const ubi of ubicacion.ubicaciones) {
-        this.collectIds(ubi);
+            this.collectIds(ubi);
         }
     }
+
     async getUbicacionesHijo(ubicacion: Ubicacion) {
         const result = await this.sidvi.ubicacion.listarUbicaciones(ubicacion.idUbicacion).toPromise();
         ubicacion.ubicaciones = result.resultados.map((item: any) => new Ubicacion(item));
+        if (result.total > 0) { ubicacion.localPadre = true; ubicacion.localIcono = this.icons.plus; }
+
         for (const ubi of ubicacion.ubicaciones) {
-        ubi.localSelected = ubicacion.localSelected;
-        this.sidvi.ubicacion.listarUbicaciones(ubicacion.idUbicacion).subscribe(
-            res => { if (res.total > 0) { ubi.localPadre = true; ubi.localIcono = this.icons.plus; } });
+            ubi.localSelected = ubicacion.localSelected;
+            await this.getUbicacionesHijo(ubi);
         }
     }
 

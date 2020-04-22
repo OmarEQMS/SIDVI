@@ -3,6 +3,8 @@ import { ContentTypeEnum, Defaults } from '../api/API';
 import { Medico } from './Medico';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Estadistica } from './Estadistica';
+import { DatePipe } from '@angular/common';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Ubicacion {
@@ -38,9 +40,10 @@ export class Ubicacion implements IUbicacion {
     localVisible: boolean;
     localIcono: IconDefinition;
     localPadre: boolean;
+    localEstadistica: Estadistica;
 
     // Constructor
-    constructor(ubicacion?: any) {
+    constructor(ubicacion?: any, ubicaciones?: Ubicacion[], localEstadistica?: Estadistica) {
         if (ubicacion !== undefined) {
             this.idUbicacion = ubicacion.idUbicacion;
             this.fkUbicacion = ubicacion.fkUbicacion;
@@ -49,7 +52,17 @@ export class Ubicacion implements IUbicacion {
             this.latitud = ubicacion.latitud;
             this.longitud = ubicacion.longitud;
         }
-        this.localSelected = false;
+        if (ubicaciones != null) {
+            this.ubicaciones = ubicaciones.map((item: Ubicacion) => new Ubicacion(item, item.ubicaciones, item.localEstadistica));
+        }
+        if (localEstadistica != null) {
+            this.localEstadistica = new Estadistica(localEstadistica);
+        }
+        if (ubicacion.localSelected != null) {
+            this.localSelected = ubicacion.localSelected;
+        } else {
+            this.localSelected = true;
+        }
         this.localVisible = false;
         this.localPadre = false;
         this.localIcono = faMinus;

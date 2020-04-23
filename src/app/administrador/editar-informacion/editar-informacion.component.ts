@@ -7,6 +7,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class EditarInformacionComponent implements OnInit {
     virus: Virus;
     categorias: CategoriaInformacion[];
     addFileName: string;
+    addInfoForm: FormGroup;
+    addFile: FileList;
+    addInformacion: Informacion;
 
     icons: { [id: string]: IconDefinition } = {
         zoomIn: faSearchPlus,
@@ -32,6 +36,11 @@ export class EditarInformacionComponent implements OnInit {
     ) {
         this.virus = new Virus();
         this.addFileName = 'Choose file';
+        this.addInfoForm = new FormGroup({
+            texto: new FormControl('', Validators.required),
+            categoria: new FormControl('', Validators.required),
+            descripcion: new FormControl('', Validators.required)
+        });
     }
 
     ngOnInit() {
@@ -107,7 +116,7 @@ export class EditarInformacionComponent implements OnInit {
 
                     // Checar si se subio un doc
                     if (informacion.localFile != null) {
-                        this.actualizarInformacion(informacion);
+                        this.actualizarInformacionArchivo(informacion);
                         informacion.localFile = null;
                         informacion.localFileName = 'Choose file';
                         return;
@@ -127,7 +136,7 @@ export class EditarInformacionComponent implements OnInit {
         );
     }
 
-    actualizarInformacion(informacion: Informacion) {
+    actualizarInformacionArchivo(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
                 if (res) {
@@ -189,8 +198,58 @@ export class EditarInformacionComponent implements OnInit {
 
     handleAddFileInput(files: FileList) {
         if (files[0] != null) {
+            this.addFile = files;
             this.addFileName = files[0].name;
         }
+    }
+
+    agregar() {
+
+        const formVals = this.addInfoForm.value;
+
+        this.addInformacion = new Informacion();
+        this.addInformacion.texto = formVals.texto;
+        this.addInformacion.descripcion = formVals.descripcion;
+        this.addInformacion.fkVirus = this.virus.idVirus;
+        this.addInformacion.fkCategoriaInformacion = formVals.categoria;
+
+        /*this.sidvi.categoriaInformacion.obtenerCategoriaInformacion(formVals.categoria).subscribe(
+            res => {
+                this.addInformacion.categoriaInformacion = res;
+            },
+            error => {
+                console.error(error);
+            }
+        );*/
+
+        this.sidvi.informacion.crearInformacion(this.addInformacion).subscribe(
+            results => {
+                if (results) {
+
+                    // Checar si se subio un doc
+                    /*if (informacion.localFile != null) {
+                        this.actualizarInformacion(informacion);
+                        informacion.localFile = null;
+                        informacion.localFileName = 'Choose file';
+                        return;
+                    }*/
+
+                    // tslint:disable-next-line: max-line-length
+                    Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                        if (result.value) {
+                            this.listarVirus();
+                        }
+                    });
+                }
+            },
+            error => {
+                alert('No se pudo loguear');
+            }
+        );
+    }
+
+    agregarInformacionArchivo(idInformacion: number) {
+
     }
 
 }

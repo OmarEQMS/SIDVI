@@ -24,6 +24,11 @@ export class MedicoVirus implements IMedicoVirus {
     virus?: Virus;
     // Relations: HasMany
 
+    // Extra
+    localPromValoracion?: number;
+    localAcumValoracion?: number;
+    localTotalValoracion?: number;
+
     // Constructor
     constructor(medicoVirus?: any) {
         if (medicoVirus !== undefined) {

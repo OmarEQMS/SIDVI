@@ -6,6 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
+import Swal from 'sweetalert2';
+
 
 @Component({
     selector: 'app-editar-informacion',
@@ -24,7 +26,7 @@ export class EditarInformacionComponent implements OnInit {
     constructor(
         private sidvi: SIDVIServices,
         private activatedRoute: ActivatedRoute,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
     ) {
         this.virus = new Virus();
     }
@@ -32,8 +34,7 @@ export class EditarInformacionComponent implements OnInit {
     ngOnInit() {
         this.listarVirus();
     }
-    
-    
+
     listarVirus() {
         this.virus.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.sidvi.virus.obtenerVirus(this.virus.idVirus).subscribe(
@@ -100,8 +101,12 @@ export class EditarInformacionComponent implements OnInit {
                         return;
                     }
 
-                    // Mostrar un sweetalert de que se actualizó (si se puede como juliox en cuestionarios)
-                    console.log('Información actualizada correctamente');
+                    // tslint:disable-next-line: max-line-length
+                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                        if (result.value) {
+                            this.listarVirus();
+                        }
+                    });
                 }
             },
             error => {
@@ -114,8 +119,12 @@ export class EditarInformacionComponent implements OnInit {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
                 if (res) {
-                    console.log('Archivos actualizados correctamente');
-                    this.listarVirus();
+                    // tslint:disable-next-line: max-line-length
+                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                        if (result.value) {
+                            this.listarVirus();
+                        }
+                    });
                 }
             },
             error => {
@@ -125,7 +134,38 @@ export class EditarInformacionComponent implements OnInit {
     }
 
     eliminar(informacion: Informacion) {
-
+        // Mostrar mensaje de confirmación
+        Swal.fire({
+            title: 'Confirmación',
+            text: '¿Estás seguro que quieres eliminar esta información?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText: 'Cancelar',
+            heightAuto: false
+        }).then((result) => {
+            if (result.value) {
+                this.sidvi.informacion.eliminarInformacion(informacion.idInformacion).subscribe(
+                    res => {
+                        if (res && res.type == 'SUCCESS') {
+                            Swal.fire({
+                                title: 'Borrado completo',
+                                text: 'El bloque de información ha sido eliminado exitosamente',
+                                icon: 'success',
+                                heightAuto: false
+                            }).then((results) => {
+                                this.listarVirus();
+                            });
+                        }
+                    },
+                    error => {
+                        alert('No se pudo eliminar');
+                    }
+                );
+            }
+        });
     }
 
     handleFileInput(informacion: Informacion, files: FileList) {

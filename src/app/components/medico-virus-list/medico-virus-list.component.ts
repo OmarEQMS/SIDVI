@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
-import { Medico, MedicoVirus, Ubicacion, IUbicacion } from 'src/models';
+import { SIDVIServices, Defaults, ContentTypeEnum, ManagerService } from 'src/api';
+import { Medico, MedicoVirus, Ubicacion, IUbicacion, Valoracion } from 'src/models';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { async } from '@angular/core/testing';
+import { MDBModalRef } from 'angular-bootstrap-md';
+import Swal from 'sweetalert2';
+import { empty } from 'rxjs';
 
 @Component({
     selector: 'app-medico-virus-list',
@@ -13,11 +16,22 @@ import { async } from '@angular/core/testing';
     styleUrls: ['./medico-virus-list.component.scss'],
 })
 export class MedicoVirusListComponent implements OnInit {
+    @ViewChild('modalEvaluarMedico', null) modalEvaluarMedico: MDBModalRef;
+
     medicosVirus: MedicoVirus[];
     idVirus: number;
     nombre: string;
     ubicacion: Ubicacion;
     ubicacionesIds: number[];
+    localMedVirus: MedicoVirus;
+    valoracion: Valoracion;
+    valoracionUsuario: number;
+    valoraciones: Valoracion[];
+    acumValoracion: number;
+    promedioValoracion: number;
+    yaEvaluo: boolean;
+    localIdValoracion: number;
+
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -28,9 +42,16 @@ export class MedicoVirusListComponent implements OnInit {
     constructor(
             private sidvi: SIDVIServices,
             private activatedRoute: ActivatedRoute,
-            private sanitizer: DomSanitizer
+            private sanitizer: DomSanitizer,
+            private router: Router
     ) {
         this.ubicacion = new Ubicacion({ idUbicacion: -1 } as IUbicacion);
+        this.localMedVirus = new MedicoVirus();
+        this.localMedVirus.medico = new Medico();
+        this.yaEvaluo = false;
+        this.acumValoracion = 0;
+        this.promedioValoracion = 0;
+
     }
 
     ngOnInit() { }
@@ -39,6 +60,7 @@ export class MedicoVirusListComponent implements OnInit {
         this.nombre = null;
         await this.getUbicacionesHijo(this.ubicacion);
         this.filtraUbicaciones();
+
     }
 
 
@@ -48,7 +70,8 @@ export class MedicoVirusListComponent implements OnInit {
         console.log(this.ubicacionesIds);
         this.filtraUbicaciones();
     }
-    async collectIds(ubicacion: Ubicacion) {
+
+    collectIds(ubicacion: Ubicacion) {
         if (ubicacion.localSelected) {
             this.ubicacionesIds.push(ubicacion.idUbicacion);
         }
@@ -69,16 +92,16 @@ export class MedicoVirusListComponent implements OnInit {
         }
     }
 
-    async filtraUbicaciones() {
+    filtraUbicaciones() {
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds).subscribe(
         res => {
             this.medicosVirus = res.resultados.map((item: any) => new MedicoVirus(item));
+            this.obtenerEvaluacion();
             for (const medicoVirus of this.medicosVirus) {
                 if (medicoVirus.medico.archivoFoto != null) {
                     medicoVirus.medico.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(
                         medicoVirus.medico.archivoFoto as string);
-                    console.log(medicoVirus.medico.archivoIconoImg);
                 }
             }
         },
@@ -87,6 +110,104 @@ export class MedicoVirusListComponent implements OnInit {
 
         }
         );
+    }
+
+    evaluarMedico(valor: number) {
+        this.valoracionUsuario = valor;
+    }
+
+    enviarEvaluacion() {
+        this.valoracion = new Valoracion({
+            fkMedicoVirus: this.localMedVirus.idMedicoVirus,
+            fkUsuario: 1,
+            valoracion: this.valoracionUsuario
+        });
+        if (this.yaEvaluo) {
+            this.sidvi.valoracion.actualizarValoracion(this.localIdValoracion, this.valoracion).subscribe(
+                res => {
+                    this.modalEvaluarMedico.hide();
+                    Swal.fire({title: 'Valoración registrada correctamente', icon: 'success', backdrop: false});
+                    this.obtenerEvaluacion();
+                },
+                err => {
+                    console.log(err);
+                    Swal.fire({title: 'La valoración no se pudo registrar con éxito', icon: 'error', backdrop: false});
+                }
+                );
+        } else {
+            this.sidvi.valoracion.crearValoracion(this.valoracion).subscribe(
+                res => {
+                    this.modalEvaluarMedico.hide();
+                    Swal.fire({title: 'Valoración registrada correctamente', icon: 'success', backdrop: false});
+                    this.obtenerEvaluacion();
+                },
+                err => {
+                    console.log(err);
+                    Swal.fire({title: 'La valoración no se pudo registrar con éxito', icon: 'error', backdrop: false});
+                }
+                );
+        }
+
+    }
+
+    redireccion() {
+        if (this.sidvi.manager.usuario == null) {
+            Swal.fire({title: 'Primero debes iniciar sesión', icon: 'error', backdrop: false});
+            this.router.navigate(['login']);
+            this.modalEvaluarMedico.hide();
+        } else {
+            this.obtenerEvaluacionModal();
+        }
+    }
+
+
+    obtenerEvaluacionModal() {
+        this.sidvi.valoracion.listarValoraciones(this.localMedVirus.idMedicoVirus, this.sidvi.manager.usuario.idUsuario).subscribe(
+            res => {
+                if (res.total === 0) {
+                    this.valoracionUsuario = 0;
+                    this.yaEvaluo = false;
+                } else {
+                    this.valoracionUsuario = res.resultados[0].valoracion;
+                    this.localIdValoracion = res.resultados[0].idValoracion;
+                    this.yaEvaluo = true;
+                    console.log(this.valoracionUsuario);
+                    console.log(this.localIdValoracion);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+            );
+    }
+
+    obtenerEvaluacion() {
+        for (const medicoVirus of this.medicosVirus) {
+            this.acumValoracion = 0;
+            this.promedioValoracion = 0;
+            this.sidvi.valoracion.listarValoraciones(medicoVirus.idMedicoVirus, null).subscribe(
+                res => {
+                    if (res.total === 0) {
+                        medicoVirus.localPromValoracion = 0;
+                        medicoVirus.localTotalValoracion = 0;
+                    }   else {
+                        this.valoraciones = res.resultados.map((item: any) => new Valoracion(item));
+                        for (const valoracion of this.valoraciones) {
+                            this.acumValoracion += valoracion.valoracion;
+                        }
+                        this.promedioValoracion = this.acumValoracion / this.valoraciones.length;
+                        medicoVirus.localAcumValoracion = this.acumValoracion;
+                        medicoVirus.localPromValoracion = this.promedioValoracion;
+                        medicoVirus.localTotalValoracion = this.valoraciones.length;
+                    }
+
+                },
+                err => {
+                    console.log(err);
+                }
+                );
+        }
+
     }
 
 }

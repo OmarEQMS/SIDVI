@@ -10,7 +10,7 @@ export namespace _Valoracion {
 
 export interface IValoracion {
     idValoracion?: number;
-    fkMedico?: number;
+    fkMedicoVirus?: number;
     fkUsuario?: number;
     valoracion?: number;
 }
@@ -28,7 +28,6 @@ export class Valoracion implements IValoracion {
     usuario?: Usuario;
 
     // Relations: HasMany
-
     // Constructor
     constructor(valoracion?: any) {
         if (valoracion !== undefined) {

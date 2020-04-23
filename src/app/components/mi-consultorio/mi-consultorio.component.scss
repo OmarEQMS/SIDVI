@@ -1,8 +1,11 @@
-.fondo{
+ion-split-pane{
     margin-top: 70px;
+}
+.fondo{
     display: flex;
     justify-content: center;
-
+    margin-right:5% ;
+    margin-left:5% ;
 }
 .card-body {
     background-color: #C5ECFC;
@@ -10,12 +13,12 @@
 
 form{
     width: 80vw;
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 #imagenConsultorio{
-    min-height: 215px;
-    max-height: 215px;
+    min-height: 200px;
+    max-height: 200px;
 }
 
 .imagenConsultorioContainer {
@@ -24,8 +27,8 @@ form{
 }
 
 .preguntasDoctor{
-    min-height: 215px;
-    max-height: 215px;
+    min-height: 200px;
+    max-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -52,4 +55,35 @@ form{
 .columna{
     display:flex;
     flex-direction: column;
+}
+.lista{
+    height: 100%;
+}
+.btn-icono {
+    width: 15%;
+    padding: 0px;
+    font-size: 14px;
+    color:#101010;
+    text-align: center;
+}
+.btn-text {
+    width: 85%;
+    height: 100%;
+    padding-left: 0px;
+    font-size: 15px !important;
+    color: #000000;
+}
+.btn-item:hover {
+    background-color: #2B94C0;
+}
+.btn-item-selected {
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #66c2ff;
+}
+.btn-item {
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }

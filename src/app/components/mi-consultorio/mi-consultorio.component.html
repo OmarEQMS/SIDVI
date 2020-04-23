@@ -1,99 +1,174 @@
-<div class="fondo">
-  <form [formGroup]="consultorioForm" >
-    
-    <div class="row">
-      <div class="col col-md-4">
-        <div class="imagenConsultorioContainer">
-          <img id="imagenConsultorio" src="https://guiamamaybebe.com/wp-content/uploads/2018/01/no-imagen.jpg" alt="imagen del consultorio">
-        </div>
-        <div class="form-group">
-          <input type="file" class="form-control-file" id=""  formControlName="imagen">
-        </div>
+<ion-split-pane contentId="main">
+  <!--  our side menu  -->
+  <ion-menu contentId="main">
+    <div class='card text-center m-3 p-2'>
+      Consultorios
+  </div>
+
+    <div  class="lista" *ngFor="let con of consultoriosList" >
+        <div [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con }"  (click)= verConsultorio(con)>
+          <fa-icon class='btn-icono d-inline-block' [icon]="localIcono"></fa-icon>
+          <div class='btn-text d-inline-block' >{{con.nombreConsultorio}}</div>
+        </div> 
+    </div>
+    <div class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="crearConsultorioF()">
+      Registrar Consultorio
+    </div>
+  </ion-menu>
+
+  <!-- the main content -->
+  <ion-router-outlet id="main" >
+    <ion-header>
+      <ion-toolbar>
+          <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+              <span>Consultorio</span>
+          </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+      <div class="fondo" *ngIf="crearConsultorio; else verDetalles">
+        <form [formGroup]="consultorioForm" >
+          
+          <div class="row">
+            <div class="col col-md-4">
+              <div class="imagenConsultorioContainer">
+                <img id="imagenConsultorio" src="https://guiamamaybebe.com/wp-content/uploads/2018/01/no-imagen.jpg" alt="imagen del consultorio">
+              </div>
+              <div class="form-group">
+                <input type="file" class="form-control-file" id=""  formControlName="imagen">
+              </div>
+            </div>
+      
+            <div class="col col-md-8 preguntasDoctor">
+             
+              <div class="input-group columna">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                  </div>
+                  <input type="text" id="nombreDr" name="nombreDr"  placeholder="Nombre del doctor" class="form-control" id="" aria-describedby="inputGroupPrepend" formControlName="nombreDr" required>
+                </div>
+                <div class="feedback"  *ngIf="consultorioForm.controls.nombreDr.errors && (consultorioForm.controls.nombreDr.touched || hayErrores)">
+                  <div  *ngIf="consultorioForm.controls.nombreDr.errors.required">
+                    Ingresa el nombre del doctor.            
+                  </div>
+                </div>
+              </div>
+        
+              <div class="input-group columna">
+                <div  class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/paper.png" alt="doctor pin" class="icon"></span>
+                  </div>
+                  <input type="text" placeholder="Cédula del doctor" class="form-control" id="" aria-describedby="inputGroupPrepend"  formControlName="cedula" required>
+                </div>
+                <div class="feedback"  *ngIf="consultorioForm.controls.cedula.errors && (consultorioForm.controls.cedula.touched || hayErrores)">
+                  <div  *ngIf="consultorioForm.controls.cedula.errors.required">
+                    Ingresa la cédula profesional.
+                  </div>  
+                </div>
+              </div>
+        
+              <div class="input-group columna">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/hospital.png" alt="doctor pin" class="icon"></span>
+                  </div>
+                  <input type="text" id="nombreConsultorio" name="nombreConsultorio"  placeholder="Nombre del consultorio" class="form-control" id="" aria-describedby="inputGroupPrepend" formControlName="nombreConsultorio" required>
+                </div>
+                <div class="feedback"  *ngIf="consultorioForm.controls.nombreConsultorio.errors && (consultorioForm.controls.nombreConsultorio.touched || hayErrores)">
+                  <div  *ngIf="consultorioForm.controls.nombreConsultorio.errors.required">
+                    Ingresa el nombre del consultorio.            
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="input-group columna">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/phone.png" alt="phone pin" class="icon"></span>
+                  </div>
+                  <input type="text" placeholder="Teléfono del consultorio" class="form-control" id="" aria-describedby="inputGroupPrepend"  formControlName="telefono" required>
+                </div>
+                <div class="feedback"  *ngIf="consultorioForm.controls.telefono.errors && (consultorioForm.controls.telefono.touched || hayErrores)">
+                  <div *ngIf="consultorioForm.controls.telefono.errors.required">
+                    Ingresa el teléfono.
+                  </div> 
+                </div>
+              </div>
+            </div>
+          
+          </div>    
+      
+          <div class="input-group columna">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
+              </div>
+              <input type="text" placeholder="Dirección de consultorio" class="form-control" id=""  formControlName="direccion" aria-describedby="inputGroupPrepend" required>
+            </div>
+            <div class="feedback"   *ngIf="consultorioForm.controls.direccion.errors && (consultorioForm.controls.direccion.touched || hayErrores)">
+              <div *ngIf="consultorioForm.controls.direccion.errors.required">
+                Ingresa una ubicacion.
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <select id="inputState" class="form-control">
+                <option selected>País</option>
+                <option [value]="pais" (click)=obtenerMunicipios(pais.idUbicacion) *ngFor="let pais of paises">{{pais.nombre}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <select id="inputState" class="form-control">
+                <option selected>Municipio</option>
+                <option [value]="municipio" (click)=obtenerCiudades(municipio.idUbicacion) *ngFor="let municipio of municipios">{{municipio.nombre}}</option>
+              </select>          
+            </div>
+            <div class="col">
+              <select id="inputState" class="form-control" formControlName="ubicacion" required>
+                <option  selected>Ciudad</option>
+                <option [value]="ciudad.idUbicacion" *ngFor="let ciudad of ciudades">{{ciudad.nombre}}</option>
+              </select>    
+              <div class="feedback"   *ngIf="consultorioForm.controls.ubicacion.errors && (consultorioForm.controls.ubicacion.touched || hayErrores)">
+                <div *ngIf="consultorioForm.controls.ubicacion.errors.required">
+                  Ingresa una ciudad.
+                </div>
+              </div>       
+            </div>
+          </div>
+          <br>
+          <div class="form-group columna">
+            <textarea placeholder="Descripcion o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
+            <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
+              <div *ngIf="consultorioForm.controls.descripcion.errors.required">
+                Ingresa una descripcion.
+              </div>
+            </div>
+          </div>
+      
+          <div class="buttons">
+            <div class="btn btn-info d-inline-block text-white m-1">
+              Vista Previa
+            </div>
+            <div class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
+              Registrar
+            </div>
+          </div>
+        </form>
       </div>
-
-      <div class="col col-md-8 preguntasDoctor">
-       
-        <div class="input-group columna">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
-            </div>
-            <input type="text" id="nombre" name="nombre"  placeholder="Nombre del doctor" class="form-control" id="" aria-describedby="inputGroupPrepend" formControlName="nombre" required>
-          </div>
-          <div class="feedback"  *ngIf="consultorioForm.controls.nombre.errors && (consultorioForm.controls.nombre.touched || hayErrores)">
-            <div  *ngIf="consultorioForm.controls.nombre.errors.required">
-              Ingresa el nombre del doctor.            
-            </div>
-          </div>
-         
-        </div>
-  
-        <div class="input-group columna">
-          <div  class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/paper.png" alt="doctor pin" class="icon"></span>
-            </div>
-            <input type="text" placeholder="Cédula del doctor" class="form-control" id="" aria-describedby="inputGroupPrepend"  formControlName="cedula" required>
-          </div>
-          <div class="feedback"  *ngIf="consultorioForm.controls.cedula.errors && (consultorioForm.controls.cedula.touched || hayErrores)">
-            <div  *ngIf="consultorioForm.controls.cedula.errors.required">
-              Ingresa la cédula profesional.
-            </div>  
-          </div>
-        </div>
-  
-        <div class="input-group columna">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/phone.png" alt="phone pin" class="icon"></span>
-            </div>
-            <input type="text" placeholder="Teléfono del consultorio" class="form-control" id="" aria-describedby="inputGroupPrepend"  formControlName="telefono" required>
-          </div>
-          <div class="feedback"  *ngIf="consultorioForm.controls.telefono.errors && (consultorioForm.controls.telefono.touched || hayErrores)">
-            <div *ngIf="consultorioForm.controls.telefono.errors.required">
-              Ingresa el teléfono.
-            </div> 
-          </div>
-        </div>
-      </div>
-
-
      
-    
-    </div>
-    
+      <ng-template class="fondo" #verDetalles>
+        Detalles
+        {{consultorio.nombreConsultorio}}
+      </ng-template>
+  
+    </ion-router-outlet>
+</ion-split-pane>
 
-    <div class="input-group columna">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
-        </div>
-        <input type="text" placeholder="Dirección de consultorio" class="form-control" id=""  formControlName="direccion" aria-describedby="inputGroupPrepend" required>
-      </div>
-      <div class="feedback"   *ngIf="consultorioForm.controls.direccion.errors && (consultorioForm.controls.direccion.touched || hayErrores)">
-        <div *ngIf="consultorioForm.controls.direccion.errors.required">
-          Ingresa una ubicacion.
-        </div>
-      </div>
-    </div>
-    <br>
-
-    <div class="form-group columna">
-      <textarea placeholder="Descripcion o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
-      <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
-        <div *ngIf="consultorioForm.controls.descripcion.errors.required">
-          Ingresa una descripcion.
-        </div>
-      </div>
-    </div>
-
-    <div class="buttons">
-      <div class="btn btn-info d-inline-block text-white m-1">
-        Vista Previa
-      </div>
-      <div class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
-        Registrar
-      </div>
-    </div>
-  </form>
-</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Virus, Informacion } from 'src/models';
+import { Virus, Informacion, CategoriaInformacion } from 'src/models';
 import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 export class EditarInformacionComponent implements OnInit {
 
     virus: Virus;
+    categorias: CategoriaInformacion[];
+    addFileName: string;
 
     icons: { [id: string]: IconDefinition } = {
         zoomIn: faSearchPlus,
@@ -29,10 +31,12 @@ export class EditarInformacionComponent implements OnInit {
         private sanitizer: DomSanitizer,
     ) {
         this.virus = new Virus();
+        this.addFileName = 'Choose file';
     }
 
     ngOnInit() {
         this.listarVirus();
+        this.listCategoriasInfo();
     }
 
     listarVirus() {
@@ -63,6 +67,14 @@ export class EditarInformacionComponent implements OnInit {
                         }
                     });
             });
+    }
+
+    listCategoriasInfo() {
+        this.sidvi.categoriaInformacion.listarCategoriasInformacion().subscribe(
+            categoriasInfo => {
+                this.categorias = categoriasInfo.resultados;
+            }
+        );
     }
 
     onPlayerReady(informacion: Informacion, api: VgAPI) {
@@ -172,6 +184,12 @@ export class EditarInformacionComponent implements OnInit {
         if (files[0] != null) {
             informacion.localFile = files;
             informacion.localFileName = files[0].name;
+        }
+    }
+
+    handleAddFileInput(files: FileList) {
+        if (files[0] != null) {
+            this.addFileName = files[0].name;
         }
     }
 

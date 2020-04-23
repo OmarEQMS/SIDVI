@@ -119,7 +119,7 @@ export class MedicoVirusListComponent implements OnInit {
     enviarEvaluacion() {
         this.valoracion = new Valoracion({
             fkMedicoVirus: this.localMedVirus.idMedicoVirus,
-            fkUsuario: 1,
+            fkUsuario: this.sidvi.manager.usuario.idUsuario,
             valoracion: this.valoracionUsuario
         });
         if (this.yaEvaluo) {

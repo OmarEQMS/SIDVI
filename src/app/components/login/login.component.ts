@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SIDVIServices } from 'src/api';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { _Usuario } from 'src/models';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,11 @@ export class LoginComponent implements OnInit {
           if (res.statusCode == 200) {
             console.log(res);
             this._SIDVI.manager.setItems(res.extra.token, res.extra.usuario);
-            this._router.navigate(['./administrador']);
+            if (this._SIDVI.manager.usuario.rol === _Usuario.Rol.ADMINISTRADOR) {
+                this._router.navigate(['./administrador']);
+            } else {
+                this._router.navigate(['./virus']);
+            }
           } else {
             // tslint:disable-next-line: max-line-length
             Swal.fire({ title: 'Error', text: 'Nombre de usuario o contraseña inválidos. Redireccionando a página principal', icon: 'error', heightAuto: false }).then((result) => {

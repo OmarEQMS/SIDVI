@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import {Medico} from '../../../models/Medico';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { Ubicacion } from 'src/models';
+import { Ubicacion, IUbicacion } from 'src/models';
 @Component({
   selector: 'app-mi-consultorio',
   templateUrl: './mi-consultorio.component.html',
@@ -14,17 +14,18 @@ import { Ubicacion } from 'src/models';
 export class MiConsultorioComponent implements OnInit {
   consultorioForm: FormGroup; 
   hayErrores: boolean;    crearConsultorio: boolean=true;
+  ubicacion: Ubicacion;   ubicacionIds: Number[] = new Array;
   localIcono: IconDefinition;
   consultoriosList: Medico[]; consultorio: Medico;
-  paises: Ubicacion[] = []; municipios: Ubicacion[] = []; ciudades: Ubicacion[] = [];
   icons: { [id: string]: IconDefinition } = {
     plus: faChevronRight,
     minus: faChevronDown,
     guion: faMinus
   };
 
-  constructor(private _SIDVI: SIDVIServices, private _router: Router)
+  constructor(private sidvi: SIDVIServices, private _router: Router)
   { 
+    this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
     this.hayErrores=false;
     this.localIcono = this.icons.guion;
     this.consultorio = new Medico();
@@ -39,50 +40,39 @@ export class MiConsultorioComponent implements OnInit {
   ngOnInit() 
   {
     //TODO: checar si hay sesion iniciada, sino mandar a pagina de inicio
-    this._SIDVI.medico.listarMedicos(this._SIDVI.manager.usuario.idUsuario, null, null, null, null, null, null, null,null)
+    this.sidvi.medico.listarMedicos(this.sidvi.manager.usuario.idUsuario, null, null, null, null, null, null, null,null)
         .subscribe(res => {
           this.consultoriosList= res.resultados; 
         }, err =>{ console.log(err); });
-    this.obtenerPaises();
+    
+    }
 
+    async ionViewWillEnter() {
+      this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
+      await this.getUbicacionesHijo(this.ubicacion);
   }
 
-  obtenerPaises(){
-    this.municipios = []; this.ciudades = [];
-    this._SIDVI.ubicacion.listarUbicaciones(null, null, null, null, null)
-          .subscribe(res => {
-            res.resultados.forEach(el => {
-              if (!el.fkUbicacion) {this.paises.push(el); }
-            });
-          });
-  }
+  async getUbicacionesHijo(ubicacion: Ubicacion) {
+    const result = await this.sidvi.ubicacion.listarUbicaciones(ubicacion.idUbicacion).toPromise();
+    ubicacion.ubicaciones = result.resultados.map((item: any) => new Ubicacion(item));
+    if (result.total > 0) { ubicacion.localPadre = true; ubicacion.localIcono = this.icons.plus; ubicacion.localSelected=false; }
 
-  obtenerMunicipios(paisId: number){
-    this.municipios = []; this.ciudades = [];
-    this._SIDVI.ubicacion.listarUbicaciones(paisId, null, null, null, null)
-    .subscribe(res => {
-      res.resultados.forEach(el => {
-        if (el.fkUbicacion == paisId) {this.municipios.push(el);  }
-      });
-    });
-  }
-
-  obtenerCiudades(municipioId: number){
-    this._SIDVI.ubicacion.listarUbicaciones(municipioId, null, null, null, null)
-    .subscribe(res => {
-      res.resultados.forEach(el => {
-        if (el.fkUbicacion == municipioId) {this.ciudades.push(el);  }
-      });
-    });
-  }
+    for (const ubi of ubicacion.ubicaciones) {
+        ubi.localSelected = false; //ubicacion.localSelected;
+        await this.getUbicacionesHijo(ubi);
+        this.ubicacionIds.push(ubi.idUbicacion);
+      
+    }
+}
 
   registrar()
   {
+    console.log(this.consultorio);
     console.log("registrar " + this.consultorioForm.status );
     if  (this.consultorioForm.status ==  "VALID"){
       console.log( this.consultorioForm.value.ubicacion);
       this.hayErrores = false; 
-      this.consultorio.fkUsuario         = this._SIDVI.manager.usuario.idUsuario;
+      this.consultorio.fkUsuario         = this.sidvi.manager.usuario.idUsuario;
       this.consultorio.fkUbicacion       = this.consultorioForm.value.ubicacion;
       this.consultorio.nombreConsultorio = this.consultorioForm.value.nombreConsultorio;
       this.consultorio.nombreDoctor      = this.consultorioForm.value.nombreDr;
@@ -96,7 +86,7 @@ export class MiConsultorioComponent implements OnInit {
       }else{
         this.consultorio.archivoFoto = 'NULL'; console.log("part 2");//this.consultorioForm.value.imagen;
       }
-      this._SIDVI.medico.crearMedico(this.consultorio)
+      this.sidvi.medico.crearMedico(this.consultorio)
           .subscribe(res => {
             console.log("res");
             console.log(res);

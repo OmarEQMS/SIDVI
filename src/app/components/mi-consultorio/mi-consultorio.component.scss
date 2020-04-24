@@ -1,3 +1,4 @@
+
 ion-split-pane{
     margin-top: 70px;
 }
@@ -50,6 +51,7 @@ form{
 
 .feedback{
     color:red;
+    font-size: smaller;
 }
 
 .columna{
@@ -86,4 +88,23 @@ form{
     padding-left: 8px;
     padding-top: 3px;
     padding-bottom: 3px;
+}
+
+.card{
+    width: 100%;
+}
+.card-subtitle{
+    padding-top: 5px;
+}
+.lista{
+    padding-left: 5%;
+}
+.textCenterVertical{
+    position: absolute;
+    top: 20%;
+    left: 60px;
+}
+.header{
+    display: flex;
+    flex-direction: row;
 }

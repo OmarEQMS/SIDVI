@@ -43,6 +43,7 @@ export class MiConsultorioComponent implements OnInit {
         this.sidvi.medico.listarMedicos(this.sidvi.manager.usuario.idUsuario, null, null, null, null, null, null, null, null)
             .subscribe(res => {
             this.consultoriosList = res.resultados;
+            console.log(this.consultoriosList);
             }, err => { console.log(err); });
         }
 

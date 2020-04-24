@@ -10,10 +10,12 @@ export namespace _Medico {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
 
-    export type Estatus = 'ACEPTADO' | 'RECHAZADO';
+    export type Estatus = 'HABILITADO' | 'DESHABILITADO' | 'EN_ESPERA' | 'RECHAZADO';
     export const Estatus = {
-        ACEPTADO: 'ACEPTADO' as Estatus,
-        RECHAZADO: 'RECHAZADO' as Estatus
+        HABILITADO:     'HABILITADO'    as Estatus,
+        DESHABILITADO:  'DESHABILITADO' as Estatus,
+        EN_ESPERA:      'EN_ESPERA'     as Estatus,
+        RECHAZADO:      'RECHAZADO'     as Estatus
     };
 }
 
@@ -79,7 +81,9 @@ export class Medico implements IMedico {
 
     // ToObjectDB
     toObjectDB() {
+        console.log(this.estatus);
         return {
+            
             idMedico: this.idMedico,
             fkUsuario: this.fkUsuario,
             fkUbicacion: this.fkUbicacion,

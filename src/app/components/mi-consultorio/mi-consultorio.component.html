@@ -8,9 +8,9 @@
       </div>
       <div class="lista">
         <div   *ngFor="let con of consultoriosList" >
-          <div class="boton" [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con }"  (click)= verConsultorio(con)>
-            <div class="circulo"></div>
-            <div class='btn-text d-inline-block' >{{con.nombreConsultorio}}</div>
+          <div class="boton" [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con}"  (click)= verConsultorio(con)>
+            <div class="circulo" [ngClass]="{'habilitado': con.estatus === 'HABILITADO', 'deshabilitado': con.estatus === 'DESHABILITADO', 'en-proceso': con.estatus === 'EN_ESPERA'}"></div>
+            <div class='btn-text d-inline-block'  [ngClass]="{'cross': con.estatus === 'RECHAZADO'}"> {{con.nombreConsultorio}}</div>
           </div> 
         </div>
       </div>

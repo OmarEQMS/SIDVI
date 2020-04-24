@@ -81,17 +81,23 @@ form{
     border-radius: 50%;
     width: 10px;
     height: 10px;
+    margin-right:5px;
 }
-.circulo-rechazado {
+.rechazado {
     background: white;
 }
-.circulo-habilitado {
+.habilitado {
     background: green;
 }
-.circulo-en-proceso {
+.deshabilitado {
+    background: red;
+}
+.en-proceso {
     background: yellow;
 }
-
+.cross{
+    text-decoration: line-through;
+}
 .btn-text {
     width: 85%;
     height: 100%;

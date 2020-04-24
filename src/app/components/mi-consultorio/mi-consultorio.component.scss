@@ -59,7 +59,7 @@ form{
     flex-direction: column;
 }
 .lista{
-    height: 100%;
+  height: 100%;
 }
 .btn-icono {
     width: 15%;
@@ -68,21 +68,46 @@ form{
     color:#101010;
     text-align: center;
 }
+.boton{
+    margin-right: 5px;
+    color: grey;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.circulo{
+    background: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+.circulo-rechazado {
+    background: white;
+}
+.circulo-habilitado {
+    background: green;
+}
+.circulo-en-proceso {
+    background: yellow;
+}
+
 .btn-text {
     width: 85%;
     height: 100%;
     padding-left: 0px;
     font-size: 15px !important;
-    color: #000000;
 }
 .btn-item:hover {
-    background-color: #2B94C0;
+    color: black;
 }
 .btn-item-selected {
     padding-left: 8px;
     padding-top: 3px;
     padding-bottom: 3px;
     background-color: #66c2ff;
+    color: black;
+    border-radius: 2%;
 }
 .btn-item {
     padding-left: 8px;

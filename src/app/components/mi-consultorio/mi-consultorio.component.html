@@ -6,13 +6,14 @@
       <div class='card text-center m-3 p-2'>
         Consultorios
       </div>
-      
-      <div  class="lista" *ngFor="let con of consultoriosList" >
-        <div [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con }"  (click)= verConsultorio(con)>
-          <fa-icon class='btn-icono d-inline-block' [icon]="localIcono"></fa-icon>
-          <div class='btn-text d-inline-block' >{{con.nombreConsultorio}}</div>
-        </div> 
-    </div>
+      <div class="lista">
+        <div   *ngFor="let con of consultoriosList" >
+          <div class="boton" [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con }"  (click)= verConsultorio(con)>
+            <div class="circulo"></div>
+            <div class='btn-text d-inline-block' >{{con.nombreConsultorio}}</div>
+          </div> 
+        </div>
+      </div>
     <div class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="crearConsultorioF()">
       Registrar Consultorio
     </div>

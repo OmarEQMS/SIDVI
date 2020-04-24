@@ -51,17 +51,13 @@ export class Ubicacion implements IUbicacion {
             this.nombre = ubicacion.nombre;
             this.latitud = ubicacion.latitud;
             this.longitud = ubicacion.longitud;
+            this.localSelected = ubicacion.localSelected != null ? ubicacion.localSelected : true;
         }
         if (ubicaciones != null) {
             this.ubicaciones = ubicaciones.map((item: Ubicacion) => new Ubicacion(item, item.ubicaciones, item.localEstadistica));
         }
         if (localEstadistica != null) {
             this.localEstadistica = new Estadistica(localEstadistica);
-        }
-        if (ubicacion.localSelected != null) {
-            this.localSelected = ubicacion.localSelected;
-        } else {
-            this.localSelected = true;
         }
         this.localVisible = false;
         this.localPadre = false;

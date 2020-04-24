@@ -132,7 +132,7 @@
                 </div>
               </div>
               <div class="lista">
-                <app-ubicacion-list-picker [ubicacion]="ubicacion" [ubicacionIds]="ubicacionIds"></app-ubicacion-list-picker>
+                <app-ubicacion-list [ubicacion]="ubicacion" (selected)="ubicacionSelected($event)"></app-ubicacion-list>
               </div>
             </div>
           </div>

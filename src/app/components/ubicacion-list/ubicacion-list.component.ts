@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Ubicacion } from 'src/models';
 import { SIDVIServices } from 'src/api';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -11,6 +11,7 @@ import { faMinus, faChevronRight, faChevronDown } from '@fortawesome/free-solid-
 })
 export class UbicacionListComponent implements OnInit {
     @Input() ubicacion: Ubicacion;
+    @Output() selected = new EventEmitter<number>();
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -34,8 +35,13 @@ export class UbicacionListComponent implements OnInit {
         }
     }
 
+    emitUbicacion(idUbicacion: number) {
+        this.selected.emit(idUbicacion);
+    }
+
     selectUbicacion(ubicacion: Ubicacion) {
         this.changeUbicacion(ubicacion, !ubicacion.localSelected);
+        this.selected.emit(ubicacion.idUbicacion);
     }
 
     changeUbicacion(ubicacion: Ubicacion, select: boolean) {

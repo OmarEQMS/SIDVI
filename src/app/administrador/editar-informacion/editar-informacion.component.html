@@ -130,7 +130,7 @@
                         <div class='label-input'>
                             <label>Categoría</label>
                             <select formControlName="categoria" class="custom-select">
-                                <option disabled selected>Categoría</option>
+                                <option disabled [selected]="true">Categoría</option>
                                 <option *ngFor="let categoria of categorias;"
                                     [value]="categoria.idCategoriaInformacion">{{categoria.nombre}}</option>
                             </select>

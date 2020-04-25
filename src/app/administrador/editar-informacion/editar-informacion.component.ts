@@ -44,6 +44,7 @@ export class EditarInformacionComponent implements OnInit {
             categoria: new FormControl('', Validators.required),
             descripcion: new FormControl('', Validators.required)
         });
+        this.addInfoForm.controls.categoria.setValue('Categoría', {onlySelf: true});
     }
 
     ngOnInit() {
@@ -240,6 +241,8 @@ export class EditarInformacionComponent implements OnInit {
         this.addInfoForm.reset();
         this.addFile = null;
         this.addFileName = 'Choose file';
+        this.addInfoForm.value.categoria = 0;
+        this.addInfoForm.controls.categoria.setValue('Categoría', {onlySelf: true});
     }
 
     agregarInformacionArchivo(idInformacion: number) {

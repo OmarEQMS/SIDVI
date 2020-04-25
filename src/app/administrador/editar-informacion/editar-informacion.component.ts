@@ -140,14 +140,12 @@ export class EditarInformacionComponent implements OnInit {
     actualizarInformacionArchivo(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
-                if (res) {
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
-                }
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                    }
+                });
             },
             error => {
                 alert('Los archivos no se pudieron actualizar');
@@ -218,12 +216,10 @@ export class EditarInformacionComponent implements OnInit {
             results => {
 
                 // Checar si se subio un doc
-                /*if (informacion.localFile != null) {
-                    this.actualizarInformacion(informacion);
-                    informacion.localFile = null;
-                    informacion.localFileName = 'Choose file';
+                if (this.addFile != null) {
+                    this.agregarInformacionArchivo(results.extra.insertedId);
                     return;
-                }*/
+                }
 
                 // tslint:disable-next-line: max-line-length
                 Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
@@ -242,10 +238,25 @@ export class EditarInformacionComponent implements OnInit {
     resetModal() {
         this.basicModal.hide();
         this.addInfoForm.reset();
+        this.addFile = null;
+        this.addFileName = 'Choose file';
     }
 
     agregarInformacionArchivo(idInformacion: number) {
-
+        this.sidvi.informacion.cargarInformacionArchivo(idInformacion, this.addFile[0]).subscribe(
+            res => {
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                        this.resetModal();
+                    }
+                });
+            },
+            error => {
+                alert('Los archivos no se pudieron actualizar');
+            }
+        );
     }
 
 }

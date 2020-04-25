@@ -211,16 +211,7 @@ export class EditarInformacionComponent implements OnInit {
         this.addInformacion.texto = formVals.texto;
         this.addInformacion.descripcion = formVals.descripcion;
         this.addInformacion.fkVirus = this.virus.idVirus;
-        this.addInformacion.fkCategoriaInformacion = formVals.categoria;
-
-        /*this.sidvi.categoriaInformacion.obtenerCategoriaInformacion(formVals.categoria).subscribe(
-            res => {
-                this.addInformacion.categoriaInformacion = res;
-            },
-            error => {
-                console.error(error);
-            }
-        );*/
+        this.addInformacion.fkCategoriaInformacion = parseInt(formVals.categoria, 10);
 
         this.sidvi.informacion.crearInformacion(this.addInformacion).subscribe(
             results => {

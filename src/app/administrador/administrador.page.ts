@@ -20,7 +20,7 @@ export class AdministradorPage implements OnInit {
 
     constructor(
         private sidvi: SIDVIServices,
-        private _router: Router
+        private router: Router
     ) {
         this.viruss = new Array(0);
     }
@@ -38,7 +38,7 @@ export class AdministradorPage implements OnInit {
     }
 
     abrirVirus(virus: Virus) {
-        this._router.navigate(['./administrador/virus/' + virus.idVirus]);
+        this.router.navigate(['./administrador/virus/' + virus.idVirus]);
     }
 
     cerrarSesion() {

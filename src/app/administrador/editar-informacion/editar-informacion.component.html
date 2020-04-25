@@ -129,7 +129,7 @@
                         <!-- CATEGORÍA -->
                         <div class='label-input'>
                             <label>Categoría</label>
-                            <select class="custom-select" formControlName="categoria">
+                            <select formControlName="categoria" class="custom-select">
                                 <option disabled selected>Categoría</option>
                                 <option *ngFor="let categoria of categorias; let i = index;"
                                     [value]="categorias[i].idCategoriaInformacion">{{categoria.nombre}}</option>
@@ -156,7 +156,7 @@
                     <div class="modal-footer">
                         <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
                             (click)="basicModal.hide()" mdbWavesEffect>Cerrar</button>
-                        <button type="submit" mdbBtn color="primary" class="relative waves-light"
+                        <button type="submit" (click)="basicModal.hide()" mdbBtn color="primary" class="relative waves-light"
                             mdbWavesEffect>Agregar</button>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ export class VirusComponent implements OnInit {
   idVirus: number;
   virus: Virus;
 
-  constructor(private _SIDVI: SIDVIServices, private router: Router,
+  constructor(private sidvi: SIDVIServices, private router: Router,
               private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
     this.virus = new Virus();
   }
@@ -25,7 +25,7 @@ export class VirusComponent implements OnInit {
     this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'));
     console.log(this.idVirus);
 
-    this._SIDVI.virus.obtenerVirus(this.idVirus).subscribe(
+    this.sidvi.virus.obtenerVirus(this.idVirus).subscribe(
       res => {
         this.virus = res;
         console.log(this.virus);

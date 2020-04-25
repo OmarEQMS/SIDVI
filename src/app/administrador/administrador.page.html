@@ -25,7 +25,7 @@
 
                 <div class='btn-item' (click)="cerrarSesion()">
                         <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
-                        <div class='btn-text d-inline-block'>Cerrar Sesion</div>
+                        <div class='btn-text d-inline-block' routerLink="/login" (click)="logout()">Cerrar Sesion</div>
                 </div>
             </ion-list>
         </ion-content>

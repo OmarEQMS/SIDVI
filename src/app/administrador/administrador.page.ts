@@ -5,9 +5,9 @@ import { IconDefinition, faSignOutAlt, faVirus, faUser } from '@fortawesome/free
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-administrador',
-  templateUrl: './administrador.page.html',
-  styleUrls: ['./administrador.page.scss'],
+    selector: 'app-administrador',
+    templateUrl: './administrador.page.html',
+    styleUrls: ['./administrador.page.scss'],
 })
 export class AdministradorPage implements OnInit {
     viruss: Virus[];
@@ -25,12 +25,12 @@ export class AdministradorPage implements OnInit {
         this.viruss = new Array(0);
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
     ionViewWillEnter() {
         this.sidvi.virus.listarVirus().subscribe(
             viruss => {
                 this.viruss = viruss.resultados.map((item: any) => new Virus(item));
-        });
+            });
     }
 
     abrirPerfil() {
@@ -42,7 +42,7 @@ export class AdministradorPage implements OnInit {
     }
 
     cerrarSesion() {
-
+        localStorage.clear();
     }
 
 }

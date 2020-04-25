@@ -31,8 +31,8 @@
                     <label>Categoría</label>
                     <select class="custom-select">
                         <option disabled selected>Categoría</option>
-                        <option *ngFor="let categoria of categorias; let i = index;"
-                            [value]="categorias[i].idCategoriaInformacion">{{categoria.nombre}}</option>
+                        <option *ngFor="let categoria of categorias;"
+                            [value]="categoria.idCategoriaInformacion">{{categoria.nombre}}</option>
                     </select>
                 </div>
 
@@ -131,8 +131,8 @@
                             <label>Categoría</label>
                             <select formControlName="categoria" class="custom-select">
                                 <option disabled selected>Categoría</option>
-                                <option *ngFor="let categoria of categorias; let i = index;"
-                                    [value]="categorias[i].idCategoriaInformacion">{{categoria.nombre}}</option>
+                                <option *ngFor="let categoria of categorias;"
+                                    [value]="categoria.idCategoriaInformacion">{{categoria.nombre}}</option>
                             </select>
                         </div>
 

@@ -8,6 +8,7 @@ import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { _APIResponse } from 'src/api/APIResponse';
 
 
 @Component({
@@ -101,10 +102,8 @@ export class EditarInformacionComponent implements OnInit {
         informacion.archivoPdfZoom -= 0.1;
     }
 
-    guardar(informacion: Informacion, texto: string, descripcion: string) {
+    guardar(informacion: Informacion) {
 
-        informacion.texto = texto;
-        informacion.descripcion = descripcion;
         delete informacion.archivo;
         delete informacion.mimetype;
 
@@ -170,7 +169,7 @@ export class EditarInformacionComponent implements OnInit {
             if (result.value) {
                 this.sidvi.informacion.eliminarInformacion(informacion.idInformacion).subscribe(
                     res => {
-                        if (res && res.type == 'SUCCESS') {
+                        if (res && res.type === _APIResponse.TypeEnum.SUCCESS) {
                             Swal.fire({
                                 title: 'Borrado completo',
                                 text: 'El bloque de información ha sido eliminado exitosamente',

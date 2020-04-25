@@ -215,23 +215,21 @@ export class EditarInformacionComponent implements OnInit {
 
         this.sidvi.informacion.crearInformacion(this.addInformacion).subscribe(
             results => {
-                if (results) {
 
-                    // Checar si se subio un doc
-                    /*if (informacion.localFile != null) {
-                        this.actualizarInformacion(informacion);
-                        informacion.localFile = null;
-                        informacion.localFileName = 'Choose file';
-                        return;
-                    }*/
+                // Checar si se subio un doc
+                /*if (informacion.localFile != null) {
+                    this.actualizarInformacion(informacion);
+                    informacion.localFile = null;
+                    informacion.localFileName = 'Choose file';
+                    return;
+                }*/
 
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
-                }
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                    }
+                });
             },
             error => {
                 alert('No se pudo loguear');

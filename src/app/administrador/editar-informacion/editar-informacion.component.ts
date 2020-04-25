@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Virus, Informacion, CategoriaInformacion } from 'src/models';
 import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { _APIResponse } from 'src/api/APIResponse';
+import { ModalContainerComponent } from 'angular-bootstrap-md';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { _APIResponse } from 'src/api/APIResponse';
 })
 export class EditarInformacionComponent implements OnInit {
 
+    @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
     virus: Virus;
     categorias: CategoriaInformacion[];
     addFileName: string;
@@ -227,6 +229,7 @@ export class EditarInformacionComponent implements OnInit {
                 Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();
+                        this.resetModal();
                     }
                 });
             },
@@ -234,6 +237,11 @@ export class EditarInformacionComponent implements OnInit {
                 alert('No se pudo loguear');
             }
         );
+    }
+
+    resetModal() {
+        this.basicModal.hide();
+        this.addInfoForm.reset();
     }
 
     agregarInformacionArchivo(idInformacion: number) {

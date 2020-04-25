@@ -30,8 +30,8 @@
                 <div class='label-input'>
                     <label>Categoría</label>
                     <select class="custom-select">
-                        <option disabled selected>Categoría</option>
-                        <option *ngFor="let categoria of categorias;"
+                        <option disabled>Categoría</option>
+                        <option *ngFor="let categoria of categorias;" [selected]="categoria.idCategoriaInformacion == informacion.fkCategoriaInformacion"
                             [value]="categoria.idCategoriaInformacion">{{categoria.nombre}}</option>
                     </select>
                 </div>
@@ -113,7 +113,7 @@
             <form [formGroup]="addInfoForm" (ngSubmit)="agregar()">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="resetModal()">
                             <span aria-hidden="true">×</span>
                         </button>
                         <h4 class="modal-title w-100" id="myModalLabel">Agregar bloque de información</h4>
@@ -155,8 +155,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
-                            (click)="basicModal.hide()" mdbWavesEffect>Cerrar</button>
-                        <button type="submit" (click)="basicModal.hide()" mdbBtn color="primary" class="relative waves-light"
+                            (click)="resetModal()" mdbWavesEffect>Cerrar</button>
+                        <button type="submit" mdbBtn color="primary" class="relative waves-light"
                             mdbWavesEffect>Agregar</button>
                     </div>
                 </div>

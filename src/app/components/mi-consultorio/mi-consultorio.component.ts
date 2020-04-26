@@ -4,7 +4,7 @@ import { SIDVIServices } from 'src/api';
 import { Router } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { Ubicacion, IUbicacion, Medico, Virus } from 'src/models';
+import { Ubicacion, IUbicacion, Medico, _Medico, Virus, MedicoVirus } from 'src/models';
 
 @Component({
 selector: 'app-mi-consultorio',
@@ -17,7 +17,7 @@ export class MiConsultorioComponent implements OnInit {
     ubicacion: Ubicacion; ubiName: string;
     localIcono: IconDefinition;
     consultoriosList: Medico[]; consultorio: Medico;
-    virus: Virus[];
+    virusList: Virus[]; virusSelected: Virus[] = [];
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
         minus: faChevronDown,
@@ -28,7 +28,8 @@ export class MiConsultorioComponent implements OnInit {
         this.ubicacion = new Ubicacion({idUbicacion: -1, localSelected: false});
         this.hayErrores = false;
         this.localIcono = this.icons.guion;
-        this.consultorio = new Medico();
+        this.consultorio = new Medico({fkUsuario: sidvi.manager.usuario.idUsuario, estatus: _Medico.Estatus.EN_ESPERA});
+        
         this.consultorioForm = new FormGroup({
         nombreDoctor:         new FormControl('', Validators.required),   cedula:    new FormControl('', Validators.required),
         nombreConsultorio: new FormControl('', Validators.required),   telefonoConsultorio:  new FormControl('', Validators.required),
@@ -47,7 +48,7 @@ export class MiConsultorioComponent implements OnInit {
             }, err => { console.log(err); });
         this.sidvi.virus.listarVirus(null, null, null, null, null, null)
             .subscribe(res =>{
-                this.virus = res.resultados;
+                this.virusList = res.resultados;
             }, err => console.log(err));
         this.consultorio.fkUbicacion =-1;
     }
@@ -75,7 +76,6 @@ export class MiConsultorioComponent implements OnInit {
         }else{
             this.consultorio.fkUbicacion = idUbicacion;
         }
-        console.log("id "+this.consultorio.fkUbicacion );
     }
 
     unselectUbicacion(ubicacion: Ubicacion, idUbicacion: number) {
@@ -90,16 +90,37 @@ export class MiConsultorioComponent implements OnInit {
         console.log('registrar ' + this.consultorioForm.status );
         if  (this.consultorioForm.status ===  'VALID' && this.consultorio.fkUbicacion != -1) {
             this.hayErrores = false;
-            delete this.consultorio.mimetypeFoto;
-            delete this.consultorio.archivoFoto;
+            this.consultorio.mimetypeFoto = null;
+            this.consultorio.archivoFoto = null;
+            console.log('hola');
             console.log(this.consultorio);
-        this.sidvi.medico.crearMedico(this.consultorio)
-            .subscribe(res => {
-                console.log(res);
+            this.sidvi.medico.crearMedico(this.consultorio)
+                .subscribe(res => {
+                console.log('adios');
+                /*
+                //If res.successfull
+                this.virusSelected.forEach(virus => {
+                    let medicoVirus = new MedicoVirus();
+                    //medicoVirus.fkMedico = res.idMedico;
+                    medicoVirus.fkVirus = virus.idVirus;
+                    this.sidvi.medicoVirus.crearMedicoVirus(medicoVirus)
+                    .subscribe(res =>{ console.log(res)}, err=> {console.log(err)})
+                });
+                */ 
             }, err => { console.log(err); });
-
         } else  {
         this.hayErrores = true;
+        }
+    }
+
+    seleccionVirus(virus: Virus, event){
+        if (event.target.checked){
+            this.virusSelected.push(virus);
+        }else{
+            const index = this.virusSelected.indexOf(virus, 0);
+            if (index > -1) {
+                this.virusSelected.splice(index, 1);
+            }
         }
     }
 
@@ -112,12 +133,17 @@ export class MiConsultorioComponent implements OnInit {
             });
     }
 
+    obtenerVirus(consultorio: Medico){
+
+    }
+
     verConsultorio(con: Medico) {
-        
         this.crearConsultorio = false;
         if (this.consultorio !== con) {
             this.consultorio = con;
             this.obtenerUbicaciones(this.consultorio);
+            this.obtenerVirus(this.consultorio);
+            console.log(this.consultorio);
         }
     }
 
@@ -127,6 +153,5 @@ export class MiConsultorioComponent implements OnInit {
             this.consultorio = new Medico();
         }
         this.consultorioForm.reset();
-        
     }
 }

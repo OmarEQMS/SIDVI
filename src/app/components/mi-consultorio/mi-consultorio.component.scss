@@ -9,7 +9,7 @@ ion-split-pane{
     justify-content: flex-end;
     margin-right:5% ;
 }
-.fondo{
+.formClass{
     display: flex;
     justify-content: center;
     margin-right:5% ;
@@ -21,14 +21,18 @@ ion-split-pane{
 
 form{
     width: 80vw;
+}
+.margin-top-sm{
     margin-top: 2%;
 }
 
-#imagenConsultorio{
+#imagenConsultorio, #imgConsultorio{
     min-height: 200px;
     max-height: 200px;
 }
-
+.imagenConsultorioContainer #imgConsultorio{
+    background-image: url(../../../assets/images/no-imagen.jpg);
+}
 .imagenConsultorioContainer {
     display: flex;
     justify-content: center;

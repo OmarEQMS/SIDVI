@@ -83,7 +83,6 @@ export class Medico implements IMedico {
     toObjectDB() {
         console.log(this);
         return {
-            
             idMedico: this.idMedico,
             fkUsuario: this.fkUsuario,
             fkUbicacion: this.fkUbicacion,
@@ -93,8 +92,6 @@ export class Medico implements IMedico {
             telefonoConsultorio: this.telefonoConsultorio,
             cedulaProfesional: this.cedulaProfesional,
             descripcion: this.descripcion,
-            mimetypeFoto: this.mimetypeFoto,
-            archivoFoto: this.archivoFoto.toString(),
             estatus: this.estatus
         };
     }

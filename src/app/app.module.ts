@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // Imports
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -63,8 +62,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    MDBBootstrapModule.forRoot(),
-    NgbModule
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     StatusBar,

@@ -3,6 +3,9 @@
 
         <div class='card-header bloque-titulo'>
             <div class='titulo-pag'>{{virus.nombre}}: Información </div>
+            <div>
+                <a class="btn btn-primary text-white m-1" (click)="basicModal.show();">Agregar bloque</a>
+            </div>
         </div>
 
         <div class='card-header bloque-boton' *ngFor="let informacion of virus.informaciones">
@@ -28,9 +31,8 @@
                     <label>Categoría</label>
                     <select class="custom-select">
                         <option disabled selected>Categoría</option>
-                        <option value="1">Cat A</option>
-                        <option value="2">Cat B</option>
-                        <option value="3">Cat C</option>
+                        <option *ngFor="let categoria of categorias; let i = index;"
+                            [value]="categorias[i].idCategoriaInformacion">{{categoria.nombre}}</option>
                     </select>
                 </div>
 
@@ -101,6 +103,65 @@
             </div>
         </div>
     </div>
-</ion-content>
 
-<!-- MODAL AGREGAR INFORMACIÓN-->
+
+    <!-- MODAL AGREGAR INFORMACIÓN-->
+    <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+        [config]="{backdrop: false, ignoreBackdropClick: true}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <form [formGroup]="addInfoForm" (ngSubmit)="agregar()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title w-100" id="myModalLabel">Agregar bloque de información</h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class='label-input'>
+                            <label>Título del bloque</label>
+                            <input #texto mdbInput type="text" class="form-control" formControlName="texto">
+                        </div>
+
+                        <!-- CATEGORÍA -->
+                        <div class='label-input'>
+                            <label>Categoría</label>
+                            <select class="custom-select" formControlName="categoria">
+                                <option disabled selected>Categoría</option>
+                                <option *ngFor="let categoria of categorias; let i = index;"
+                                    [value]="categorias[i].idCategoriaInformacion">{{categoria.nombre}}</option>
+                            </select>
+                        </div>
+
+                        <!-- DESCRIPCIÓN -->
+                        <div class='label-input'>
+                            <label>Descripción</label>
+                            <textarea #descripcion class="descripcion-input md-textarea-auto" mdbInput formControlName="descripcion"
+                                maxlength="1000"></textarea>
+                        </div>
+
+                        <div class='label-input'>
+                            <label>Archivo</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    (change)="handleAddFileInput($event.target.files)">
+                                <label class="custom-file-label" for="inputGroupFile01">{{addFileName}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                            (click)="basicModal.hide()" mdbWavesEffect>Cerrar</button>
+                        <button type="submit" mdbBtn color="primary" class="relative waves-light"
+                            mdbWavesEffect>Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</ion-content>

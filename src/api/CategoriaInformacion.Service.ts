@@ -78,8 +78,7 @@ export class CategoriaInformacionService {
         headers = headers.set('Content-Type', 'application/json');
 
         // Request
-        return this.httpClient.get<any>(`${this.manager.basePath}/categoriaInformacion/
-                                         ${encodeURIComponent(String(idCategoriaInformacion))}`,
+        return this.httpClient.get<any>(`${this.manager.basePath}/categoriaInformacion/${encodeURIComponent(String(idCategoriaInformacion))}`,
             { headers, observe: 'body', reportProgress: true }
         );
     }

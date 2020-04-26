@@ -10,21 +10,12 @@ export namespace _Medico {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
 
-<<<<<<< HEAD
     export type Estatus = 'HABILITADO' | 'DESHABILITADO' | 'EN_ESPERA' | 'RECHAZADO';
     export const Estatus = {
         HABILITADO:     'HABILITADO'    as Estatus,
         DESHABILITADO:  'DESHABILITADO' as Estatus,
         EN_ESPERA:      'EN_ESPERA'     as Estatus,
         RECHAZADO:      'RECHAZADO'     as Estatus
-=======
-    export type Estatus = 'HABILITADO' | 'DESHABILITADO' | 'EN_ESPERA' |'RECHAZADO';
-    export const Estatus = {
-        HABILITADO: 'HABILITADO' as Estatus,
-        DESHABILITADO: 'DESHABILITADO' as Estatus,
-        EN_ESPERA: 'EN_ESPERA' as Estatus,
-        RECHAZADO: 'RECHAZADO' as Estatus
->>>>>>> 02f2609cfe891f424cf18d3727ad7c6463f9a420
     };
 
 }

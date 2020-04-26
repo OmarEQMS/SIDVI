@@ -1,0 +1,138 @@
+.input-group-prepend .input-group-text{
+    border-radius: 0;
+}
+
+.fondo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right:5% ;
+    margin-left:5% ;
+}
+.card-body {
+    background-color: #C5ECFC;
+}
+
+
+#imagenConsultorio{
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.imagenConsultorioContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.preguntasDoctor{
+    min-height: 200px;
+    max-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.icon{ /*https://www.flaticon.com/packs/contact-us-6*/
+    width: 20px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.form-control-file{
+    margin-top: 2px;
+}
+
+.feedback{
+    color:red;
+    font-size: smaller;
+}
+
+.columna{
+    display:flex;
+    flex-direction: column;
+}
+.lista{
+  height: 100%;
+}
+.btn-icono {
+    width: 15%;
+    padding: 0px;
+    font-size: 14px;
+    color:#101010;
+    text-align: center;
+}
+.boton{
+    margin-right: 5px;
+    color: grey;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.circulo{
+    background: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin-right:5px;
+}
+.rechazado {
+    background: white;
+}
+.habilitado {
+    background: green;
+}
+.deshabilitado {
+    background: red;
+}
+.en-proceso {
+    background: yellow;
+}
+.cross{
+    text-decoration: line-through;
+}
+.btn-text {
+    width: 85%;
+    height: 100%;
+    padding-left: 0px;
+    font-size: 15px !important;
+}
+.btn-item:hover {
+    color: black;
+}
+.btn-item-selected {
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #66c2ff;
+    color: black;
+    border-radius: 2%;
+}
+.btn-item {
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.card{
+    width: 100%;
+}
+.card-subtitle{
+    padding-top: 5px;
+}
+.lista{
+    padding-left: 5%;
+}
+.textCenterVertical{
+    position: absolute;
+    top: 20%;
+    left: 60px;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+}

@@ -2,6 +2,13 @@
 ion-split-pane{
     margin-top: 70px;
 }
+
+.alignRight{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right:5% ;
+}
 .fondo{
     display: flex;
     justify-content: center;
@@ -138,4 +145,59 @@ form{
 .header{
     display: flex;
     flex-direction: row;
+}
+input{
+    background-color: white;
+}
+.input-group-prepend .input-group-text{
+    border-radius: 0%;
+}
+.descripcion{
+    margin-left: 60px;
+    margin-right:5px;
+    margin-top: 5px;
+}
+.helpBtn{
+    display: flex;
+    align-items: center;
+}
+.helpBtn{
+    display: flex;
+    align-items: center;
+}
+.helpBtn .icon{
+    margin-top: 4px;
+    margin-right: 6px;
+    min-width: 20px;
+    min-height: 20px;
+    background-image: url("../../../assets/images/info.png");
+}
+.helpBtn .icon:hover{
+    padding-top: 4px;
+    margin-right: 6px;
+    background-image: url("../../../assets/images/info-dark.png");
+}
+.pointer{
+    cursor: pointer;
+}
+.btn-group{
+    padding-top: 10px;
+    padding-left: 6px;
+}
+.select-text{
+    width: 125px;
+}
+.selected-text{
+    width: 125px;
+    color:blue;
+}
+ion-select{
+    min-width: 120px;
+}
+#ion-sel-0-lbl{
+    display: flex;
+
+justify-content: flex-end;
+
+padding-left: 28px;
 }

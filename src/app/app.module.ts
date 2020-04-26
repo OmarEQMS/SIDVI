@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // Imports
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -27,6 +27,8 @@ import { MedicoVirusListComponent } from './components/medico-virus-list/medico-
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
 import { MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
+import { MiConsultorioDetallesComponent} from './components/mi-consultorio-detalles/mi-consultorio-detalles.component';
+
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
@@ -44,6 +46,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     EstadisticaComponent,
     UbicacionListComponent,
     MiConsultorioComponent,
+    MiConsultorioDetallesComponent,
     UbicacionListComponent
   ],
   entryComponents: [],
@@ -60,7 +63,8 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgbModule
   ],
   providers: [
     StatusBar,

@@ -66,6 +66,7 @@ export class Informacion implements IInformacion {
 
     // ToObjectDB
     toObjectDB() {
+        console.log(this);
         return {
             idInformacion: this.idInformacion,
             fkVirus: this.fkVirus,

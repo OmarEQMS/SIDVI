@@ -10,22 +10,27 @@
                     <span id='user-role' class='d-block'>Rol</span>
                 </div>
             </div>
-            <ion-list class="lista-opciones">                
+            <ion-list class="lista-opciones">
                 <div class='btn-item' (click)="abrirPerfil()">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
-                        <div class='btn-text d-inline-block'>Mi Perfil</div>
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
+                    <div class='btn-text d-inline-block'>Mi Perfil</div>
                 </div>
-
+                <div class='btn-item' routerLink='./catalogos'>
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon>
+                    <div class='btn-text d-inline-block'>
+                        Editar catálogos
+                    </div>
+                </div>
                 <div *ngFor="let virus of viruss">
                     <div class='btn-item' (click)="abrirVirus(virus)">
-                            <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
-                            <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
+                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
+                        <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
                     </div>
                 </div>
 
                 <div class='btn-item' (click)="cerrarSesion()">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
-                        <div class='btn-text d-inline-block'>Cerrar Sesion</div>
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
+                    <div class='btn-text d-inline-block'>Cerrar Sesion</div>
                 </div>
             </ion-list>
         </ion-content>

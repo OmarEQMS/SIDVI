@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Virus } from 'src/models';
 import { SIDVIServices } from 'src/api';
-import { IconDefinition, faSignOutAlt, faVirus, faUser } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faSignOutAlt, faVirus, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,8 @@ export class AdministradorPage implements OnInit {
     icons: { [id: string]: IconDefinition } = {
         close: faSignOutAlt,
         virus: faVirus,
-        user: faUser
+        user: faUser,
+        edit: faEdit
     };
 
     constructor(

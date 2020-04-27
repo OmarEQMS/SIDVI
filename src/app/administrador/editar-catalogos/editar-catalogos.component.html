@@ -1,0 +1,44 @@
+<ion-header id='encabezado'>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title>
+      <span>Editar catálogo</span>
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id='fondo-content'>
+  <div class="card m-5">
+    <div class="card-header colorHeader">
+      Catálogo Información
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Seleccione la ubicación que desea editar</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+  <div class="card m-5">
+    <div class="card-header colorHeader">
+      Catálogo Ubicaciones
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Seleccione la ubicación que desea editar</h5>
+      <app-ubicaciones-edit-list [ubicacion]="ubicacion" (selected)="ubicacionSelected($event)"></app-ubicaciones-edit-list>
+    </div>
+  </div>
+
+  <div class="card m-5">
+    <div class="card-header colorHeader">
+      Catálogo Estadística
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</ion-content>

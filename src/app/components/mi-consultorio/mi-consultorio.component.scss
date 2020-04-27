@@ -41,9 +41,13 @@ form{
 .preguntasDoctor{
     min-height: 200px;
     max-height: 200px;
+}
+
+.flex-clumna{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
 .icon{ /*https://www.flaticon.com/packs/contact-us-6*/
@@ -205,3 +209,6 @@ justify-content: flex-end;
 
 padding-left: 28px;
 }
+.checked {
+    color: #2B94C0;
+  }

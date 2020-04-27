@@ -74,7 +74,7 @@
               </div>
             </div>
             
-            <div class="col col-md-8 preguntasDoctor">
+            <div class="col col-md-8 preguntasDoctor flex-clumna">
             
               <!--  nombre doctor  -->
               <div class="input-group columna">
@@ -199,7 +199,7 @@
               <div class="form-row">
                 <div class="col-md-4"  *ngFor="let v of virusList">
                   <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" >
+                    <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
                     <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
                   </div>
                 </div>
@@ -210,20 +210,21 @@
             <div class="card" *ngIf="estadoActual == 2">
               <div class="form-row m-3" >
                 <div class="col-md-4"  *ngFor="let medicoVirus of medicosVirus">
-                  <div>
-                    <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
-                    <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
-                    <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
-                    <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
-                    <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
-                    <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    
-                    <p>{{medicoVirus.fkVirus}}</p>
-                    <p>{{medicoVirus.localPromValoracion}}</p>
+                  <div class="flex-clumna">
+                    <p style="margin-bottom: 0;">{{medicoVirus.virus.nombre}}</p> 
+                    <div>
+                      <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                    </div>
+                    <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
                   </div>
                 </div>
               </div>
@@ -255,7 +256,7 @@
               <div *ngIf="estadoActual == 0" class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
                 Registrar
               </div>
-              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1" (click)="irEditarBtn(consultorio)">
+              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1" (click)="irEditarBtn(consultorio, medicosVirus)">
                 Editar
               </div>
               <div *ngIf="estadoActual == 1" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >

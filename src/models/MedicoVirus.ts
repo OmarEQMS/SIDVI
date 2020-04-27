@@ -36,6 +36,7 @@ export class MedicoVirus implements IMedicoVirus {
             this.fkMedico = medicoVirus.fkMedico;
             this.fkVirus = medicoVirus.fkVirus;
             this.medico = new Medico(medicoVirus.medico);
+            this.virus = new Virus(medicoVirus.virus);
         }
     }
 

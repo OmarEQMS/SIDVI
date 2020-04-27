@@ -49,6 +49,8 @@ export class Virus implements IVirus {
 
     // Extras
     archivoIconoImg: SafeResourceUrl;
+    selected?: boolean;
+    medicoVirusId?: number;
 
     // Constructor
     constructor(virus?: any) {

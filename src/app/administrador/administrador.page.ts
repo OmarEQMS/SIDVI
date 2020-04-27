@@ -27,6 +27,10 @@ export class AdministradorPage implements OnInit {
 
     ngOnInit() { }
     ionViewWillEnter() {
+        this.cargarListaVirus();
+    }
+
+    cargarListaVirus() {
         this.sidvi.virus.listarVirus().subscribe(
             viruss => {
                 this.viruss = viruss.resultados.map((item: any) => new Virus(item));

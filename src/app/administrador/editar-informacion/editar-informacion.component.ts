@@ -44,7 +44,7 @@ export class EditarInformacionComponent implements OnInit {
             categoria: new FormControl('', Validators.required),
             descripcion: new FormControl('', Validators.required)
         });
-        this.addInfoForm.controls.categoria.setValue('Categoría', {onlySelf: true});
+        this.addInfoForm.controls.categoria.setValue('Categoría', { onlySelf: true });
     }
 
     ngOnInit() {
@@ -114,23 +114,20 @@ export class EditarInformacionComponent implements OnInit {
 
         this.sidvi.informacion.actualizarInformacion(informacion.idInformacion, informacion).subscribe(
             res => {
-                if (res) {
-
-                    // Checar si se subio un doc
-                    if (informacion.localFile != null) {
-                        this.actualizarInformacionArchivo(informacion);
-                        informacion.localFile = null;
-                        informacion.localFileName = 'Choose file';
-                        return;
-                    }
-
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
+                // Checar si se subio un doc
+                if (informacion.localFile != null) {
+                    this.actualizarInformacionArchivo(informacion);
+                    informacion.localFile = null;
+                    informacion.localFileName = 'Choose file';
+                    return;
                 }
+
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                    }
+                });
             },
             error => {
                 alert('No se pudo loguear');
@@ -242,7 +239,7 @@ export class EditarInformacionComponent implements OnInit {
         this.addFile = null;
         this.addFileName = 'Choose file';
         this.addInfoForm.value.categoria = 0;
-        this.addInfoForm.controls.categoria.setValue('Categoría', {onlySelf: true});
+        this.addInfoForm.controls.categoria.setValue('Categoría', { onlySelf: true });
     }
 
     agregarInformacionArchivo(idInformacion: number) {

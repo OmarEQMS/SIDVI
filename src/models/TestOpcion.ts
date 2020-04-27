@@ -1,6 +1,7 @@
 import { ContentTypeEnum, Defaults } from '../api/API';
 
 import { TestNodo } from './TestNodo';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 // tslint:disable-next-line:no-namespace
 export namespace _TestOpcion {
@@ -34,7 +35,11 @@ export class TestOpcion implements ITestOpcion {
     // Relations: BelongsToOne
     testNodo?: TestNodo;
     testNodoSig?: TestNodo;
+
     // Relations: HasMany
+
+    // Extras
+    archivoImg: SafeResourceUrl;
 
     // Constructor
     constructor(testOpcion?: any) {

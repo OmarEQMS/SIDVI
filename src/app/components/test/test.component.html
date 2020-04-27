@@ -1,0 +1,66 @@
+<ion-content>
+    <div class='pagina'>
+        <div class='contenedor'>
+
+            <div class='card mt-2 mb-2'>
+                <div class='card-header bg-dark text-white'>
+                    <div class='d-inline-block titulo-contenido'>{{testNodo.texto}}</div>            
+                </div>
+                <div class='card-body'>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoImg!=null">
+                        <img class='img-contenido' [src]="testNodo.archivoImg" >
+                    </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoVideo!=null">
+                        <vg-player class='video-contenido' (onPlayerReady)="onPlayerReady($event)">
+                            <vg-overlay-play></vg-overlay-play>
+                            <vg-buffering></vg-buffering>            
+                            <vg-controls>
+                                <vg-play-pause></vg-play-pause>
+                                <vg-playback-button></vg-playback-button>            
+                                <vg-time-display vgProperty='current' vgFormat='mm:ss'></vg-time-display>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>            
+                                <vg-time-display vgProperty='total' vgFormat='mm:ss'></vg-time-display>            
+                                <vg-mute></vg-mute>
+                                <vg-volume></vg-volume>            
+                                <vg-fullscreen></vg-fullscreen>
+                            </vg-controls>            
+                            <video [vgMedia]="media" #media preload='auto' crossorigin>
+                                <source [src]="testNodo.archivoVideo" type='video/mp4'>
+                            </video>
+                        </vg-player>
+                    </div>
+                    <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoPdf!=null">
+                        <pdf-viewer class='pdf-contenido d-inline-block' [src]="testNodo.archivoPdf" [zoom]="testNodo.archivoPdfZoom" render-text='true' style='display: block;'></pdf-viewer>
+                        <div class='pdf-zoom d-inline-block'>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomOut" (click)="pdfZoomOut()"></fa-icon>
+                            <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn()"></fa-icon>
+                        </div>
+                    </div>
+                    <span class='contenido-descripcion pt-3 pb-2'>{{testNodo.descripcion}}</span>
+                </div>
+            </div>
+
+            <div class='contenedor-opcion'>
+                <div class='card m-2 opcion' *ngFor="let opcion of testNodo.testOpciones" (click)="openNodo(opcion)">
+                    <div class='card-header bg-dark text-white'>
+                        <div class='titulo-contenido'>{{opcion.texto}}</div>  
+                        <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="opcion.archivoImg!=null">
+                            <img class='img-opcion' [src]="opcion.archivoImg" >
+                        </div>
+                        <div class='contenido-descripcion'>{{opcion.descripcion}}</div>            
+                    </div>                
+                </div>
+                <div class='card m-2 opcion' *ngIf="testNodo.testOpciones.length == 0" routerLink='/virus'>
+                    <div class='card-header bg-dark text-white'>
+                        <div class='titulo-contenido'>Fin del Test, Regresar a Inicio</div>  
+                    </div>
+                </div>
+            </div>
+
+            <span class='mb-3'>&nbsp;</span>
+        </div>
+    </div>
+</ion-content>

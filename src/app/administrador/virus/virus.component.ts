@@ -30,7 +30,7 @@ export class VirusComponent implements OnInit {
     cargarVirus() {
         this.sidvi.virus.obtenerVirus(this.idVirus).subscribe(
             virus => {
-                this.virus = virus;
+                this.virus = new Virus(virus);
 
                 if (Defaults.allowBase64Types.includes(this.virus.mimetypeIcono)) {
                     this.virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(this.virus.archivoIcono as string);
@@ -117,9 +117,7 @@ export class VirusComponent implements OnInit {
                                 icon: 'success',
                                 heightAuto: false
                             }).then((results) => {
-                                
-                                //RELODEAR VIRUSES
-                                this.router.navigate(['./administrador']);
+                                this.sidvi.manager.updateMain.next(1);
                             });
                         }
                     },

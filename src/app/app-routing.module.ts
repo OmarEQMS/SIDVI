@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MedicoVirusListComponent } from './components/medico-virus-list/medico-virus-list.component';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import {MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'virus', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'informacion/:idVirus', component: InformacionComponent },
     { path: 'medicos/:idVirus', component: MedicoVirusListComponent},
     { path: 'estadistica/:idVirus', component: EstadisticaComponent },
+    { path: 'registro', component: RegistroComponent },
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

@@ -20,13 +20,17 @@
   background-size: cover;
 }
 
+.form-input {
+  width: 65%;
+}
+
 .formBox {
 
     width: 100%;
-    max-width: 350px;
+    max-width: 450px;
 
     height: 100%;
-    max-height: 400px;
+    max-height: 500px;
     
     background-color: rgba(230, 230, 230, 0.6); /* Black w/opacity/see-through */
     
@@ -37,7 +41,7 @@
 }
 
 .formularioLogin {
-    width: 50%;
+    width: 100%;
     max-width: 450px;
 
     height: 60%;

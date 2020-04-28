@@ -174,7 +174,7 @@ export class VirusService {
             headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
         headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');
+        // headers = headers.set('Content-Type', 'application/json');
 
         // FormData
         const formParams = new FormData();

@@ -26,7 +26,6 @@ export class MiConsultorioComponent implements OnInit {
     localIcono: IconDefinition;
     consultorio: Medico;
     consultoriosList: Medico[];
-    medicosVirus: MedicoVirus[];
     virusList: Virus[];
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -56,21 +55,33 @@ export class MiConsultorioComponent implements OnInit {
         this.consultorio.fkUbicacion = -1;
         this.obtenerConsultoriosList(this.sidvi.manager.usuario.idUsuario);
         this.obtenerVirusList();
-        this.medicosVirus = [];
+        this.consultorio.medicosVirus = [];
     }
 
     obtenerConsultoriosList(idUsuario: number) {
         this.sidvi.medico.listarMedicos(idUsuario, null, null, null, null, null, null, null, null)
         .subscribe(res => {
-            this.consultoriosList = res.resultados.map((item: any) => new Medico(item)); 
+            this.consultoriosList = res.resultados.map((item: any) => new Medico(item));
         }, err => { console.log(err); });
     }
 
-    obtenerVirusList() {
+    obtenerVirusList(idMedico?: number) {
         this.sidvi.virus.listarVirus(null, null, null, null, null, null)
         .subscribe(res => {
-            this.virusList = res.resultados;
-            this.virusList.forEach( v => {v.selected = false; });
+            this.virusList = [];
+            res.resultados.forEach(
+                v => {
+                    if (idMedico) {
+                        this.consultorio.medicosVirus.forEach( mv => {
+                            if (mv.fkVirus === v.idVirus) {
+                                v.selected = true;
+                            }
+                        });
+                    } else {
+                        v.selected = false;
+                    }
+                    this.virusList.push(new Virus(v));
+                });
         }, err => console.log(err));
     }
 
@@ -86,7 +97,7 @@ export class MiConsultorioComponent implements OnInit {
 
         for (const ubi of ubicacion.ubicaciones) {
             ubi.localSelected = ubicacion.localSelected;
-            if (this.estadoActual === ESTADO.EDITAR && this.consultorio.fkUbicacion === ubi.idUbicacion) {
+            if (this.estadoActual === ESTADO.DETALLE && this.consultorio.fkUbicacion === ubi.idUbicacion) {
                 ubi.localSelected = true;
             }
             await this.getUbicacionesHijo(ubi);
@@ -110,16 +121,12 @@ export class MiConsultorioComponent implements OnInit {
     }
 
     seleccionVirus(virus: Virus, event) {
-         if (event.target.checked) {
-             virus.selected = true;
-        } else {
-            virus.selected = false;
-        }
+        if (event.target.checked) { virus.selected = true;
+        } else { virus.selected = false; }
     }
 
-
     obtenerEvaluacion() {
-        for (const medicoVirus of this.medicosVirus) {
+        for (const medicoVirus of this.consultorio.medicosVirus) {
             let acumValoracion = 0;
             let promedioValoracion = 0;
             this.sidvi.valoracion.listarValoraciones(medicoVirus.idMedicoVirus, null).subscribe(
@@ -146,37 +153,38 @@ export class MiConsultorioComponent implements OnInit {
 
     }
 
-    obtenerUbicaciones(consultorio: Medico) {
+    obtenerUbicacionConsultorio(consultorio: Medico) {
         this.sidvi.ubicacion.obtenerUbicacion( consultorio.fkUbicacion)
             .subscribe(ubi => {
                 if (ubi) {
                     this.consultorio.ubicacion = ubi;
+                    this.getUbicacionesHijo(this.ubicacion);
                 }
             });
     }
 
-    obtenerVirus(consultorio: Medico) {
+    obtenerMedicoVirus(consultorio: Medico) {
         this.sidvi.medicoVirus.listarMedicosVirus(consultorio.idMedico, null, null, null, null, null, null)
             .subscribe( res => {
-                this.medicosVirus =  res.resultados.map((item: any) => new MedicoVirus(item));
-                this.medicosVirus.forEach(v => {
-                    this.sidvi.virus.obtenerVirus(v.fkVirus)
-                        .subscribe( res => {
-                            v.virus = res;
-                            v.virus.selected = true;
-                        });
+                this.consultorio.medicosVirus =  res.resultados.map((item: any) => new MedicoVirus(item));
+                this.consultorio.medicosVirus.forEach(mv => {
+                    this.sidvi.virus.obtenerVirus(mv.fkVirus)
+                    .subscribe( v => {
+                        mv.virus = v;
+                        mv.virus.selected = true;
+                        this.obtenerVirusList(consultorio.idMedico); //mover fuera del loop
+                    });
                 });
                 this.obtenerEvaluacion();
-            }, err => {console.log(err); });
+            } , err => { console.log(err); });
     }
 
     verConsultorioBtn(con: Medico) {
         if (this.consultorio.idMedico !== con.idMedico) {
             this.consultorio = new Medico(con);
-            this.obtenerUbicaciones(this.consultorio);
-            this.obtenerVirus(this.consultorio);
+            this.obtenerUbicacionConsultorio(this.consultorio);
+            this.obtenerMedicoVirus(this.consultorio);
         }
-        console.log(this.consultorio);
         this.estadoActual = ESTADO.DETALLE;
     }
 
@@ -194,27 +202,6 @@ export class MiConsultorioComponent implements OnInit {
         this.ionViewWillEnter();
     }
 
-    irEditarBtn(con: Medico) {
-        this.estadoActual = ESTADO.EDITAR;
-        this.ionViewWillEnter();
-        this.consultorio = con;
-        this.consultorioForm.setValue({
-            nombreDoctor: con.nombreDoctor,
-            cedulaProfesional: con.cedulaProfesional,
-            nombreConsultorio: con.nombreConsultorio,
-            telefonoConsultorio: con.telefonoConsultorio,
-            direccionConsultorio: con.direccionConsultorio,
-            descripcion: con.descripcion
-        });
-        this.virusList.forEach(v => {
-            this.medicosVirus.forEach( mv => {
-                if (v.idVirus === mv.virus.idVirus) {
-                    v.selected = true;
-                }
-            });
-        });
-    }
-
     handleFileInput(files: FileList) {
         if (files[0] != null) {
             this.consultorio.localFile = files;
@@ -226,19 +213,14 @@ export class MiConsultorioComponent implements OnInit {
         console.log('registrar ' + this.consultorioForm.status );
         if  (this.consultorioForm.status ===  'VALID' && this.consultorio.fkUbicacion !== -1) {
             this.hayErrores = false;
-            this.consultorio.ubicacion = null;
             delete this.consultorio.mimetypeFoto;
             delete this.consultorio.archivoFoto;
-            console.log(this.consultorio);
-            let insertedId;
             let success = true;
             this.sidvi.medico.crearMedico(this.consultorio)
                 .subscribe(res => {
-                    console.log(res);
                     if (res.type === _APIResponse.TypeEnum.SUCCESS) {
-                        insertedId = res.extra.insertedId;
                         if ( this.consultorio.localFile != null ) {
-                            this.guardarImagen(insertedId);
+                            this.guardarImagen(res.extra.insertedId);
                         }
                         this.virusList.forEach(virus => {
                             if (virus.selected !== true) { return; }
@@ -254,7 +236,7 @@ export class MiConsultorioComponent implements OnInit {
                             this.obtenerConsultoriosList(this.sidvi.manager.usuario.idUsuario);
                             Swal.fire({title: 'Consultorio registrado correctamente', text: 'Su solicitud fue enviada', icon: 'success', backdrop: false});                 
                         } else {
-                            Swal.fire({title: 'Algo salió mal', text: 'Su solicitud no pudo ser enviada, intentelo mas tarde', icon: 'error', backdrop: false});
+                            Swal.fire({title: 'Algo salió mal', text: 'Por favor intentelo más tarde', icon: 'error', backdrop: false});
                         }
                         this.refreshForm();
                     }
@@ -265,27 +247,45 @@ export class MiConsultorioComponent implements OnInit {
     }
 
     guardarImagen(medicoId: number) {
-        console.log(this.consultorio.localFile[0]);
-        console.log(medicoId);
         this.sidvi.medico.cargarMedicoFoto(medicoId, this.consultorio.localFile[0])
-            .subscribe( res => {
-                console.log(res);
+            .subscribe( res => { console.log(res);
             }, err => { console.log(err); });
     }
 
     editar(consultorio: Medico) {
-        console.log(consultorio);
         this.sidvi.medico.actualizarMedico(this.consultorio.idMedico, this.consultorio)
             .subscribe( res => {
-                console.log(res);
+                if (res.type === _APIResponse.TypeEnum.SUCCESS) {
+                    if ( this.consultorio.localFile != null ) {
+                        this.guardarImagen(this.consultorio.idMedico);
+                    }
+                    this.virusList.forEach( v => {
+                        let isInMV = false; let idMV = -1;
+                        this.consultorio.medicosVirus.forEach( mv => {
+                            if (v.idVirus === mv.fkVirus) {
+                                isInMV = true;
+                                idMV = mv.idMedicoVirus;
+                            }
+                        });
+                        if (v.selected === true && isInMV === false) {      //Agregar relacion de MedicoVirus
+                            const newMV = new MedicoVirus({fkMedico: this.consultorio.idMedico, fkVirus: v.idVirus});
+                            this.sidvi.medicoVirus.crearMedicoVirus(newMV).subscribe( res => { console.log(res); });;
+                        } else if ((v.selected === false || v.selected == null) && isInMV === true) { //Eliminar relacion de Medico Virus
+                            this.sidvi.medicoVirus.eliminarMedicoVirus(idMV).subscribe( res => { console.log(res); });
+                        }
+                    });
+                    Swal.fire({title: 'Consultorio editado correctamente', text: 'Los cambios han sido guardados', icon: 'success', backdrop: false});                 
+                    
+                } else {
+                    Swal.fire({title: 'Algo salió mal', text: 'Por favor intentelo m´ss tarde', icon: 'error', backdrop: false});
+                }
             }, err => { console.log(err); });
     }
 
     eliminar(consultorio: Medico) {
         this.sidvi.medico.eliminarMedico(consultorio.idMedico)
             .subscribe( res => {
-                console.log(res);
-                if (res.type === 'SUCCESS') {
+                if (res.type === _APIResponse.TypeEnum.SUCCESS) {
                     Swal.fire({
                         title: 'Eliminado',
                         text: 'El consultorio ha sido eliminado',
@@ -310,7 +310,6 @@ export class MiConsultorioComponent implements OnInit {
             cancelButtonText: 'Cancelar',
             backdrop: false
           }).then((result) => {
-            console.log(result);
             if (result.value) {
                 this.eliminar(consultorio);
             }

@@ -57,20 +57,12 @@
           <div class="row">
           
             <!--  consultorio image  -->
-            <div class="col col-md-4" *ngIf=" estadoActual == 0 || estadoActual == 1">
+            <div class="col col-md-4">
               <div class="imagenConsultorioContainer">
                 <img *ngIf="consultorio.archivoFoto != null" id="imgConsultorio" [src]="consultorio.archivoFoto" alt="imagen del consultorio" height="200px">
-                <img *ngIf="consultorio.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">              </div>
+                <img *ngIf="consultorio.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px"></div>
               <div class="form-group">
                 <input type="file" accept="image/*" class="form-control-file" (change) = "handleFileInput($event.target.files)">
-              </div>
-            </div>
-
-            <!--  consultorio image no editable -->
-            <div class="col col-md-4" *ngIf=" estadoActual == 2" style="margin-bottom: 4px;">
-              <div class="imagenConsultorioContainer">
-                <img *ngIf="consultorio.archivoFoto != null" id="imgConsultorio" [src]="consultorio.archivoFoto" alt="imagen del consultorio" height="200px">
-                <img *ngIf="consultorio.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
               </div>
             </div>
             
@@ -82,7 +74,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
                   </div>
-                  <input [(ngModel)]="consultorio.nombreDoctor" type="text" id="nombreDoctor" name="nombreDoctor" placeholder="Nombre del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreDoctor"   [required] = " estadoActual == 0 ||  estadoActual == 1"  [readonly] = " estadoActual == 2" >
+                  <input [(ngModel)]="consultorio.nombreDoctor" type="text" id="nombreDoctor" name="nombreDoctor" placeholder="Nombre del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreDoctor"  required>
                 </div>
                 <div class="feedback"  *ngIf="consultorioForm.controls.nombreDoctor.errors && (consultorioForm.controls.nombreDoctor.touched || hayErrores)">
                   <div  *ngIf="consultorioForm.controls.nombreDoctor.errors.required">
@@ -97,7 +89,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/paper.png" alt="doctor pin" class="icon"></span>
                   </div>
-                    <input [(ngModel)]="consultorio.cedulaProfesional" type="text" placeholder="Cédula del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="cedulaProfesional"   [required] = " estadoActual == 0 ||  estadoActual == 1"  [readonly] = " estadoActual == 2"  >
+                    <input [(ngModel)]="consultorio.cedulaProfesional" type="text" placeholder="Cédula del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="cedulaProfesional"  required>
                   </div>
                   <div class="feedback"  *ngIf="consultorioForm.controls.cedulaProfesional.errors && (consultorioForm.controls.cedulaProfesional.touched || hayErrores)">
                     <div  *ngIf="consultorioForm.controls.cedula.errors.required">
@@ -112,7 +104,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/hospital.png" alt="doctor pin" class="icon"></span>
                     </div>
-                    <input [(ngModel)]="consultorio.nombreConsultorio" type="text" id="nombreConsultorio" name="nombreConsultorio"  placeholder="Nombre del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreConsultorio"  [required] = " estadoActual == 0 ||  estadoActual == 1"  [readonly] = " estadoActual == 2"  >
+                    <input [(ngModel)]="consultorio.nombreConsultorio" type="text" id="nombreConsultorio" name="nombreConsultorio"  placeholder="Nombre del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreConsultorio" required>
                   </div>
                   <div class="feedback"  *ngIf="consultorioForm.controls.nombreConsultorio.errors && (consultorioForm.controls.nombreConsultorio.touched || hayErrores)">
                     <div  *ngIf="consultorioForm.controls.nombreConsultorio.errors.required">
@@ -127,7 +119,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/phone.png" alt="phone pin" class="icon"></span>
                     </div>
-                    <input [(ngModel)]="consultorio.telefonoConsultorio" type="text" placeholder="Teléfono del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="telefonoConsultorio" [required] = " estadoActual == 0 ||  estadoActual == 1"  [readonly] = " estadoActual == 2">
+                    <input [(ngModel)]="consultorio.telefonoConsultorio" type="text" placeholder="Teléfono del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="telefonoConsultorio" required >
                   </div>
                   <div class="feedback"  *ngIf="consultorioForm.controls.telefonoConsultorio.errors && (consultorioForm.controls.telefonoConsultorio.touched || hayErrores)">
                     <div *ngIf="consultorioForm.controls.telefonoConsultorio.errors.required">
@@ -146,7 +138,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                 </div>
-                <input [(ngModel)]="consultorio.direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" style="background-color:white" formControlName="direccionConsultorio" aria-describedby="inputGroupPrepend" [required] = " estadoActual == 0 ||  estadoActual == 1"  [readonly] = " estadoActual == 2">
+                <input [(ngModel)]="consultorio.direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" style="background-color:white" formControlName="direccionConsultorio" aria-describedby="inputGroupPrepend" required>
               </div>
               <div class="feedback"   *ngIf="consultorioForm.controls.direccionConsultorio.errors && (consultorioForm.controls.direccionConsultorio.touched || hayErrores)">
                 <div *ngIf="consultorioForm.controls.direccionConsultorio.errors.required">
@@ -157,14 +149,15 @@
             <br>
             
             <!--ubicacion-->
-            <div class="form-row" *ngIf="estadoActual == 0 || estadoActual == 1">
+            <div class="form-row">
               <div class="card">
                 <div class="card header">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                   </div>
                   <div class="textCenterVertical">
-                    <p class="card-subtitle mb-2 text-muted">Seleccione la localidad</p>
+                    <p class="card-subtitle mb-2 text-muted" *ngIf="consultorio.ubicacion == undefined">Seleccione la localidad</p>
+                    <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> Localidad: {{consultorio.ubicacion.nombre}}</p>
                   </div>
                 </div>
                 <div class="lista">
@@ -175,41 +168,12 @@
                   Selecciona una ubicación.
               </div>
             </div>
-            
-            <!--ubicacion no editable-->
-            <div class="form-row" *ngIf="estadoActual == 2">
-              <div class="card">
-                <div class="card header">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
-                  </div>
-                  <div class="textCenterVertical">
-                    <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> {{consultorio.ubicacion.nombre}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
             <br>
-            
-            <!-- virus que conoce -->
-            <div class="input-froup columna card" style="padding-left: 60px ;"  *ngIf="estadoActual == 0 || estadoActual == 1">
-              <div style="margin-top: 5px;">
-                <p>Seleccione todos los virus que puede tratar:</p>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4"  *ngFor="let v of virusList">
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
-                    <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
-                  </div>
-                </div>
-              </div>
-            </div>
             
             <!-- virus que conoce no editable-->
             <div class="card" *ngIf="estadoActual == 2">
               <div class="form-row m-3" >
-                <div class="col-md-4"  *ngFor="let medicoVirus of medicosVirus">
+                <div class="col-md-4"  *ngFor="let medicoVirus of consultorio.medicosVirus">
                   <div class="flex-clumna">
                     <p style="margin-bottom: 0;">{{medicoVirus.virus.nombre}}</p> 
                     <div>
@@ -229,22 +193,30 @@
                 </div>
               </div>
             </div>
+
+            <!-- virus que conoce -->
+            <div class="input-froup columna card" style="padding-left: 60px ;">
+              <div style="margin-top: 5px;">
+                <p *ngIf= "estadoActual == 0">Seleccione todos los virus que puede tratar:</p>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4"  *ngFor="let v of virusList">
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
+                    <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
             <br>
             
             <!--descripcion -->
-            <div class="form-group columna" *ngIf="estadoActual == 0 || estadoActual == 1">
+            <div class="form-group columna">
               <textarea [(ngModel)]="consultorio.descripcion" placeholder="Descripción o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
               <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
                 <div *ngIf="consultorioForm.controls.descripcion.errors.required">
                   Ingresa una descripcion.
                 </div>
-              </div>
-            </div>
-            
-            <!--descripcion no editable -->
-            <div class="form-group columna mb-5" *ngIf="estadoActual == 2">
-              <div class="card">
-                <p class="text-muted descripcion">{{consultorio.descripcion}}</p>
               </div>
             </div>
             
@@ -256,10 +228,7 @@
               <div *ngIf="estadoActual == 0" class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
                 Registrar
               </div>
-              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1" (click)="irEditarBtn(consultorio, medicosVirus)">
-                Editar
-              </div>
-              <div *ngIf="estadoActual == 1" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
+              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
                 Guardar Cambios
               </div>
               <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1"  (click)="confirmacionParaEliminar(consultorio)" >

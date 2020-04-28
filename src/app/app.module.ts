@@ -34,6 +34,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     EstadisticaComponent,
     UbicacionListComponent,
     MiConsultorioComponent,
-    RegistroComponent
+    RegistroComponent,
+    TestComponent
   ],
   entryComponents: [],
   imports: [

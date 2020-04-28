@@ -61,6 +61,8 @@ export class Medico implements IMedico {
 
     // Extras
     archivoIconoImg: SafeResourceUrl;
+    localFile: FileList;
+    localFileName: string;
 
     // Constructor
     constructor(medico?: any) {

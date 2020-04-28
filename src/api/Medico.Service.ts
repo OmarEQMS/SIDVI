@@ -170,6 +170,7 @@ export class MedicoService {
 
     public cargarMedicoFoto(idMedico: number, foto: Blob): Observable<any> {
         // Validate
+        console.log(foto);
         if (idMedico === null || idMedico === undefined) {
             throw new Error('Required parameter idMedico was null or undefined when calling cargarMedicoFoto.');
         }

@@ -62,7 +62,7 @@
                 <img *ngIf="consultorio.archivoFoto != null" id="imgConsultorio" [src]="consultorio.archivoFoto" alt="imagen del consultorio" height="200px">
                 <img *ngIf="consultorio.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">              </div>
               <div class="form-group">
-                <input [src]="consultorio.archivoIconoImg" type="file" accept="image/*" class="form-control-file">
+                <input type="file" accept="image/*" class="form-control-file" (change) = "handleFileInput($event.target.files)">
               </div>
             </div>
 
@@ -184,7 +184,7 @@
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                   </div>
                   <div class="textCenterVertical">
-                    <p class="text-muted">{{ubiName}}</p>
+                    <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> {{consultorio.ubicacion.nombre}}</p>
                   </div>
                 </div>
               </div>

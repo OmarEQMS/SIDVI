@@ -34,7 +34,7 @@
 
     <ion-content>
       <!-- status dropdown-->
-      <div class="alignRight" *ngIf="estadoActual == 2">
+      <div class="alignRight" *ngIf="estadoActual == 2 && consultorio.estatus != 'RECHAZADO'">
         <div>
             <ion-list>
               <ion-item>
@@ -51,10 +51,19 @@
         </div>
         
       </div>
+      <div class="alignRight" *ngIf="estadoActual == 2 && consultorio.estatus == 'RECHAZADO'">
+        <div>
+            <p>STATUS: RECHAZADA</p> 
+        </div>
+        <div class="helpBtn">
+          <div class="icon pointer"></div>
+        </div>
+        
+      </div>
       <!--form-->
       <div class="formClass" [ngClass]="{'margin-top-sm': estadoActual == 0 || estadoActual == 1}">
-        <form [formGroup]="consultorioForm" >
-          <div class="row">
+        <form [formGroup]="consultorioForm">
+          <div class="row" [ngClass]= "{'none-interactable': consultorio.estatus == 'RECHAZADO'}">
           
             <!--  consultorio image  -->
             <div class="col col-md-4">
@@ -132,90 +141,92 @@
               
             </div><!--cierre del row. Preguntas del doctor-->
             
-            <!--Direccion-->
-            <div class="input-group columna">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
-                </div>
-                <input [(ngModel)]="consultorio.direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" style="background-color:white" formControlName="direccionConsultorio" aria-describedby="inputGroupPrepend" required>
-              </div>
-              <div class="feedback"   *ngIf="consultorioForm.controls.direccionConsultorio.errors && (consultorioForm.controls.direccionConsultorio.touched || hayErrores)">
-                <div *ngIf="consultorioForm.controls.direccionConsultorio.errors.required">
-                  Ingresa una dirección.
-                </div>
-              </div>
-            </div>
-            <br>
-            
-            <!--ubicacion-->
-            <div class="form-row">
-              <div class="card">
-                <div class="card header">
+            <div [ngClass]= "{'none-interactable': consultorio.estatus == 'RECHAZADO'}">
+              <!--Direccion-->
+              <div class="input-group columna">
+                <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                   </div>
-                  <div class="textCenterVertical">
-                    <p class="card-subtitle mb-2 text-muted" *ngIf="consultorio.ubicacion == undefined">Seleccione la localidad</p>
-                    <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> Localidad: {{consultorio.ubicacion.nombre}}</p>
-                  </div>
+                  <input [(ngModel)]="consultorio.direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" style="background-color:white" formControlName="direccionConsultorio" aria-describedby="inputGroupPrepend" required>
                 </div>
-                <div class="lista">
-                  <app-ubicacion-list [ubicacion]="ubicacion" (selected)="ubicacionSelected($event)"></app-ubicacion-list>
-                </div>
-              </div>
-              <div class="feedback"  *ngIf=" consultorio.fkUbicacion == -1 && hayErrores">
-                  Selecciona una ubicación.
-              </div>
-            </div>
-            <br>
-            
-            <!-- virus que conoce no editable-->
-            <div class="card" *ngIf="estadoActual == 2">
-              <div class="form-row m-3" >
-                <div class="col-md-4"  *ngFor="let medicoVirus of consultorio.medicosVirus">
-                  <div class="flex-clumna">
-                    <p style="margin-bottom: 0;">{{medicoVirus.virus.nombre}}</p> 
-                    <div>
-                      <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
-                      <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                      <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
-                      <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                      <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
-                      <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                      <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
-                      <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                      <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
-                      <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                    </div>
-                    <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
+                <div class="feedback"   *ngIf="consultorioForm.controls.direccionConsultorio.errors && (consultorioForm.controls.direccionConsultorio.touched || hayErrores)">
+                  <div *ngIf="consultorioForm.controls.direccionConsultorio.errors.required">
+                    Ingresa una dirección.
                   </div>
                 </div>
               </div>
-            </div>
-
-            <!-- virus que conoce -->
-            <div class="input-froup columna card" style="padding-left: 60px ;">
-              <div style="margin-top: 5px;">
-                <p *ngIf= "estadoActual == 0">Seleccione todos los virus que puede tratar:</p>
-              </div>
+              <br>
+              
+              <!--ubicacion-->
               <div class="form-row">
-                <div class="col-md-4"  *ngFor="let v of virusList">
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
-                    <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
+                <div class="card">
+                  <div class="card header">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
+                    </div>
+                    <div class="textCenterVertical">
+                      <p class="card-subtitle mb-2 text-muted" *ngIf="consultorio.ubicacion == undefined">Seleccione la localidad</p>
+                      <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> Localidad: {{consultorio.ubicacion.nombre}}</p>
+                    </div>
+                  </div>
+                  <div class="lista">
+                    <app-ubicacion-list [ubicacion]="ubicacion" (selected)="ubicacionSelected($event)"></app-ubicacion-list>
+                  </div>
+                </div>
+                <div class="feedback"  *ngIf=" consultorio.fkUbicacion == -1 && hayErrores">
+                    Selecciona una ubicación.
+                </div>
+              </div>
+              <br>
+              
+              <!-- virus que conoce no editable-->
+              <div class="card" *ngIf="estadoActual == 2">
+                <div class="form-row m-3" >
+                  <div class="col-md-4"  *ngFor="let medicoVirus of consultorio.medicosVirus">
+                    <div class="flex-clumna">
+                      <p style="margin-bottom: 0;">{{medicoVirus.virus.nombre}}</p> 
+                      <div>
+                        <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
+                        <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                        <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
+                        <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                        <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
+                        <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                        <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
+                        <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                        <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
+                        <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      </div>
+                      <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <br>
-            
-            <!--descripcion -->
-            <div class="form-group columna">
-              <textarea [(ngModel)]="consultorio.descripcion" placeholder="Descripción o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
-              <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
-                <div *ngIf="consultorioForm.controls.descripcion.errors.required">
-                  Ingresa una descripcion.
+  
+              <!-- virus que conoce -->
+              <div class="input-froup columna card" style="padding-left: 60px ;">
+                <div style="margin-top: 5px;">
+                  <p *ngIf= "estadoActual == 0">Seleccione todos los virus que puede tratar:</p>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-4"  *ngFor="let v of virusList">
+                    <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
+                      <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              
+              <!--descripcion -->
+              <div class="form-group columna">
+                <textarea [(ngModel)]="consultorio.descripcion" placeholder="Descripción o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
+                <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
+                  <div *ngIf="consultorioForm.controls.descripcion.errors.required">
+                    Ingresa una descripcion.
+                  </div>
                 </div>
               </div>
             </div>
@@ -228,7 +239,7 @@
               <div *ngIf="estadoActual == 0" class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
                 Registrar
               </div>
-              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
+              <div *ngIf="estadoActual == 2 && consultorio.estatus != 'RECHAZADO'" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
                 Guardar Cambios
               </div>
               <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1"  (click)="confirmacionParaEliminar(consultorio)" >

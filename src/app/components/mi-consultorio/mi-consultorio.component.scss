@@ -92,7 +92,7 @@ form{
 }
 .circulo{
     background: white;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 50%;
     width: 10px;
     height: 10px;
@@ -212,3 +212,6 @@ padding-left: 28px;
 .checked {
     color: #2B94C0;
   }
+.none-interactable{
+    pointer-events: none;
+}

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SIDVIServices } from 'src/api';
-import { Router } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Ubicacion, IUbicacion, Medico, _Medico, Virus, MedicoVirus, Valoracion } from 'src/models';
@@ -209,77 +208,110 @@ export class MiConsultorioComponent implements OnInit {
         }
     }
 
-    registrar() {
-        console.log('registrar ' + this.consultorioForm.status );
-        if  (this.consultorioForm.status ===  'VALID' && this.consultorio.fkUbicacion !== -1) {
-            this.hayErrores = false;
-            delete this.consultorio.mimetypeFoto;
-            delete this.consultorio.archivoFoto;
-            let success = true;
-            this.sidvi.medico.crearMedico(this.consultorio)
-                .subscribe(res => {
-                    if (res.type === _APIResponse.TypeEnum.SUCCESS) {
-                        if ( this.consultorio.localFile != null ) {
-                            this.guardarImagen(res.extra.insertedId);
-                        }
-                        this.virusList.forEach(virus => {
-                            if (virus.selected !== true) { return; }
-                            const medicoVirus = new MedicoVirus({fkMedico: res.extra.insertedId, fkVirus: virus.idVirus});
-                            this.sidvi.medicoVirus.crearMedicoVirus(medicoVirus)
-                            .subscribe( res2 => {
-                                if (res2.type !== _APIResponse.TypeEnum.SUCCESS) {
-                                    success = false;
-                                }
-                            } , err => {console.log(err); });
-                        });
-                        if (success) {
-                            this.obtenerConsultoriosList(this.sidvi.manager.usuario.idUsuario);
-                            Swal.fire({title: 'Consultorio registrado correctamente', text: 'Su solicitud fue enviada', icon: 'success', backdrop: false});                 
-                        } else {
-                            Swal.fire({title: 'Algo salió mal', text: 'Por favor intentelo más tarde', icon: 'error', backdrop: false});
-                        }
-                        this.refreshForm();
-                    }
-            }, err => { console.log(err); });
-        } else  {
-        this.hayErrores = true;
-        }
-    }
-
     guardarImagen(medicoId: number) {
         this.sidvi.medico.cargarMedicoFoto(medicoId, this.consultorio.localFile[0])
             .subscribe( res => { console.log(res);
             }, err => { console.log(err); });
     }
 
+    registrar() {
+        console.log('registrar ' + this.consultorioForm.status );
+        const canProceed = this.checkForm();
+        if (!canProceed) { return; }
+        let success = true;
+        this.sidvi.medico.crearMedico(this.consultorio)
+            .subscribe(res => {
+                if (res.type === _APIResponse.TypeEnum.SUCCESS) {
+                    if ( this.consultorio.localFile != null ) {
+                        this.guardarImagen(res.extra.insertedId);
+                    }
+                    this.virusList.forEach(virus => {
+                        if (virus.selected !== true) { return; }
+                        const medicoVirus = new MedicoVirus({fkMedico: res.extra.insertedId, fkVirus: virus.idVirus});
+                        this.sidvi.medicoVirus.crearMedicoVirus(medicoVirus)
+                            .subscribe( res2 => {
+                                if (res2.type !== _APIResponse.TypeEnum.SUCCESS) {
+                                    success = false;
+                                }
+                            } , err => { console.log(err); });
+                    });
+                    this.showMsg(success, 'Consultorio registrado', 'Los cambios han sido guardados' );
+                }
+            }, err => {
+                console.log(err);
+                this.showMsg(false, 'Consultorio registrado', 'Los cambios han sido guardados' );
+            });
+    }
+
     editar(consultorio: Medico) {
+        const canProceed = this.checkForm();
+        if (!canProceed) { return; }
+        let success = true;
         this.sidvi.medico.actualizarMedico(this.consultorio.idMedico, this.consultorio)
             .subscribe( res => {
                 if (res.type === _APIResponse.TypeEnum.SUCCESS) {
                     if ( this.consultorio.localFile != null ) {
-                        this.guardarImagen(this.consultorio.idMedico);
+                            this.guardarImagen(this.consultorio.idMedico);
                     }
                     this.virusList.forEach( v => {
-                        let isInMV = false; let idMV = -1;
+                        let idMV = -1;
+                        let isInMV; isInMV = false;
                         this.consultorio.medicosVirus.forEach( mv => {
                             if (v.idVirus === mv.fkVirus) {
                                 isInMV = true;
                                 idMV = mv.idMedicoVirus;
                             }
                         });
-                        if (v.selected === true && isInMV === false) {      //Agregar relacion de MedicoVirus
-                            const newMV = new MedicoVirus({fkMedico: this.consultorio.idMedico, fkVirus: v.idVirus});
-                            this.sidvi.medicoVirus.crearMedicoVirus(newMV).subscribe( res => { console.log(res); });;
-                        } else if ((v.selected === false || v.selected == null) && isInMV === true) { //Eliminar relacion de Medico Virus
-                            this.sidvi.medicoVirus.eliminarMedicoVirus(idMV).subscribe( res => { console.log(res); });
+                        if (this.decisionVirus(isInMV, idMV, v) === false) {
+                            success = false;
                         }
                     });
-                    Swal.fire({title: 'Consultorio editado correctamente', text: 'Los cambios han sido guardados', icon: 'success', backdrop: false});                 
-                    
-                } else {
-                    Swal.fire({title: 'Algo salió mal', text: 'Por favor intentelo m´ss tarde', icon: 'error', backdrop: false});
+                    this.showMsg(success, 'Consultorio editado', 'Los cambios han sido guardados' );
                 }
-            }, err => { console.log(err); });
+            }, err => { console.log(err); this.showMsg(false, 'Consultorio registrado', 'Su solicitud fue enviada'); });
+    }
+
+    decisionVirus(isInMVList: boolean,  idMV: number, virus: Virus) {
+        let success = true;
+        if (isInMVList === false && virus.selected === true) { // Agregar relacion de Medico Virus
+            console.log('agregando ' + virus.nombre);
+            const newMV = new MedicoVirus({fkMedico: this.consultorio.idMedico, fkVirus: virus.idVirus});
+            this.sidvi.medicoVirus.crearMedicoVirus(newMV)
+                .subscribe( resMV => {
+                    console.log(resMV);
+                }, err => {success = false; });
+        } else if (isInMVList === true && (virus.selected === false || virus.selected == null) ) {  // Eliminar relacion de Medico Virus
+            console.log('eliminando ' + virus.nombre);
+            this.sidvi.medicoVirus.eliminarMedicoVirus(idMV)
+                .subscribe( resMV => {
+                    console.log(resMV);
+                }, err => { success = false; });
+        } else {
+                console.log('no le hago nada a ' + virus.nombre);
+        }
+        return success;
+    }
+
+    checkForm() {
+        if  (this.consultorioForm.status ===  'VALID' && this.consultorio.fkUbicacion !== -1) {
+            this.hayErrores = false;
+            delete this.consultorio.mimetypeFoto;
+            delete this.consultorio.archivoFoto;
+            return true;
+        } else {
+            this.hayErrores = true;
+            return false;
+        }
+    }
+
+    showMsg(success: boolean, titleMsg: string, textMsg: string) {
+        if (success) {
+            this.obtenerConsultoriosList(this.sidvi.manager.usuario.idUsuario);
+            Swal.fire({title: titleMsg, text: textMsg, icon: 'success', backdrop: false});
+        } else {
+            Swal.fire({title: 'Algo salió mal', text: 'Por favor intentelo más tarde', icon: 'error', backdrop: false});
+        }
+        this.refreshForm();
     }
 
     eliminar(consultorio: Medico) {

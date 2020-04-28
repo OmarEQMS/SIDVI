@@ -19,11 +19,8 @@ const routes: Routes = [
     { path: 'informacion/:idVirus', component: InformacionComponent },
     { path: 'medicos/:idVirus', component: MedicoVirusListComponent},
     { path: 'estadistica/:idVirus', component: EstadisticaComponent },
-<<<<<<< HEAD
     { path: 'registro', component: RegistroComponent },
-=======
     { path: 'test/:idTestNodo', component: TestComponent },
->>>>>>> origin/master
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

@@ -10,6 +10,8 @@ import { EstadisticaComponent } from './components/estadistica/estadistica.compo
 import {MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { TestComponent } from './components/test/test.component';
+import { RecuperarComponent } from './components/recuperar/recuperar.component';
+import { RestablecerComponent } from './components/restablecer/restablecer.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'virus', pathMatch: 'full' },
@@ -21,6 +23,8 @@ const routes: Routes = [
     { path: 'estadistica/:idVirus', component: EstadisticaComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'test/:idTestNodo', component: TestComponent },
+    { path: 'recuperar', component: RecuperarComponent },
+    { path: 'restablecer/:usuario/:token', component: RestablecerComponent},
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

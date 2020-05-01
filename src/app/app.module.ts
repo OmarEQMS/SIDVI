@@ -35,6 +35,8 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
 import { TestComponent } from './components/test/test.component';
+import { RecuperarComponent } from './components/recuperar/recuperar.component';
+import { RestablecerComponent } from './components/restablecer/restablecer.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { TestComponent } from './components/test/test.component';
     UbicacionListComponent,
     MiConsultorioComponent,
     RegistroComponent,
-    TestComponent
+    TestComponent,
+    RecuperarComponent,
+    RestablecerComponent
   ],
   entryComponents: [],
   imports: [

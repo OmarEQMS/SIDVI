@@ -12,12 +12,9 @@ import { MDBModalRef } from 'angular-bootstrap-md';
 })
 export class UbicacionesEditListComponent implements OnInit {
     @Input() ubicacion: Ubicacion;
-    @Output() delete = new EventEmitter<number>();
-    @Output() rename = new EventEmitter<number>();
-    @Output() create = new EventEmitter<number>();
+    @Output() selected = new EventEmitter<Ubicacion>();
     @ViewChild('modalEditarUbicacion', null) modalEvaluarMedico: MDBModalRef;
 
-    localUbicacion: Ubicacion;
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
         minus: faChevronDown,
@@ -25,7 +22,6 @@ export class UbicacionesEditListComponent implements OnInit {
     };
 
     constructor(private sidvi: SIDVIServices) {
-        this.localUbicacion = new Ubicacion();
     }
 
     ngOnInit() { }
@@ -40,13 +36,8 @@ export class UbicacionesEditListComponent implements OnInit {
         }
     }
 
-    emitDeleteUbicacion(idUbicacion: number) {
-        this.delete.emit(idUbicacion);
+    emitSelectedUbicacion(ubicacion: Ubicacion) {
+        this.selected.emit(ubicacion);
     }
-
-    deleteUbicacion(ubicacion: Ubicacion) {
-        this.delete.emit(ubicacion.idUbicacion);
-    }
-
 
 }

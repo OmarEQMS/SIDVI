@@ -45,7 +45,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     UbicacionListComponent,
     MiConsultorioComponent,
     UbicacionListComponent
-  ],
+    ],
   entryComponents: [],
   imports: [
     BrowserAnimationsModule,

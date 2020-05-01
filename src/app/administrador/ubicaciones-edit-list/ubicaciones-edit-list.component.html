@@ -1,38 +1,13 @@
 <ion-list class='p-0'>
     <div *ngFor="let ubi of ubicacion.ubicaciones">
-        <div class='btn-item-selected' *ngIf="ubi.localSelected">
+        <div class='btn-item'>
             <fa-icon class='btn-icono d-inline-block' (click)="expandUbicacion(ubi)" [icon]="ubi.localIcono"></fa-icon>
-            <div class='btn-text d-inline-block' (click)="localUbicacion=ubi; modalEvaluarMedico.show(); ">{{ubi.nombre}}</div>
-        </div>
-        <div class='btn-item' *ngIf="!ubi.localSelected">
-            <fa-icon class='btn-icono d-inline-block' (click)="expandUbicacion(ubi)" [icon]="ubi.localIcono"></fa-icon>
-            <div class='btn-text d-inline-block' (click)="localUbicacion=ubi; modalEvaluarMedico.show(); ">{{ubi.nombre}}</div>
+            <div class='btn-text d-inline-block' (click)="emitSelectedUbicacion(ubi)">{{ubi.nombre}}</div>
         </div>
         <ion-list *ngIf="ubi.localVisible" class='list-ubicacion p-0'>
-            <app-ubicaciones-edit-list [ubicacion]="ubi" (selected)="emitDeleteUbicacion($event)">
+            <app-ubicaciones-edit-list [ubicacion]="ubi" (selected)="emitSelectedUbicacion($event)">
             </app-ubicaciones-edit-list>
         </ion-list>
     </div>
 </ion-list>
 
-<!-- Modal Agregar Curso -->
-<div mdbModal #modalEditarUbicacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
-    [config]="{backdrop: false, ignoreBackdropClick: true}">
-    <div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <span class='modal-title tamanoTitulo'>Editar Ubicación: {{localUbicacion.nombre}}</span>
-                <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarUbicacion.hide()">
-                    <span aria-hidden='true'>×</span>
-                </button>
-            </div>
-            <div class='modal-body pl-3 pr-3 pb-3 d-flex justify-content-center'>
-                Evaluar
-            </div>
-            <div class='modal-footer'>
-                <input id='btn-agregar-curso' type='button' class='btn btn-block calificar botonAzul'
-                    (click)="enviarEvaluacion()" value='Enviar calificación'>
-            </div>
-        </div>
-    </div>
-</div>

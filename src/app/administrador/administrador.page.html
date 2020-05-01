@@ -30,10 +30,62 @@
 
                 <div class='btn-item' (click)="cerrarSesion()">
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
-                    <div class='btn-text d-inline-block'>Cerrar Sesion</div>
+                    <div class='btn-text d-inline-block' routerLink="/login" (click)="cerrarSesion()">Cerrar Sesion
+                    </div>
                 </div>
             </ion-list>
+
+            <div>
+                <div class="btn btn-primary text-white m-1" (click)="basicModal.show()">Agregar Virus</div>
+            </div>
         </ion-content>
     </ion-menu>
     <ion-router-outlet id='main'></ion-router-outlet>
 </ion-split-pane>
+
+<!-- MODAL AGREGAR INFORMACIÓN-->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="resetModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Agregar virus</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- NOMBRE -->
+                <div class='label-input'>
+                    <label>Nombre del virus</label>
+                    <input [(ngModel)]="newVirus.nombre" mdbInput type="text" class="form-control"
+                        value="{{newVirus.nombre}}">
+                </div>
+
+                <!-- CLAVE -->
+                <div class='label-input'>
+                    <label>Clave</label>
+                    <input [(ngModel)]="newVirus.clave" mdbInput type="text" class="form-control" value="{{newVirus.clave}">
+                </div>
+
+                <!-- ARCHIVO -->
+                <div class='label-input'>
+                    <label>Archivo</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01" (change)="handleAddFileInput($event.target.files)">
+                        <label class="custom-file-label" for="inputGroupFile01">{{newVirus.localFileName}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                        (click)="resetModal()" mdbWavesEffect>Cerrar</button>
+                    <button type="submit" mdbBtn color="primary" (click)="agregarVirus()" class="relative waves-light"
+                        mdbWavesEffect>Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>

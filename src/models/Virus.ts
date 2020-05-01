@@ -50,6 +50,10 @@ export class Virus implements IVirus {
     // Extras
     archivoIconoImg: SafeResourceUrl;
 
+    // Local
+    localFile: FileList;
+    localFileName: string;
+
     // Constructor
     constructor(virus?: any) {
         if (virus !== undefined) {
@@ -59,8 +63,10 @@ export class Virus implements IVirus {
             this.mimetypeIcono = virus.mimetypeIcono;
             this.archivoIcono = virus.archivoIcono;
             this.fkTestNodo = virus.fkTestNodo;
+            // Relations
+            this.informaciones = new Array(0);
+            this.localFileName = 'Choose File';
         }
-        this.informaciones = new Array(0);
     }
 
     // ToObjectDB

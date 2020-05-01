@@ -1,0 +1,65 @@
+<div class="pagina"></div>
+
+<div class="centrado">
+  <div class="formBox">
+
+    <h1>Registro</h1>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-user"></i></span>
+        </div>
+        <input [(ngModel)]="usuario.nombreCompleto" type="text" placeholder="Nombre Completo" class="form-control" aria-describedby="inputGroupPrepend"
+          required>
+      </div>
+    </div>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="far fa-envelope"></i></span>
+        </div>
+        <input [(ngModel)]="usuario.correo" type="text" placeholder="Correo" class="form-control" aria-describedby="inputGroupPrepend" required>
+      </div>
+    </div>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-phone-alt"></i></span>
+        </div>
+        <input [(ngModel)]="usuario.celular" type="text" placeholder="Celular" class="form-control" aria-describedby="inputGroupPrepend" required>
+      </div>
+    </div>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-at"></i></span>
+        </div>
+        <input [(ngModel)]="usuario.usuario" type="text" placeholder="Usuario" class="form-control" aria-describedby="inputGroupPrepend" required>
+      </div>
+    </div>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-key"></i></span>
+        </div>
+        <input [(ngModel)]="usuario.contrasena" type="password" placeholder="Contraseña" class="form-control" aria-describedby="inputGroupPrepend" required>
+      </div>
+    </div>
+
+    <div class="input-group columna">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-key"></i></span>
+        </div>
+        <input [(ngModel)]="contrasena" type="password" placeholder="Confirmar contraseña" class="form-control" aria-describedby="inputGroupPrepend"
+          required>
+      </div>
+    </div>
+    <ion-button expand="block" class="ion-no-margin" (click)="registrar()">Crear cuenta</ion-button>
+  </div>
+</div>

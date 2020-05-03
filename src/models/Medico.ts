@@ -10,12 +10,12 @@ export namespace _Medico {
     export let archivoContentType: ContentTypeEnum[] = [ContentTypeEnum.JPG, ContentTypeEnum.PNG];
     export let archivoFileSize: number = 8 * 1024 * 1024;
 
-    export type Estatus = 'HABILITADO' | 'DESHABILITADO' | 'EN_ESPERA' |'RECHAZADO';
+    export type Estatus = 'HABILITADO' | 'DESHABILITADO' | 'EN_ESPERA' | 'RECHAZADO';
     export const Estatus = {
-        HABILITADO: 'HABILITADO' as Estatus,
-        DESHABILITADO: 'DESHABILITADO' as Estatus,
-        EN_ESPERA: 'EN_ESPERA' as Estatus,
-        RECHAZADO: 'RECHAZADO' as Estatus
+        HABILITADO:     'HABILITADO'    as Estatus,
+        DESHABILITADO:  'DESHABILITADO' as Estatus,
+        EN_ESPERA:      'EN_ESPERA'     as Estatus,
+        RECHAZADO:      'RECHAZADO'     as Estatus
     };
 
 }
@@ -61,6 +61,8 @@ export class Medico implements IMedico {
 
     // Extras
     archivoIconoImg: SafeResourceUrl;
+    localFile: FileList;
+    localFileName: string;
 
     // Constructor
     constructor(medico?: any) {
@@ -82,6 +84,7 @@ export class Medico implements IMedico {
 
     // ToObjectDB
     toObjectDB() {
+        console.log(this);
         return {
             idMedico: this.idMedico,
             fkUsuario: this.fkUsuario,
@@ -92,8 +95,6 @@ export class Medico implements IMedico {
             telefonoConsultorio: this.telefonoConsultorio,
             cedulaProfesional: this.cedulaProfesional,
             descripcion: this.descripcion,
-            mimetypeFoto: this.mimetypeFoto,
-            archivoFoto: this.archivoFoto.toString(),
             estatus: this.estatus
         };
     }

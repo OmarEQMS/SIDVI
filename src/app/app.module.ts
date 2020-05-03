@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-
 // Imports
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -49,6 +48,7 @@ import { RestablecerComponent } from './components/restablecer/restablecer.compo
     EstadisticaComponent,
     UbicacionListComponent,
     MiConsultorioComponent,
+    UbicacionListComponent,
     RegistroComponent,
     TestComponent,
     RecuperarComponent,

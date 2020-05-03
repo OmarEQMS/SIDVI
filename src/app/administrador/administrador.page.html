@@ -15,7 +15,12 @@
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
                     <div class='btn-text d-inline-block'>Mi Perfil</div>
                 </div>
-
+                <div class='btn-item' routerLink='./catalogos'>
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon>
+                    <div class='btn-text d-inline-block'>
+                        Editar catálogos
+                    </div>
+                </div>
                 <div *ngFor="let virus of viruss">
                     <div class='btn-item' (click)="abrirVirus(virus)">
                         <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
@@ -62,8 +67,7 @@
                 <!-- CLAVE -->
                 <div class='label-input'>
                     <label>Clave</label>
-                    <input [(ngModel)]="newVirus.clave" mdbInput type="text" class="form-control"
-                        value="{{newVirus.clave}">
+                    <input [(ngModel)]="newVirus.clave" mdbInput type="text" class="form-control" value="{{newVirus.clave}">
                 </div>
 
                 <!-- ARCHIVO -->
@@ -76,12 +80,12 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
-                    (click)="resetModal()" mdbWavesEffect>Cerrar</button>
-                <button type="submit" mdbBtn color="primary" (click)="agregarVirus()" class="relative waves-light"
-                    mdbWavesEffect>Agregar</button>
+            <div class=" modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                        (click)="resetModal()" mdbWavesEffect>Cerrar</button>
+                    <button type="submit" mdbBtn color="primary" (click)="agregarVirus()" class="relative waves-light"
+                        mdbWavesEffect>Agregar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

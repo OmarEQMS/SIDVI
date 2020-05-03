@@ -105,11 +105,7 @@ export class MedicoVirusListComponent implements OnInit {
                 }
             }
         },
-        err => {
-            console.log(err);
-
-        }
-        );
+        err => { console.log(err); });
     }
 
     evaluarMedico(valor: number) {

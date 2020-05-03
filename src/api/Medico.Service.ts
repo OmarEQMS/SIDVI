@@ -170,6 +170,7 @@ export class MedicoService {
 
     public cargarMedicoFoto(idMedico: number, foto: Blob): Observable<any> {
         // Validate
+        console.log(foto);
         if (idMedico === null || idMedico === undefined) {
             throw new Error('Required parameter idMedico was null or undefined when calling cargarMedicoFoto.');
         }
@@ -183,7 +184,7 @@ export class MedicoService {
             headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
         }
         headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');
+       //headers = headers.set('Content-Type', 'application/json');
 
         // FormParams
         const formParams = new FormData();

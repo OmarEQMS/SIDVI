@@ -49,6 +49,8 @@ export class Virus implements IVirus {
 
     // Extras
     archivoIconoImg: SafeResourceUrl;
+    selected?: boolean;
+    medicoVirusId?: number;
 
     // Local
     localFile: FileList;
@@ -63,10 +65,11 @@ export class Virus implements IVirus {
             this.mimetypeIcono = virus.mimetypeIcono;
             this.archivoIcono = virus.archivoIcono;
             this.fkTestNodo = virus.fkTestNodo;
+            this.selected = virus.selected;
             // Relations
             this.informaciones = new Array(0);
             this.localFileName = 'Choose File';
-        }
+       }
     }
 
     // ToObjectDB

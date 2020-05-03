@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Virus, Informacion, CategoriaInformacion } from 'src/models';
 import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +8,8 @@ import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { _APIResponse } from 'src/api/APIResponse';
+import { ModalContainerComponent } from 'angular-bootstrap-md';
 
 
 @Component({
@@ -17,6 +19,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class EditarInformacionComponent implements OnInit {
 
+    @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
     virus: Virus;
     categorias: CategoriaInformacion[];
     addFileName: string;
@@ -41,6 +44,7 @@ export class EditarInformacionComponent implements OnInit {
             categoria: new FormControl('', Validators.required),
             descripcion: new FormControl('', Validators.required)
         });
+        this.addInfoForm.controls.categoria.setValue('Categoría', { onlySelf: true });
     }
 
     ngOnInit() {
@@ -101,10 +105,8 @@ export class EditarInformacionComponent implements OnInit {
         informacion.archivoPdfZoom -= 0.1;
     }
 
-    guardar(informacion: Informacion, texto: string, descripcion: string) {
+    guardar(informacion: Informacion) {
 
-        informacion.texto = texto;
-        informacion.descripcion = descripcion;
         delete informacion.archivo;
         delete informacion.mimetype;
 
@@ -112,23 +114,20 @@ export class EditarInformacionComponent implements OnInit {
 
         this.sidvi.informacion.actualizarInformacion(informacion.idInformacion, informacion).subscribe(
             res => {
-                if (res) {
-
-                    // Checar si se subio un doc
-                    if (informacion.localFile != null) {
-                        this.actualizarInformacionArchivo(informacion);
-                        informacion.localFile = null;
-                        informacion.localFileName = 'Choose file';
-                        return;
-                    }
-
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
+                // Checar si se subio un doc
+                if (informacion.localFile != null) {
+                    this.actualizarInformacionArchivo(informacion);
+                    informacion.localFile = null;
+                    informacion.localFileName = 'Choose file';
+                    return;
                 }
+
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                    }
+                });
             },
             error => {
                 alert('No se pudo loguear');
@@ -139,14 +138,12 @@ export class EditarInformacionComponent implements OnInit {
     actualizarInformacionArchivo(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
-                if (res) {
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
-                }
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                    }
+                });
             },
             error => {
                 alert('Los archivos no se pudieron actualizar');
@@ -170,7 +167,7 @@ export class EditarInformacionComponent implements OnInit {
             if (result.value) {
                 this.sidvi.informacion.eliminarInformacion(informacion.idInformacion).subscribe(
                     res => {
-                        if (res && res.type == 'SUCCESS') {
+                        if (res && res.type === _APIResponse.TypeEnum.SUCCESS) {
                             Swal.fire({
                                 title: 'Borrado completo',
                                 text: 'El bloque de información ha sido eliminado exitosamente',
@@ -211,36 +208,24 @@ export class EditarInformacionComponent implements OnInit {
         this.addInformacion.texto = formVals.texto;
         this.addInformacion.descripcion = formVals.descripcion;
         this.addInformacion.fkVirus = this.virus.idVirus;
-        this.addInformacion.fkCategoriaInformacion = formVals.categoria;
-
-        /*this.sidvi.categoriaInformacion.obtenerCategoriaInformacion(formVals.categoria).subscribe(
-            res => {
-                this.addInformacion.categoriaInformacion = res;
-            },
-            error => {
-                console.error(error);
-            }
-        );*/
+        this.addInformacion.fkCategoriaInformacion = parseInt(formVals.categoria, 10);
 
         this.sidvi.informacion.crearInformacion(this.addInformacion).subscribe(
             results => {
-                if (results) {
 
-                    // Checar si se subio un doc
-                    /*if (informacion.localFile != null) {
-                        this.actualizarInformacion(informacion);
-                        informacion.localFile = null;
-                        informacion.localFileName = 'Choose file';
-                        return;
-                    }*/
-
-                    // tslint:disable-next-line: max-line-length
-                    Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                        if (result.value) {
-                            this.listarVirus();
-                        }
-                    });
+                // Checar si se subio un doc
+                if (this.addFile != null) {
+                    this.agregarInformacionArchivo(results.extra.insertedId);
+                    return;
                 }
+
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                        this.resetModal();
+                    }
+                });
             },
             error => {
                 alert('No se pudo loguear');
@@ -248,8 +233,30 @@ export class EditarInformacionComponent implements OnInit {
         );
     }
 
-    agregarInformacionArchivo(idInformacion: number) {
+    resetModal() {
+        this.basicModal.hide();
+        this.addInfoForm.reset();
+        this.addFile = null;
+        this.addFileName = 'Choose file';
+        this.addInfoForm.value.categoria = 0;
+        this.addInfoForm.controls.categoria.setValue('Categoría', { onlySelf: true });
+    }
 
+    agregarInformacionArchivo(idInformacion: number) {
+        this.sidvi.informacion.cargarInformacionArchivo(idInformacion, this.addFile[0]).subscribe(
+            res => {
+                // tslint:disable-next-line: max-line-length
+                Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+                    if (result.value) {
+                        this.listarVirus();
+                        this.resetModal();
+                    }
+                });
+            },
+            error => {
+                alert('Los archivos no se pudieron actualizar');
+            }
+        );
     }
 
 }

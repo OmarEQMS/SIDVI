@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   // tslint:disable-next-line: variable-name
-  constructor(private _SIDVI: SIDVIServices, private _router: Router) {
+  constructor(private sidvi: SIDVIServices, private router: Router) {
     this.loginForm = new FormGroup({
       usuario: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -27,24 +27,24 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     console.log(this.loginForm);
-    this._SIDVI.usuario.autenticacion(this.loginForm.value.usuario, this.loginForm.value.password).subscribe(
+    this.sidvi.usuario.autenticacion(this.loginForm.value.usuario, this.loginForm.value.password).subscribe(
       res => {
         if (res) {
 
           // tslint:disable-next-line: triple-equals
           if (res.statusCode == 200) {
             console.log(res);
-            this._SIDVI.manager.setItems(res.extra.token, res.extra.usuario);
-            if (this._SIDVI.manager.usuario.rol === _Usuario.Rol.ADMINISTRADOR) {
-                this._router.navigate(['./administrador']);
+            this.sidvi.manager.setItems(res.extra.token, res.extra.usuario);
+            if (this.sidvi.manager.usuario.rol === _Usuario.Rol.ADMINISTRADOR) {
+                this.router.navigate(['./administrador']);
             } else {
-                this._router.navigate(['./virus']);
+                this.router.navigate(['./virus']);
             }
           } else {
             // tslint:disable-next-line: max-line-length
             Swal.fire({ title: 'Error', text: 'Nombre de usuario o contraseña inválidos. Redireccionando a página principal', icon: 'error', heightAuto: false }).then((result) => {
               if (result.value) {
-                this._router.navigate(['./virus']);
+                this.router.navigate(['./virus']);
               }
             });
           }

@@ -1,41 +1,61 @@
 <div>
-  <div>
-    <p>
-      Imagen...
-    </p>
-    <p>
-      {{virus.nombre}}
-    </p>
-    <p>
-      {{virus.clave}}
-    </p>
-    <div class="centrado">
-      <a class="btn btn-success d-inline-block text-white m-1" routerLink='informacion'>Guardar cambios</a>
-    </div>
-  </div>
 
-  <div class="botones">
-    <div class="centrado">
-      <a class="btn btn-info d-inline-block text-white m-1" routerLink='informacion'>Editar
-        información</a>
-    </div>
-    <div class="centrado">
-      <a class="btn btn-info d-inline-block text-white m-1" routerLink='estadistica'>Editar
-        estadísticas</a>
-    </div>
-    <div class="centrado">
-      <a class="btn btn-info d-inline-block text-white m-1" routerLink='medicos'>Editar Médicos
-        Disponibles</a>
-    </div>
-    <div class="centrado">
-      <a class="btn btn-info d-inline-block text-white m-1" routerLink='test'>Editar Test de
-        Síntomas</a>
-    </div>
-  </div>
+    <!-- INFORMACIÓN GENERAL DEL VIRUS -->
+    <div>
+        <!-- FOTO -->
+        <div class='d-flex justify-content-center mb-3 mt-1 imagen-icono' *ngIf="virus.archivoIconoImg != null">
+            <img class='img-contenido' [src]="virus.archivoIconoImg">
+        </div>
 
-  <div>
-    <div class="centrado">
-      <a class="btn btn-danger d-inline-block text-white m-1" routerLink='informacion'>Eliminar virus</a>
+        <div class='label-input'>
+            <label>Archivo</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" (change)="handleFileInput($event.target.files)">
+                <label class="custom-file-label" for="inputGroupFile01">{{virus.localFileName}}</label>
+            </div>
+        </div>
+
+        <!-- NOMBRE -->
+        <div>
+            <label>Nombre: </label>
+            <input [(ngModel)]="virus.nombre" mdbInput type="text" class="form-control" value="{{virus.nombre}}">
+        </div>
+
+        <!-- CLAVE -->
+        <div>
+            <label>Clave: </label>
+            <input [(ngModel)]="virus.clave" mdbInput type="text" class="form-control" value="{{virus.clave}}">
+        </div>
+
+        <!-- GUARDAR -->
+        <div class="centrado">
+            <a class="btn btn-success d-inline-block text-white m-1" (click)="guardar()">Guardar cambios</a>
+        </div>
     </div>
-  </div>
+
+    <div class="botones">
+        <div class="centrado">
+            <a class="btn btn-info d-inline-block text-white m-1" routerLink='informacion'>Editar
+                información</a>
+        </div>
+        <div class="centrado">
+            <a class="btn btn-info d-inline-block text-white m-1" routerLink='estadistica'>Editar
+                estadísticas</a>
+        </div>
+        <div class="centrado">
+            <a class="btn btn-info d-inline-block text-white m-1" routerLink='medicos'>Editar Médicos
+                Disponibles</a>
+        </div>
+        <div class="centrado">
+            <a class="btn btn-info d-inline-block text-white m-1" routerLink='test'>Editar Test de
+                Síntomas</a>
+        </div>
+    </div>
+
+    <div>
+        <div class="centrado">
+            <a class="btn btn-danger d-inline-block text-white m-1" (click)='eliminarVirus()'>Eliminar virus</a>
+        </div>
+    </div>
 </div>

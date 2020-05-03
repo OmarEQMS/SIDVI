@@ -17,6 +17,9 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { VirusComponent } from './virus/virus.component';
 import { EditarInformacionComponent } from './editar-informacion/editar-informacion.component';
 import { EditarEstadisticaComponent } from './editar-estadistica/editar-estadistica.component';
+import { EditarCatalogosComponent } from './editar-catalogos/editar-catalogos.component';
+import { UbicacionListComponent } from '../components/ubicacion-list/ubicacion-list.component';
+import { UbicacionesEditListComponent } from './ubicaciones-edit-list/ubicaciones-edit-list.component';
 
 @NgModule({
   imports: [
@@ -38,7 +41,9 @@ import { EditarEstadisticaComponent } from './editar-estadistica/editar-estadist
     PerfilComponent,
     VirusComponent,
     EditarInformacionComponent,
-    EditarEstadisticaComponent
+    EditarEstadisticaComponent,
+    EditarCatalogosComponent,
+    UbicacionesEditListComponent
   ]
 })
 export class AdministradorPageModule {}

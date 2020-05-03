@@ -26,12 +26,14 @@ import { MedicoVirusListComponent } from './components/medico-virus-list/medico-
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
 import { MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
         UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
     EstadisticaComponent,
     UbicacionListComponent,
     MiConsultorioComponent,
-    UbicacionListComponent
+    UbicacionListComponent,
+    RegistroComponent,
+    TestComponent
   ],
   entryComponents: [],
   imports: [

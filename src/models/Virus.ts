@@ -52,6 +52,10 @@ export class Virus implements IVirus {
     selected?: boolean;
     medicoVirusId?: number;
 
+    // Local
+    localFile: FileList;
+    localFileName: string;
+
     // Constructor
     constructor(virus?: any) {
         if (virus !== undefined) {
@@ -62,8 +66,10 @@ export class Virus implements IVirus {
             this.archivoIcono = virus.archivoIcono;
             this.fkTestNodo = virus.fkTestNodo;
             this.selected = virus.selected;
-        }
-        this.informaciones = new Array(0);
+            // Relations
+            this.informaciones = new Array(0);
+            this.localFileName = 'Choose File';
+       }
     }
 
     // ToObjectDB

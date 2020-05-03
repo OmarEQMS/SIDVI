@@ -1,0 +1,13 @@
+<ion-list class='p-0'>
+    <div *ngFor="let ubi of ubicacion.ubicaciones">
+        <div class='btn-item'>
+            <fa-icon class='btn-icono d-inline-block' (click)="expandUbicacion(ubi)" [icon]="ubi.localIcono"></fa-icon>
+            <div class='btn-text d-inline-block' (click)="emitSelectedUbicacion(ubi)">{{ubi.nombre}}</div>
+        </div>
+        <ion-list *ngIf="ubi.localVisible" class='list-ubicacion p-0'>
+            <app-ubicaciones-edit-list [ubicacion]="ubi" (selected)="emitSelectedUbicacion($event)">
+            </app-ubicaciones-edit-list>
+        </ion-list>
+    </div>
+</ion-list>
+

@@ -13,7 +13,7 @@ export class CategoriaEstadisticaService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarCategoriasEstadistica(nombre?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarCategoriaEstadistica(nombre?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (nombre !== undefined && nombre !== null) {

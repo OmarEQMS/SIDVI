@@ -1,0 +1,18 @@
+<table mdbTable class="z-depth-1" striped="true">
+  <thead class="black white-text">
+    <tr>
+      <th [mdbTableSort]="medicos" sortBy="nombreConsultorio">Consultorio</th>
+      <th [mdbTableSort]="medicos" sortBy="nombreDoctor">Doctor</th>
+      <th [mdbTableSort]="medicos" sortBy="estatus">Estatus</th>
+      <th>Botones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let medico of medicos">
+      <th scope="row">{{medico.nombreConsultorio}}</th>
+      <td>{{medico.nombreDoctor}}</td>
+      <td>{{medico.estatus}}</td>
+      <td>Botones</td>
+    </tr>
+  </tbody>
+</table>

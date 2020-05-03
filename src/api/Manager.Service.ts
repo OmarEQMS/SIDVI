@@ -30,7 +30,7 @@ export class ManagerService {
 
     setItems(tokenUsuario: string, usuario: Usuario) {
         this.tokenUsuario = tokenUsuario;
-        this.usuario = usuario;
+        this.usuario = new Usuario(usuario);
         localStorage.setItem('sidvi-tokenUsuario', tokenUsuario);
         localStorage.setItem('sidvi-usuario', JSON.stringify(usuario));
     }

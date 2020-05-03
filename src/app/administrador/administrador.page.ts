@@ -53,7 +53,7 @@ export class AdministradorPage implements OnInit {
     }
 
     abrirPerfil() {
-
+        this.router.navigate(['./administrador/perfil/']);
     }
 
     abrirVirus(virus: Virus) {

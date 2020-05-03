@@ -10,5 +10,99 @@
 </ion-header>
 
 <ion-content id='fondo-content'>
+      <!--form-->
+      <div class="mt-md-5 mt-sm-5">
+        <form >
+            <div class="form-row justify-content-center">
+                <div class="col-sm-11 col-md-10">
 
+                    <!--  nombre completo -->
+                    <div class="input-group mb-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                            </div>
+                            <input [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto" type="text" class="form-control" placeholder="Nombre completo">
+                        </div>
+                        <div class="feedback" *ngIf="false">
+                            Ingresa el nombre completo.            
+                        </div>
+                    </div>
+                    
+                    <!--rol-->
+                    <input [(ngModel)]="usuario.rol" name="rol" type="text" class="form-control bg-white mt-2 mb-2" readonly>
+                    
+                    <div class="row">
+
+                        <!--Image display-->
+                        <div class="col mt-2 mb-2">
+                            <div class="flex-row justify-content-center img-container">
+                                <img *ngIf="usuario.archivoFoto != null" id="imgConsultorio" [src]="usuario.archivoFoto" alt="imagen de perfil administrador" height="200px">
+                                <img *ngIf="usuario.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen de perfil" height="200px">
+                            </div>
+                        </div>
+                        
+                        <div class="col flex-column justify-content-space mt-2 mb-2">
+                            <!--  nombre usuario -->
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                    </div>
+                                    <input [(ngModel)]="usuario.usuario" type="text" name="usuario" placeholder="Nombre de usuario" class="form-control" aria-describedby="inputGroupPrepend"  required>
+                                </div>
+                                <div class="feedback" *ngIf="false" >
+                                    Ingresa el nombre de usuario.            
+                                </div>
+                            </div>
+                            
+                            <!--  correo   -->
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                    </div>
+                                    <input [(ngModel)]="usuario.correo" name="correo" type="email" class="form-control" placeholder="Correo Electrónico">
+                                </div>
+                                <div class="feedback" *ngIf="false">
+                                    Ingresa un correo.            
+                                </div>
+                            </div>
+            
+                            <!--  celular   -->
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                    </div>
+                                    <input [(ngModel)]="usuario.celular" name="celular" type="text" class="form-control" placeholder="Teléfono">
+                                </div>
+                                <div class="feedback" *ngIf="false" >
+                                    Ingresa un teléfono.            
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Image input -->
+                    <div class='label-input mt-2'>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="inputGroupFile01">virus.localFileName</label>
+                            <input type="file" accept="image/*" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+        <!--botones-->
+        <div class="footer flex-row justify-content-right">
+          <div class="btn btn-info d-inline-block text-white m-1" >
+            Guardar Cambios
+          </div>
+        </div>
+
+    </div>
 </ion-content>

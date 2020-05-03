@@ -1,18 +1,31 @@
-<table mdbTable class="z-depth-1" striped="true">
-  <thead class="black white-text">
-    <tr>
-      <th [mdbTableSort]="medicos" sortBy="nombreConsultorio">Consultorio</th>
-      <th [mdbTableSort]="medicos" sortBy="nombreDoctor">Doctor</th>
-      <th [mdbTableSort]="medicos" sortBy="estatus">Estatus</th>
-      <th>Botones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr mdbTableCol *ngFor="let medico of medicos">
-      <th scope="row">{{medico.nombreConsultorio}}</th>
-      <td>{{medico.nombreDoctor}}</td>
-      <td>{{medico.estatus}}</td>
-      <td>Botones</td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <table mdbTable class="z-depth-1" striped="true">
+    <thead class="black white-text">
+      <tr>
+        <th [mdbTableSort]="medicos" sortBy="nombreConsultorio" class="sort">
+          <mdb-icon fas icon="sort"></mdb-icon>
+          Consultorio
+        </th>
+        <th [mdbTableSort]="medicos" sortBy="nombreDoctor" class="sort">
+          <mdb-icon fas icon="sort"></mdb-icon>
+          Doctor
+        </th>
+        <th [mdbTableSort]="medicos" sortBy="estatus" class="sort">
+          <mdb-icon fas icon="sort"></mdb-icon>
+          Estatus
+        </th>
+        <th>Más información</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let medico of medicos">
+        <th scope="row">{{medico.nombreConsultorio}}</th>
+        <td>{{medico.nombreDoctor}}</td>
+        <td>{{medico.estatus}}</td>
+        <td>
+          <button type="button" class="btn btn-info" (click)="detallesModal(medico.idMedico)">Ver detalles</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

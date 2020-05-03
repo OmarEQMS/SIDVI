@@ -6,9 +6,6 @@ div, span {
 #fondo-content, #encabezado, .bg-white{
     --ion-background-color: white;
 }
-.form-div{
-   /* margin: 4%;*/
-}
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -31,12 +28,6 @@ div, span {
 }
 .justify-content-even{
     justify-content: space-evenly;
-}
-.footer{
-    position: absolute;
-    bottom: 4%;
-    right: 4%;
-    width: 100%;
 }
 .feedback{
     color:red;

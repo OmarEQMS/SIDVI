@@ -20,7 +20,7 @@
                     <div class="input-group mb-2">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/business.png" alt="doctor pin" class="icon"></span>
                             </div>
                             <input [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto" type="text" class="form-control" placeholder="Nombre completo">
                         </div>
@@ -30,7 +30,14 @@
                     </div>
                     
                     <!--rol-->
-                    <input [(ngModel)]="usuario.rol" name="rol" type="text" class="form-control bg-white mt-2 mb-2" readonly>
+                    <div class="input-group mb-2 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/protecting.png" alt="doctor pin" class="icon"></span>
+                            </div>
+                            <input [(ngModel)]="usuario.rol" name="rol" type="text" class="form-control bg-white" readonly>
+                        </div>
+                    </div>
                     
                     <div class="row">
 
@@ -47,7 +54,7 @@
                             <div class="input-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/users.png" alt="doctor pin" class="icon"></span>
                                     </div>
                                     <input [(ngModel)]="usuario.usuario" type="text" name="usuario" placeholder="Nombre de usuario" class="form-control" aria-describedby="inputGroupPrepend"  required>
                                 </div>
@@ -60,7 +67,7 @@
                             <div class="input-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/interface.png" alt="doctor pin" class="icon"></span>
                                     </div>
                                     <input [(ngModel)]="usuario.correo" name="correo" type="email" class="form-control" placeholder="Correo Electrónico">
                                 </div>
@@ -73,7 +80,7 @@
                             <div class="input-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
+                                        <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/phone.png" alt="doctor pin" width="25px"></span>
                                     </div>
                                     <input [(ngModel)]="usuario.celular" name="celular" type="text" class="form-control" placeholder="Teléfono">
                                 </div>
@@ -95,14 +102,15 @@
 
                 </div>
             </div>
+
+            <!--botones-->
+            <div class="form-row justify-content-center mt-3 ">
+                <div class="col-sm-11 col-md-10 flex-row justify-content-right">
+                    <div class="btn btn-info d-inline-block text-white">
+                      Guardar Cambios
+                    </div>
+                </div>
+            </div>
         </form>
-
-        <!--botones-->
-        <div class="footer flex-row justify-content-right">
-          <div class="btn btn-info d-inline-block text-white m-1" >
-            Guardar Cambios
-          </div>
-        </div>
-
     </div>
 </ion-content>

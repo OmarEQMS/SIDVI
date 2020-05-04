@@ -1,7 +1,7 @@
 
 <ion-content id='fondo-content'>
   <!--form-->
-  <div class="mt-5 " style="margin-top: 50%;">
+  <div class="" style="margin-top: 80px;">
     <form >
         <div class="form-row justify-content-center">
             <div class="col-sm-11 col-md-10">
@@ -96,9 +96,12 @@
         <!--botones-->
         <div class="form-row justify-content-center mt-3 ">
             <div class="col-sm-11 col-md-10 flex-row justify-content-right">
-                <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
-                  Guardar Cambios
+                <div class="btn btn-danger d-inline-block text-white mr-2" (click)="eliminarConfirmation()">
+                  Eliminar Cuenta
                 </div>
+                <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
+                    Guardar Cambios
+                  </div>
             </div>
         </div>
     </form>

@@ -71,6 +71,7 @@ export class AdministradorPage implements OnInit {
 
     cerrarSesion() {
         localStorage.clear();
+        this.router.navigate(['./login']);
     }
 
     handleAddFileInput(files: FileList) {

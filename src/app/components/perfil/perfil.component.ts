@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Usuario} from '../../../models/index';
 import { SIDVIServices } from 'src/api';
 import Swal from 'sweetalert2';
+import { _APIResponse } from 'src/api/APIResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -19,7 +21,7 @@ export class PerfilComponent implements OnInit {
   };
 
 
-  constructor(private sidvi: SIDVIServices) {
+  constructor(private router: Router, private sidvi: SIDVIServices) {
     this.usuario = new Usuario(); // se inicializa para que no marque error antes de que asigne el usuario.
    }
 
@@ -124,5 +126,38 @@ actualizarImagenPerfil() {
   );
 }
 
+eliminarConfirmation() {
+  Swal.fire({
+    title: '¿Estas seguro que deseas eliminar tu cuenta?',
+    text: '¡Esta acción es irreversible!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Eliminar',
+    cancelButtonText: 'Cancelar',
+    backdrop: false
+  }).then((result) => {
+    if (result.value) {
+        this.eliminar();
+    }
+  });
+}
+
+eliminar() {
+  this.sidvi.usuario.eliminarUsuario(this.idUsuario)
+  .subscribe( res => {
+      if (res.type === _APIResponse.TypeEnum.SUCCESS) {
+          Swal.fire({
+              title: 'Eliminado',
+              text: 'Su cuenta ha sido eliminada',
+              icon: 'success',
+              backdrop: false,
+          });
+          localStorage.clear();
+          this.router.navigate(['./login']);
+      }
+  }, err => {console.log(err); });
+}
 
 }

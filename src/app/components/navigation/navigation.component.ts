@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.haySesion = false;
-    this.router.navigate(['./']);
+    this.router.navigate(['./login']);
   }
 }
 

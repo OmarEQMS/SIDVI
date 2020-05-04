@@ -23,9 +23,81 @@
         <td>{{medico.nombreDoctor}}</td>
         <td>{{medico.estatus}}</td>
         <td>
-          <button type="button" class="btn btn-info" (click)="detallesModal(medico.idMedico)">Ver detalles</button>
+          <button type="button" class="btn btn-info" (click)="basicModal.show(); detallesModal(medico.idMedico);">Ver
+            detalles</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
+<!-- MODAL AGREGAR INFORMACIÓN-->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div>
+          <h2>Consultorio "{{medicoModal.nombreConsultorio}}"</h2>
+          <div>
+            <h5 style="display: inline-block; white-space: pre;">Estado - </h5>
+
+            <div [ngSwitch]="medicoModal.estatus" style="display: inline-block;">
+              <h5 style="color: green;" *ngSwitchCase="'HABILITADO'">HABILITADO</h5>
+              <h5 style="color: gray;" *ngSwitchCase="'DESHABILITADO'">DESHABILITADO</h5>
+              <h5 style="color: rgb(172, 172, 2);" *ngSwitchCase="'EN_ESPERA'">EN_ESPERA</h5>
+              <h5 style="color: red;" *ngSwitchCase="'RECHAZADO'">RECHAZADO</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class='label-input'>
+          <label>Nombre del doctor</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreDoctor}}">
+        </div>
+        <div class='label-input'>
+          <label>Cédula profesional</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.cedulaProfesional}}">
+        </div>
+        <div class='label-input'>
+          <label>Nombre del consultorio</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreConsultorio}}">
+        </div>
+        <div class='label-input'>
+          <label>Teléfono del consultorio</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.telefonoConsultorio}}">
+        </div>
+        <div class='label-input'>
+          <label>Dirección del consultorio</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.direccionConsultorio}}">
+        </div>
+        <div class='label-input'>
+          <label>Localidad</label>
+          <input mdbInput type="text" class="form-control" readonly value="POR IMPLEMENTAR">
+        </div>
+        <div class='label-input'>
+          <label>Virus que puede tratar</label>
+          <input mdbInput type="text" class="form-control" readonly value="POR IMPLEMENTAR">
+        </div>
+        <div class='label-input'>
+          <label>Descripción</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.descripcion}}">
+        </div>
+
+        <div class=" modal-footer">
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA' || medicoModal.estatus == 'RECHAZADO'" type="submit" mdbBtn color="success" (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+          <button *ngIf="medicoModal.estatus == 'DESHABILITADO'" type="submit" mdbBtn color="success" (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Habilitar</button>
+          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="warning" (click)="deshabilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Deshabilitar</button>
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="warning" (click)="rechazarConsultorio()" class="relative waves-light" mdbWavesEffect>Rechazar</button>
+          <button type="submit" mdbBtn color="danger" (click)="eliminarConsultorio()" class="relative waves-light" mdbWavesEffect>Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>

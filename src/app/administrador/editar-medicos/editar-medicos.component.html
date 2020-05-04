@@ -1,35 +1,51 @@
-<div>
-  <table mdbTable class="z-depth-1" striped="true">
-    <thead class="black white-text">
-      <tr>
-        <th [mdbTableSort]="medicos" sortBy="nombreConsultorio" class="sort">
-          <mdb-icon fas icon="sort"></mdb-icon>
-          Consultorio
-        </th>
-        <th [mdbTableSort]="medicos" sortBy="nombreDoctor" class="sort">
-          <mdb-icon fas icon="sort"></mdb-icon>
-          Doctor
-        </th>
-        <th [mdbTableSort]="medicos" sortBy="estatus" class="sort">
-          <mdb-icon fas icon="sort"></mdb-icon>
-          Estatus
-        </th>
-        <th>Más información</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let medico of medicos">
-        <th scope="row">{{medico.nombreConsultorio}}</th>
-        <td>{{medico.nombreDoctor}}</td>
-        <td>{{medico.estatus}}</td>
-        <td>
-          <button type="button" class="btn btn-info" (click)="basicModal.show(); detallesModal(medico.idMedico);">Ver
-            detalles</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<ion-header id='encabezado'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <span>Administrar consultorios</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class='page-content'>
+    <div class="table-content">
+      <table mdbTable class="z-depth-1" striped="true">
+        <thead class="black white-text">
+          <tr>
+            <th [mdbTableSort]="medicos" sortBy="nombreConsultorio" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Consultorio
+            </th>
+            <th [mdbTableSort]="medicos" sortBy="nombreDoctor" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Doctor
+            </th>
+            <th [mdbTableSort]="medicos" sortBy="estatus" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Estatus
+            </th>
+            <th>Más información</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr mdbTableCol *ngFor="let medico of medicos">
+            <th scope="row">{{medico.nombreConsultorio}}</th>
+            <td>{{medico.nombreDoctor}}</td>
+            <td>{{medico.estatus}}</td>
+            <td>
+              <button type="button" class="btn btn-info"
+                (click)="basicModal.show(); detallesModal(medico.idMedico);">Ver
+                detalles</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>
 
 
 <!-- MODAL AGREGAR INFORMACIÓN-->
@@ -92,11 +108,17 @@
         </div>
 
         <div class=" modal-footer">
-          <button *ngIf="medicoModal.estatus == 'EN_ESPERA' || medicoModal.estatus == 'RECHAZADO'" type="submit" mdbBtn color="success" (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-          <button *ngIf="medicoModal.estatus == 'DESHABILITADO'" type="submit" mdbBtn color="success" (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Habilitar</button>
-          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="warning" (click)="deshabilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Deshabilitar</button>
-          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="warning" (click)="rechazarConsultorio()" class="relative waves-light" mdbWavesEffect>Rechazar</button>
-          <button type="submit" mdbBtn color="danger" (click)="eliminarConsultorio()" class="relative waves-light" mdbWavesEffect>Eliminar</button>
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA' || medicoModal.estatus == 'RECHAZADO'" type="submit" mdbBtn
+            color="success" (click)="habilitarConsultorio()" class="relative waves-light"
+            mdbWavesEffect>Aceptar</button>
+          <button *ngIf="medicoModal.estatus == 'DESHABILITADO'" type="submit" mdbBtn color="success"
+            (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Habilitar</button>
+          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="warning"
+            (click)="deshabilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Deshabilitar</button>
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="warning"
+            (click)="rechazarConsultorio()" class="relative waves-light" mdbWavesEffect>Rechazar</button>
+          <button type="submit" mdbBtn color="danger" (click)="eliminarConsultorio()" class="relative waves-light"
+            mdbWavesEffect>Eliminar</button>
         </div>
       </div>
     </div>

@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content id='fondo-content'>
-  <div class="card m-5">
+  
+  <!--INFORMACION-->
+  <div class="card m-5" *ngIf="area === 'informacion'">
     <div class="card-header colorHeader">
       Catálogo Información
     </div>
@@ -45,7 +47,8 @@
     </div>
   </div>
 
-  <div class="card m-5">
+  <!--ESTADISTICA-->
+  <div class="card m-5" *ngIf="area === 'estadistica'">
     <div class="card-header colorHeader">
       Catálogo Estadística
     </div>
@@ -78,7 +81,8 @@
     </div>
   </div>
 
-  <div class="card m-5">
+  <!--UBICACIONES-->
+  <div class="card m-5" *ngIf="area === 'ubicaciones'">
     <div class="card-header colorHeader">
       Catálogo Ubicaciones
     </div>

@@ -16,7 +16,7 @@ const routes: Routes = [
         { path: 'virus/:idVirus', component: VirusComponent },
         { path: 'virus/:idVirus/informacion', component: EditarInformacionComponent },
         { path: 'virus/:idVirus/estadistica', component: EditarEstadisticaComponent },
-        { path: 'catalogos', component: EditarCatalogosComponent },
+        { path: 'catalogos/:area', component: EditarCatalogosComponent },
 
     ]
   }

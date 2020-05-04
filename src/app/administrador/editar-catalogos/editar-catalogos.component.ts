@@ -40,6 +40,7 @@ export class EditarCatalogosComponent implements OnInit {
   nuevaInformacion: CategoriaInformacion;
   nuevoNombreEstadistica: string;
   nuevaEstadistica: CategoriaEstadistica;
+  area: string;
 
   icons: { [id: string]: IconDefinition } = {
     plus: faChevronRight,
@@ -63,7 +64,8 @@ export class EditarCatalogosComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.area = this.activatedRoute.snapshot.paramMap.get('area');
+    console.log(this.area);
   }
 
   async ionViewWillEnter() {

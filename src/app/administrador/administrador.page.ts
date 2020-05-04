@@ -60,6 +60,10 @@ export class AdministradorPage implements OnInit {
         this.router.navigate(['./administrador/virus/' + virus.idVirus]);
     }
 
+    abrirCatalogo(area: string) {
+        this.router.navigate(['./administrador/catalogos/' + area]);
+    }
+
     cerrarSesion() {
         localStorage.clear();
     }

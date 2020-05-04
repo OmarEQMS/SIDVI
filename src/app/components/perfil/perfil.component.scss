@@ -1,0 +1,45 @@
+div, span {
+    /*font-family: 'Alegreya-Medium';*/
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#fondo-content, #encabezado, .bg-white{
+    --ion-background-color: white;
+}
+.flex{
+    display: flex;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.justify-content-right{
+    justify-content: flex-end;
+}
+.justify-content-left{
+    justify-content: flex-start;
+}
+.justify-content-center{
+    justify-content: center;
+}
+.justify-content-space{
+    justify-content: space-between;
+}
+.justify-content-even{
+    justify-content: space-evenly;
+}
+.center-vertically{
+    align-items: center;
+}
+.feedback{
+    color:red;
+    font-size: smaller;
+}
+.img-container{
+    background-color: lightgrey;
+    border-radius: 6px;
+}

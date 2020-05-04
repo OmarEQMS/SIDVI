@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Virus } from 'src/models';
 import { SIDVIServices } from 'src/api';
-import { IconDefinition, faSignOutAlt, faVirus, faUser, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faSignOutAlt, faVirus, faUser, faEdit, faBell } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ModalContainerComponent } from 'angular-bootstrap-md';
 import Swal from 'sweetalert2';
@@ -21,7 +21,8 @@ export class AdministradorPage implements OnInit {
         close: faSignOutAlt,
         virus: faVirus,
         user: faUser,
-        edit: faEdit
+        edit: faEdit,
+        bell: faBell
     };
 
     constructor(
@@ -62,6 +63,10 @@ export class AdministradorPage implements OnInit {
 
     abrirCatalogo(area: string) {
         this.router.navigate(['./administrador/catalogos/' + area]);
+    }
+
+    abrirConsultorios() {
+        this.router.navigate(['./administrador/consultorios/']);
     }
 
     cerrarSesion() {

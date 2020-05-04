@@ -27,6 +27,7 @@ import { EstadisticaComponent } from './components/estadistica/estadistica.compo
 import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-list.component';
 import { MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
@@ -48,7 +49,8 @@ import { TestComponent } from './components/test/test.component';
     MiConsultorioComponent,
     UbicacionListComponent,
     RegistroComponent,
-    TestComponent
+    TestComponent,
+    PerfilComponent
   ],
   entryComponents: [],
   imports: [

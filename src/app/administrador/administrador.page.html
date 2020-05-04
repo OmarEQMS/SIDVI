@@ -1,6 +1,9 @@
 <ion-split-pane contentId='main'>
     <ion-menu menuId='sidebar' contentId='main'>
+        <!--content-->
         <ion-content class='sidebar-menu'>
+
+            <!-- tarjeta usuario-->
             <div id='card-usuario'>
                 <div id='user-img' class='d-inline-block'>
                     <img class='imagen-perfil' src='../../assets/images/user.png'>
@@ -10,37 +13,99 @@
                     <span id='user-role' class='d-block'>Rol</span>
                 </div>
             </div>
-            <ion-list class="lista-opciones">
-                <div class='btn-item' (click)="abrirPerfil()">
-                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
-                    <div class='btn-text d-inline-block'>Mi Perfil</div>
+
+            <!--lista-->
+            <div id="lista" class="flex-column">
+                <!--cuenta-->
+                <div class="list-header header-text flex-row center-vertically">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon> 
+                    <h5>CUENTA</h5>
                 </div>
-                <div class='btn-item' routerLink='./catalogos'>
-                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon>
-                    <div class='btn-text d-inline-block'>
-                        Editar catálogos
-                    </div>
+                <div class="list-item item-text flex-row center-vertically" (click)="abrirPerfil()" >
+                    <p>Mi perfil</p>
+                </div>
+                <div class="list-item item-text flex-row center-vertically">
+                    <p>Restablecer contraseña</p>
+                </div>
+
+                <!--Catalogos-->
+                <div class="list-header header-text flex-row center-vertically">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon> 
+                    <h5>CATÁLOGOS</h5>
+                </div>
+                <div class="list-item item-text flex-row center-vertically" (click)="abrirCatalogo('informacion')" >
+                    <p>Información</p>
+                </div>
+                <div class="list-item item-text flex-row center-vertically" (click)="abrirCatalogo('estadistica')">
+                    <p>Estadística</p>
+                </div>
+                <div class="list-item item-text flex-row center-vertically"  (click)="abrirCatalogo('ubicaciones')">
+                    <p>Ubicaciones</p>
+                </div>
+
+                <!--Consultorios-->
+                <div class="list-header header-text flex-row center-vertically">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.bell"></fa-icon> 
+                    <h5>SOLICITUDES</h5>
+                </div>
+                <div class="list-item item-text flex-row center-vertically" (click)="abrirConsultorios()" >
+                    <p>Consultorios</p>
+                </div>
+
+                <!--Virus-->
+                <div class="list-header header-text flex-row center-vertically">
+                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon> 
+                    <h5>VIRUS</h5>
                 </div>
                 <div *ngFor="let virus of viruss">
-                    <div class='btn-item' (click)="abrirVirus(virus)">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
-                        <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
+                    <div class='list-item item-text flex-row center-vertically' (click)="abrirVirus(virus)">
+                        <p>{{virus.nombre}}</p>
                     </div>
                 </div>
-
-                <div class='btn-item' (click)="cerrarSesion()">
-                    <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
-                    <div class='btn-text d-inline-block' routerLink="/login" (click)="cerrarSesion()">Cerrar Sesion
-                    </div>
+                <!--Salir-->
+                <div class="list-header header-text flex-row center-vertically" style="height: 5px;">
                 </div>
-            </ion-list>
+                <div class='list-item item-text flex-row center-vertically' (click)="cerrarSesion()" style="border: 1px solid #d5d5d5;">
+                    <p style="color:red">Cerrar Sesión</p>
+                </div>
+            </div>
+           
+            <!--
+                <ion-list class="lista-opciones">
+                    <div class='btn-item' (click)="abrirPerfil()">
+                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
+                        <div class='btn-text d-inline-block'>Mi Perfil</div>
+                    </div>
+                    <div class='btn-item' routerLink='./catalogos'>
+                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon>
+                        <div class='btn-text d-inline-block'>
+                            Editar catálogos
+                        </div>
+                    </div>
+                    <div *ngFor="let virus of viruss">
+                        <div class='btn-item' (click)="abrirVirus(virus)">
+                            <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
+                            <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
+                        </div>
+                    </div>
+                    
+                    <div class='btn-item' (click)="cerrarSesion()">
+                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
+                        <div class='btn-text d-inline-block' routerLink="/login" (click)="cerrarSesion()">Cerrar Sesion
+                        </div>
+                    </div>
+                </ion-list>
+            -->
 
-            <div>
-                <div class="btn btn-primary text-white m-1" (click)="basicModal.show()">Agregar Virus</div>
+            <!--boton-->
+            <div class="boton flex-row justify-content-center">
+                <div class="btn btn-info d-inline-block text-white m-1"(click)="basicModal.show()">
+                    Agregar Virus
+                </div>
             </div>
         </ion-content>
     </ion-menu>
-    <ion-router-outlet id='main'></ion-router-outlet>
+    <ion-router-outlet id='main'> </ion-router-outlet>
 </ion-split-pane>
 
 <!-- MODAL AGREGAR INFORMACIÓN-->

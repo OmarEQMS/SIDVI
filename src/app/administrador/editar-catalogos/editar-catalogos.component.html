@@ -1,21 +1,24 @@
-<ion-header id='encabezado'>
+<ion-header id='encabezado' class="header">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <span>Editar catálogo</span>
+      <span class="textHeader">Editar catálogo</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content id='fondo-content'>
-  <div class="card m-5">
+  
+  <!--INFORMACION-->
+  <div class="card m-5" *ngIf="area === 'informacion'">
     <div class="card-header colorHeader">
       Catálogo Información
     </div>
     <div class="card-body">
-      <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)="modalAgregarInformacion.show();"> Agregar
+      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarInformacion.show();">
+        Agregar
         Categoría Información </a>
       <table mdbTable #tableEl="mdbTable" class="table miTabla">
         <thead>
@@ -33,10 +36,14 @@
             <td>{{informacion.nombre}}</td>
             <td>{{informacion.clave}}</td>
             <td>
-              <a class="btn btn-info btn-block ancho d-flex justify-content-center" (click)="localInformacion= informacion; modalEditarInformacion.show();"> <i class="fas fa-edit blanco"></i> </a>
+              <a class="btn btn-info btn-block ancho d-flex justify-content-center"
+                (click)="localInformacion= informacion; modalEditarInformacion.show();"> <i
+                  class="fas fa-edit blanco"></i> </a>
             </td>
             <td>
-              <a class="btn btn-danger btn-block ancho d-flex justify-content-center" (click)="localInformacion= informacion; modalEliminarInformacion.show();"> <i class="fas fa-trash-alt blanco"></i> </a>
+              <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
+                (click)="localInformacion= informacion; modalEliminarInformacion.show();"> <i
+                  class="fas fa-trash-alt blanco"></i> </a>
             </td>
           </tr>
         </tbody>
@@ -45,12 +52,14 @@
     </div>
   </div>
 
-  <div class="card m-5">
+  <!--ESTADISTICA-->
+  <div class="card m-5" *ngIf="area === 'estadistica'">
     <div class="card-header colorHeader">
       Catálogo Estadística
     </div>
     <div class="card-body">
-      <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)="modalAgregarEstadistica.show();"> Agregar
+      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarEstadistica.show();">
+        Agregar
         Categoría Estadística </a>
       <table mdbTable #tableEl="mdbTable" class="table miTabla">
         <thead>
@@ -66,10 +75,14 @@
             <th>{{i+1}}</th>
             <td>{{estadistica.nombre}}</td>
             <td>
-              <a class="btn btn-info btn-block ancho d-flex justify-content-center" (click)="localEstadistica= estadistica; modalEditarEstadistica.show(); "> <i class="fas fa-edit blanco"></i> </a>
+              <a class="btn btn-info btn-block ancho d-flex justify-content-center"
+                (click)="localEstadistica= estadistica; modalEditarEstadistica.show(); "> <i
+                  class="fas fa-edit blanco"></i> </a>
             </td>
             <td>
-              <a class="btn btn-danger btn-block ancho d-flex justify-content-center" (click)="localEstadistica= estadistica; modalEliminarEstadistica.show();"> <i class="fas fa-trash-alt blanco"></i> </a>
+              <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
+                (click)="localEstadistica= estadistica; modalEliminarEstadistica.show();"> <i
+                  class="fas fa-trash-alt blanco"></i> </a>
             </td>
           </tr>
         </tbody>
@@ -78,12 +91,14 @@
     </div>
   </div>
 
-  <div class="card m-5">
+  <!--UBICACIONES-->
+  <div class="card m-5" *ngIf="area === 'ubicaciones'">
     <div class="card-header colorHeader">
       Catálogo Ubicaciones
     </div>
     <div class="card-body">
-      <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)="modalAgregarUbicacion.show();"> Agregar
+      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarUbicacion.show();">
+        Agregar
         ubicación </a>
       <h5 class="card-title">Seleccione la ubicación que desea editar</h5>
       <app-ubicaciones-edit-list [ubicacion]="ubicacion"
@@ -93,7 +108,7 @@
   </div>
 
   <!-- Modal Agregar Ubicacion -->
-    <div mdbModal #modalAgregarUbicacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  <div mdbModal #modalAgregarUbicacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
     [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
@@ -104,11 +119,18 @@
           </button>
         </div>
         <div class='modal-body pl-3 pr-3 pb-3'>
-          Nombre: <input class="d-flex justify-content-center" [(ngModel)]="nuevaUbicacion.nombre" type="text" id="changeName" placeholder="nombre">
-          Clave: <input class="d-flex justify-content-center" [(ngModel)]="nuevaUbicacion.clave" type="text" id="changeName" placeholder="nombre">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="d-flex justify-content-center form-control mb-2" id="nombre"
+              [(ngModel)]="nuevaUbicacion.nombre" type="text" placeholder="nombre">
+            <label for="clave">Clave</label>
+            <input class="d-flex justify-content-center form-control" id="clave" [(ngModel)]="nuevaUbicacion.clave"
+              type="text" placeholder="nombre">
+          </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
-          <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)=agregarUbicacion();> Agregar ubicación </a>
+          <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)=agregarUbicacion();> Agregar
+            ubicación </a>
         </div>
       </div>
     </div>
@@ -126,79 +148,130 @@
           </button>
         </div>
         <div class='modal-body pl-3 pr-3 pb-3'>
-          <input [(ngModel)]="nuevoNombre" type="text" id="changeName" placeholder={{localUbicacion.nombre}}>
-          <a class="btn btn-info ml-4 blanco" (click)="localUbicacion.nombre=nuevoNombre; renombrar();"> Renombrar </a>
-          <a class="btn btn-danger ml-4 blanco" (click)="modalEditarUbicacion.hide(); modalEliminarUbicacion.show();"> Eliminar </a>
+          <div class="form-group">
+            <label for="newName">Nuevo nombre</label>
+            <input class="form-control" [(ngModel)]="nuevoNombre" type="text" id="newName"
+              placeholder={{localUbicacion.nombre}}>
+            <a class="btn btn-info blanco d-flex justify-content-center"
+              (click)="localUbicacion.nombre=nuevoNombre; renombrar();"> Renombrar
+            </a>
+            <a class="btn btn-danger blanco d-flex justify-content-center"
+              (click)="modalEditarUbicacion.hide(); modalEliminarUbicacion.show();">
+              Eliminar </a>
+              <a class="btn btn-success blanco d-flex justify-content-center"
+              (click)="modalEditarUbicacion.hide(); modalAgregarHijo.show();">
+              Agregar hijo </a>
+          </div>
         </div>
 
       </div>
     </div>
   </div>
 
-      <!-- Modal Eliminar Ubicacion -->
-      <div mdbModal #modalEliminarUbicacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
-      [config]="{backdrop: false, ignoreBackdropClick: true}">
-      <div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-          <div class='modal-header'>
-            <span class='modal-title tamanoTitulo'>¿Está seguro que desea eliminar {{localUbicacion.nombre}}?</span>
-            <button type='button' class='close pull-right' aria-label='Close' (click)="modalEliminarUbicacion.hide()">
-              <span aria-hidden='true'>×</span>
-            </button>
-          </div>
-          <div class='modal-body pl-3 pr-3 pb-3'>
-            Al eliminar una ubicación, estarás eliminando todos sus hijos.
-            <a class="btn btn-danger ml-4 blanco" (click)="eliminarUbicacion();"> Eliminar </a>
-            <a class="btn btn-success ml-4 blanco" (click)="modalEliminarUbicacion.hide()"> Cancelar </a>
-          </div>
-        </div>
-      </div>
-      </div>
-
-    <!-- Modal Agregar Informacion -->
-    <div mdbModal #modalAgregarInformacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  <!-- Modal Eliminar Ubicacion -->
+  <div mdbModal #modalEliminarUbicacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
     [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
         <div class='modal-header'>
-          <span class='modal-title tamanoTitulo'>Agregar Informacion</span>
+          <span class='modal-title tamanoTitulo'>¿Está seguro que desea eliminar {{localUbicacion.nombre}}?</span>
+          <button type='button' class='close pull-right' aria-label='Close' (click)="modalEliminarUbicacion.hide()">
+            <span aria-hidden='true'>×</span>
+          </button>
+        </div>
+        <div class='modal-body pl-3 pr-3 pb-3'>
+          Al eliminar una ubicación, estarás eliminando todos sus hijos.
+          <a class="btn btn-danger ml-4 blanco" (click)="eliminarUbicacion();"> Eliminar </a>
+          <a class="btn btn-success ml-4 blanco" (click)="modalEliminarUbicacion.hide()"> Cancelar </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal Agregar Hijo -->
+    <div mdbModal #modalAgregarHijo="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+    [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <span class='modal-title tamanoTitulo'>Agregar hijo a ubicación: {{localUbicacion.nombre}}</span>
+          <button type='button' class='close pull-right' aria-label='Close' (click)="modalAgregarHijo.hide()">
+            <span aria-hidden='true'>×</span>
+          </button>
+        </div>
+        <div class='modal-body pl-3 pr-3 pb-3'>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="d-flex justify-content-center form-control mb-2" [(ngModel)]="hijoUbicacion.nombre"
+              type="text" id="nombre" placeholder="nombre">
+            <label for="clave">Clave</label>
+            <input class="d-flex justify-content-center form-control" [(ngModel)]="hijoUbicacion.clave" type="text"
+              id="clave" placeholder="nombre">
+          </div>
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)="hijoUbicacion.fkUbicacion=localUbicacion.idUbicacion; agregarUbicacionHijo();"> Agregar
+            Ubicación Hijo </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Agregar Informacion -->
+  <div mdbModal #modalAgregarInformacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+    [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <span class='modal-title tamanoTitulo'>Agregar Información</span>
           <button type='button' class='close pull-right' aria-label='Close' (click)="modalAgregarInformacion.hide()">
             <span aria-hidden='true'>×</span>
           </button>
         </div>
         <div class='modal-body pl-3 pr-3 pb-3'>
-          Nombre: <input class="d-flex justify-content-center" [(ngModel)]="nuevaInformacion.nombre" type="text" id="changeName" placeholder="nombre">
-          Clave: <input class="d-flex justify-content-center" [(ngModel)]="nuevaInformacion.clave" type="text" id="changeName" placeholder="nombre">
-
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="d-flex justify-content-center form-control mb-2" [(ngModel)]="nuevaInformacion.nombre"
+              type="text" id="nombre" placeholder="nombre">
+            <label for="clave">Clave</label>
+            <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaInformacion.clave" type="text"
+              id="clave" placeholder="nombre">
+          </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
-          <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)=agregarInformacion();> Agregar Información </a>
+          <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)=agregarInformacion();> Agregar
+            Información </a>
         </div>
       </div>
     </div>
   </div>
 
-      <!-- Modal Editar Informacion -->
+  <!-- Modal Editar Informacion -->
   <div mdbModal #modalEditarInformacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
-  [config]="{backdrop: false, ignoreBackdropClick: true}">
-  <div class='modal-dialog' role='document'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <span class='modal-title tamanoTitulo'>Editar Información: {{localInformacion.nombre}}</span>
-        <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarInformacion.hide()">
-          <span aria-hidden='true'>×</span>
-        </button>
-      </div>
-      <div class='modal-body pl-3 pr-3 pb-3'>
-        <input [(ngModel)]="nuevoNombreInformacion" type="text" id="changeName" placeholder={{localInformacion.nombre}}>
-        <a class="btn btn-info ml-4 blanco" (click)="localInformacion.nombre=nuevoNombreInformacion; renombrarInformacion();"> Renombrar </a>
+    [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <span class='modal-title tamanoTitulo'>Editar Información: {{localInformacion.nombre}}</span>
+          <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarInformacion.hide()">
+            <span aria-hidden='true'>×</span>
+          </button>
+        </div>
+        <div class='modal-body pl-3 pr-3 pb-3'>
+          <div class="form-group">
+            <label for="newName">Nuevo nombre</label>
+            <input [(ngModel)]="nuevoNombreInformacion" type="text" id="newName" placeholder={{localInformacion.nombre}}
+              class="form-control">
+            <a class="btn btn-info blanco d-flex justify-content-center"
+              (click)="localInformacion.nombre=nuevoNombreInformacion; renombrarInformacion();"> Renombrar </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-    <!-- Modal Eliminar Informacion -->
-    <div mdbModal #modalEliminarInformacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  <!-- Modal Eliminar Informacion -->
+  <div mdbModal #modalEliminarInformacion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
     [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
@@ -214,10 +287,10 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 
-    <!-- Modal Agregar Estadistica -->
-    <div mdbModal #modalAgregarEstadistica="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  <!-- Modal Agregar Estadistica -->
+  <div mdbModal #modalAgregarEstadistica="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
     [config]="{backdrop: false, ignoreBackdropClick: true}">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
@@ -228,50 +301,59 @@
           </button>
         </div>
         <div class='modal-body pl-3 pr-3 pb-3'>
-          Nombre: <input class="d-flex justify-content-center" [(ngModel)]="nuevaEstadistica.nombre" type="text" id="changeName" placeholder="nombre">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            Nombre: <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaEstadistica.nombre" type="text"
+              id="nombre" placeholder="nombre">
+          </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
-          <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)=agregarEstadistica();> Agregar Estadística </a>
+          <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)=agregarEstadistica();> Agregar
+            Estadística </a>
         </div>
       </div>
     </div>
   </div>
 </ion-content>
 
-    <!-- Modal Editar Estadistica -->
+<!-- Modal Editar Estadistica -->
 <div mdbModal #modalEditarEstadistica="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
-[config]="{backdrop: false, ignoreBackdropClick: true}">
-<div class='modal-dialog' role='document'>
-  <div class='modal-content'>
-    <div class='modal-header'>
-      <span class='modal-title tamanoTitulo'>Editar Estadística: {{localEstadistica.nombre}}</span>
-      <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarEstadistica.hide()">
-        <span aria-hidden='true'>×</span>
-      </button>
-    </div>
-    <div class='modal-body pl-3 pr-3 pb-3'>
-      <input [(ngModel)]="nuevoNombreEstadistica" type="text" id="changeName" placeholder={{localEstadistica.nombre}}>
-      <a class="btn btn-info ml-4 blanco" (click)="localEstadistica.nombre=nuevoNombreEstadistica; renombrarEstadistica();"> Renombrar </a>
-    </div>
-  </div>
-</div>
-</div>
-
-    <!-- Modal Eliminar Estadistica -->
-    <div mdbModal #modalEliminarEstadistica="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
-    [config]="{backdrop: false, ignoreBackdropClick: true}">
-    <div class='modal-dialog' role='document'>
-      <div class='modal-content'>
-        <div class='modal-header'>
-          <span class='modal-title tamanoTitulo'>¿Está seguro que desea eliminar {{localEstadistica.nombre}}?</span>
-          <button type='button' class='close pull-right' aria-label='Close' (click)="modalEliminarEstadistica.hide()">
-            <span aria-hidden='true'>×</span>
-          </button>
-        </div>
-        <div class='modal-body pl-3 pr-3 pb-3'>
-          <a class="btn btn-danger ml-4 blanco" (click)="eliminarEstadistica();"> Eliminar </a>
-          <a class="btn btn-success ml-4 blanco" (click)="modalEliminarEstadistica.hide()"> Cancelar </a>
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <span class='modal-title tamanoTitulo'>Editar Estadística: {{localEstadistica.nombre}}</span>
+        <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarEstadistica.hide()">
+          <span aria-hidden='true'>×</span>
+        </button>
+      </div>
+      <div class='modal-body pl-3 pr-3 pb-3'>
+        <div class="form-group">
+          <label for="newNombre">Nuevo nombre</label>
+        <input [(ngModel)]="nuevoNombreEstadistica" class="form-control" type="text" id="newNombre" placeholder={{localEstadistica.nombre}}>
+        <a class="btn btn-info blanco d-flex justify-content-center"
+          (click)="localEstadistica.nombre=nuevoNombreEstadistica; renombrarEstadistica();"> Renombrar </a>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Estadistica -->
+<div mdbModal #modalEliminarEstadistica="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <span class='modal-title tamanoTitulo'>¿Está seguro que desea eliminar {{localEstadistica.nombre}}?</span>
+        <button type='button' class='close pull-right' aria-label='Close' (click)="modalEliminarEstadistica.hide()">
+          <span aria-hidden='true'>×</span>
+        </button>
+      </div>
+      <div class='modal-body pl-3 pr-3 pb-3'>
+        <a class="btn btn-danger ml-4 blanco" (click)="eliminarEstadistica();"> Eliminar </a>
+        <a class="btn btn-success ml-4 blanco" (click)="modalEliminarEstadistica.hide()"> Cancelar </a>
+      </div>
     </div>
+  </div>
+</div>

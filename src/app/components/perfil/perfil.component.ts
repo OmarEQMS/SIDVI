@@ -18,6 +18,7 @@ export class PerfilComponent implements OnInit {
     'celular': true
   };
 
+
   constructor(private sidvi: SIDVIServices) {
     this.usuario = new Usuario(); // se inicializa para que no marque error antes de que asigne el usuario.
    }
@@ -122,5 +123,6 @@ actualizarImagenPerfil() {
       }
   );
 }
+
 
 }

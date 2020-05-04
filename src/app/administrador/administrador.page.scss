@@ -1,50 +1,35 @@
 div, span {
-    font-family: 'Alegreya-Medium';
+    /*font-family: 'Alegreya-Medium';*/
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .sidebar-menu{
-    --ion-background-color: #326273;
+    --ion-background-color: #fafafa;
 }
-
-#card-usuario {
-    background-color: #407289;
-    height: 70px;
-    border-radius: 8px;
-    margin: 15px;
+.flex-row{
+    display: flex;
+    flex-direction: row;
 }
-
-.lista-opciones {
-    margin: 15px;
-    border-radius: 8px;
-    background-color: #508CA4;
+.flex-column{
+    display: flex;
+    flex-direction: column;
 }
-
-.btn-item {
-    background-color: #508CA4;
-    cursor:pointer;
+.justify-content-right{
+    justify-content: flex-end;
 }
-.btn-item:hover {
-    background-color: #437281;
+.justify-content-left{
+    justify-content: flex-start;
 }
-
-.label-input {
-    margin: 15px;
+.justify-content-center{
+    justify-content: center;
 }
-
-#user-img {
-    width: 70px;
-    height: 70px;
-    padding: 10px;
+.justify-content-space{
+    justify-content: space-between;
 }
-#user-data {
-    vertical-align: middle;   
+.justify-content-even{
+    justify-content: space-evenly;
 }
-#user-name {
-    font-size: 22px;
-    color: #000000;
-}
-#user-role {
-    font-size: 12px;
-    color: #000000;
+.center-vertically{
+    align-items: center;
 }
 .imagen-perfil {
     width: 50px;
@@ -67,8 +52,85 @@ div, span {
     -webkit-border-bottom-left-radius: 25px;
     -moz-border-bottom-left-radius: 25px;
 }
+#user-data {
+    vertical-align: middle;   
+}
+#user-name {
+    font-size: 22px;
+    color: #000000;
+}
+#user-role {
+    font-size: 12px;
+    color: #000000;
+}
+#card-usuario {
+    background-color: #2B94C0; /*navbar color*/
+    height: 70px;
+    border-radius: 8px;
+    margin: 15px;
+}
+#user-img {
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+}
+#lista{
+    margin-bottom: 54px;
+}
+.list-header {
+    height: 40px;
+    background-color: #fafafa;
+}
+.list-item{
+    height: 35px;
+    background-color: white;
+}
+.list-header, .list-item{
+    border-top: 1px solid #d5d5d5;
+    padding-left: 15px;
+}
+.header-text{
+    color: #8e8e8e;
+}
+.item-text{
+    color: #121212;
+}
+.item-text p{
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+fa-icon{
+    margin-right: 5px;
+}
+.boton{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-right: 16px;
+    background-color: #fafafa;
+}
+.boton div{
+    width: 100%;
+    margin:15px;
+}
+/*
+.lista-opciones {
+    margin: 15px;
+    border-radius: 8px;
+    background-color: #508CA4;
+}
 
+.btn-item {
+    background-color: #508CA4;
+    cursor:pointer;
+}
+.btn-item:hover {
+    background-color: #437281;
+}
 
+.label-input {
+    margin: 15px;
+}
 
 .btn-icono {
     width: 15%;
@@ -86,3 +148,4 @@ div, span {
     font-size: 17px !important;
     color: #000000;
 }
+*/

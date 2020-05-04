@@ -48,6 +48,10 @@ export class Usuario implements IUsuario {
     medicos: Medico[];
     valoraciones?: Valoracion[];
 
+    // Local
+    localFile: FileList;
+    localFileName: string;
+
     // Constructor
     constructor(usuario?: any) {
         if (usuario !== undefined) {
@@ -61,6 +65,7 @@ export class Usuario implements IUsuario {
             this.mimetypeFoto = usuario.mimetypeFoto;
             this.archivoFoto = usuario.archivoFoto;
             this.rol = usuario.rol;
+            this.localFileName = 'Selecciona una imagen';
         }
     }
 

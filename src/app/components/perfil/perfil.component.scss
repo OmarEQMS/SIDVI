@@ -6,6 +6,9 @@ div, span {
 #fondo-content, #encabezado, .bg-white{
     --ion-background-color: white;
 }
+.flex{
+    display: flex;
+}
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -28,6 +31,9 @@ div, span {
 }
 .justify-content-even{
     justify-content: space-evenly;
+}
+.center-vertically{
+    align-items: center;
 }
 .feedback{
     color:red;

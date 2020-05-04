@@ -3,6 +3,14 @@
     color: white;
 }
 
+.header{
+    --ion-background-color: rgb(23, 82, 107);
+}
+
+.textHeader{
+    color: white;
+}
+
 .coloBtn{
     background-color: #2B94C0;
 }
@@ -19,4 +27,8 @@
 
 .blanco{
     color: white !important;
+}
+
+.verde {
+    background-color: #49ad49;
 }

@@ -1,0 +1,34 @@
+<div class="pagina"></div>
+
+<div class="centrado">
+  <div class="formBox">
+
+    <h1>Restablece tu contraseña</h1>
+
+    <div class="form-input">
+      <ion-item class="recuperar-input">
+        <ion-label position="floating">Nueva contraseña</ion-label>
+        <ion-input required type="text" [(ngModel)]="contrasena"></ion-input>
+      </ion-item>
+
+      <ion-item class="recuperar-input">
+        <ion-label position="floating">Confirmar contraseña</ion-label>
+        <ion-input required type="text" [(ngModel)]="contrasena2"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="formularioRecuperar">
+      <ion-button expand="block" class="recuperar-boton" (click)="restablecer()">Restablecer
+      </ion-button>
+      <div>
+        <div>
+          <h6 style="display: inline-block;">¿Ya tienes cuenta?</h6>
+          <ion-text color="primary" style="display: inline-block; margin-left: 10px;">
+            <h6 routerLink="/login">Iniciar sesión</h6>
+          </ion-text>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

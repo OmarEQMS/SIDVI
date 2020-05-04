@@ -4,6 +4,7 @@ import { SIDVIServices } from 'src/api';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { _Usuario } from 'src/models';
+import { _APIResponse, APIResponse } from 'src/api/APIResponse';
 
 @Component({
   selector: 'app-login',
@@ -29,26 +30,17 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm);
     this.sidvi.usuario.autenticacion(this.loginForm.value.usuario, this.loginForm.value.password).subscribe(
       res => {
-        if (res) {
 
-          // tslint:disable-next-line: triple-equals
-          if (res.statusCode == 200) {
-            console.log(res);
-            this.sidvi.manager.setItems(res.extra.token, res.extra.usuario);
-            if (this.sidvi.manager.usuario.rol === _Usuario.Rol.ADMINISTRADOR) {
-                this.router.navigate(['./administrador']);
-            } else {
-                this.router.navigate(['./virus']);
-            }
-          } else {
-            // tslint:disable-next-line: max-line-length
-            Swal.fire({ title: 'Error', text: 'Nombre de usuario o contraseña inválidos. Redireccionando a página principal', icon: 'error', heightAuto: false }).then((result) => {
-              if (result.value) {
-                this.router.navigate(['./virus']);
-              }
-            });
+        if (res.type === _APIResponse.TypeEnum.SUCCESS) {
+          this.sidvi.manager.setItems(res.extra.token, res.extra.usuario);
+          if (this.sidvi.manager.usuario.rol === _Usuario.Rol.ADMINISTRADOR) {
+            this.router.navigate(['./administrador']);
           }
-
+          if (this.sidvi.manager.usuario.rol === _Usuario.Rol.USUARIO) {
+            this.router.navigate(['./virus']);
+          }
+        } else {
+          Swal.fire({ title: 'Error', text: 'Nombre de usuario o contraseña inválidos.', icon: 'error', heightAuto: false });
         }
       },
       error => {

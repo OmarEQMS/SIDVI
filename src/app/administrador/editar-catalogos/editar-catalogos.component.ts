@@ -24,6 +24,7 @@ export class EditarCatalogosComponent implements OnInit {
   @ViewChild('modalEliminarInformacion', null) modalEliminarInformacion: MDBModalRef;
   @ViewChild('modalEliminarEstadistica', null) modalEliminarEstadistica: MDBModalRef;
   @ViewChild('modalEliminarUbicacion', null) modalEliminarUbicacion: MDBModalRef;
+  @ViewChild('modalAgregarHijo', null) modalAgregarHijo: MDBModalRef;
 
 
 
@@ -40,6 +41,7 @@ export class EditarCatalogosComponent implements OnInit {
   nuevaInformacion: CategoriaInformacion;
   nuevoNombreEstadistica: string;
   nuevaEstadistica: CategoriaEstadistica;
+  hijoUbicacion: Ubicacion;
 
   icons: { [id: string]: IconDefinition } = {
     plus: faChevronRight,
@@ -60,6 +62,7 @@ export class EditarCatalogosComponent implements OnInit {
     this.nuevaEstadistica = new CategoriaEstadistica();
     this.localInformacion = new CategoriaInformacion();
     this.nuevaInformacion = new CategoriaInformacion();
+    this.hijoUbicacion = new Ubicacion();
   }
 
   ngOnInit() {
@@ -133,7 +136,6 @@ export class EditarCatalogosComponent implements OnInit {
   }
 
   agregarUbicacion() {
-    console.log(this.nuevaUbicacion.nombre);
     this.sidvi.ubicacion.crearUbicacion(this.nuevaUbicacion).subscribe(
       res => {
         console.log(res);
@@ -144,6 +146,21 @@ export class EditarCatalogosComponent implements OnInit {
       err => {
         console.log(err);
         Swal.fire({ title: 'La Ubicación no se pudo registrar con éxito', icon: 'error', backdrop: false });
+      }
+    );
+  }
+
+  agregarUbicacionHijo() {
+    this.sidvi.ubicacion.crearUbicacion(this.hijoUbicacion).subscribe(
+      res => {
+        console.log(res);
+        this.modalAgregarHijo.hide();
+        Swal.fire({ title: 'La Ubicación Hijo se creó con éxito', icon: 'success', backdrop: false });
+        this.getUbicacionesHijo(this.ubicacion);
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La Ubicación Hijo no se pudo registrar con éxito', icon: 'error', backdrop: false });
       }
     );
   }

@@ -23,6 +23,7 @@ export class ManagerService {
 
     inputs: Inputs = new Inputs();
     updateMain = new Subject<number>();
+    updateUser = new Subject<number>();
 
     constructor() {
         this.getTokenItems();

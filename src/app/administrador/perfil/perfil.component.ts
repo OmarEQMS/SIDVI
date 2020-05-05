@@ -98,6 +98,7 @@ guardar() {
           Swal.fire({ title: '¡Listo!', text: 'Perfil correctamente', icon: 'success', heightAuto: false }).then((result) => {
               if (result.value) {
                   this.obtenerUsuario(this.idUsuario);
+                  this.sidvi.manager.updateUser.next(1);
               }
           });
       },
@@ -111,9 +112,11 @@ actualizarImagenPerfil() {
 
   this.sidvi.usuario.cargarUsuarioFoto(this.idUsuario, this.usuario.localFile[0]).subscribe(
       res => {
-          Swal.fire({ title: '¡Listo!', text: 'Virus actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+          Swal.fire({ title: '¡Listo!', text: 'Usuario actualizado correctamente', icon: 'success', heightAuto: false })
+            .then((result) => {
               if (result.value) {
                   this.obtenerUsuario(this.idUsuario);
+                  this.sidvi.manager.updateUser.next(1);
               }
           });
       },

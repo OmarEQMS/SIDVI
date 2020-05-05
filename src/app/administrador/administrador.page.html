@@ -6,11 +6,12 @@
             <!-- tarjeta usuario-->
             <div id='card-usuario'>
                 <div id='user-img' class='d-inline-block'>
-                    <img class='imagen-perfil' src='../../assets/images/user.png'>
+                    <img *ngIf="usuario.archivoFoto != null" class='imagen-perfil' [src]="usuario.archivoFoto" alt="imagen de perfil administrador">
+                    <img *ngIf="usuario.archivoFoto == null" class='imagen-perfil' src='../../assets/images/user.png' alt="imagen de perfil administrador">
                 </div>
                 <div id='user-data' class='d-inline-block'>
-                    <span id='user-name' class='d-block'>USUARIO</span>
-                    <span id='user-role' class='d-block'>Rol</span>
+                    <span id='user-name' class='d-block'>{{usuario.nombreCompleto}}</span>
+                    <span id='user-role' class='d-block'>{{usuario.correo}}</span>
                 </div>
             </div>
 
@@ -58,9 +59,22 @@
                     <h5>VIRUS</h5>
                 </div>
                 <div *ngFor="let virus of viruss">
-                    <div class='list-item item-text flex-row center-vertically' (click)="abrirVirus(virus)">
-                        <p>{{virus.nombre}}</p>
-                    </div>
+                    <!-- Split button -->
+                    <div class="btn-group list-item item-text" mdbDropdown style="width: 100%;">
+                        <button class="btn-drop w-8" type="button" (click)="abrirVirus(virus)" ><p>{{virus.nombre}}</p></button>
+                        <button type="button" mdbDropdownToggle class="w-2 dropdown-toggle dropdown-toggle-split px-3 btn-drop hov-dark"></button>
+                        <div class="dropdown-menu drop">
+                        <a class="dropdown-item" (click)="abrirInformacion(virus)">Información</a>
+                        <a class="dropdown-item" (click)="abrirEstadistica(virus)">Estadísticas</a>
+                        <a class="dropdown-item" (click)="abrirMedicos(virus)">Médicos disponibles</a>
+                        <a class="dropdown-item" (click)="abrirTest(virus)">Test de síntomas</a>
+                        </div>
+                    </div>         
+                    <!--
+                        <div class='list-item item-text flex-row center-vertically' (click)="abrirVirus(virus)">
+                            <p>{{virus.nombre}}</p>
+                        </div>
+                    -->
                 </div>
                 <!--Salir-->
                 <div class="list-header header-text flex-row center-vertically" style="height: 5px;">
@@ -69,33 +83,6 @@
                     <p style="color:red">Cerrar Sesión</p>
                 </div>
             </div>
-           
-            <!--
-                <ion-list class="lista-opciones">
-                    <div class='btn-item' (click)="abrirPerfil()">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon>
-                        <div class='btn-text d-inline-block'>Mi Perfil</div>
-                    </div>
-                    <div class='btn-item' routerLink='./catalogos'>
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon>
-                        <div class='btn-text d-inline-block'>
-                            Editar catálogos
-                        </div>
-                    </div>
-                    <div *ngFor="let virus of viruss">
-                        <div class='btn-item' (click)="abrirVirus(virus)">
-                            <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon>
-                            <div class='btn-text d-inline-block'>{{virus.nombre}}</div>
-                        </div>
-                    </div>
-                    
-                    <div class='btn-item' (click)="cerrarSesion()">
-                        <fa-icon class='btn-icono d-inline-block' [icon]="icons.close"></fa-icon>
-                        <div class='btn-text d-inline-block' routerLink="/login" (click)="cerrarSesion()">Cerrar Sesion
-                        </div>
-                    </div>
-                </ion-list>
-            -->
 
             <!--boton-->
             <div class="boton flex-row justify-content-center">

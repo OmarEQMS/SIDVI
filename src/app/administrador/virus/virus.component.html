@@ -8,64 +8,62 @@
     </ion-title>
     </ion-toolbar>
 </ion-header>
-<div>
-
-    <!-- INFORMACIÓN GENERAL DEL VIRUS -->
-    <div>
-        <!-- FOTO -->
-        <div class='d-flex justify-content-center mb-3 mt-1 imagen-icono' *ngIf="virus.archivoIconoImg != null">
-            <img class='img-contenido' [src]="virus.archivoIconoImg">
-        </div>
-
-        <div class='label-input'>
-            <label>Archivo</label>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                    aria-describedby="inputGroupFileAddon01" (change)="handleFileInput($event.target.files)">
-                <label class="custom-file-label" for="inputGroupFile01">{{virus.localFileName}}</label>
+<ion-content class="mt-5">     
+    <div class="col">
+        <!-- INFORMACIÓN GENERAL DEL VIRUS -->
+        <div>
+            <!--Image display-->
+            <div class="col mt-2 mb-2">
+                <div class="flex-row justify-content-center">
+                    <img *ngIf="virus.archivoIconoImg != null" [src]="virus.archivoIconoImg" alt="imagen de virus" class="img-contenido imagen-icono">
+                    <img *ngIf="virus.archivoIconoImg == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen de perfil" class="img-contenido imagen-icono">
+                </div>
             </div>
-        </div>
+            
+            <div class="col flex-column justify-content-space mt-2 mb-2">
+                <!--  nombre -->
+                <div class="input-group">
+                    <div class="input-group">
+                        <input [(ngModel)]="virus.nombre" mdbInput type="text" class="form-control" value="{{virus.nombre}}" placeholder="Nombre">
+                    </div>
+                    <div class="feedback" *ngIf="false" >
+                        Ingresa el nombre de usuario.            
+                    </div>
+                </div>
+                
+                <!--  clave   -->
+                <div class="input-group">
+                    <div class="input-group">
+                        <input [(ngModel)]="virus.clave" mdbInput type="text" class="form-control" value="{{virus.clave}}" placeholder="Clave">
+                    </div>
+                    <div class="feedback" *ngIf="false">
+                        Ingresa un correo.            
+                    </div>
+                </div>
+    
+                <!--  imagen field   -->
+                <div class='label-input'>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01" (change)="handleFileInput($event.target.files)">
+                         <label class="custom-file-label" for="inputGroupFile01">{{virus.localFileName}}</label>
+                    </div>
+                </div>
 
-        <!-- NOMBRE -->
-        <div>
-            <label>Nombre: </label>
-            <input [(ngModel)]="virus.nombre" mdbInput type="text" class="form-control" value="{{virus.nombre}}">
+            </div>
+            
         </div>
-
-        <!-- CLAVE -->
-        <div>
-            <label>Clave: </label>
-            <input [(ngModel)]="virus.clave" mdbInput type="text" class="form-control" value="{{virus.clave}}">
-        </div>
-
-        <!-- GUARDAR -->
-        <div class="centrado">
-            <a class="btn btn-success d-inline-block text-white m-1" (click)="guardar()">Guardar cambios</a>
-        </div>
+        
+        <!--botones-->
+        <div class="form-row justify-content-center mt-3 ">
+            <div class="col-sm-11 col-md-10 flex-row justify-content-right">
+                <div class="btn btn-info d-inline-block text-white" (click)="guardar()">
+                    Guardar Cambios
+                </div>
+                <div class="btn btn-info d-inline-block text-white" (click)='eliminarVirus()'>
+                    Eliminar Virus
+                </div>
+            </div>
+        </div>   
     </div>
-
-    <div class="botones">
-        <div class="centrado">
-            <a class="btn btn-info d-inline-block text-white m-1" routerLink='informacion'>Editar
-                información</a>
-        </div>
-        <div class="centrado">
-            <a class="btn btn-info d-inline-block text-white m-1" routerLink='estadistica'>Editar
-                estadísticas</a>
-        </div>
-        <div class="centrado">
-            <a class="btn btn-info d-inline-block text-white m-1" routerLink='medicos'>Editar Médicos
-                Disponibles</a>
-        </div>
-        <div class="centrado">
-            <a class="btn btn-info d-inline-block text-white m-1" routerLink='test'>Editar Test de
-                Síntomas</a>
-        </div>
-    </div>
-
-    <div>
-        <div class="centrado">
-            <a class="btn btn-danger d-inline-block text-white m-1" (click)='eliminarVirus()'>Eliminar virus</a>
-        </div>
-    </div>
-</div>
+</ion-content>

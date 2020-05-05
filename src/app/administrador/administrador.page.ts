@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Virus } from 'src/models';
+import { Virus, Usuario } from 'src/models';
 import { SIDVIServices } from 'src/api';
 import { IconDefinition, faSignOutAlt, faVirus, faUser, faEdit, faBell } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ export class AdministradorPage implements OnInit {
     @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
     viruss: Virus[];
     newVirus: Virus;
+    usuario: Usuario;
+    idUsuario: number;
 
     icons: { [id: string]: IconDefinition } = {
         close: faSignOutAlt,
@@ -32,18 +34,26 @@ export class AdministradorPage implements OnInit {
         this.viruss = new Array(0);
         this.newVirus = new Virus();
         this.newVirus.localFileName = 'Choose file';
+        this.usuario = new Usuario(); // se inicializa para que no marque error antes de que asigne el usuario.
     }
 
     ngOnInit() { }
 
     ionViewWillEnter() {
+        this.idUsuario = this.sidvi.manager.usuario.idUsuario;
         this.sidvi.manager.updateMain.subscribe(
             state => {
                 this.cargarListaVirus();
             }
         );
+        this.sidvi.manager.updateUser.subscribe(
+            state => {
+                this.obtenerUsuario(this.idUsuario);
+            }
+        );
 
         this.cargarListaVirus();
+        this.obtenerUsuario(this.idUsuario);
     }
 
     cargarListaVirus() {
@@ -53,12 +63,37 @@ export class AdministradorPage implements OnInit {
             });
     }
 
+    obtenerUsuario( id: number ) {
+        this.sidvi.usuario.obtenerUsuario(id)
+        .subscribe(
+          res => {
+            this.usuario = new Usuario(res);
+            this.usuario.localFileName = 'Seleccione una nueva imagen';
+            }, err => { console.log(err); }
+          );
+      }
+
     abrirPerfil() {
         this.router.navigate(['./administrador/perfil/']);
     }
 
     abrirVirus(virus: Virus) {
         this.router.navigate(['./administrador/virus/' + virus.idVirus]);
+    }
+
+    abrirInformacion(virus: Virus) {
+        this.router.navigate(['./administrador/virus/' + virus.idVirus + '/informacion']);
+    }
+
+    abrirEstadistica(virus: Virus) {
+        this.router.navigate(['./administrador/virus/' + virus.idVirus + '/estadistica']);
+    }
+    abrirMedicos(virus: Virus) {
+        this.router.navigate(['./administrador/virus/' + virus.idVirus + '/medicos']);
+    }
+
+    abrirTest(virus: Virus) {
+        this.router.navigate(['./administrador/virus/' + virus.idVirus + '/test']);
     }
 
     abrirCatalogo(area: string) {

@@ -65,7 +65,6 @@ validateField(key, input) {
 }
 
 validateAll() {
-
   // this.fieldValidations.nombreCompleto = (this.usuario.nombreCompleto === '') ? false : true;
   let valid = true;
   if (this.fieldValidations.nombreCompleto === false) {
@@ -84,7 +83,6 @@ validateAll() {
 
 
 guardar() {
-
   delete this.usuario.archivoFoto;
   delete this.usuario.mimetypeFoto;
 
@@ -111,7 +109,6 @@ guardar() {
 }
 
 actualizarImagenPerfil() {
-
   this.sidvi.usuario.cargarUsuarioFoto(this.idUsuario, this.usuario.localFile[0]).subscribe(
       res => {
           Swal.fire({ title: '¡Listo!', text: 'Virus actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {

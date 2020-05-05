@@ -82,8 +82,11 @@ div, span {
     background-color: #fafafa;
 }
 .list-item{
-    height: 35px;
+    height: 36px;
     background-color: white;
+}
+.list-item:hover{
+    cursor: pointer;
 }
 .list-header, .list-item{
     border-top: 1px solid #d5d5d5;
@@ -98,6 +101,7 @@ div, span {
 .item-text p{
     margin-bottom: 0 !important;
     margin-top: 0 !important;
+    text-align: left;
 }
 fa-icon{
     margin-right: 5px;
@@ -113,39 +117,21 @@ fa-icon{
     width: 100%;
     margin:15px;
 }
-/*
-.lista-opciones {
-    margin: 15px;
-    border-radius: 8px;
-    background-color: #508CA4;
+.btn-drop{
+    height: 35px;
+    background-color: white !important;
 }
-
-.btn-item {
-    background-color: #508CA4;
-    cursor:pointer;
+.w-8{
+    width: 80%;
 }
-.btn-item:hover {
-    background-color: #437281;
+.w-2{
+    width: 20%;
 }
-
-.label-input {
-    margin: 15px;
+button.hov-dark:hover{
+    background-color: #fafafa !important;
 }
-
-.btn-icono {
-    width: 15%;
-    padding: 2px;
-    font-size: 17px;
-    color:#101010;
-    text-align: center;
+.drop{
+    margin-left: 150px;
+    margin-top:-5px;
+    margin-bottom: 5px;
 }
-.btn-text {
-    width: 85%;
-    height: 100%;
-    padding-left: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 17px !important;
-    color: #000000;
-}
-*/

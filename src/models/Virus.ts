@@ -68,7 +68,7 @@ export class Virus implements IVirus {
             this.selected = virus.selected;
             // Relations
             this.informaciones = new Array(0);
-            this.localFileName = 'Choose File';
+            this.localFileName = 'Seleccione una nueva imagen';
        }
     }
 

@@ -1,10 +1,13 @@
 .colorHeader {
-    background-color: #2B94C0;
+    background-color: black;
     color: white;
 }
 
-.header{
+ion-header{
     --ion-background-color: rgb(23, 82, 107);
+}
+.sort {
+    cursor:pointer;
 }
 
 .textHeader{
@@ -31,4 +34,35 @@
 
 .verde {
     background-color: #49ad49;
+}
+.page-content {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 80%;
+}
+.table-title{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.table-title2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.table-title2 p{
+    margin-bottom: 0 !important;
+}
+.btn-mas{
+    display: flex;
+    flex-direction: row;
 }

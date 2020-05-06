@@ -4,45 +4,45 @@
         <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-        <span>Virus</span>
+        <span class="textHeader">Virus</span>
     </ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content class="mt-5">     
-    <div class="col">
+    <div class="flex-column center-vertically justify-content-center w-100 h-100">
         <!-- INFORMACIÓN GENERAL DEL VIRUS -->
-        <div>
+        <div class="flex-row justify-content-even wrap w-100" >
             <!--Image display-->
-            <div class="col mt-2 mb-2">
+            <div class="mt-2 mb-2">
                 <div class="flex-row justify-content-center">
-                    <img *ngIf="virus.archivoIconoImg != null" [src]="virus.archivoIconoImg" alt="imagen de virus" class="img-contenido imagen-icono">
-                    <img *ngIf="virus.archivoIconoImg == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen de perfil" class="img-contenido imagen-icono">
+                    <img *ngIf="virus.archivoIconoImg != null" [src]="virus.archivoIconoImg" alt="imagen de virus" class="imagen-icono">
+                    <img *ngIf="virus.archivoIconoImg == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen de perfil" class="imagen-icono">
                 </div>
             </div>
-            
-            <div class="col flex-column justify-content-space mt-2 mb-2">
+            <!--input fields-->
+            <div class="flex-column justify-content-space mt-2 mb-2">
                 <!--  nombre -->
-                <div class="input-group">
+                <div class="input-group mt-1">
                     <div class="input-group">
-                        <input [(ngModel)]="virus.nombre" mdbInput type="text" class="form-control" value="{{virus.nombre}}" placeholder="Nombre">
+                        <input [(ngModel)]="virus.nombre" (ngModelChange)="validateField('nombre', virus.nombre)" mdbInput type="text" class="form-control" value="{{virus.nombre}}" placeholder="Nombre">
                     </div>
-                    <div class="feedback" *ngIf="false" >
-                        Ingresa el nombre de usuario.            
+                    <div class="feedback" *ngIf="fieldValidations.nombre === false" >
+                        Ingresa el nombre de virus.            
                     </div>
                 </div>
                 
                 <!--  clave   -->
-                <div class="input-group">
+                <div class="input-group mt-1">
                     <div class="input-group">
-                        <input [(ngModel)]="virus.clave" mdbInput type="text" class="form-control" value="{{virus.clave}}" placeholder="Clave">
+                        <input [(ngModel)]="virus.clave" (ngModelChange)="validateField('clave', virus.clave)" mdbInput type="text" class="form-control" value="{{virus.clave}}" placeholder="Clave">
                     </div>
-                    <div class="feedback" *ngIf="false">
-                        Ingresa un correo.            
+                    <div class="feedback" *ngIf="fieldValidations.clave === false">
+                        Ingresa una clave para el virus.            
                     </div>
                 </div>
     
                 <!--  imagen field   -->
-                <div class='label-input'>
+                <div class="label-input mt-1">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01" (change)="handleFileInput($event.target.files)">
@@ -55,9 +55,9 @@
         </div>
         
         <!--botones-->
-        <div class="form-row justify-content-center mt-3 ">
-            <div class="col-sm-11 col-md-10 flex-row justify-content-right">
-                <div class="btn btn-info d-inline-block text-white" (click)="guardar()">
+        <div class="form-row justify-content-center mt-3 w-100">
+            <div class=" flex-row ">
+                <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
                     Guardar Cambios
                 </div>
                 <div class="btn btn-info d-inline-block text-white" (click)='eliminarVirus()'>

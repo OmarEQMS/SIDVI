@@ -9,86 +9,97 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id='fondo-content'>
-  
+<ion-content id='fondo-content' >
+ 
   <!--INFORMACION-->
-  <div class="card m-5" *ngIf="area === 'informacion'">
-    <div class="card-header colorHeader">
-      Catálogo Información
+  <div *ngIf="area === 'informacion'" class="page-content">
+    <!--title-->
+    <div class="table-title">
+      <div class="table-title2">
+        <p>CATÁLOGO DE INFORMACIÓN</p>
+      </div>
+      <div class="btn-mas">
+        <div class="btn btn-info d-inline-block text-white" (click)="modalAgregarInformacion.show();">
+          Agregar
+        </div>        
+      </div>
     </div>
-    <div class="card-body">
-      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarInformacion.show();">
-        Agregar
-        Categoría Información </a>
-      <table mdbTable #tableEl="mdbTable" class="table miTabla">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Categoría Información</th>
-            <th scope="col">Clave</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let informacion of informaciones; let i = index">
-            <th>{{i+1}}</th>
-            <td>{{informacion.nombre}}</td>
-            <td>{{informacion.clave}}</td>
-            <td>
-              <a class="btn btn-info btn-block ancho d-flex justify-content-center"
-                (click)="localInformacion= informacion; modalEditarInformacion.show();"> <i
-                  class="fas fa-edit blanco"></i> </a>
-            </td>
-            <td>
-              <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
-                (click)="localInformacion= informacion; modalEliminarInformacion.show();"> <i
-                  class="fas fa-trash-alt blanco"></i> </a>
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
+    <!--table-->
+    <table mdbTable class="z-depth-1" striped="true">
+      <thead class="black white-text">
+        <tr>
+          <th [mdbTableSort]="informaciones" sortBy="nombre" class="sort">
+            <mdb-icon fas icon="sort"></mdb-icon>
+            Categoría
+          </th>
+          <th [mdbTableSort]="informaciones" sortBy="clave" class="sort">
+            <mdb-icon fas icon="sort"></mdb-icon>
+            Clave
+          </th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let  informacion of informaciones; let i = index">
+          <th scope="row">{{informacion.nombre}}</th>
+          <td>{{informacion.clave}}</td>
+          <td>
+            <a class="btn btn-info btn-block ancho d-flex justify-content-center"
+              (click)="localInformacion= informacion; modalEditarInformacion.show();"> <i
+                class="fas fa-edit blanco"></i> </a>
+          </td>
+          <td>
+            <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
+              (click)="localInformacion= informacion; modalEliminarInformacion.show();"> <i
+                class="fas fa-trash-alt blanco"></i> </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!--ESTADISTICA-->
-  <div class="card m-5" *ngIf="area === 'estadistica'">
-    <div class="card-header colorHeader">
-      Catálogo Estadística
+  <div *ngIf="area === 'estadistica'" class="page-content">
+    <!--title-->
+    <div class="table-title">
+      <div class="table-title2">
+        <p>CATÁLOGO DE ESTADÍSTICA</p>
+      </div>
+      <div class="btn-mas">
+        <div class="btn btn-info d-inline-block text-white" (click)="modalAgregarEstadistica.show();">
+          Agregar
+        </div>        
+      </div>
     </div>
-    <div class="card-body">
-      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarEstadistica.show();">
-        Agregar
-        Categoría Estadística </a>
-      <table mdbTable #tableEl="mdbTable" class="table miTabla">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Categoría Estadística</th>
-            <th scope="col">Renombrar</th>
-            <th scope="col">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let estadistica of estadisticas; let i = index">
-            <th>{{i+1}}</th>
-            <td>{{estadistica.nombre}}</td>
-            <td>
-              <a class="btn btn-info btn-block ancho d-flex justify-content-center"
-                (click)="localEstadistica= estadistica; modalEditarEstadistica.show(); "> <i
-                  class="fas fa-edit blanco"></i> </a>
-            </td>
-            <td>
-              <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
-                (click)="localEstadistica= estadistica; modalEliminarEstadistica.show();"> <i
-                  class="fas fa-trash-alt blanco"></i> </a>
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
+    <!--table-->
+    <table mdbTable class="z-depth-1" striped="true">
+      <thead class="black white-text">
+        <tr>
+          <th [mdbTableSort]="informaciones" sortBy="nombre" class="sort">
+            <mdb-icon fas icon="sort"></mdb-icon>
+            Categoría
+          </th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let estadistica of estadisticas">
+          <th scope="row">{{estadistica.nombre}}</th>
+          <td>
+            <a class="btn btn-info btn-block ancho d-flex justify-content-center"
+              (click)="localEstadistica= estadistica; modalEditarEstadistica.show();"> <i
+                class="fas fa-edit blanco"></i> </a>
+          </td>
+          <td>
+            <a class="btn btn-danger btn-block ancho d-flex justify-content-center"
+              (click)="localEstadistica= estadistica; modalEliminarEstadistica.show();"> <i
+                class="fas fa-trash-alt blanco"></i> </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!--UBICACIONES-->
@@ -97,7 +108,7 @@
       Catálogo Ubicaciones
     </div>
     <div class="card-body">
-      <a class="d-flex justify-content-center btn verde ml-4 blanco" (click)="modalAgregarUbicacion.show();">
+      <a class="btn btn-info d-inline-block text-white" (click)="modalAgregarUbicacion.show();">
         Agregar
         ubicación </a>
       <h5 class="card-title">Seleccione la ubicación que desea editar</h5>

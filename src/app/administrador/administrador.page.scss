@@ -5,6 +5,9 @@ div, span {
 .sidebar-menu{
     --ion-background-color: #fafafa;
 }
+ion-header{
+    background-color: rgb(23, 82, 107);
+}
 .flex-row{
     display: flex;
     flex-direction: row;

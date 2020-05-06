@@ -1,3 +1,11 @@
+ion-header{
+    --ion-background-color: rgb(23, 82, 107);
+}
+
+.textHeader{
+    color: white;
+}
+
 .bloques-informacion {
     padding: 3%;
     display: flex;
@@ -11,11 +19,16 @@
     border-radius: 25px;
     background-color: #326F70;
 }
+.bloque-titulo-mayor {
+    margin-bottom: 15px;
+    border-radius: 25px;
+    background-color: black;
+}
 
 .bloque-boton {
     margin-bottom: 15px;
     border-radius: 25px;
-    background-color: #3F8788;
+    background-color: lightgrey;
 }
 
 .boton-expand {    
@@ -30,6 +43,7 @@
 
 .titulo-pag {
     font-size: 36px;
+    color: white;
 }
 
 .titulo-bloque {

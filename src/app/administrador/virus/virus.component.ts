@@ -15,7 +15,10 @@ export class VirusComponent implements OnInit {
 
     idVirus: number;
     virus: Virus;
-
+    fieldValidations = {
+        'nombre' : true,
+        'clave': true,
+      };
     constructor(private sidvi: SIDVIServices, private router: Router,
                 private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
         this.virus = new Virus();
@@ -46,6 +49,27 @@ export class VirusComponent implements OnInit {
         if (files[0] != null) {
             this.virus.localFile = files;
             this.virus.localFileName = files[0].name;
+        }
+    }
+
+    validateField(key, input) {
+        if (input === '') {
+          this.fieldValidations[key] = false;
+        } else {
+          this.fieldValidations[key] = true;
+        }
+    }
+
+    validateAll() {
+
+        // this.fieldValidations.nombreCompleto = (this.usuario.nombreCompleto === '') ? false : true;
+        let valid = true;
+        if (this.fieldValidations.nombre === false) {
+          valid = false;
+        } else if ( this.fieldValidations.clave === false) {
+          valid = false;
+        } else if (valid) {
+          this.guardar();
         }
     }
 

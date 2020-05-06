@@ -2,9 +2,24 @@ div, span {
     /*font-family: 'Alegreya-Medium';*/
     font-family: Arial, Helvetica, sans-serif;
 }
+ion-header{
+    --ion-background-color: rgb(23, 82, 107);
+}
 
-#fondo-content, #encabezado, .bg-white{
+.textHeader{
+    color: white;
+}
+
+#fondo-content,  .bg-white{
     --ion-background-color: white;
+}
+.feedback{
+    color:red;
+    font-size: smaller;
+}
+.img-container{
+    background-color: lightgrey;
+    border-radius: 6px;
 }
 .flex-row{
     display: flex;
@@ -29,11 +44,50 @@ div, span {
 .justify-content-even{
     justify-content: space-evenly;
 }
-.feedback{
-    color:red;
-    font-size: smaller;
+.justify-content-space-around{
+    justify-content: space-around;
 }
-.img-container{
-    background-color: lightgrey;
-    border-radius: 6px;
+.center-vertically{
+    align-items: center;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+.wrap-reverse{
+    flex-wrap: wrap-reverse;
+}
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
+}
+.imagen-icono {
+    max-width: 250px;
+    max-height:250px;
+    object-fit: contain;
+
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
+
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
+
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
+
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
+}
+.limit{
+    max-width: 250px;
+    max-height:250px;
+}
+.none-pad{
+    padding-left: 0px;
+    padding-right: 0px;
 }

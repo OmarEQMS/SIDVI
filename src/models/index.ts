@@ -1,4 +1,5 @@
 export * from './CategoriaEstadistica';
+export * from './SubcategoriaEstadistica';
 export * from './CategoriaInformacion';
 export * from './CelularEstado';
 export * from './Estadistica';

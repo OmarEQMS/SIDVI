@@ -67,9 +67,9 @@ export class EstadisticaComponent implements OnInit {
 
                 for (const estadistica of arrEstadisticas) {
                     let buscarCategoria = this.estadisticas.find((item: CategoriaEstadistica) =>
-                                                                        item.idCategoriaEstadistica === estadistica.fkCategoriaEstadistica);
+                                                                        item.idCategoriaEstadistica === estadistica.fkSubcategoriaEstadistica1);
                     if (buscarCategoria == null) { // Si es una nueva estadistica, la agrego
-                        const newCategoria = new CategoriaEstadistica(estadistica.categoriaEstadistica);
+                        const newCategoria = new CategoriaEstadistica(estadistica.subcategoriaEstadistica1);
                         const newUbicacion = new Ubicacion(this.ubicacion, this.ubicacion.ubicaciones);
                         const generalEstadistica = new Estadistica({fkVirus: this.idVirus,
                                                                     fkCategoriaEstadistica: newCategoria.idCategoriaEstadistica,

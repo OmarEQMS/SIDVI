@@ -2,6 +2,7 @@ export * from './API';
 export * from './Manager.Service';
 export * from './CategoriaEstadistica.Service';
 export * from './CategoriaInformacion.Service';
+export * from './SubcategoriaEstadistica.Service';
 export * from './CelularEstado.Service';
 export * from './Estadistica.Service';
 export * from './Informacion.Service';
@@ -20,6 +21,8 @@ import * as Tools from './Tools';
 import { ManagerService } from './Manager.Service';
 import { CategoriaEstadisticaService } from './CategoriaEstadistica.Service';
 import { CategoriaInformacionService } from './CategoriaInformacion.Service';
+import { SubcategoriaEstadisticaService } from './SubcategoriaEstadistica.Service';
+
 import { CelularEstadoService } from './CelularEstado.Service';
 import { EstadisticaService } from './Estadistica.Service';
 import { InformacionService } from './Informacion.Service';
@@ -41,6 +44,7 @@ export class SIDVIServices {
         public manager: ManagerService,
         public categoriaEstadistica: CategoriaEstadisticaService,
         public categoriaInformacion: CategoriaInformacionService,
+        public subcategoriaEstadisticaService: SubcategoriaEstadisticaService,
         public celularEstado: CelularEstadoService,
         public estadistica: EstadisticaService,
         public informacion: InformacionService,

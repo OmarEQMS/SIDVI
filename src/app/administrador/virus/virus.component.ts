@@ -16,9 +16,9 @@ export class VirusComponent implements OnInit {
     idVirus: number;
     virus: Virus;
     fieldValidations = {
-        'nombre' : true,
-        'clave': true,
-      };
+        nombre : true,
+        clave: true,
+    };
     constructor(private sidvi: SIDVIServices, private router: Router,
                 private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
         this.virus = new Virus();
@@ -88,7 +88,6 @@ export class VirusComponent implements OnInit {
                     return;
                 }
 
-                
                 Swal.fire({ title: '¡Listo!', text: 'Virus actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarVirus();
@@ -105,7 +104,7 @@ export class VirusComponent implements OnInit {
 
         this.sidvi.virus.cargarVirusIcono(this.idVirus, this.virus.localFile[0]).subscribe(
             res => {
-                
+
                 Swal.fire({ title: '¡Listo!', text: 'Virus actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarVirus();

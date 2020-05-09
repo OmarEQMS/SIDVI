@@ -25,8 +25,11 @@ export class ManagerService {
     updateMain = new Subject<number>();
     updateUser = new Subject<number>();
 
+    historial: number[];
+
     constructor() {
         this.getTokenItems();
+        this.historial = new Array(0);
     }
 
     setItems(tokenUsuario: string, usuario: Usuario) {

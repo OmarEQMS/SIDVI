@@ -28,7 +28,7 @@ export class RegistroComponent implements OnInit {
 
     this.sidvi.usuario.crearUsuario(this.usuario).subscribe(
       res => {
-        
+
         Swal.fire({ title: '¡Listo!', text: 'Cuenta registrada correctamente', icon: 'success', heightAuto: false }).then((result) => {
           this.router.navigate(['./login']);
         });

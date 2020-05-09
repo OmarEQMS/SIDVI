@@ -30,7 +30,7 @@ export class RestablecerComponent implements OnInit {
 
     this.sidvi.usuario.restablecer(this.token, this.usuario, this.contrasena).subscribe(
       res => {
-        
+
         Swal.fire({ title: '¡Listo!', text: 'Tu contraseña ha sido restablecida con éxito.', icon: 'success', heightAuto: false }).then((result) => {
           if (result.value) {
             this.router.navigate(['./login']);

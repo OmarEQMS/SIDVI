@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Ubicacion, Estadistica, IUbicacion, CategoriaEstadistica, Virus, ICategoriaEstadistica, IEstadistica } from 'src/models';
+import { Ubicacion, Estadistica, IUbicacion, CategoriaEstadistica, Virus, ICategoriaEstadistica, IEstadistica, SubcategoriaEstadistica } from 'src/models';
 import { ActivatedRoute } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { DatePipe } from '@angular/common';
+import { parse } from 'querystring';
 
 class EstadisticaValue {
     total: number;
@@ -23,7 +24,16 @@ class EstadisticaValue {
 })
 export class EstadisticaComponent implements OnInit {
     ubicacion: Ubicacion;
-    estadisticas: CategoriaEstadistica[];
+    categorias: CategoriaEstadistica[];
+    categoriaSelected: CategoriaEstadistica;
+    subcategoriaSelected: SubcategoriaEstadistica;
+    categoriaSelectedGrupo: CategoriaEstadistica;
+    subcategoriaSelectedGrupo: SubcategoriaEstadistica;
+
+    subcategoriaEjeHorizontal: boolean;
+    agrupacionOpcion: number;
+
+    estadisticas: SubcategoriaEstadistica[];
     idVirus: number;
     virus: Virus;
 
@@ -39,16 +49,23 @@ export class EstadisticaComponent implements OnInit {
     ) {
         this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
         this.virus = new Virus();
+        this.categoriaSelectedGrupo = new CategoriaEstadistica();
+        this.categoriaSelected = new CategoriaEstadistica();
+        this.subcategoriaEjeHorizontal = true;
+        this.agrupacionOpcion = 1;
     }
 
     ngOnInit() {}
     async ionViewWillEnter() {
+        this.categoriaSelectedGrupo = new CategoriaEstadistica();
+        this.categoriaSelected = new CategoriaEstadistica();
         this.estadisticas = new Array(0);
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
         await this.getUbicacionesHijo(this.ubicacion);
         this.filtrarEstadisticas();
         this.obtenerVirus();
+        this.obtenerCategorias();
     }
 
     obtenerVirus() {
@@ -58,55 +75,34 @@ export class EstadisticaComponent implements OnInit {
         });
     }
 
+    obtenerCategorias() {
+        this.sidvi.categoriaEstadistica.listarCategoriaEstadistica().subscribe(
+            categorias => {
+                this.categorias = categorias.resultados.map((item: any) => new CategoriaEstadistica(item));
+                this.categoriaSelected = this.categorias[0];
+                this.categoriaSelectedGrupo = this.categorias[0];
+        });
+    }
+
+    updateCategoria(idCategoriaSelected: string) {
+        this.categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(idCategoriaSelected, 10) );
+    }
+    updateSubcategoria(idSubcategoriaSelected: string) {
+        this.subcategoriaSelected = this.categoriaSelected.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(idSubcategoriaSelected, 10) );
+    }
+    updateCategoriaGrupo(idCategoriaSelectedGrupo: string) {
+        this.categoriaSelectedGrupo = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(idCategoriaSelectedGrupo, 10) );
+    }
+    updateSubcategoriaGrupo(idSubcategoriaSelectedGrupo: string) {
+        this.subcategoriaSelectedGrupo = this.categoriaSelectedGrupo.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(idSubcategoriaSelectedGrupo, 10) );
+    }
+
     filtrarEstadisticas() {
         this.estadisticas = new Array(0);
 
-        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
+        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, null, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {
-                const arrEstadisticas: Estadistica[] = estadis.resultados.map((item: any) => new Estadistica(item));
 
-                for (const estadistica of arrEstadisticas) {
-                    let buscarCategoria = this.estadisticas.find((item: CategoriaEstadistica) =>
-                                                                        item.idCategoriaEstadistica === estadistica.fkSubcategoriaEstadistica1);
-                    if (buscarCategoria == null) { // Si es una nueva estadistica, la agrego
-                        const newCategoria = new CategoriaEstadistica(estadistica.subcategoriaEstadistica1);
-                        const newUbicacion = new Ubicacion(this.ubicacion, this.ubicacion.ubicaciones);
-                        const generalEstadistica = new Estadistica({fkVirus: this.idVirus,
-                                                                    fkCategoriaEstadistica: newCategoria.idCategoriaEstadistica,
-                                                                    fecha: estadistica.fecha,
-                                                                    valor: 0,
-                                                                    categoriaEstadistica: newCategoria
-                                                                });
-                        this.setUbicacion(newUbicacion, generalEstadistica, true);
-                        newCategoria.localUbicaciones.push(newUbicacion);
-                        this.estadisticas.push(newCategoria);
-                        buscarCategoria = newCategoria;
-                    }
-                    let buscarFechaUbicacion = buscarCategoria.localUbicaciones.find((item: Ubicacion) =>
-                                                                            item.localEstadistica.localFecha === estadistica.localFecha);
-                    if (buscarFechaUbicacion == null) {
-                        buscarFechaUbicacion = buscarCategoria.localUbicaciones[buscarCategoria.localUbicaciones.length - 1];
-                        const newUbicacion = new Ubicacion(buscarFechaUbicacion, buscarFechaUbicacion.ubicaciones,
-                                                           buscarFechaUbicacion.localEstadistica);
-                        const generalEstadistica = new Estadistica({fkVirus: this.idVirus,
-                                                                    fkCategoriaEstadistica: buscarCategoria.idCategoriaEstadistica,
-                                                                    fecha: estadistica.fecha,
-                                                                    valor: 0,
-                                                                    categoriaEstadistica: buscarCategoria
-                                                                });
-                        this.setUbicacionCopia(newUbicacion, generalEstadistica);
-                        buscarCategoria.localUbicaciones.push(newUbicacion);
-                        buscarFechaUbicacion = newUbicacion;
-                    }
-                    this.setEstadisticaInUbicacion(buscarFechaUbicacion, estadistica);
-                }
-
-                for (const estadistica of this.estadisticas) {
-                    for (const ubicacion of estadistica.localUbicaciones) {
-                        this.calculateEstadistica(ubicacion);
-                    }
-                    estadistica.localSetChart();
-                }
         });
     }
 

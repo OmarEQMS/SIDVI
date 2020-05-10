@@ -26,18 +26,6 @@ export class SubcategoriaEstadistica implements ISubcategoriaEstadistica {
     // Relations: HasMany
     estadisticas: Estadistica[];
 
-    // Local
-    localUbicaciones: Ubicacion[]; // Solo los padres en diferentes fechas
-    localChartType = 'bar';
-    localChartDatasets: Array<any> = [{ data: [], label: '' }];
-    localChartLabels: Array<string> = [];
-    localChartColors: Array<any> = [{
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 2
-    }];
-    localChartOptions: any = { responsive: true, scales: { yAxes: [{ ticks: { beginAtZero: true } }] } };
-
     // Constructor
     constructor(subcategoriaEstadistica?: any) {
         if (subcategoriaEstadistica != null) {
@@ -45,7 +33,6 @@ export class SubcategoriaEstadistica implements ISubcategoriaEstadistica {
             this.fkCategoriaEstadistica = subcategoriaEstadistica.fkCategoriaEstadistica;
             this.nombre = subcategoriaEstadistica.nombre;
         }
-        this.localUbicaciones = new Array(0);
     }
 
     // ToObjectDB

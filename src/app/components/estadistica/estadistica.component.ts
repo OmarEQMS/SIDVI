@@ -6,6 +6,7 @@ import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-
 import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { DatePipe } from '@angular/common';
 import { parse } from 'querystring';
+import { GraficaEdtadistica } from 'src/app/extra/GraficaEdtadistica';
 
 class EstadisticaValue {
     total: number;
@@ -25,17 +26,19 @@ class EstadisticaValue {
 export class EstadisticaComponent implements OnInit {
     ubicacion: Ubicacion;
     categorias: CategoriaEstadistica[];
+
     categoriaSelected: CategoriaEstadistica;
     subcategoriaSelected: SubcategoriaEstadistica;
     categoriaSelectedGrupo: CategoriaEstadistica;
     subcategoriaSelectedGrupo: SubcategoriaEstadistica;
-
     subcategoriaEjeHorizontal: boolean;
     agrupacionOpcion: number;
+    tipoGrafica: string;
 
-    estadisticas: SubcategoriaEstadistica[];
     idVirus: number;
     virus: Virus;
+
+    graficasEstadisticas: GraficaEdtadistica[];
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -59,7 +62,7 @@ export class EstadisticaComponent implements OnInit {
     async ionViewWillEnter() {
         this.categoriaSelectedGrupo = new CategoriaEstadistica();
         this.categoriaSelected = new CategoriaEstadistica();
-        this.estadisticas = new Array(0);
+        this.graficasEstadisticas = new Array(0);
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
         await this.getUbicacionesHijo(this.ubicacion);
@@ -98,7 +101,7 @@ export class EstadisticaComponent implements OnInit {
     }
 
     filtrarEstadisticas() {
-        this.estadisticas = new Array(0);
+        this.graficasEstadisticas = new Array(0);
 
         this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, null, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {

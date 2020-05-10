@@ -59,9 +59,18 @@
                         <option *ngFor="let subcat of categoriaSelectedGrupo.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
                     </select>
                 </div>
-                <div class='text-center btn-info p-2 filtro mt-3' (click)="filtrarEstadisticas()">
-                    Filtrar
-                </div>  
+                <div class='card text-center p-2 mt-3 mb-2'>
+                    Opciones
+                </div>
+                <div class='form-group'>
+                    <select id='input-categoria' class='form-control' value='-1' [(ngModel)]="tipoGrafica">
+                        <option disabled selected [value]="-1">SELECCIONA TIPO DE GRAFICA</option>
+                        <option value='bar'>Barras</option>
+                    </select>
+                </div>
+                <div class='text-center btn-info p-2 filtro mt-4' (click)="filtrarEstadisticas()">
+                    Guardar Configuracion
+                </div>
             </div> 
         </ion-content>
     </ion-menu>
@@ -77,15 +86,15 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <div class='m-5' *ngFor="let estadistica of estadisticas">
-                <div class='d-flex justify-content-center'>{{estadistica.nombre}}</div>
+            <div class='m-5' *ngFor="let grafica of graficasEstadisticas">
+                <div class='d-flex justify-content-center'>{{grafica.nombre}}</div>
                 <div style="display: block;">
                   <canvas mdbChart height='100px'
-                      [chartType]="estadistica.localChartType"
-                      [datasets]="estadistica.localChartDatasets"
-                      [labels]="estadistica.localChartLabels"
-                      [colors]="estadistica.localChartColors"
-                      [options]="estadistica.localChartOptions">
+                      [chartType]="grafica.localChartType"
+                      [datasets]="grafica.localChartDatasets"
+                      [labels]="grafica.localChartLabels"
+                      [colors]="grafica.localChartColors"
+                      [options]="grafica.localChartOptions">
                   </canvas>
                 </div>
             </div>

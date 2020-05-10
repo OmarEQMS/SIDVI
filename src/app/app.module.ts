@@ -33,7 +33,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
         CelularEstadoService, EstadisticaService, InformacionService, MedicoService,
         MedicoVirusService, TestNodoService, TestOpcionService, UbicacionService,
-        UsuarioService, ValoracionService, VirusService, ManagerService} from 'src/api';
+        UsuarioService, ValoracionService, VirusService, ManagerService, SubcategoriaEstadisticaService} from 'src/api';
 import { TestComponent } from './components/test/test.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { RestablecerComponent } from './components/restablecer/restablecer.component';
@@ -78,6 +78,7 @@ import { RestablecerComponent } from './components/restablecer/restablecer.compo
     ManagerService,
     CategoriaEstadisticaService,
     CategoriaInformacionService,
+    SubcategoriaEstadisticaService,
     CelularEstadoService,
     EstadisticaService,
     InformacionService,

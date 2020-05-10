@@ -1,4 +1,4 @@
-import { Estadistica } from './Estadistica';
+import { SubcategoriaEstadistica } from './SubcategoriaEstadistica';
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { Ubicacion } from './Ubicacion';
 
@@ -19,7 +19,7 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
     // Relations: BelongsToOne
 
     // Relations: HasMany
-    estadisticas: Estadistica[];
+    subcategoriaEstadisticas: SubcategoriaEstadistica[];
 
     // Local
     localUbicaciones: Ubicacion[]; // Solo los padres en diferentes fechas
@@ -38,6 +38,9 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
         if (categoriaEstadistica !== undefined) {
             this.idCategoriaEstadistica = categoriaEstadistica.idCategoriaEstadistica;
             this.nombre = categoriaEstadistica.nombre;
+            if (categoriaEstadistica.subcategoriaEstadisticas != null) {
+                this.subcategoriaEstadisticas = categoriaEstadistica.subcategoriaEstadisticas.map((item: any) => new SubcategoriaEstadistica(item));
+            }
         }
         this.localUbicaciones = new Array(0);
     }

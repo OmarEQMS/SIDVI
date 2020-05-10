@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestNodo, TestOpcion } from 'src/models';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faSearchPlus, faSearchMinus, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -17,11 +17,12 @@ export class TestComponent implements OnInit {
 
     icons: { [id: string]: IconDefinition } = {
         zoomIn: faSearchPlus,
-        zoomOut: faSearchMinus
+        zoomOut: faSearchMinus,
+        regresar: faArrowAltCircleLeft
     };
 
     constructor(
-        private sidvi: SIDVIServices,
+        public sidvi: SIDVIServices,
         private activatedRoute: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private router: Router
@@ -62,7 +63,12 @@ export class TestComponent implements OnInit {
     }
 
     openNodo(opcion: TestOpcion) {
+        this.sidvi.manager.historial.push(this.testNodo.idTestNodo);
         this.router.navigate(['/test', opcion.fkTestNodoSig]);
+    }
+
+    atrasNodo() {
+        this.router.navigate(['/test', this.sidvi.manager.historial.pop()]);
     }
 
     onPlayerReady(api: VgAPI) {

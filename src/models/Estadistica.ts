@@ -1,8 +1,8 @@
 import { Virus } from './Virus';
 import { Ubicacion } from './Ubicacion';
-import { CategoriaEstadistica } from './CategoriaEstadistica';
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { DatePipe } from '@angular/common';
+import { SubcategoriaEstadistica } from './SubcategoriaEstadistica';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Estadistica {
@@ -12,25 +12,27 @@ export interface IEstadistica {
     idEstadistica?: number;
     fkVirus?: number;
     fkUbicacion?: number;
-    fkCategoriaEstadistica?: number;
+    fkSubcategoriaEstadistica1?: number;
+    fkSubcategoriaEstadistica2?: number;
     valor?: number;
     fecha?: Date;
 }
 
 export class Estadistica implements IEstadistica {
-
     // Columns
     idEstadistica?: number;
     fkVirus?: number;
     fkUbicacion?: number;
-    fkCategoriaEstadistica?: number;
+    fkSubcategoriaEstadistica1?: number;
+    fkSubcategoriaEstadistica2?: number;
     valor?: number;
     fecha?: Date;
 
     // Relations: BelongsToOne
     virus: Virus;
     ubicacion: Ubicacion;
-    categoriaEstadistica: CategoriaEstadistica;
+    subcategoriaEstadistica1: SubcategoriaEstadistica;
+    subcategoriaEstadistica2: SubcategoriaEstadistica;
 
     // Relations: HasMany
 
@@ -44,12 +46,11 @@ export class Estadistica implements IEstadistica {
             this.idEstadistica = estadistica.idEstadistica;
             this.fkVirus = estadistica.fkVirus;
             this.fkUbicacion = estadistica.fkUbicacion;
-            this.fkCategoriaEstadistica = estadistica.fkCategoriaEstadistica;
+            this.fkSubcategoriaEstadistica1 = estadistica.fkSubcategoriaEstadistica1;
+            this.fkSubcategoriaEstadistica2 = estadistica.fkSubcategoriaEstadistica2;
             this.valor = estadistica.valor;
             this.fecha = new Date(estadistica.fecha);
             this.localFecha = this.localDatePipe.transform(this.fecha, 'yyyy-MM-dd');
-            // Relations
-            this.categoriaEstadistica = new CategoriaEstadistica(estadistica.categoriaEstadistica);
         }
     }
 
@@ -59,7 +60,8 @@ export class Estadistica implements IEstadistica {
             idEstadistica: this.idEstadistica,
             fkVirus: this.fkVirus,
             fkUbicacion: this.fkUbicacion,
-            fkCategoriaEstadistica: this.fkCategoriaEstadistica,
+            fkSubcategoriaEstadistica1: this.fkSubcategoriaEstadistica1,
+            fkSubcategoriaEstadistica2: this.fkSubcategoriaEstadistica2,
             valor: this.valor,
             fecha: this.fecha // new Date(this.localFecha);
         };

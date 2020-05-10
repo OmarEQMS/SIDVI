@@ -66,7 +66,7 @@ export class EditarMedicosComponent implements OnInit {
     actualizarConsultorio(mensaje) {
         this.sidvi.medico.actualizarMedico(this.medicoModal.idMedico, this.medicoModal).subscribe(
             res => {
-                // tslint:disable-next-line: max-line-length
+
                 Swal.fire({ title: '¡Listo!', text: 'Consultorio ' + mensaje + ' correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarMedicos();
@@ -97,9 +97,9 @@ export class EditarMedicosComponent implements OnInit {
             if (result.value) {
                 this.sidvi.medico.eliminarMedico(this.medicoModal.idMedico).subscribe(
                     res => {
-                        // tslint:disable-next-line: max-line-length
-                        Swal.fire({ title: '¡Listo!', text: 'Consultorio eliminado correctamente', icon: 'success', heightAuto: false }).then((result) => {
-                            if (result.value) {
+
+                        Swal.fire({ title: '¡Listo!', text: 'Consultorio eliminado correctamente', icon: 'success', heightAuto: false }).then((resultado) => {
+                            if (resultado.value) {
                                 this.listarMedicos();
                                 this.basicModal.hide();
                             }

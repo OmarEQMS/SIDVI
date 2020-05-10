@@ -13,8 +13,8 @@ export class EstadisticaService {
 
     constructor(protected httpClient: HttpClient, protected manager: ManagerService) { }
 
-    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number, fkCategoriaEstadistica?: number, fechaInicio?: string,
-                              fechaFin?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
+    public listarEstadisticas(fkVirus?: number, fkUbicacion?: number, fkSubcategoriaEstadistica1?: number, fkSubcategoriaEstadistica2?: number,
+                              fkCategoriaEstadistica?: number, fechaInicio?: string, fechaFin?: string, ordenarPor?: string, ordenarModo?: OrderModeEnum): Observable<any> {
         // Params
         let queryParameters = new HttpParams();
         if (fkVirus !== undefined && fkVirus !== null) {
@@ -22,6 +22,12 @@ export class EstadisticaService {
         }
         if (fkUbicacion !== undefined && fkUbicacion !== null) {
             queryParameters = queryParameters.set('fkUbicacion', fkUbicacion.toString());
+        }
+        if (fkSubcategoriaEstadistica1 !== undefined && fkSubcategoriaEstadistica1 !== null) {
+            queryParameters = queryParameters.set('fkSubcategoriaEstadistica1', fkSubcategoriaEstadistica1.toString());
+        }
+        if (fkSubcategoriaEstadistica2 !== undefined && fkSubcategoriaEstadistica2 !== null) {
+            queryParameters = queryParameters.set('fkSubcategoriaEstadistica2', fkSubcategoriaEstadistica2.toString());
         }
         if (fkCategoriaEstadistica !== undefined && fkCategoriaEstadistica !== null) {
             queryParameters = queryParameters.set('fkCategoriaEstadistica', fkCategoriaEstadistica.toString());

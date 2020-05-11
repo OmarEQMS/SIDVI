@@ -12,6 +12,7 @@ import { faMinus, faChevronRight, faChevronDown } from '@fortawesome/free-solid-
 export class UbicacionListComponent implements OnInit {
     @Input() ubicacion: Ubicacion;
     @Output() selected = new EventEmitter<number>();
+    @Output() selectedCon = new EventEmitter<Ubicacion>();
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -39,9 +40,14 @@ export class UbicacionListComponent implements OnInit {
         this.selected.emit(idUbicacion);
     }
 
+    emitUbicacionCon(ubi: Ubicacion) {
+        this.selectedCon.emit(ubi);
+    }
+
     selectUbicacion(ubicacion: Ubicacion) {
         this.changeUbicacion(ubicacion, !ubicacion.localSelected);
         this.selected.emit(ubicacion.idUbicacion);
+        this.selectedCon.emit(ubicacion);
     }
 
     changeUbicacion(ubicacion: Ubicacion, select: boolean) {

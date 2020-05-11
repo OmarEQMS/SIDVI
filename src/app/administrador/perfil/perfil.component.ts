@@ -62,7 +62,6 @@ validateField(key, input) {
 }
 
 validateAll() {
-
   // this.fieldValidations.nombreCompleto = (this.usuario.nombreCompleto === '') ? false : true;
   let valid = true;
   if (this.fieldValidations.nombreCompleto === false) {

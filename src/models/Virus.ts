@@ -58,6 +58,7 @@ export class Virus implements IVirus {
 
     // Constructor
     constructor(virus?: any) {
+        this.selected = false;
         if (virus !== undefined) {
             this.idVirus = virus.idVirus;
             this.clave = virus. clave;
@@ -65,7 +66,7 @@ export class Virus implements IVirus {
             this.mimetypeIcono = virus.mimetypeIcono;
             this.archivoIcono = virus.archivoIcono;
             this.fkTestNodo = virus.fkTestNodo;
-            this.selected = virus.selected;
+            this.selected = (virus.selected !== undefined) ? virus.selected : false;
             // Relations
             this.informaciones = new Array(0);
             this.localFileName = 'Seleccione una nueva imagen';

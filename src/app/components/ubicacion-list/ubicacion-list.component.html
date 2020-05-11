@@ -9,7 +9,7 @@
             <div class='btn-text d-inline-block' (click)="selectUbicacion(ubi)">{{ubi.nombre}}</div>
         </div>
         <ion-list *ngIf="ubi.localVisible" class='list-ubicacion p-0'>
-            <app-ubicacion-list [ubicacion]="ubi" (selected)="emitUbicacion($event)"></app-ubicacion-list>    
+            <app-ubicacion-list [ubicacion]="ubi" (selected)="emitUbicacion($event)" (selectedCon)="emitUbicacionCon($event)"></app-ubicacion-list>    
         </ion-list>
     </div>
 </ion-list>

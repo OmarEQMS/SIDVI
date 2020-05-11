@@ -3,36 +3,56 @@ ion-split-pane{
     margin-top: 70px;
 }
 
-.alignRight{
+.flex-row{
     display: flex;
     flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.justify-content-right{
     justify-content: flex-end;
-    margin-right:5% ;
+}
+.justify-content-left{
+    justify-content: flex-start;
+}
+.justify-content-center{
+    justify-content: center;
+}
+.justify-content-space{
+    justify-content: space-between;
+}
+.justify-content-even{
+    justify-content: space-evenly;
+}
+.justify-content-space-around{
+    justify-content: space-around;
+}
+.center-vertically{
+    align-items: center;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+.wrap-reverse{
+    flex-wrap: wrap-reverse;
+}
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
 }
 .formClass{
     display: flex;
     justify-content: center;
-    margin-right:5% ;
-    margin-left:5% ;
+   
 }
 .card-body {
     background-color: #C5ECFC;
 }
 
-form{
-    width: 80vw;
-}
-.margin-top-sm{
-    margin-top: 2%;
-}
-
-#imagenConsultorio, #imgConsultorio{
-    min-height: 200px;
-    max-height: 200px;
-}
-.imagenConsultorioContainer #imgConsultorio{
-    background-image: url(../../../assets/images/no-imagen.jpg);
-}
 .imagenConsultorioContainer {
     display: flex;
     justify-content: center;
@@ -97,21 +117,6 @@ form{
     width: 10px;
     height: 10px;
     margin-right:5px;
-}
-.rechazado {
-    background: white;
-}
-.habilitado {
-    background: green;
-}
-.deshabilitado {
-    background: red;
-}
-.en-proceso {
-    background: yellow;
-}
-.cross{
-    text-decoration: line-through;
 }
 .btn-text {
     width: 85%;
@@ -188,10 +193,6 @@ input{
 .pointer{
     cursor: pointer;
 }
-.btn-group{
-    padding-top: 10px;
-    padding-left: 6px;
-}
 .select-text{
     width: 125px;
 }
@@ -214,4 +215,7 @@ padding-left: 28px;
   }
 .none-interactable{
     pointer-events: none;
+}
+.status p{
+    margin-bottom: 0px !important;
 }

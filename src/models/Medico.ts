@@ -4,6 +4,7 @@ import { Usuario } from './Usuario';
 import { Ubicacion } from './Ubicacion';
 import { MedicoVirus } from './MedicoVirus';
 import { Valoracion } from './Valoracion';
+import { Virus } from './Virus';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Medico {
@@ -58,6 +59,7 @@ export class Medico implements IMedico {
     // Relations: HasMany
     medicosVirus?: MedicoVirus[];
     valoraciones?: Valoracion[];
+    viruss?: Virus[];
 
     // Extras
     archivoIconoImg: SafeResourceUrl;
@@ -79,6 +81,7 @@ export class Medico implements IMedico {
             this.mimetypeFoto = medico.mimetypeFoto;
             this.archivoFoto = medico.archivoFoto;
             this.estatus = medico.estatus;
+            this.viruss = new Array();
         }
     }
 

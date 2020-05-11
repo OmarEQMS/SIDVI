@@ -21,6 +21,7 @@ import { EditarCatalogosComponent } from './editar-catalogos/editar-catalogos.co
 import { UbicacionListComponent } from '../components/ubicacion-list/ubicacion-list.component';
 import { UbicacionesEditListComponent } from './ubicaciones-edit-list/ubicaciones-edit-list.component';
 import { EditarMedicosComponent } from './editar-medicos/editar-medicos.component';
+import { EditarTestComponent } from './editar-test/editar-test.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { EditarMedicosComponent } from './editar-medicos/editar-medicos.componen
     EditarEstadisticaComponent,
     EditarCatalogosComponent,
     UbicacionesEditListComponent,
-    EditarMedicosComponent
+    EditarMedicosComponent,
+    EditarTestComponent
   ]
 })
 export class AdministradorPageModule {}

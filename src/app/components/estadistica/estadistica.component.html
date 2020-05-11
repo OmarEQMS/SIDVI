@@ -1,14 +1,14 @@
 <ion-split-pane contentId='main'>
     <ion-menu menuId='sidebar' contentId='main'>
         <ion-content class='sidebar-menu'>
-            <div class='m-3'>
+            <div class='m-3' *ngIf="editandoGrafica != null">
                 <div class='card text-center p-2 mb-2'>
                     Ubicaciones
                 </div>            
                 <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
                 <div class='card text-center p-2 mt-3 mb-2'>
                     Categoria
-                </div>  
+                </div>
                 <div class='form-group'>
                     <select class='form-control' #idCategoriaSelected value='-1' (change)="updateCategoria(idCategoriaSelected.value)">
                         <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
@@ -19,54 +19,60 @@
                     Eje Horizontal
                 </div> 
                 <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-subcategoria' [value]="true" [(ngModel)]="subcategoriaEjeHorizontal">
+                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-subcategoria' [value]="1" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
                     <label class='form-check-label' for='radio-subcategoria'>Subcategorias</label>
                 </div> 
                 <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-riempo' [value]="false" [(ngModel)]="subcategoriaEjeHorizontal">
-                    <label class='form-check-label' for='radio-riempo'>Tiempo</label>
+                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-tiempo' [value]="2" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
+                    <label class='form-check-label' for='radio-tiempo'>Tiempo</label>
                 </div>
-                <div class='form-group mt-1' *ngIf="subcategoriaEjeHorizontal == false">
+                <div class='form-check'>
+                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-mapa' [value]="3" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
+                    <label class='form-check-label' for='radio-mapa'>Mapa</label>
+                </div>
+                <div class='form-group mt-1' *ngIf="editandoGrafica.subcategoriaEjeHorizontal >= 2">
                     <select id='input-categoria' class='form-control' value='-1' #idSubcategoriaSelected (change)="updateSubcategoria(idSubcategoriaSelected.value)">
                         <option disabled selected [value]="-1">SUBCATEGORIA A GRAFICAR</option>
-                        <option *ngFor="let subcat of categoriaSelected.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
+                        <option *ngFor="let subcat of editandoGrafica.categoriaSelected.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
                     </select>
                 </div>
-                <div class='card text-center p-2 mt-3 mb-2'>
-                    Agrupar
-                </div>
-                <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-riempo' [value]="1" [(ngModel)]="agrupacionOpcion">
-                    <label class='form-check-label' for='radio-riempo'>No agrupar y sin ningun filtro</label>
-                </div>
-                <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-subcategoria' [value]="2" [(ngModel)]="agrupacionOpcion">
-                    <label class='form-check-label' for='radio-subcategoria'>Agrupar por Categoria</label>
-                </div> 
-                <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-riempo' [value]="3" [(ngModel)]="agrupacionOpcion">
-                    <label class='form-check-label' for='radio-riempo'>No agrupar y añadir filtro</label>
-                </div>
-                <div class='form-group mt-2' *ngIf="agrupacionOpcion >= 2">
-                    <select id='input-categoria' class='form-control' value='-1' #idCategoriaSelectedGrupo (change)="updateCategoriaGrupo(idCategoriaSelectedGrupo.value)">
-                        <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
-                        <option *ngFor="let cat of categorias" [value]="cat.idCategoriaEstadistica">{{cat.nombre}}</option>
-                    </select>
-                </div>
-                <div class='form-group' *ngIf="agrupacionOpcion == 3">
-                    <select id='input-categoria' class='form-control' value='-1' #idSubcategoriaSelectedGrupo (change)="updateSubcategoriaGrupo(idSubcategoriaSelectedGrupo.value)">
-                        <option disabled selected [value]="-1">SELECCIONA TU SUBCATEGORIA</option>
-                        <option *ngFor="let subcat of categoriaSelectedGrupo.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
-                    </select>
-                </div>
-                <div class='card text-center p-2 mt-3 mb-2'>
-                    Opciones
-                </div>
-                <div class='form-group'>
-                    <select id='input-categoria' class='form-control' value='-1' [(ngModel)]="tipoGrafica">
-                        <option disabled selected [value]="-1">SELECCIONA TIPO DE GRAFICA</option>
-                        <option value='bar'>Barras</option>
-                    </select>
+                <div *ngIf="editandoGrafica.subcategoriaEjeHorizontal != 3">
+                    <div class='card text-center p-2 mt-3 mb-2'>
+                        Agrupar
+                    </div>
+                    <div class='form-check'>
+                        <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-agrupar-nada' [value]="1" [(ngModel)]="editandoGrafica.agrupacionOpcion">
+                        <label class='form-check-label' for='radio-agrupar-nada'>No agrupar y sin ningun filtro</label>
+                    </div>
+                    <div class='form-check'>
+                        <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-agrupar-categoria' [value]="2" [(ngModel)]="editandoGrafica.agrupacionOpcion">
+                        <label class='form-check-label' for='radio-agrupar-categoria'>Agrupar por Categoria</label>
+                    </div> 
+                    <div class='form-check'>
+                        <input class='form-check-input' type='radio' name='radios-agrupar' id='radio-agrupar-filtro' [value]="3" [(ngModel)]="editandoGrafica.agrupacionOpcion">
+                        <label class='form-check-label' for='radio-agrupar-filtro'>No agrupar y añadir filtro</label>
+                    </div>
+                    <div class='form-group mt-2' *ngIf="editandoGrafica.agrupacionOpcion >= 2">
+                        <select id='input-categoria' class='form-control' value='-1' #idCategoriaSelectedGrupo (change)="updateCategoriaGrupo(idCategoriaSelectedGrupo.value)">
+                            <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
+                            <option *ngFor="let cat of categorias" [value]="cat.idCategoriaEstadistica">{{cat.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class='form-group' *ngIf="editandoGrafica.agrupacionOpcion == 3">
+                        <select id='input-categoria' class='form-control' value='-1' #idSubcategoriaSelectedGrupo (change)="updateSubcategoriaGrupo(idSubcategoriaSelectedGrupo.value)">
+                            <option disabled selected [value]="-1">SELECCIONA TU SUBCATEGORIA</option>
+                            <option *ngFor="let subcat of editandoGrafica.categoriaSelectedGrupo.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class='card text-center p-2 mt-3 mb-2'>
+                        Opciones
+                    </div>
+                    <div class='form-group'>
+                        <select id='input-categoria' class='form-control' [(ngModel)]="editandoGrafica.tipoGrafica">
+                            <option disabled selected value='-1'>SELECCIONA TIPO DE GRAFICA</option>
+                            <option value='bar'>Barras</option>
+                        </select>
+                    </div>
                 </div>
                 <div class='text-center btn-info p-2 filtro mt-4' (click)="filtrarEstadisticas()">
                     Guardar Configuracion
@@ -86,7 +92,7 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <div class='m-5' *ngFor="let grafica of graficasEstadisticas">
+            <div class='m-5' *ngFor="let grafica of graficasEstadisticas">                
                 <div class='d-flex justify-content-center'>{{grafica.nombre}}</div>
                 <div style="display: block;">
                   <canvas mdbChart height='100px'

@@ -1,5 +1,5 @@
-<ion-content class="fondo">
-
+<ion-content class="mt-5">
+<!--
   <div class="d-flex justify-content-center contenedor">
     <div class="d-flex justify-content-center contenedorVirus">
       <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
@@ -31,8 +31,51 @@
       </div>
     </div>
   </div>  
+-->
+<div class="flex-row justify-content-center mt-5">
+  <div class="flex-row  justify-content-center wrap contenedorVirus mt-5">
+    <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
+      <mdb-card class="cartaVirus">
+        <!--Card image-->
+        <mdb-card-img *ngIf="virus.archivoIconoImg!=null" [src]="virus.archivoIconoImg" alt="Card image cap"></mdb-card-img>
 
-  <div id="mi-comsultorio-linker" class="mi-comsultorio-linker mt-5 mb-5">
+        <a class="btn-action ml-auto mr-4 mdb-color lighten-3 waves-light super-boton " mdbWavesEffect  routerLink='/informacion/{{virus.idVirus}}'>
+          <div class="flex-column center-vertically justify-content-center w-100 h-100">
+              <mdb-icon fas icon="chevron-right" class="waves-light" mdbWavesEffect color="black" style="color:black"></mdb-icon>
+          </div>
+        </a>
+
+
+        <!--Card content-->
+        <mdb-card-body>
+      
+          <!--Title-->
+          <mdb-card-title> 
+            <h4 class="title">{{virus.nombre}}</h4>
+          </mdb-card-title>
+          
+          <!--Title-->
+          <mdb-card-title>
+            <h5 class="subtitle">{{virus.nombre}}</h5>
+          </mdb-card-title>
+      
+          <!--Text-->
+          <mdb-card-text class="pointer"> 
+            <a  routerLink="/test/{{virus.fkTestNodo}}">Hacer el test de síntomas</a>
+          </mdb-card-text>
+          
+          <!--buttons-->
+          <div class="flex-row justify-content-center">
+            <a routerLink="/medicos/{{virus.idVirus}}"  class="btn btn-info d-inline-block text-white m-1" mdbWavesEffect>Médicos disponibles</a>
+            <a routerLink='/estadistica/{{virus.idVirus}}'  class="btn btn-info d-inline-block text-white m-1" mdbWavesEffect >Estadísticas</a>
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div> 
+
+  <div id="mi-comsultorio-linker" class="footer justify-content-center center-vertically flex-column">
     <div>
       ¿Eres médico y tienes un consultorio? Regístrate aqui para anunciarte en la página
     </div>

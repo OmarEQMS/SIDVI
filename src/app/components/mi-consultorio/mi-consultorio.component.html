@@ -9,8 +9,8 @@
       <div class="lista">
         <div   *ngFor="let con of consultoriosList" >
           <div class="boton" [ngClass]="{'btn-item': consultorio != con,'btn-item-selected': consultorio==con}"  (click)= verConsultorioBtn(con)>
-            <div class="circulo" [ngClass]="{'habilitado': con.estatus === 'HABILITADO', 'deshabilitado': con.estatus === 'DESHABILITADO', 'en-proceso': con.estatus === 'EN_ESPERA'}"></div>
-            <div class='btn-text d-inline-block'  [ngClass]="{'cross': con.estatus === 'RECHAZADO'}"> {{con.nombreConsultorio}}</div>
+            <div class="circulo"></div>
+            <div class='btn-text d-inline-block'> {{con.nombreConsultorio}}</div>
           </div> 
         </div>
       </div>
@@ -32,45 +32,47 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content class="mt-5">
       <!-- status dropdown-->
       <!--https://mdbootstrap.com/docs/angular/components/dropdowns/-->
-      <div class="alignRight" *ngIf="estadoActual == 2 && consultorio.estatus != 'RECHAZADO'">
-        <div>
-            <ion-list>
-              <ion-item>
-                <ion-label> STATUS:</ion-label>
-                <ion-select interface="popover" >
-                  <ion-select-option value="HABILITADO" >VISIBLE</ion-select-option>
-                  <ion-select-option value="DESHABILITADO"  >OCULTO</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
+      <div class="flex-row justify-content-space ml-md-5 mr-md-5 ml-2 mr-2 mt-3" *ngIf="editando">
+
+        <!--Status-->
+        <div class="flex-row" *ngIf="editando">
+            <div class="status flex-row center-vertically mr-2">
+                <p *ngIf="consultorio.estatus == 'RECHAZADO'">ESTATUS: RECHAZADA</p> 
+                <p *ngIf="consultorio.estatus == 'EN_ESPERA'">ESTATUS: EN REVISION</p> 
+                <p *ngIf="consultorio.estatus == 'HABILITADO' || consultorio.estatus == 'DESHABILITADO'">ESTATUS: ACEPTADA</p> 
+            </div>
+            <div class="helpBtn" (click)="modalEstatus.show();" >
+              <div class="icon pointer"></div>
+            </div>
         </div>
-        <div class="helpBtn">
-          <div class="icon pointer"></div>
+
+        <!--visible/invisible dropdown-->
+        <div class="btn-group" mdbDropdown  *ngIf="consultorio.estatus == 'HABILITADO' || consultorio.estatus == 'DESHABILITADO'">
+          <button *ngIf="consultorio.estatus == 'HABILITADO'" type="button" mdbBtn class="waves-light" color="info" mdbWavesEffect>Visible</button>
+          <button *ngIf="consultorio.estatus == 'DESHABILITADO'"type="button" mdbBtn class="waves-light" color="info" mdbWavesEffect>Invisible</button>
+          <button type="button" mdbDropdownToggle mdbBtn color="info" class="dropdown-toggle dropdown-toggle-split px-3 waves-light"
+            mdbWavesEffect></button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="habilitarConsultorio(true)">Visible</a>
+            <a class="dropdown-item" (click)="habilitarConsultorio(false)">Invisible</a>
+          </div>
         </div>
-        
+
       </div>
-      <div class="alignRight" *ngIf="estadoActual == 2 && consultorio.estatus == 'RECHAZADO'">
-        <div>
-            <p>STATUS: RECHAZADA</p> 
-        </div>
-        <div class="helpBtn">
-          <div class="icon pointer"></div>
-        </div>
-        
-      </div>
+
       <!--form-->
-      <div class="formClass" [ngClass]="{'margin-top-sm': estadoActual == 0 || estadoActual == 1}">
-        <form [formGroup]="consultorioForm">
+      <div class="ml-md-5 mr-md-5 ml-2 mr-2 mt-3">
+        <form class="w-100">
           <div class="row" [ngClass]= "{'none-interactable': consultorio.estatus == 'RECHAZADO'}">
           
             <!--  consultorio image  -->
             <div class="col col-md-4">
               <div class="imagenConsultorioContainer">
-                <img *ngIf="consultorio.archivoFoto != null" id="imgConsultorio" [src]="consultorio.archivoFoto" alt="imagen del consultorio" height="200px">
-                <img *ngIf="consultorio.archivoFoto == null" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px"></div>
+                <img *ngIf="consultorio.archivoFoto" [src]="consultorio.archivoFoto" alt="imagen del consultorio" height="200px">
+                <img *ngIf="consultorio.archivoFoto === null || consultorio.archivoFoto === undefined" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px"></div>
               <div class="form-group">
                 <input type="file" accept="image/*" class="form-control-file" (change) = "handleFileInput($event.target.files)">
               </div>
@@ -84,12 +86,10 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/medicine.png" alt="doctor pin" class="icon"></span>
                   </div>
-                  <input [(ngModel)]="consultorio.nombreDoctor" type="text" id="nombreDoctor" name="nombreDoctor" placeholder="Nombre del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreDoctor"  required>
+                  <input [(ngModel)]="consultorio.nombreDoctor" type="text" id="nombreDoctor" name="nombreDoctor" placeholder="Nombre del doctor" class="form-control" (ngModelChange)="validateField('nombreDoctor', consultorio.nombreDoctor)" aria-describedby="inputGroupPrepend" required>
                 </div>
-                <div class="feedback"  *ngIf="consultorioForm.controls.nombreDoctor.errors && (consultorioForm.controls.nombreDoctor.touched || hayErrores)">
-                  <div  *ngIf="consultorioForm.controls.nombreDoctor.errors.required">
+                <div class="feedback"  *ngIf="fieldValidations.nombreDoctor === false">
                     Ingresa el nombre del doctor.            
-                  </div>
                 </div>
               </div>
             
@@ -99,12 +99,10 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/paper.png" alt="doctor pin" class="icon"></span>
                   </div>
-                    <input [(ngModel)]="consultorio.cedulaProfesional" type="text" placeholder="Cédula del doctor" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="cedulaProfesional"  required>
+                    <input [(ngModel)]="consultorio.cedulaProfesional" name="cedulaProfesional" type="text" placeholder="Cédula del doctor" class="form-control" (ngModelChange)="validateField('cedulaProfesional', consultorio.cedulaProfesional)" aria-describedby="inputGroupPrepend" required>
                   </div>
-                  <div class="feedback"  *ngIf="consultorioForm.controls.cedulaProfesional.errors && (consultorioForm.controls.cedulaProfesional.touched || hayErrores)">
-                    <div  *ngIf="consultorioForm.controls.cedula.errors.required">
+                  <div class="feedback"  *ngIf="fieldValidations.cedulaProfesional === false ">
                       Ingresa la cédula profesional.
-                    </div>  
                   </div>
               </div>
             
@@ -114,12 +112,10 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/hospital.png" alt="doctor pin" class="icon"></span>
                     </div>
-                    <input [(ngModel)]="consultorio.nombreConsultorio" type="text" id="nombreConsultorio" name="nombreConsultorio"  placeholder="Nombre del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend" formControlName="nombreConsultorio" required>
+                    <input [(ngModel)]="consultorio.nombreConsultorio" type="text" id="nombreConsultorio" name="nombreConsultorio"  placeholder="Nombre del consultorio" class="form-control" (ngModelChange)="validateField('nombreConsultorio', consultorio.nombreConsultorio)"  aria-describedby="inputGroupPrepend" required>
                   </div>
-                  <div class="feedback"  *ngIf="consultorioForm.controls.nombreConsultorio.errors && (consultorioForm.controls.nombreConsultorio.touched || hayErrores)">
-                    <div  *ngIf="consultorioForm.controls.nombreConsultorio.errors.required">
+                  <div class="feedback"  *ngIf="fieldValidations.nombreConsultorio === false">
                       Ingresa el nombre del consultorio.            
-                    </div>
                   </div>
               </div>
             
@@ -129,12 +125,10 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/phone.png" alt="phone pin" class="icon"></span>
                     </div>
-                    <input [(ngModel)]="consultorio.telefonoConsultorio" type="text" placeholder="Teléfono del consultorio" class="form-control" style="background-color:white" aria-describedby="inputGroupPrepend"  formControlName="telefonoConsultorio" required >
+                    <input [(ngModel)]="consultorio.telefonoConsultorio" name="telefonoConsultorio" type="text" placeholder="Teléfono del consultorio" class="form-control" (ngModelChange)="validateField('telefonoConsultorio', consultorio.telefonoConsultorio)"  aria-describedby="inputGroupPrepend" required >
                   </div>
-                  <div class="feedback"  *ngIf="consultorioForm.controls.telefonoConsultorio.errors && (consultorioForm.controls.telefonoConsultorio.touched || hayErrores)">
-                    <div *ngIf="consultorioForm.controls.telefonoConsultorio.errors.required">
+                  <div class="feedback"  *ngIf="fieldValidations.telefonoConsultorio === false ">
                       Ingresa el teléfono.
-                    </div> 
                   </div>
               </div>
 
@@ -149,40 +143,38 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                   </div>
-                  <input [(ngModel)]="consultorio.direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" style="background-color:white" formControlName="direccionConsultorio" aria-describedby="inputGroupPrepend" required>
+                  <input [(ngModel)]="consultorio.direccionConsultorio" name="direccionConsultorio" type="text" placeholder="Dirección de consultorio" class="form-control" (ngModelChange)="validateField('direccionConsultorio', consultorio.direccionConsultorio)"  aria-describedby="inputGroupPrepend" required>
                 </div>
-                <div class="feedback"   *ngIf="consultorioForm.controls.direccionConsultorio.errors && (consultorioForm.controls.direccionConsultorio.touched || hayErrores)">
-                  <div *ngIf="consultorioForm.controls.direccionConsultorio.errors.required">
-                    Ingresa una dirección.
-                  </div>
+                <div class="feedback"   *ngIf="fieldValidations.direccionConsultorio === false">
+                  Ingresa una dirección.
                 </div>
               </div>
               <br>
               
               <!--ubicacion-->
               <div class="form-row">
-                <div class="card">
-                  <div class="card header">
+                <div class="card w-100">
+                  <div class="card w-100 header">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                     </div>
                     <div class="textCenterVertical">
-                      <p class="card-subtitle mb-2 text-muted" *ngIf="consultorio.ubicacion == undefined">Seleccione la localidad</p>
-                      <p class="text-muted" *ngIf="consultorio.ubicacion != undefined"> Localidad: {{consultorio.ubicacion.nombre}}</p>
+                      <p class="card-subtitle mb-2 text-muted" *ngIf="!editando">Seleccione la localidad: {{consultorio.ubicacion.nombre}}</p>
+                      <p class="text-muted" *ngIf="editando"> Localidad: {{consultorio.ubicacion.nombre}}</p>
                     </div>
                   </div>
                   <div class="lista">
-                    <app-ubicacion-list [ubicacion]="ubicacion" (selected)="ubicacionSelected($event)"></app-ubicacion-list>
+                    <app-ubicacion-list [ubicacion]="ubicacion" (selectedCon)="ubicacionSelected($event)"></app-ubicacion-list>
                   </div>
                 </div>
-                <div class="feedback"  *ngIf=" consultorio.fkUbicacion == -1 && hayErrores">
-                    Selecciona una ubicación.
+                <div class="feedback"  *ngIf="fieldValidations.ubicacion === false ">
+                  Selecciona una ubicación.
                 </div>
               </div>
               <br>
               
               <!-- virus que conoce no editable-->
-              <div class="card" *ngIf="estadoActual == 2">
+              <div class="card w-100" *ngIf="editando">
                 <div class="form-row m-3" >
                   <div class="col-md-4"  *ngFor="let medicoVirus of consultorio.medicosVirus">
                     <div class="flex-clumna">
@@ -206,14 +198,14 @@
               </div>
   
               <!-- virus que conoce -->
-              <div class="input-froup columna card" style="padding-left: 60px ;">
+              <div class="input-froup columna card w-100" style="padding-left: 60px ;">
                 <div style="margin-top: 5px;">
-                  <p *ngIf= "estadoActual == 0">Seleccione todos los virus que puede tratar:</p>
+                  <p *ngIf= "!editando">Seleccione todos los virus que puede tratar:</p>
                 </div>
                 <div class="form-row">
                   <div class="col-md-4"  *ngFor="let v of virusList">
                     <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" (change)="seleccionVirus(v, $event)" [checked] = " v.selected === true" >
+                      <input type="checkbox" class="form-check-input"  id="{{v.idVirus}}" [checked] = " v.selected === true" (change)="virusSelected(v, $event)" >
                       <label class="form-check-label" for="{{v.idVirus}}">{{v.nombre}}</label>
                     </div>
                   </div>
@@ -223,33 +215,64 @@
               
               <!--descripcion -->
               <div class="form-group columna">
-                <textarea [(ngModel)]="consultorio.descripcion" placeholder="Descripción o información extra" class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion" required></textarea>
-                <div class="feedback"   *ngIf="consultorioForm.controls.descripcion.errors && (consultorioForm.controls.descripcion.touched || hayErrores)">
-                  <div *ngIf="consultorioForm.controls.descripcion.errors.required">
+                <textarea [(ngModel)]="consultorio.descripcion" name="descripcion" placeholder="Descripción o información extra" class="form-control" (ngModelChange)="validateField('descripcion', consultorio.descripcion)"  id="exampleFormControlTextarea1" rows="3" required></textarea>
+                <div class="feedback"   *ngIf="fieldValidations.descripcion === false ">
                     Ingresa una descripcion.
-                  </div>
                 </div>
               </div>
             </div>
             
             <!--botones-->
             <div class="buttons">
-              <div *ngIf="estadoActual == 0 || estadoActual == 1" class="btn btn-info d-inline-block text-white m-1">
+              <div *ngIf="!editando" class="btn btn-info d-inline-block text-white m-1">
                 Vista Previa
               </div>
-              <div *ngIf="estadoActual == 0" class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
+              <div *ngIf="!editando" class="btn btn-info d-inline-block text-white m-1"  type="submit" (click)="registrar()">
                 Registrar
               </div>
-              <div *ngIf="estadoActual == 2 && consultorio.estatus != 'RECHAZADO'" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
+              <div *ngIf="editando&& consultorio.estatus != 'RECHAZADO'" class="btn btn-info d-inline-block text-white m-1" (click)="editar(consultorio)" >
                 Guardar Cambios
               </div>
-              <div *ngIf="estadoActual == 2" class="btn btn-info d-inline-block text-white m-1"  (click)="confirmacionParaEliminar(consultorio)" >
+              <div *ngIf="editando" class="btn btn-info d-inline-block text-white m-1"  (click)="confirmacionParaEliminar(consultorio)" >
                 Eliminar
               </div>
             </div>
             <div class="mb-5">&nbsp;</div>
         </form>
       </div>
+      
+      <!-- Modal  -->
+      <div mdbModal #modalEstatus="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+      [config]="{backdrop: false, ignoreBackdropClick: true}">
+      <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <span class='modal-title tamanoTitulo'>¿Qué es el estatus?</span>
+            <button type='button' class='close pull-right' aria-label='Close' (click)="modalEstatus.hide()">
+              <span aria-hidden='true'>×</span>
+            </button>
+          </div>
+          <div class='modal-body pl-3 pr-3 pb-3'>
+            El estatus es el punto actual en el que el registro de tu consultorio se encuentra. <br>
+            <i><strong>En Revisión:</strong></i> Una vez enviado tu registro del consultorio pasa a revisión donde 
+            se valida la información del consultorio. <br>
+            <i> <strong>Aceptado:</strong> </i> Si el consultorio fue validado exitosamente por los administradores del sitio, 
+            el consultorio pasa a estar "Aceptado". Una vez aceptado, tu puedes decidir entre hacerlo visible o invisible. 
+            Puedes cambiar estos dos modos en cualquier momento. <br>
+            <ion-list>
+              <ion-item>- Visible: El consultorio será publico para cualquier persona que ingrese al catalogo de consultorios</ion-item>
+              <ion-item>- Invisible: El consultorio no se mostrará mientras se encuentre en este modo.</ion-item>
+            </ion-list>
+            <i><strong>Rechazado:</strong> </i> Si el consultorio no paso la evaluación de los administradores de la página 
+            pasa a estar rechazado. No se puede editar este consultorio, para que se registre se debe enviar nuevamente la peticion. 
+          </div>
+          <div class='modal-footer d-flex justify-content-center'>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
     </ion-content>
 
   </ion-router-outlet>

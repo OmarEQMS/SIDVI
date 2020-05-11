@@ -1,0 +1,109 @@
+.pagina {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1200px;
+}
+
+.card-body {
+    background-color: #C5ECFC;
+}
+
+.btn-regresar {
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.contenedor-opcion {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.opcion {
+    max-width: 450px;
+}
+.opcion:hover {
+    cursor: pointer;
+}
+
+.titulo-contenido {
+    text-align: center;
+    font-size: 25px;
+}
+.contenido-descripcion {
+    padding-top: 5px;
+    font-size: 20px;
+}
+
+.img-opcion {
+    max-height: 10vh;
+    width: 90%;
+    object-fit: contain;
+}
+.img-contenido {
+    max-height: 50vh;
+    width: 90%;
+    object-fit: contain;
+}
+.video-contenido {
+    height: 50vh;
+    width: 90%;
+}
+.pdf-contenido {
+    height: 50vh;
+    width: calc(100% - 30px);
+}
+.btn-zoom {
+    border-radius: 9px;
+    background-color: #ffdecc;
+    font-size: 18px;
+    padding: 5px;
+    margin: 1px;
+}
+.btn-zoom:hover {
+    background-color: #ffbd99;
+}
+
+.titulo-virus {
+    width: calc(100% - 220px);
+}
+.imagen-icono {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+    border-top-left-radius: 50px;
+    -webkit-border-top-left-radius: 50px;
+    -moz-border-top-left-radius: 50px;
+
+    border-bottom-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-bottom-right-radius: 50px;
+
+    border-top-right-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-top-right-radius: 50px;
+
+    border-bottom-left-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-bottom-left-radius: 50px;
+}
+
+.textHeader{
+    color: white;
+}
+
+ion-header{
+    --ion-background-color: rgb(23, 82, 107);
+}
+
+.blanco{
+    color: white !important;
+}

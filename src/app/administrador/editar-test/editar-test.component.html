@@ -1,3 +1,123 @@
-<p>
-  editar-test works!
-</p>
+<ion-header id='encabezado' class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="textHeader">Editar Test</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class='pagina'>
+    <div class='contenedor'>
+      <button class='d-flex btn-regresar' (click)="atrasNodo()" *ngIf="sidvi.manager.historial.length > 0">
+        <fa-icon class='d-inline-block mr-2' [icon]="icons.regresar"></fa-icon>
+        <span class='d-inline-block'>Regresar</span>
+      </button>
+      <div class='card mt-2 mb-2'>
+        <div class='card-header bg-dark text-white'>
+          <div class='d-inline-block titulo-contenido'>{{testNodo.texto}}</div>
+        </div>
+        <div class='card-body'>
+          <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoImg!=null">
+            <img class='img-contenido' [src]="testNodo.archivoImg">
+          </div>
+          <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoVideo!=null">
+            <vg-player class='video-contenido' (onPlayerReady)="onPlayerReady($event)">
+              <vg-overlay-play></vg-overlay-play>
+              <vg-buffering></vg-buffering>
+              <vg-controls>
+                <vg-play-pause></vg-play-pause>
+                <vg-playback-button></vg-playback-button>
+                <vg-time-display vgProperty='current' vgFormat='mm:ss'></vg-time-display>
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                  <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                </vg-scrub-bar>
+                <vg-time-display vgProperty='total' vgFormat='mm:ss'></vg-time-display>
+                <vg-mute></vg-mute>
+                <vg-volume></vg-volume>
+                <vg-fullscreen></vg-fullscreen>
+              </vg-controls>
+              <video [vgMedia]="media" #media preload='auto' crossorigin>
+                <source [src]="testNodo.archivoVideo" type='video/mp4'>
+              </video>
+            </vg-player>
+          </div>
+          <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoPdf!=null">
+            <pdf-viewer class='pdf-contenido d-inline-block' [src]="testNodo.archivoPdf"
+              [zoom]="testNodo.archivoPdfZoom" render-text='true' style='display: block;'></pdf-viewer>
+            <div class='pdf-zoom d-inline-block'>
+              <fa-icon class='btn-zoom d-block' [icon]="icons.zoomOut" (click)="pdfZoomOut()"></fa-icon>
+              <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn()"></fa-icon>
+            </div>
+          </div>
+          <span class='contenido-descripcion pt-3 pb-2'>{{testNodo.descripcion}}</span>
+        </div>
+      </div>
+
+      <div class='contenedor-opcion'>
+        <div class='card m-2 opcion' *ngFor="let opcion of testNodo.testOpciones">
+          <div class='card-header bg-dark text-white'>
+            <div class='titulo-contenido'>{{opcion.texto}}</div>
+            <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="opcion.archivoImg!=null">
+              <img class='img-opcion' [src]="opcion.archivoImg">
+            </div>
+            <div class='contenido-descripcion'>{{opcion.descripcion}}</div>
+          </div>
+          <div class="card-body">
+            <div>
+              <a class="btn btn-info d-flex justify-content-center text-white m-1"
+                (click)="localOpcion=opcion; modalEditarOpcion.show();">
+                Editar
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class='card m-2 opcion' *ngIf="testNodo.testOpciones.length == 0" routerLink='/virus'>
+          <div class='card-header bg-dark text-white'>
+            <div class='titulo-contenido'>Fin del Test, Regresar a Inicio</div>
+          </div>
+        </div>
+      </div>
+
+      <span class='mb-3'>&nbsp;</span>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Modal Eliminar Ubicacion -->
+<div mdbModal #modalEditarOpcion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <span class='modal-title tamanoTitulo'>Editar: {{localOpcion.texto}}</span>
+        <button type='button' class='close pull-right' aria-label='Close' (click)="modalEditarOpcion.hide()">
+          <span aria-hidden='true'>×</span>
+        </button>
+      </div>
+      <div class='modal-body pl-3 pr-3 pb-3'>
+        <div class="form-group">
+          <label for="nuevoTexto">Nuevo texto</label>
+          <input [(ngModel)]="nuevaOpcionTexto" class="form-control" type="text" id="nuevoTexto"
+            placeholder={{localOpcion.texto}}>
+          <label class="mt-2" for="sigPregunta">Siguiente pregunta</label>
+          <div class='form-group'>
+            <select id='sigPregunta' class='form-control' [(ngModel)]="localOpcion.fkTestNodoSig">
+              <option disabled selected [value]="null">SELECCIONA LA SIGUIENTE PREGUNTA</option>
+              <option *ngFor="let testNodo of testNodos" [value]="testNodo.idTestNodo">{{testNodo.texto}}</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+      <div class='modal-footer d-flex justify-content-center'>
+        <a class="d-flex justify-content-center btn btn-success blanco ml-4"
+          (click)="localOpcion.texto=nuevaOpcionTexto; actualizarTestOpcion();"> Guardar cambios </a>
+      </div>
+    </div>
+  </div>
+</div>

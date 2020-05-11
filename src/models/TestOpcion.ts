@@ -64,8 +64,8 @@ export class TestOpcion implements ITestOpcion {
             clave: this.clave,
             texto: this.texto,
             descripcion: this.descripcion,
-            mimetype: this.mimetype,
-            archivo: this.archivo
+            mimetype: this.mimetype
+            // archivo: this.archivo
         };
     }
 }

@@ -9,6 +9,7 @@ import { EditarEstadisticaComponent } from './editar-estadistica/editar-estadist
 import { EditarCatalogosComponent } from './editar-catalogos/editar-catalogos.component';
 import { EditarMedicosComponent } from './editar-medicos/editar-medicos.component';
 import { EditarTestComponent } from './editar-test/editar-test.component';
+import { ListarPreguntasComponent } from './listar-preguntas/listar-preguntas.component';
 
 const routes: Routes = [
   { path: '', component: AdministradorPage,
@@ -20,8 +21,8 @@ const routes: Routes = [
         { path: 'virus/:idVirus/estadistica', component: EditarEstadisticaComponent },
         { path: 'consultorios', component: EditarMedicosComponent},
         { path: 'catalogos/:area', component: EditarCatalogosComponent },
-        { path: 'editTest/:idVirus', component: EditarTestComponent },
-
+        { path: 'editTest/:idTestNodo', component: EditarTestComponent },
+        { path: 'listarPreguntas/:idVirus', component: ListarPreguntasComponent },
     ]
   }
 ];

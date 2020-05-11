@@ -1,0 +1,32 @@
+<ion-header id='encabezado' class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="textHeader">Lista de preguntas</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+  <div class="d-flex justify-content-center contenedor">
+    <div class="d-flex justify-content-center contenedorPreguntas">
+      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let testNodo of testNodos">
+        <div class="card text-center" >
+          <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            {{testNodo.texto}}
+          </div>
+          <div class="card-body">
+             <div>
+              <a class="btn btn-info d-inline-block text-white m-1" routerLink='/administrador/editTest/{{testNodo.idTestNodo}}'>
+                Editar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</ion-content>

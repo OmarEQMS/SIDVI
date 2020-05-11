@@ -40,11 +40,11 @@
         <!--Status-->
         <div class="flex-row" *ngIf="editando">
             <div class="status flex-row center-vertically mr-2">
-                <p *ngIf="consultorio.estatus == 'RECHAZADO'">STATUS: RECHAZADA</p> 
-                <p *ngIf="consultorio.estatus == 'EN_ESPERA'">STATUS: EN ESPERA</p> 
-                <p *ngIf="consultorio.estatus == 'HABILITADO' || consultorio.estatus == 'DESHABILITADO'">STATUS: ACEPTADA</p> 
+                <p *ngIf="consultorio.estatus == 'RECHAZADO'">ESTATUS: RECHAZADA</p> 
+                <p *ngIf="consultorio.estatus == 'EN_ESPERA'">ESTATUS: EN REVISION</p> 
+                <p *ngIf="consultorio.estatus == 'HABILITADO' || consultorio.estatus == 'DESHABILITADO'">ESTATUS: ACEPTADA</p> 
             </div>
-            <div class="helpBtn" (click)="basicModal.show()">
+            <div class="helpBtn" (click)="modalEstatus.show();" >
               <div class="icon pointer"></div>
             </div>
         </div>
@@ -153,8 +153,8 @@
               
               <!--ubicacion-->
               <div class="form-row">
-                <div class="card">
-                  <div class="card header">
+                <div class="card w-100">
+                  <div class="card w-100 header">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend"><img src="../../../assets/images/pin.png" alt="location pin" class="icon"></span>
                     </div>
@@ -174,7 +174,7 @@
               <br>
               
               <!-- virus que conoce no editable-->
-              <div class="card" *ngIf="editando">
+              <div class="card w-100" *ngIf="editando">
                 <div class="form-row m-3" >
                   <div class="col-md-4"  *ngFor="let medicoVirus of consultorio.medicosVirus">
                     <div class="flex-clumna">
@@ -198,7 +198,7 @@
               </div>
   
               <!-- virus que conoce -->
-              <div class="input-froup columna card" style="padding-left: 60px ;">
+              <div class="input-froup columna card w-100" style="padding-left: 60px ;">
                 <div style="margin-top: 5px;">
                   <p *ngIf= "!editando">Seleccione todos los virus que puede tratar:</p>
                 </div>
@@ -241,28 +241,40 @@
         </form>
       </div>
       
-        <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-                  <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
-                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save changes</button>
-              </div>
-            </div>
+      <!-- Modal  -->
+      <div mdbModal #modalEstatus="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+      [config]="{backdrop: false, ignoreBackdropClick: true}">
+      <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <span class='modal-title tamanoTitulo'>¿Qué es el estatus?</span>
+            <button type='button' class='close pull-right' aria-label='Close' (click)="modalEstatus.hide()">
+              <span aria-hidden='true'>×</span>
+            </button>
+          </div>
+          <div class='modal-body pl-3 pr-3 pb-3'>
+            El estatus es el punto actual en el que el registro de tu consultorio se encuentra. <br>
+            <i><strong>En Revisión:</strong></i> Una vez enviado tu registro del consultorio pasa a revisión donde 
+            se valida la información del consultorio. <br>
+            <i> <strong>Aceptado:</strong> </i> Si el consultorio fue validado exitosamente por los administradores del sitio, 
+            el consultorio pasa a estar "Aceptado". Una vez aceptado, tu puedes decidir entre hacerlo visible o invisible. 
+            Puedes cambiar estos dos modos en cualquier momento. <br>
+            <ion-list>
+              <ion-item>- Visible: El consultorio será publico para cualquier persona que ingrese al catalogo de consultorios</ion-item>
+              <ion-item>- Invisible: El consultorio no se mostrará mientras se encuentre en este modo.</ion-item>
+            </ion-list>
+            <i><strong>Rechazado:</strong> </i> Si el consultorio no paso la evaluación de los administradores de la página 
+            pasa a estar rechazado. No se puede editar este consultorio, para que se registre se debe enviar nuevamente la peticion. 
+          </div>
+          <div class='modal-footer d-flex justify-content-center'>
+           
           </div>
         </div>
+      </div>
+    </div>
+
     </ion-content>
 
   </ion-router-outlet>
   
   </ion-split-pane>
-  <!-- Modal Agregar Ubicacion -->

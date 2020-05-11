@@ -27,10 +27,7 @@ export class VirusListAllComponent implements OnInit {
             }
             console.log(this.viruss);
         },
-        err => {
-            console.log(err);
-
-        }
+        err => { console.log(err); }
         );
     }
 
@@ -41,7 +38,11 @@ export class VirusListAllComponent implements OnInit {
 
     RegistrarConsultorio(){
         // Revisar si el usuario ya inicio sesion
-        console.log(this.SIDVI.manager.tokenUsuario);
+        if (this.SIDVI.manager.tokenUsuario) {
+            this.router.navigate(['/mi-consultorio']);
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
 }

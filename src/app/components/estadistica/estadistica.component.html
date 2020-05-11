@@ -5,12 +5,12 @@
                 <div class='card text-center p-2 mb-2'>
                     Ubicaciones
                 </div>            
-                <app-ubicacion-list [ubicacion]="ubicacion"></app-ubicacion-list>
+                <app-ubicacion-list [ubicacion]="editandoGrafica.ubicacion"></app-ubicacion-list>
                 <div class='card text-center p-2 mt-3 mb-2'>
                     Categoria
                 </div>
                 <div class='form-group'>
-                    <select class='form-control' #idCategoriaSelected value='-1' (change)="updateCategoria(idCategoriaSelected.value)">
+                    <select class='form-control' [(ngModel)]="editandoGrafica.idCategoriaSelected" #idCategoriaSelected (change)="updateCategoria(idCategoriaSelected.value)">
                         <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
                         <option *ngFor="let cat of categorias" [value]="cat.idCategoriaEstadistica">{{cat.nombre}}</option>
                     </select>
@@ -27,16 +27,20 @@
                     <label class='form-check-label' for='radio-tiempo'>Tiempo</label>
                 </div>
                 <div class='form-check'>
-                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-mapa' [value]="3" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
+                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-ubicacion' [value]="3" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
+                    <label class='form-check-label' for='radio-ubicacion'>Ubicacion</label>
+                </div>
+                <div class='form-check'>
+                    <input class='form-check-input' type='radio' name='radios-eje-horizontal' id='radio-mapa' [value]="4" [(ngModel)]="editandoGrafica.subcategoriaEjeHorizontal">
                     <label class='form-check-label' for='radio-mapa'>Mapa</label>
                 </div>
                 <div class='form-group mt-1' *ngIf="editandoGrafica.subcategoriaEjeHorizontal >= 2">
-                    <select id='input-categoria' class='form-control' value='-1' #idSubcategoriaSelected (change)="updateSubcategoria(idSubcategoriaSelected.value)">
+                    <select id='input-categoria' class='form-control' [(ngModel)]="editandoGrafica.idSubcategoriaSelected" (change)="updateSubcategoria()">
                         <option disabled selected [value]="-1">SUBCATEGORIA A GRAFICAR</option>
                         <option *ngFor="let subcat of editandoGrafica.categoriaSelected.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
                     </select>
                 </div>
-                <div *ngIf="editandoGrafica.subcategoriaEjeHorizontal != 3">
+                <div *ngIf="editandoGrafica.subcategoriaEjeHorizontal != 4">
                     <div class='card text-center p-2 mt-3 mb-2'>
                         Agrupar
                     </div>
@@ -53,13 +57,13 @@
                         <label class='form-check-label' for='radio-agrupar-filtro'>No agrupar y añadir filtro</label>
                     </div>
                     <div class='form-group mt-2' *ngIf="editandoGrafica.agrupacionOpcion >= 2">
-                        <select id='input-categoria' class='form-control' value='-1' #idCategoriaSelectedGrupo (change)="updateCategoriaGrupo(idCategoriaSelectedGrupo.value)">
+                        <select id='input-categoria' class='form-control' [(ngModel)]="editandoGrafica.idCategoriaSelectedGrupo" (change)="updateCategoriaGrupo()">
                             <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
                             <option *ngFor="let cat of categorias" [value]="cat.idCategoriaEstadistica">{{cat.nombre}}</option>
                         </select>
                     </div>
                     <div class='form-group' *ngIf="editandoGrafica.agrupacionOpcion == 3">
-                        <select id='input-categoria' class='form-control' value='-1' #idSubcategoriaSelectedGrupo (change)="updateSubcategoriaGrupo(idSubcategoriaSelectedGrupo.value)">
+                        <select id='input-categoria' class='form-control' [(ngModel)]="editandoGrafica.idSubcategoriaSelectedGrupo" (change)="updateSubcategoriaGrupo()">
                             <option disabled selected [value]="-1">SELECCIONA TU SUBCATEGORIA</option>
                             <option *ngFor="let subcat of editandoGrafica.categoriaSelectedGrupo.subcategoriaEstadisticas" [value]="subcat.idSubcategoriaEstadistica">{{subcat.nombre}}</option>
                         </select>
@@ -75,9 +79,14 @@
                     </div>
                 </div>
                 <div class='text-center btn-info p-2 filtro mt-4' (click)="filtrarEstadisticas()">
-                    Guardar Configuracion
+                    Actualizar Grafica
                 </div>
             </div> 
+            <div class='m-3' *ngIf="editandoGrafica == null">
+                <div class='card text-center p-2 mt-3 mb-2'>
+                    En esta parte podras editar la configuraion de una grafica
+                </div>
+            </div>
         </ion-content>
     </ion-menu>
     <ion-router-outlet id="main">
@@ -93,7 +102,11 @@
         </ion-header>
         <ion-content>
             <div class='m-5' *ngFor="let grafica of graficasEstadisticas">                
-                <div class='d-flex justify-content-center'>{{grafica.nombre}}</div>
+                <div class='d-flex justify-content-center titulo'>{{grafica.nombre}}</div>
+                <div class='d-flex justify-content-end'>
+                    <fa-icon class='btn-editar d-inline-block mr-2' [icon]="icons.editar" (click)="editarGrafica(grafica)"></fa-icon> 
+                    <fa-icon class='btn-eliminar d-inline-block' [icon]="icons.delete" (click)="eliminarGrafica(grafica)"></fa-icon> 
+                </div>
                 <div style="display: block;">
                   <canvas mdbChart height='100px'
                       [chartType]="grafica.localChartType"
@@ -104,6 +117,13 @@
                   </canvas>
                 </div>
             </div>
+            <div class='d-flex justify-content-center'>
+                <div class='text-center btn-grafica p-3 m-4' (click)="agregarGrafica()">
+                    Agregar Grafica
+                </div>
+            </div>
+
+            <div class='mb-4'> &nbsp; </div>
         </ion-content>
     </ion-router-outlet>
 </ion-split-pane>

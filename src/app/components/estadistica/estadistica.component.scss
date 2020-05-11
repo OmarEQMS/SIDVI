@@ -4,5 +4,23 @@ ion-split-pane {
 
 .filtro{
     background: #2B94C0;
-  }
+}
+
+.titulo {
+    font-size: 24px;
+}
+
+.btn-eliminar {
+    font-size: 24px;
+    color: rgb(255, 173, 173);
+}
+.btn-editar {
+    font-size: 24px;
+    color: rgb(181, 255, 185);
+}
   
+.btn-grafica {
+    width: 100%;
+    max-width: 450px;
+    background: rgb(181, 255, 185);
+}

@@ -28,8 +28,11 @@ export class CategoriaEstadistica implements ICategoriaEstadistica {
         if (categoriaEstadistica !== undefined) {
             this.idCategoriaEstadistica = categoriaEstadistica.idCategoriaEstadistica;
             this.nombre = categoriaEstadistica.nombre;
+
             if (categoriaEstadistica.subcategoriaEstadisticas != null) {
                 this.subcategoriaEstadisticas = categoriaEstadistica.subcategoriaEstadisticas.map((item: any) => new SubcategoriaEstadistica(item));
+            } else {
+                this.subcategoriaEstadisticas = new Array();
             }
         }
     }

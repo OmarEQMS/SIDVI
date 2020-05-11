@@ -48,7 +48,7 @@ export class Ubicacion implements IUbicacion {
     localEstadistica: Estadistica;
 
     // Constructor
-    constructor(ubicacion?: any, ubicaciones?: Ubicacion[], localEstadistica?: Estadistica) {
+    constructor(ubicacion?: any, ubicaciones?: Ubicacion[]) {
         if (ubicacion !== undefined) {
             this.idUbicacion = ubicacion.idUbicacion;
             this.fkUbicacion = ubicacion.fkUbicacion;
@@ -59,17 +59,19 @@ export class Ubicacion implements IUbicacion {
             this.archivoMapa = ubicacion.archivoMapa;
             this.identificadorMapa = ubicacion.identificadorMapa;
 
-            this.localSelected = ubicacion.localSelected != null ? ubicacion.localSelected : true;
+            this.localSelected = ubicacion.localSelected != null ? ubicacion.localSelected : false;
+            this.localPadre = ubicacion.localPadre != null ? ubicacion.localPadre : false;
+            this.localIcono = ubicacion.localIcono != null ? ubicacion.localIcono : faMinus;
+
+            this.localEstadistica = ubicacion.localEstadistica != null ? new Estadistica(ubicacion.localEstadistica) : null;
+        } else {
+            this.localVisible = false;
+            this.localPadre = false;
+            this.localIcono = faMinus;
         }
         if (ubicaciones != null) {
-            this.ubicaciones = ubicaciones.map((item: Ubicacion) => new Ubicacion(item, item.ubicaciones, item.localEstadistica));
+            this.ubicaciones = ubicaciones.map((item: Ubicacion) => new Ubicacion(item, item.ubicaciones));
         }
-        if (localEstadistica != null) {
-            this.localEstadistica = new Estadistica(localEstadistica);
-        }
-        this.localVisible = false;
-        this.localPadre = false;
-        this.localIcono = faMinus;
     }
 
     // ToObjectDB

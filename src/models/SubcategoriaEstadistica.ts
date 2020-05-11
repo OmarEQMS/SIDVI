@@ -1,6 +1,7 @@
-import {  Estadistica } from '../models';
+import {  Estadistica } from './Estadistica';
 import { ContentTypeEnum, Defaults } from '../api';
 import { CategoriaEstadistica } from './CategoriaEstadistica';
+import { Ubicacion } from './Ubicacion';
 
 // tslint:disable-next-line:no-namespace
 export namespace _SubcategoriaEstadistica {
@@ -25,12 +26,21 @@ export class SubcategoriaEstadistica implements ISubcategoriaEstadistica {
     // Relations: HasMany
     estadisticas: Estadistica[];
 
+    // Local
+    localSubcategoriaEstadisticas: SubcategoriaEstadistica[];
+    localEstadistica: Estadistica;
+
     // Constructor
     constructor(subcategoriaEstadistica?: any) {
         if (subcategoriaEstadistica != null) {
             this.idSubcategoriaEstadistica = subcategoriaEstadistica.idSubcategoriaEstadistica;
             this.fkCategoriaEstadistica = subcategoriaEstadistica.fkCategoriaEstadistica;
             this.nombre = subcategoriaEstadistica.nombre;
+
+            if (subcategoriaEstadistica.localSubcategoriaEstadisticas != null) {
+                this.localSubcategoriaEstadisticas = subcategoriaEstadistica.localSubcategoriaEstadisticas.map((item) => new SubcategoriaEstadistica(item));
+            }
+            this.localEstadistica = subcategoriaEstadistica.localEstadistica != null ? new Estadistica(subcategoriaEstadistica.localEstadistica) : null;
         }
     }
 

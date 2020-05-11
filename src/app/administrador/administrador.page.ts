@@ -125,7 +125,7 @@ export class AdministradorPage implements OnInit {
                     return;
                 }
 
-                // tslint:disable-next-line: max-line-length
+                
                 Swal.fire({ title: '¡Listo!', text: 'Virus agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarListaVirus();
@@ -145,7 +145,7 @@ export class AdministradorPage implements OnInit {
 
         this.sidvi.virus.cargarVirusIcono(idVirus, this.newVirus.localFile[0]).subscribe(
             res => {
-                // tslint:disable-next-line: max-line-length
+                
                 Swal.fire({ title: '¡Listo!', text: 'Virus agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarListaVirus();

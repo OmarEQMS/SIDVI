@@ -17,6 +17,8 @@ export interface IUbicacion {
     nombre?: string;
     latitud?: number;
     longitud?: number;
+    archivoMapa?: string;
+    identificadorMapa?: string;
 }
 
 export class Ubicacion implements IUbicacion {
@@ -28,9 +30,12 @@ export class Ubicacion implements IUbicacion {
     nombre?: string;
     latitud?: number;
     longitud?: number;
+    archivoMapa?: string;
+    identificadorMapa?: string;
 
     // Relations: BelongsToOne
     ubicacion?: Ubicacion;
+
     // Relations: HasMany
     ubicaciones?: Ubicacion[];
     medicos?: Medico[];
@@ -51,6 +56,9 @@ export class Ubicacion implements IUbicacion {
             this.nombre = ubicacion.nombre;
             this.latitud = ubicacion.latitud;
             this.longitud = ubicacion.longitud;
+            this.archivoMapa = ubicacion.archivoMapa;
+            this.identificadorMapa = ubicacion.identificadorMapa;
+
             this.localSelected = ubicacion.localSelected != null ? ubicacion.localSelected : true;
         }
         if (ubicaciones != null) {

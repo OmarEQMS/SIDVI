@@ -122,7 +122,6 @@ export class EditarInformacionComponent implements OnInit {
                     return;
                 }
 
-                // tslint:disable-next-line: max-line-length
                 Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();
@@ -138,7 +137,7 @@ export class EditarInformacionComponent implements OnInit {
     actualizarInformacionArchivo(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
-                // tslint:disable-next-line: max-line-length
+                
                 Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();
@@ -219,7 +218,7 @@ export class EditarInformacionComponent implements OnInit {
                     return;
                 }
 
-                // tslint:disable-next-line: max-line-length
+                
                 Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();
@@ -245,7 +244,7 @@ export class EditarInformacionComponent implements OnInit {
     agregarInformacionArchivo(idInformacion: number) {
         this.sidvi.informacion.cargarInformacionArchivo(idInformacion, this.addFile[0]).subscribe(
             res => {
-                // tslint:disable-next-line: max-line-length
+                
                 Swal.fire({ title: '¡Listo!', text: 'Bloque agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();

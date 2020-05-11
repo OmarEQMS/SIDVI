@@ -1,20 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Ubicacion, Estadistica, IUbicacion, CategoriaEstadistica, Virus, ICategoriaEstadistica, IEstadistica } from 'src/models';
+import { Ubicacion, Estadistica, IUbicacion, CategoriaEstadistica, Virus, ICategoriaEstadistica, IEstadistica, SubcategoriaEstadistica } from 'src/models';
 import { ActivatedRoute } from '@angular/router';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { DatePipe } from '@angular/common';
-
-class EstadisticaValue {
-    total: number;
-    seleccionados: number;
-
-    constructor(total: number, seleccionados: number) {
-        this.total = total;
-        this.seleccionados = seleccionados;
-    }
-}
+import { parse } from 'querystring';
+import { GraficaEdtadistica } from 'src/app/extra/GraficaEdtadistica';
 
 @Component({
   selector: 'app-estadistica',
@@ -23,9 +15,13 @@ class EstadisticaValue {
 })
 export class EstadisticaComponent implements OnInit {
     ubicacion: Ubicacion;
-    estadisticas: CategoriaEstadistica[];
+    categorias: CategoriaEstadistica[];
+
     idVirus: number;
     virus: Virus;
+
+    graficasEstadisticas: GraficaEdtadistica[];
+    editandoGrafica: GraficaEdtadistica;
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -39,16 +35,22 @@ export class EstadisticaComponent implements OnInit {
     ) {
         this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
         this.virus = new Virus();
+        this.graficasEstadisticas = new Array();
     }
 
     ngOnInit() {}
     async ionViewWillEnter() {
-        this.estadisticas = new Array(0);
+        this.graficasEstadisticas = new Array();
+        this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus));
+        this.editandoGrafica = this.graficasEstadisticas[0];
+
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.ubicacion = new Ubicacion({idUbicacion: -1} as IUbicacion);
         await this.getUbicacionesHijo(this.ubicacion);
+        GraficaEdtadistica.staticUbicacion = this.ubicacion;
         this.filtrarEstadisticas();
         this.obtenerVirus();
+        this.obtenerCategorias();
     }
 
     obtenerVirus() {
@@ -58,127 +60,12 @@ export class EstadisticaComponent implements OnInit {
         });
     }
 
-    filtrarEstadisticas() {
-        this.estadisticas = new Array(0);
-
-        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
-            estadis => {
-                const arrEstadisticas: Estadistica[] = estadis.resultados.map((item: any) => new Estadistica(item));
-
-                for (const estadistica of arrEstadisticas) {
-                    let buscarCategoria = this.estadisticas.find((item: CategoriaEstadistica) =>
-                                                                        item.idCategoriaEstadistica === estadistica.fkCategoriaEstadistica);
-                    if (buscarCategoria == null) { // Si es una nueva estadistica, la agrego
-                        const newCategoria = new CategoriaEstadistica(estadistica.categoriaEstadistica);
-                        const newUbicacion = new Ubicacion(this.ubicacion, this.ubicacion.ubicaciones);
-                        const generalEstadistica = new Estadistica({fkVirus: this.idVirus,
-                                                                    fkCategoriaEstadistica: newCategoria.idCategoriaEstadistica,
-                                                                    fecha: estadistica.fecha,
-                                                                    valor: 0,
-                                                                    categoriaEstadistica: newCategoria
-                                                                });
-                        this.setUbicacion(newUbicacion, generalEstadistica, true);
-                        newCategoria.localUbicaciones.push(newUbicacion);
-                        this.estadisticas.push(newCategoria);
-                        buscarCategoria = newCategoria;
-                    }
-                    let buscarFechaUbicacion = buscarCategoria.localUbicaciones.find((item: Ubicacion) =>
-                                                                            item.localEstadistica.localFecha === estadistica.localFecha);
-                    if (buscarFechaUbicacion == null) {
-                        buscarFechaUbicacion = buscarCategoria.localUbicaciones[buscarCategoria.localUbicaciones.length - 1];
-                        const newUbicacion = new Ubicacion(buscarFechaUbicacion, buscarFechaUbicacion.ubicaciones,
-                                                           buscarFechaUbicacion.localEstadistica);
-                        const generalEstadistica = new Estadistica({fkVirus: this.idVirus,
-                                                                    fkCategoriaEstadistica: buscarCategoria.idCategoriaEstadistica,
-                                                                    fecha: estadistica.fecha,
-                                                                    valor: 0,
-                                                                    categoriaEstadistica: buscarCategoria
-                                                                });
-                        this.setUbicacionCopia(newUbicacion, generalEstadistica);
-                        buscarCategoria.localUbicaciones.push(newUbicacion);
-                        buscarFechaUbicacion = newUbicacion;
-                    }
-                    this.setEstadisticaInUbicacion(buscarFechaUbicacion, estadistica);
-                }
-
-                for (const estadistica of this.estadisticas) {
-                    for (const ubicacion of estadistica.localUbicaciones) {
-                        this.calculateEstadistica(ubicacion);
-                    }
-                    estadistica.localSetChart();
-                }
+    obtenerCategorias() {
+        this.sidvi.categoriaEstadistica.listarCategoriaEstadistica().subscribe(
+            categorias => {
+                this.categorias = categorias.resultados.map((item: any) => new CategoriaEstadistica(item));
+                GraficaEdtadistica.staticCategorias = categorias;
         });
-    }
-
-    calculateEstadistica(ubicacion: Ubicacion): EstadisticaValue {
-        const newEstadisticaValue = new EstadisticaValue(0, 0);
-        if (ubicacion.ubicaciones != null && ubicacion.ubicaciones.length > 0) {
-            for (const ubi of ubicacion.ubicaciones) {
-                const hijoEstadisticaValue = this.calculateEstadistica(ubi);
-                newEstadisticaValue.total += hijoEstadisticaValue.total;
-                newEstadisticaValue.seleccionados += hijoEstadisticaValue.seleccionados;
-            }
-            const ubiOtros = ubicacion.ubicaciones.find((item: Ubicacion) => item.nombre === 'Otros');
-            if (ubiOtros != null) { ubiOtros.localEstadistica.valor = ubicacion.localEstadistica.valor - newEstadisticaValue.total; }
-
-            if (ubicacion.localSelected) {
-                newEstadisticaValue.seleccionados += ubiOtros ? ubiOtros.localEstadistica.valor : 0;
-            }
-        } else {
-            if (ubicacion.localSelected) {
-                newEstadisticaValue.seleccionados = ubicacion.localEstadistica.valor;
-            } else {
-                newEstadisticaValue.seleccionados = 0;
-            }
-        }
-
-        newEstadisticaValue.total = ubicacion.localEstadistica.valor;
-        ubicacion.localEstadistica.valor = newEstadisticaValue.seleccionados;
-
-        return newEstadisticaValue;
-    }
-
-
-    setEstadisticaInUbicacion(ubicacion: Ubicacion, estadistica: Estadistica) {
-        if (ubicacion.idUbicacion === estadistica.fkUbicacion) {
-            ubicacion.localEstadistica.idEstadistica = estadistica.idEstadistica;
-            ubicacion.localEstadistica.valor = estadistica.valor;
-            return;
-        }
-        if (ubicacion.ubicaciones != null && ubicacion.ubicaciones.length > 0) {
-            for (const ubi of ubicacion.ubicaciones) {
-                this.setEstadisticaInUbicacion(ubi, estadistica);
-            }
-        }
-    }
-
-    setUbicacion(ubicacion: Ubicacion, estadistica: Estadistica, main: boolean) {
-        estadistica.fkUbicacion = ubicacion.idUbicacion;
-        ubicacion.localEstadistica = new Estadistica(estadistica);
-        if (ubicacion.ubicaciones != null && ubicacion.ubicaciones.length > 0) {
-            if (!main) {
-                const otrosUbicacion = new Ubicacion({ubicacion} as IUbicacion);
-                otrosUbicacion.idUbicacion = -1;
-                otrosUbicacion.fkUbicacion = ubicacion.idUbicacion;
-                otrosUbicacion.nombre = 'Otros';
-                ubicacion.ubicaciones.push(otrosUbicacion);
-            }
-            for (const ubi of ubicacion.ubicaciones) {
-                this.setUbicacion(ubi, estadistica, false);
-            }
-        }
-    }
-
-    setUbicacionCopia(ubicacion: Ubicacion, estadistica: Estadistica) {
-        const valor = ubicacion.localEstadistica.valor;
-        estadistica.fkUbicacion = ubicacion.idUbicacion;
-        ubicacion.localEstadistica = new Estadistica(estadistica);
-        ubicacion.localEstadistica.valor = valor;
-        if (ubicacion.ubicaciones != null && ubicacion.ubicaciones.length > 0) {
-            for (const ubi of ubicacion.ubicaciones) {
-                this.setUbicacionCopia(ubi, estadistica);
-            }
-        }
     }
 
     async getUbicacionesHijo(ubicacion: Ubicacion) {
@@ -190,6 +77,23 @@ export class EstadisticaComponent implements OnInit {
             ubi.localSelected = ubicacion.localSelected;
             await this.getUbicacionesHijo(ubi);
         }
+    }
+
+    updateCategoria(idCategoriaSelected: string) {
+        this.editandoGrafica.categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(idCategoriaSelected, 10) );
+    }
+    updateSubcategoria(idSubcategoriaSelected: string) {
+        this.editandoGrafica.subcategoriaSelected = this.editandoGrafica.categoriaSelected.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(idSubcategoriaSelected, 10) );
+    }
+    updateCategoriaGrupo(idCategoriaSelectedGrupo: string) {
+        this.editandoGrafica.categoriaSelectedGrupo = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(idCategoriaSelectedGrupo, 10) );
+    }
+    updateSubcategoriaGrupo(idSubcategoriaSelectedGrupo: string) {
+        this.editandoGrafica.subcategoriaSelectedGrupo = this.editandoGrafica.categoriaSelectedGrupo.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(idSubcategoriaSelectedGrupo, 10) );
+    }
+
+    filtrarEstadisticas() {
+        this.editandoGrafica.filtrarEstadisticas(this.sidvi);
     }
 
 }

@@ -5,37 +5,43 @@ import { Virus } from 'src/models';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-virus-list-all',
-  templateUrl: './virus-list-all.component.html',
-  styleUrls: ['./virus-list-all.component.scss'],
+selector: 'app-virus-list-all',
+templateUrl: './virus-list-all.component.html',
+styleUrls: ['./virus-list-all.component.scss'],
 })
 export class VirusListAllComponent implements OnInit {
 
-   viruss: Virus[];
-  constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) { }
+    viruss: Virus[];
+    constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  ionViewWillEnter() {
-    this.SIDVI.virus.listarVirus().subscribe(
-      res => {
-        this.viruss = res.resultados;
-        for (const virus of this.viruss) {
-          virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
-          console.log(virus.archivoIconoImg);
+    ionViewWillEnter() {
+        this.SIDVI.virus.listarVirus().subscribe(
+        res => {
+            this.viruss = res.resultados;
+            for (const virus of this.viruss) {
+            virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
+            console.log(virus.archivoIconoImg);
+            }
+            console.log(this.viruss);
+        },
+        err => {
+            console.log(err);
+
         }
-        console.log(this.viruss);
-      },
-      err => {
-        console.log(err);
+        );
+    }
 
-      }
-    );
-  }
+    abrirTest(idTestNodo: number) {
+        this.SIDVI.manager.historial = new Array();
+        this.router.navigate(['/test', idTestNodo]);
+    }
 
-  RegistrarConsultorio(){
-    //Revisar si el usuario ya inicio sesion
-    console.log(this.SIDVI.manager.tokenUsuario);
-  }
+    RegistrarConsultorio(){
+        // Revisar si el usuario ya inicio sesion
+        console.log(this.SIDVI.manager.tokenUsuario);
+    }
+
 }

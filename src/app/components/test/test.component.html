@@ -1,7 +1,10 @@
 <ion-content>
     <div class='pagina'>
         <div class='contenedor'>
-
+            <button class='d-flex btn-regresar' (click)="atrasNodo()" *ngIf="sidvi.manager.historial.length > 0">
+                <fa-icon class='d-inline-block mr-2' [icon]="icons.regresar"></fa-icon> 
+                <span class='d-inline-block'>Regresar</span>
+            </button>
             <div class='card mt-2 mb-2'>
                 <div class='card-header bg-dark text-white'>
                     <div class='d-inline-block titulo-contenido'>{{testNodo.texto}}</div>            

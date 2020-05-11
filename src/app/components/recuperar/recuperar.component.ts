@@ -20,7 +20,7 @@ export class RecuperarComponent implements OnInit {
   enviarCorreo() {
     this.sidvi.usuario.recuperacion(this.usuario).subscribe(
       res => {
-        // tslint:disable-next-line: max-line-length
+
         Swal.fire({ title: '¡Listo!', text: 'Revisa tu correo para poder reestablecer tu contraseña', icon: 'success', heightAuto: false }).then((result) => {
           if (result.value) {
             this.router.navigate(['./login']);

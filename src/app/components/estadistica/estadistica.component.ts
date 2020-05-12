@@ -48,7 +48,6 @@ export class EstadisticaComponent implements OnInit {
         await this.obtenerCategorias();
         this.obtenerVirus();
 
-        GraficaEdtadistica.staticUbicacion = this.ubicacion;
         this.graficasEstadisticas = new Array();
         // Casos Activos por tiempo
         this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
@@ -100,12 +99,17 @@ export class EstadisticaComponent implements OnInit {
 
     updateCategoria() {
         this.editandoGrafica.categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(this.editandoGrafica.idCategoriaSelected, 10) );
+        this.editandoGrafica.subcategoriaSelected = new SubcategoriaEstadistica({idSubcategoriaEstadistica: -1});
+        this.editandoGrafica.idSubcategoriaSelected = '-1';
+
     }
     updateSubcategoria() {
         this.editandoGrafica.subcategoriaSelected = this.editandoGrafica.categoriaSelected.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(this.editandoGrafica.idSubcategoriaSelected, 10) );
     }
     updateCategoriaGrupo() {
         this.editandoGrafica.categoriaSelectedGrupo = this.categorias.find((item: CategoriaEstadistica) => item.idCategoriaEstadistica === parseInt(this.editandoGrafica.idCategoriaSelectedGrupo, 10) );
+        this.editandoGrafica.subcategoriaSelectedGrupo = new SubcategoriaEstadistica({idSubcategoriaEstadistica: -1});
+        this.editandoGrafica.idSubcategoriaSelectedGrupo = '-1';
     }
     updateSubcategoriaGrupo() {
         this.editandoGrafica.subcategoriaSelectedGrupo = this.editandoGrafica.categoriaSelectedGrupo.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => item.idSubcategoriaEstadistica === parseInt(this.editandoGrafica.idSubcategoriaSelectedGrupo, 10) );

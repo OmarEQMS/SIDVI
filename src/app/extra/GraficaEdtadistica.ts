@@ -13,9 +13,6 @@ class EstadisticaValue {
 }
 
 export class GraficaEdtadistica {
-    // Static
-    public static staticUbicacion: Ubicacion;
-
     // Settings
     ubicacion: Ubicacion;
     idCategoriaSelected: string;
@@ -207,13 +204,18 @@ export class GraficaEdtadistica {
         sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, fkCategoriaEstadistica1, fkCategoriaEstadistica2, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {
                 const estadisticas = estadis.resultados.map((item: any) => new Estadistica(item));
-                for (const estadistica of estadisticas) {
-                    const subcategoria = this.getSubcategoria(estadistica.fkSubcategoriaEstadistica1, estadistica.fkSubcategoriaEstadistica2);
-                    const ubicacion = this.getUbicacionFecha(subcategoria, estadistica);
-                    this.setEstadisticaEnUbicacion(ubicacion, estadistica);
+                if (estadisticas.length > 0) {
+                    for (const estadistica of estadisticas) {
+                        const subcategoria = this.getSubcategoria(estadistica.fkSubcategoriaEstadistica1, estadistica.fkSubcategoriaEstadistica2);
+                        const ubicacion = this.getUbicacionFecha(subcategoria, estadistica);
+                        this.setEstadisticaEnUbicacion(ubicacion, estadistica);
+                    }
+                    this.setEstadisticasUbicaciones();
+                    this.setDataChart();
+                } else {
+                    this.unsetDataChart();
                 }
-                this.setEstadisticasUbicaciones();
-                this.setDataChart();
+                console.log(this.categoriaEstadistica);
         });
     }
 
@@ -257,7 +259,7 @@ export class GraficaEdtadistica {
 
         let subcategoria = this.categoriaEstadistica.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => arrIds.includes(item.idSubcategoriaEstadistica));
         if (fkSubcategoriaEstadistica2 != null) {
-             subcategoria = subcategoria.categoriaEstadistica.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => arrIds.includes(item.idSubcategoriaEstadistica));
+             subcategoria = subcategoria.localCategoriaEstadistica.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => arrIds.includes(item.idSubcategoriaEstadistica));
         }
         return subcategoria;
     }
@@ -268,14 +270,14 @@ export class GraficaEdtadistica {
         if (ubicacionFecha == null) {
             const generalEstadistica = new Estadistica({ fecha: estadistica.fecha, valor: 0 });
             for (const subcat of this.categoriaEstadistica.subcategoriaEstadisticas) {
-                if (subcat.categoriaEstadistica != null) { // tiene grupo o filtro
-                    for (const sub of subcat.categoriaEstadistica.subcategoriaEstadisticas) {
+                if (subcat.localCategoriaEstadistica != null) { // tiene grupo o filtro
+                    for (const sub of subcat.localCategoriaEstadistica.subcategoriaEstadisticas) {
                         if (sub.localUbicaciones.length > 0) {
                             sub.localUbicaciones.push(new Ubicacion(sub.localUbicaciones[sub.localUbicaciones.length - 1]));
-                            this.setUbicacionEstadistica(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], generalEstadistica);
+                            this.setUbicacionEstadistica(sub.localUbicaciones[sub.localUbicaciones.length - 1], generalEstadistica);
                         } else {
-                            subcat.localUbicaciones.push(new Ubicacion(GraficaEdtadistica.staticUbicacion));
-                            this.setNewUbicacionEstadistica(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], generalEstadistica, true);
+                            sub.localUbicaciones.push(new Ubicacion(this.ubicacion));
+                            this.setNewUbicacionEstadistica(sub.localUbicaciones[sub.localUbicaciones.length - 1], generalEstadistica, true);
                         }
                     }
                 } else {
@@ -283,7 +285,7 @@ export class GraficaEdtadistica {
                         subcat.localUbicaciones.push(new Ubicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1]));
                         this.setUbicacionEstadistica(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], generalEstadistica);
                     } else {
-                        subcat.localUbicaciones.push(new Ubicacion(GraficaEdtadistica.staticUbicacion));
+                        subcat.localUbicaciones.push(new Ubicacion(this.ubicacion));
                         this.setNewUbicacionEstadistica(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], generalEstadistica, true);
                     }
                 }
@@ -337,8 +339,8 @@ export class GraficaEdtadistica {
     // Metodo para llamar al calculo de todas las ubicaciones
     setEstadisticasUbicaciones() {
         for (const subcat of this.categoriaEstadistica.subcategoriaEstadisticas) {
-            if (subcat.categoriaEstadistica != null) { // tiene grupo o filtro
-                for (const sub of subcat.categoriaEstadistica.subcategoriaEstadisticas) {
+            if (subcat.localCategoriaEstadistica != null) { // tiene grupo o filtro
+                for (const sub of subcat.localCategoriaEstadistica.subcategoriaEstadisticas) {
                     for (const ubicacion of sub.localUbicaciones) {
                         this.calculateEstadisticaUbicacion(ubicacion);
                     }
@@ -379,48 +381,197 @@ export class GraficaEdtadistica {
         return newEstadisticaValue;
     }
 
+    // Metodo para poner en 0 la data chart
+    unsetDataChart() {
+        this.localChartLabels = [''];
+        this.localChartDatasets = new Array();
+        this.localChartDatasets.push({ data: [], label: '' });
+    }
+
     // Metodo para actualizar la grafica
     setDataChart() {
         switch (this.subcategoriaEjeHorizontal) {
             case 1: { // Subcategoria
-                const cat = this.categoriaEstadistica;
-                this.localChartLabels = cat.subcategoriaEstadisticas.map((item: SubcategoriaEstadistica) => item.nombre);
-                const data: number[] = new Array<number>(0);
-                for (const subcat of cat.subcategoriaEstadisticas) {
-                    if (subcat.localUbicaciones.length > 0) {
-                        data.push(subcat.localUbicaciones[subcat.localUbicaciones.length - 1].localEstadistica.valor);
-                    } else {
-                        data.push(0);
+                switch (this.agrupacionOpcion) {
+                    case 1: { // No agrupar y sin filtro
+                        const cat = this.categoriaEstadistica;
+                        this.localChartLabels = cat.subcategoriaEstadisticas.map((item: SubcategoriaEstadistica) => item.nombre);
+                        const data: number[] = new Array<number>(0);
+                        this.localChartDatasets = new Array();
+                        for (const subcat of cat.subcategoriaEstadisticas) { // Sumo las subcategorias
+                            data.push(subcat.localUbicaciones[subcat.localUbicaciones.length - 1].localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: cat.nombre });
+                        break;
+                    }
+                    case 2: { // Agrupar por categoria
+                        const cat = this.categoriaEstadistica;
+                        this.localChartLabels = cat.subcategoriaEstadisticas.map((item: SubcategoriaEstadistica) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        for (const subsubcat of cat.subcategoriaEstadisticas[0].localCategoriaEstadistica.subcategoriaEstadisticas) { // Itero la agrupacion
+                            const data = new Array(0);
+                            for (const subcat of cat.subcategoriaEstadisticas) { // Por cada categoria, checo la agrupacion
+                                const selsubsubcat = subcat.localCategoriaEstadistica.subcategoriaEstadisticas.find((item: SubcategoriaEstadistica) => subsubcat.idSubcategoriaEstadistica === item.idSubcategoriaEstadistica);
+                                data.push(selsubsubcat.localUbicaciones[selsubsubcat.localUbicaciones.length - 1].localEstadistica.valor);
+                            }
+                            this.localChartDatasets.push({ data, label: subsubcat.nombre });
+                        }
+                        break;
+                    }
+                    case 3: { // Añadir filtro
+                        const cat = this.categoriaEstadistica;
+                        this.localChartLabels = cat.subcategoriaEstadisticas.map((item: SubcategoriaEstadistica) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        const data = new Array(0);
+                        for (const subcat of cat.subcategoriaEstadisticas) {
+                            const subsubcat = subcat.localCategoriaEstadistica.subcategoriaEstadisticas[0];
+                            data.push(subsubcat.localUbicaciones[subsubcat.localUbicaciones.length - 1].localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: cat.subcategoriaEstadisticas[0].nombre });
+                        break;
                     }
                 }
-                this.localChartDatasets = [{ data, label: cat.nombre }, { data, label: cat.nombre }];
                 break;
             }
             case 2: { // Tiempo
-                const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
-                this.localChartLabels = subcat.localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
-                const data: number[] = new Array<number>(0);
-                for (const ubicacion of subcat.localUbicaciones) {
-                    data.push(ubicacion.localEstadistica.valor);
+                switch (this.agrupacionOpcion) {
+                    case 1: { // No agrupar y sin filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
+                        this.localChartLabels = subcat.localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
+                        const data: number[] = new Array<number>(0);
+                        for (const ubicacion of subcat.localUbicaciones) {
+                            data.push(ubicacion.localEstadistica.valor);
+                        }
+                        this.localChartDatasets = [{ data, label: subcat.nombre }];
+                        break;
+                    }
+                    case 2: { // Agrupar por categoria
+                        const cat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica;
+                        this.localChartLabels = cat.subcategoriaEstadisticas[0].localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
+                        this.localChartDatasets = new Array();
+                        for (const subcat of cat.subcategoriaEstadisticas) { // Itero las categorias
+                            const data = new Array(0);
+                            for (const ubi of subcat.localUbicaciones) { // Por cada categoria, checo la ubicacion
+                                data.push(ubi.localEstadistica.valor);
+                            }
+                            this.localChartDatasets.push({ data, label: subcat.nombre });
+                        }
+                        break;
+                    }
+                    case 3: { // Añadir filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica.subcategoriaEstadisticas[0];
+                        this.localChartLabels = subcat.localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
+                        this.localChartDatasets = new Array();
+                        const data = new Array(0);
+                        for (const ubi of subcat.localUbicaciones) {
+                            data.push(ubi.localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: subcat.nombre });
+                        break;
+                    }
                 }
-                this.localChartDatasets = [{ data, label: subcat.nombre }];
                 break;
             }
             case 3: { // Ubicacion
-                const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
-                this.localChartLabels = subcat.localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
-                const data: number[] = new Array<number>(0);
-                for (const ubicacion of subcat.localUbicaciones) {
-                    data.push(ubicacion.localEstadistica.valor);
+                switch (this.agrupacionOpcion) {
+                    case 1: { // No agrupar y sin filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
+                        const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                        this.localChartLabels = ubicacion.ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        const data: number[] = new Array<number>(0);
+                        for (const ubi of ubicacion.ubicaciones) {
+                            data.push(ubi.localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: subcat.nombre });
+                        break;
+                    }
+                    case 2: { // Agrupar por categoria
+                        const cat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica;
+                        this.localChartLabels = this.getFirstUbicacion(cat.subcategoriaEstadisticas[0].localUbicaciones[cat.subcategoriaEstadisticas[0].localUbicaciones.length - 1], true).ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        for (const subcat of cat.subcategoriaEstadisticas) {
+                            const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                            const data: number[] = new Array<number>(0);
+                            for (const ubi of ubicacion.ubicaciones) {
+                                data.push(ubi.localEstadistica.valor);
+                            }
+                            this.localChartDatasets.push({ data, label: subcat.nombre });
+                        }
+                        break;
+                    }
+                    case 3: { // Añadir filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica.subcategoriaEstadisticas[0];
+                        const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                        this.localChartLabels = ubicacion.ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        const data: number[] = new Array<number>(0);
+                        for (const ubi of ubicacion.ubicaciones) {
+                            data.push(ubi.localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: subcat.nombre });
+                        break;
+                    }
                 }
-                this.localChartDatasets = [{ data, label: subcat.nombre }];
                 break;
             }
             case 4: { // Mapa
-
+                switch (this.agrupacionOpcion) {
+                    case 1: { // No agrupar y sin filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
+                        const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                        this.localChartLabels = ubicacion.ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        const data: number[] = new Array<number>(0);
+                        for (const ubi of ubicacion.ubicaciones) {
+                            data.push(ubi.localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: subcat.nombre });
+                        break;
+                    }
+                    case 2: { // Agrupar por categoria
+                        const cat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica;
+                        this.localChartLabels = this.getFirstUbicacion(cat.subcategoriaEstadisticas[0].localUbicaciones[cat.subcategoriaEstadisticas[0].localUbicaciones.length - 1], true).ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        for (const subcat of cat.subcategoriaEstadisticas) {
+                            const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                            const data: number[] = new Array<number>(0);
+                            for (const ubi of ubicacion.ubicaciones) {
+                                data.push(ubi.localEstadistica.valor);
+                            }
+                            this.localChartDatasets.push({ data, label: subcat.nombre });
+                        }
+                        break;
+                    }
+                    case 3: { // Añadir filtro
+                        const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0].localCategoriaEstadistica.subcategoriaEstadisticas[0];
+                        const ubicacion = this.getFirstUbicacion(subcat.localUbicaciones[subcat.localUbicaciones.length - 1], true);
+                        this.localChartLabels = ubicacion.ubicaciones.map((item: Ubicacion) => item.nombre);
+                        this.localChartDatasets = new Array();
+                        const data: number[] = new Array<number>(0);
+                        for (const ubi of ubicacion.ubicaciones) {
+                            data.push(ubi.localEstadistica.valor);
+                        }
+                        this.localChartDatasets.push({ data, label: subcat.nombre });
+                        break;
+                    }
+                }
                 break;
             }
         }
+    }
+
+    getFirstUbicacion(ubicacion: Ubicacion, root: boolean): Ubicacion {
+        if (ubicacion.localSelected === true && root === false) {
+            return ubicacion;
+        }
+        for (const ubi of ubicacion.ubicaciones) {
+            const retUbi = this.getFirstUbicacion(ubi, false);
+            if (retUbi != null) {
+                return retUbi;
+            }
+        }
+        return null;
     }
 
 }

@@ -48,7 +48,7 @@ export class Ubicacion implements IUbicacion {
     localEstadistica: Estadistica;
 
     // Constructor
-    constructor(ubicacion?: any, ubicaciones?: Ubicacion[]) {
+    constructor(ubicacion?: any) {
         if (ubicacion !== undefined) {
             this.idUbicacion = ubicacion.idUbicacion;
             this.fkUbicacion = ubicacion.fkUbicacion;
@@ -64,13 +64,11 @@ export class Ubicacion implements IUbicacion {
             this.localIcono = ubicacion.localIcono != null ? ubicacion.localIcono : faMinus;
 
             this.localEstadistica = ubicacion.localEstadistica != null ? new Estadistica(ubicacion.localEstadistica) : null;
+            this.ubicaciones = ubicacion.ubicaciones != null ? ubicacion.ubicaciones.map((item: Ubicacion) => new Ubicacion(item)) : new Array(0);
         } else {
             this.localVisible = false;
             this.localPadre = false;
             this.localIcono = faMinus;
-        }
-        if (ubicaciones != null) {
-            this.ubicaciones = ubicaciones.map((item: Ubicacion) => new Ubicacion(item, item.ubicaciones));
         }
     }
 

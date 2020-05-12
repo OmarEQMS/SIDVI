@@ -48,14 +48,15 @@ export class EstadisticaComponent implements OnInit {
         await this.obtenerCategorias();
         this.obtenerVirus();
 
+        GraficaEdtadistica.staticUbicacion = this.ubicacion;
         this.graficasEstadisticas = new Array();
         // Casos Activos por tiempo
         this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
-        this.graficasEstadisticas[0].ubicacion = new Ubicacion(this.ubicacion, this.ubicacion.ubicaciones);
+        this.graficasEstadisticas[0].ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas[0].categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.nombre === 'Casos');
         this.graficasEstadisticas[0].idCategoriaSelected = this.graficasEstadisticas[0].categoriaSelected.idCategoriaEstadistica.toString();
         this.graficasEstadisticas[0].subcategoriaSelected = this.graficasEstadisticas[0].categoriaSelected.subcategoriaEstadisticas
-                .find((item: SubcategoriaEstadistica) => item.nombre === 'Casos Activos');
+                .find((item: SubcategoriaEstadistica) => item.nombre === 'Casos Totales');
         this.graficasEstadisticas[0].idSubcategoriaSelected = this.graficasEstadisticas[0].subcategoriaSelected.idSubcategoriaEstadistica.toString();
         this.graficasEstadisticas[0].subcategoriaEjeHorizontal = 2;
         this.graficasEstadisticas[0].tipoGrafica = 'bar';
@@ -63,7 +64,7 @@ export class EstadisticaComponent implements OnInit {
 
         // Edad por Genero
         this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
-        this.graficasEstadisticas[1].ubicacion = new Ubicacion(this.ubicacion, this.ubicacion.ubicaciones);
+        this.graficasEstadisticas[1].ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas[1].categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.nombre === 'Edad');
         this.graficasEstadisticas[1].idCategoriaSelected = this.graficasEstadisticas[1].categoriaSelected.idCategoriaEstadistica.toString();
         this.graficasEstadisticas[1].subcategoriaEjeHorizontal = 1;

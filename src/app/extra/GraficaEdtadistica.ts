@@ -407,11 +407,17 @@ export class GraficaEdtadistica {
                 break;
             }
             case 3: { // Ubicacion
-                
+                const subcat = this.categoriaEstadistica.subcategoriaEstadisticas[0];
+                this.localChartLabels = subcat.localUbicaciones.map((item: Ubicacion) => item.localEstadistica.localFecha);
+                const data: number[] = new Array<number>(0);
+                for (const ubicacion of subcat.localUbicaciones) {
+                    data.push(ubicacion.localEstadistica.valor);
+                }
+                this.localChartDatasets = [{ data, label: subcat.nombre }];
                 break;
             }
             case 4: { // Mapa
-                
+
                 break;
             }
         }

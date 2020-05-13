@@ -18,7 +18,7 @@ import { VirusComponent } from './virus/virus.component';
 import { EditarInformacionComponent } from './editar-informacion/editar-informacion.component';
 import { EditarEstadisticaComponent } from './editar-estadistica/editar-estadistica.component';
 import { EditarCatalogosComponent } from './editar-catalogos/editar-catalogos.component';
-import { UbicacionListComponent } from '../components/ubicacion-list/ubicacion-list.component';
+import { UbicacionListComponent } from './ubicacion-list/ubicacion-list.component';
 import { UbicacionesEditListComponent } from './ubicaciones-edit-list/ubicaciones-edit-list.component';
 import { EditarMedicosComponent } from './editar-medicos/editar-medicos.component';
 import { EditarTestComponent } from './editar-test/editar-test.component';
@@ -49,7 +49,8 @@ import { ListarPreguntasComponent } from './listar-preguntas/listar-preguntas.co
     UbicacionesEditListComponent,
     EditarMedicosComponent,
     EditarTestComponent,
-    ListarPreguntasComponent
+    ListarPreguntasComponent,
+    UbicacionListComponent
   ]
 })
 export class AdministradorPageModule {}

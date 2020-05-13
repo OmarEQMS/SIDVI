@@ -73,7 +73,7 @@ export class GraficaEdtadistica {
         this.subcategoriaSelectedGrupo = new SubcategoriaEstadistica({idSubcategoriaEstadistica: -1});
         this.idCategoriaSelected = '-1';
         this.idCategoriaSelectedGrupo = '-1';
-        this.idCategoriaSelectedGrupo = '-1';
+        this.idSubcategoriaSelected = '-1';
         this.idSubcategoriaSelectedGrupo = '-1';
 
         this.subcategoriaEjeHorizontal = 1;
@@ -83,7 +83,7 @@ export class GraficaEdtadistica {
         this.identificador = identificador;
     }
 
-    filtrarEstadisticas(sidvi: SIDVIServices) {
+    filtrarEstadisticas(sidvi: SIDVIServices, fechaFin?: string) {
         let fkSubcategoriaEstadistica1 = this.subcategoriaSelected.idSubcategoriaEstadistica;
         let fkSubcategoriaEstadistica2 = this.subcategoriaSelectedGrupo.idSubcategoriaEstadistica;
         let fkCategoriaEstadistica1 = this.categoriaSelected.idCategoriaEstadistica;
@@ -201,7 +201,7 @@ export class GraficaEdtadistica {
             }
         }
 
-        sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, fkCategoriaEstadistica1, fkCategoriaEstadistica2, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
+        sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, fkCategoriaEstadistica1, fkCategoriaEstadistica2, null, fechaFin, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {
                 const estadisticas = estadis.resultados.map((item: any) => new Estadistica(item));
                 if (estadisticas.length > 0) {

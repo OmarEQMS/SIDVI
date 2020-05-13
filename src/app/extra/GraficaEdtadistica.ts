@@ -83,7 +83,7 @@ export class GraficaEdtadistica {
         this.identificador = identificador;
     }
 
-    filtrarEstadisticas(sidvi: SIDVIServices, fechaFin?: string) {
+    filtrarEstadisticas(sidvi: SIDVIServices) {
         let fkSubcategoriaEstadistica1 = this.subcategoriaSelected.idSubcategoriaEstadistica;
         let fkSubcategoriaEstadistica2 = this.subcategoriaSelectedGrupo.idSubcategoriaEstadistica;
         let fkCategoriaEstadistica1 = this.categoriaSelected.idCategoriaEstadistica;
@@ -201,7 +201,7 @@ export class GraficaEdtadistica {
             }
         }
 
-        sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, fkCategoriaEstadistica1, fkCategoriaEstadistica2, null, fechaFin, 'fecha', OrderModeEnum.ASC).subscribe(
+        sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, fkCategoriaEstadistica1, fkCategoriaEstadistica2, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
             estadis => {
                 const estadisticas = estadis.resultados.map((item: any) => new Estadistica(item));
                 if (estadisticas.length > 0) {

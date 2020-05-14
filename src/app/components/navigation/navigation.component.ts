@@ -11,7 +11,7 @@ import { SIDVIServices } from 'src/api';
 export class NavigationComponent implements OnInit {
 
   rout: string;
-  haySesion: boolean;
+  haySesion: boolean = false;
   rol: _Usuario.Rol;
   constructor(private router: Router, private sidvi: SIDVIServices) {
     this.rol = this.sidvi.manager.usuario.rol;
@@ -41,6 +41,10 @@ export class NavigationComponent implements OnInit {
     } else {
       this.router.navigate(['./perfil']);
     }
+  }
+  verOpciones(){
+    console.log("opciones");
+    console.log(this.haySesion);
   }
 }
 

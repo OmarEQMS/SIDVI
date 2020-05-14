@@ -73,7 +73,7 @@ export class GraficaEdtadistica {
         this.subcategoriaSelectedGrupo = new SubcategoriaEstadistica({idSubcategoriaEstadistica: -1});
         this.idCategoriaSelected = '-1';
         this.idCategoriaSelectedGrupo = '-1';
-        this.idCategoriaSelectedGrupo = '-1';
+        this.idSubcategoriaSelected = '-1';
         this.idSubcategoriaSelectedGrupo = '-1';
 
         this.subcategoriaEjeHorizontal = 1;

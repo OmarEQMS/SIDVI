@@ -49,7 +49,6 @@ import { RestablecerComponent } from './components/restablecer/restablecer.compo
     EstadisticaComponent,
     UbicacionListComponent,
     MiConsultorioComponent,
-    UbicacionListComponent,
     RegistroComponent,
     TestComponent,
     RecuperarComponent,

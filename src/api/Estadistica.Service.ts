@@ -63,6 +63,46 @@ export class EstadisticaService {
         );
     }
 
+    public crearEstadistica(estadistica: Estadistica): Observable<any> {
+        // Validate
+        if (estadistica === null || estadistica === undefined) {
+            throw new Error('Required parameter estadistica was null or undefined when calling crearEstadistica.');
+        }
+
+        // Headers
+        let headers = this.defaultHeaders;
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
+        }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
+
+        // Request
+        return this.httpClient.post<APIResponse>(`${this.manager.basePath}/estadistica`,
+            estadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
+        );
+    }
+
+    public obtenerEstadistica(idEstadistica: number): Observable<any> {
+        // Validate
+        if (idEstadistica === null || idEstadistica === undefined) {
+            throw new Error('Required parameter idEstadistica was null or undefined when calling obtenerEstadistica.');
+        }
+
+        // Headers
+        let headers = this.defaultHeaders;
+        if (this.manager.tokenUsuario) {
+            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
+        }
+        headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
+
+        // Request
+        return this.httpClient.get<any>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
+            { headers, observe: 'body', reportProgress: true }
+        );
+    }
+
     public actualizarEstadistica(idEstadistica: number, estadistica: Estadistica): Observable<any> {
         // Validate
         if (idEstadistica === null || idEstadistica === undefined) {
@@ -82,26 +122,6 @@ export class EstadisticaService {
 
         // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
-            estadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
-        );
-    }
-
-    public crearEstadistica(estadistica: Estadistica): Observable<any> {
-        // Validate
-        if (estadistica === null || estadistica === undefined) {
-            throw new Error('Required parameter estadistica was null or undefined when calling crearEstadistica.');
-        }
-
-        // Headers
-        let headers = this.defaultHeaders;
-        if (this.manager.tokenUsuario) {
-            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
-        }
-        headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');
-
-        // Request
-        return this.httpClient.post<APIResponse>(`${this.manager.basePath}/estadistica`,
             estadistica.toObjectDB(), { headers, observe: 'body', reportProgress: true }
         );
     }
@@ -126,24 +146,5 @@ export class EstadisticaService {
         );
     }
 
-    public obtenerEstadistica(idEstadistica: number): Observable<any> {
-        // Validate
-        if (idEstadistica === null || idEstadistica === undefined) {
-            throw new Error('Required parameter idEstadistica was null or undefined when calling obtenerEstadistica.');
-        }
-
-        // Headers
-        let headers = this.defaultHeaders;
-        if (this.manager.tokenUsuario) {
-            headers = headers.set('TokenUsuario', this.manager.tokenUsuario);
-        }
-        headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');
-
-        // Request
-        return this.httpClient.get<any>(`${this.manager.basePath}/estadistica/${encodeURIComponent(String(idEstadistica))}`,
-            { headers, observe: 'body', reportProgress: true }
-        );
-    }
 
 }

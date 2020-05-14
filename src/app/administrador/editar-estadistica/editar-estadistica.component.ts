@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
 import { IUbicacion, Ubicacion, Virus, CategoriaEstadistica, SubcategoriaEstadistica, Estadistica } from 'src/models';
@@ -6,6 +6,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { GraficaEdtadistica } from 'src/app/extra/GraficaEdtadistica';
 import { faTimesCircle, faPencilAlt, faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { MDBModalRef } from 'angular-bootstrap-md';
 
 @Component({
 selector: 'app-editar-estadistica',
@@ -13,6 +14,8 @@ templateUrl: './editar-estadistica.component.html',
 styleUrls: ['./editar-estadistica.component.scss'],
 })
 export class EditarEstadisticaComponent implements OnInit {
+    @ViewChild('modalEstadistica', null) modalEstadistica: MDBModalRef;
+
     ubicacion: Ubicacion;
     categorias: CategoriaEstadistica[];
     idVirus: number;
@@ -136,14 +139,97 @@ export class EditarEstadisticaComponent implements OnInit {
             fkSubcategoriaEstadistica2 = null;
         }
 
-        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, null, null, null, null, 'fecha', OrderModeEnum.ASC).subscribe(
+        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, null, null, null, null, 'fecha', OrderModeEnum.DESC).subscribe(
             estadis => {
                 this.estadisticas = estadis.resultados.map((item: any) => new Estadistica(item));
                 console.log(this.estadisticas);
         });
     }
 
+    editarEstadistica(estadistica: Estadistica) {
+        this.valor = estadistica.valor;
+        this.fecha = estadistica.localFecha;
+        this.idEstadistica = estadistica.idEstadistica;
+    }
+
+    nuevoEstadistica() {
+        this.valor = 0;
+        this.fecha = '';
+        this.idEstadistica = -1;
+    }
+
+    async eliminarEstadistica(idEstadistica: number) {
+        const result = await Swal.fire({
+            title: 'Se eliminara la estadistica',
+            text: 'Esto podria causar incongruencia en los datos',
+            icon: 'info',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText: 'No, cancelar',
+            backdrop: false
+        });
+
+        if (result.value) {
+            this.sidvi.estadistica.eliminarEstadistica(idEstadistica).subscribe(
+                res => {
+                    Swal.fire({title: 'Listo', text: 'Estadistica eliminada', icon: 'success', backdrop: false});
+                    this.consultarEstadisticas();
+            });
+        }
+    }
+
     guardarEstadistica() {
+        const fkSubcategoriaEstadistica1 = this.subcategoriaSelected.idSubcategoriaEstadistica;
+        let fkSubcategoriaEstadistica2 = this.subcategoriaSelectedGrupo.idSubcategoriaEstadistica;
+
+        if (this.fecha == null && this.fecha === '') {
+            Swal.fire({title: 'Fecha invalido', icon: 'error', backdrop: false});
+            return;
+        }
+        if (this.valor == null && this.valor < 0) {
+            Swal.fire({title: 'Valor invalido', icon: 'error', backdrop: false});
+            return;
+        }
+        if (this.idUbicacion == null) {
+            Swal.fire({title: 'Selecciona una ubicacion invalida', icon: 'error', backdrop: false});
+            return;
+        }
+        if (fkSubcategoriaEstadistica1 === -1) {
+            Swal.fire({title: 'Tipo de Subcategoria invalido', icon: 'error', backdrop: false});
+            return;
+        }
+        if (this.segundaCategoria && fkSubcategoriaEstadistica2 === -1) {
+            Swal.fire({title: 'Tipo de Subcategoria invalido', icon: 'error', backdrop: false});
+            return;
+        } else {
+            fkSubcategoriaEstadistica2 = null;
+        }
+
+        const newEstadis = new Estadistica({idEstadistica: this.idEstadistica,
+                                            fkVirus: this.idVirus,
+                                            fkUbicacion: this.idUbicacion,
+                                            fkSubcategoriaEstadistica1,
+                                            fkSubcategoriaEstadistica2,
+                                            valor: this.valor,
+                                            fecha: this.fecha
+                                        });
+
+        if (this.idEstadistica === -1) {
+            this.sidvi.estadistica.crearEstadistica(newEstadis).subscribe(
+                res => {
+                    Swal.fire({title: 'Listo', text: 'Estadistica creada', icon: 'success', backdrop: false});
+                    this.consultarEstadisticas();
+                    this.modalEstadistica.hide();
+            });
+        } else {
+            this.sidvi.estadistica.actualizarEstadistica(this.idEstadistica, newEstadis).subscribe(
+                res => {
+                    Swal.fire({title: 'Listo', text: 'Estadistica actualizada', icon: 'success', backdrop: false});
+                    this.consultarEstadisticas();
+                    this.modalEstadistica.hide();
+            });
+        }
 
     }
 

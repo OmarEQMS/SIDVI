@@ -59,7 +59,31 @@
         <div class='card text-center p-2 mt-2 mb-2'>
             Estadisticas con esos parametros
         </div>
-        <div class='text-center btn-info p-2 filtro mt-5' (click)="modalEstadistica.show(); idEstadistica = -1;">
+        <table mdbTable class='table'>
+            <thead>
+            <tr>
+                <th style='width:30%'>Fecha</th>
+                <th style='width:30%'>Valor</th>
+                <th style='width:40%'>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let estadistica of estadisticas">
+                    <td>{{estadistica.localFecha}}</td>
+                    <td>{{estadistica.valor}}</td>
+                    <td>
+                        <button class='btn-accion' (click)="modalEstadistica.show(); editarEstadistica(estadistica);"> 
+                            <fa-icon class='' [icon]="icons.editar"></fa-icon> 
+                        </button>
+                        <button class='btn-accion' (click)="eliminarEstadistica(estadistica.idEstadistica)"> 
+                            <fa-icon class='' [icon]="icons.delete"></fa-icon> 
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class='text-center btn-info p-2 filtro mt-5' (click)="modalEstadistica.show(); nuevoEstadistica();">
             Agregar Estadistica
         </div>
     </div>
@@ -71,7 +95,7 @@
                 <div class='modal-header'>
                     <span class='modal-title'>Estadistica</span>
                     <button type='button' class='close pull-right' aria-label='Close' (click)="modalEstadistica.hide()">
-                    <span aria-hidden='true'>×</span>
+                        <span aria-hidden='true'>×</span>
                     </button>
                 </div>
                 <div class='modal-body pl-3 pr-3 pb-3'>

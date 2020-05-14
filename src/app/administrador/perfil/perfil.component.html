@@ -107,11 +107,6 @@
         <!--botones-->
         <div class="flex-row justify-content-center mt-3 ">
               <div class="flex-row justify-content-right">
-                  <div class="btn btn-info d-inline-block text-white" (click)="eliminarConfirmation()">
-                    Eliminar Cuenta
-                  </div>
-              </div>
-              <div class="flex-row justify-content-right">
                 <div class="btn btn-info d-inline-block text-white"  (click)="basicModal.show();">
                   Restablecer Contraseña
                 </div>
@@ -144,17 +139,21 @@
             <!--Contraseña vieja-->
             <div class='label-input'>
                 <label>Contraseña antigua</label>
-                <input mdbInput type="password" class="form-control" >
+                <input mdbInput [(ngModel)]="contrasenaAntigua" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasena === false">No es la contraseña</p>
             </div>
             <!--nueva contraseña-->
             <div class='label-input'>
                 <label>Nueva contraseña</label>
-                <input mdbInput type="password" class="form-control" >
+                <input mdbInput [(ngModel)]="contrasenaNueva" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasenaCopy === false">La contraseña debe coincidir y no puede estar vacio el campo</p>
+
             </div>
             <!--Confirmar contraseña-->
             <div class='label-input'>
                 <label>Confirmar nueva contraseña</label>
-                <input mdbInput type="password" class="form-control" >
+                <input mdbInput [(ngModel)]="contrasenaCopy" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasenaCopy === false">La contraseña debe coincidir</p>
             </div>
         </div>
         

@@ -93,7 +93,7 @@ export class AdministradorPage implements OnInit {
     }
 
     abrirTest(virus: Virus) {
-        this.router.navigate(['./administrador/virus/' + virus.idVirus + '/test']);
+        this.router.navigate(['./administrador/listarPreguntas/' + virus.idVirus ]);
     }
 
     abrirCatalogo(area: string) {

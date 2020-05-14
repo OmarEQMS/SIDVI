@@ -28,45 +28,86 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div class="d-flex justify-content-center contenedor">
-        <div class="d-flex justify-content-center contenedorMedico">
+      <div class="d-flex justify-content-center contenedor mb-5">
+        <div class="d-flex justify-content-center contenedorMedico mb-3">
           <div class=" d-inline-block cartaVirus  m-3" *ngFor="let medicoVirus of medicosVirus">
-            <div class="card text-center">
-              <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center ta">
-                <div class="tamanoTitulo">
-                  {{medicoVirus.medico.nombreDoctor}}
-                </div>
-                <div>
-                  <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
-                  <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
-                  <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
-                  <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
-                  <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
-                  <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
-                  <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
-                </div>
-              </div>
-              <div class="card-body">
-                <p>{{medicoVirus.medico.nombreConsultorio}}</p>
-                <div class='mb-3 mt-2'>
-                  <img *ngIf="medicoVirus.medico.archivoIconoImg != null" class='imagen-icono'
-                    [src]="medicoVirus.medico.archivoIconoImg">
-                </div>
-              </div>
-              <div class="card-footer ">
-                {{medicoVirus.medico.direccionConsultorio}}
-                <div>
-                  <div class='text-center btn-primary m-3 p-2 botonAzul'
-                    (click)="localMedVirus = medicoVirus; modalEvaluarMedico.show(); redireccion();">
-                    Evaluar Médico
+            <!--CARD-->
+              <div class="card p-2"> 
+                <div class="row">
+                  <!--fotos y boton para valorae-->
+                  <div class="col">
+                    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                      <mdb-carousel-item *ngIf="medicoVirus.medico.archivoFoto">
+                        <img [src]="medicoVirus.medico.archivoFoto" alt="imagen del consultorio" height="200px">
+                      </mdb-carousel-item>
+                      <mdb-carousel-item *ngIf="medicoVirus.medico.archivoFoto === null || medicoVirus.medico.archivoFoto === undefined">
+                        <img  src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
+                      </mdb-carousel-item>
+                      <mdb-carousel-item *ngIf="medicoVirus.medico.usuario.archivoFoto">
+                        <img [src]="medicoVirus.medico.usuario.archivoFoto" alt="imagen del consultorio" height="200px">
+                      </mdb-carousel-item>
+                      <mdb-carousel-item *ngIf="medicoVirus.medico.usuario.archivoFoto === null || medicoVirus.medico.usuario.archivoFoto === undefined">
+                        <img  src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
+                      </mdb-carousel-item>
+                    </mdb-carousel>
+                    <div class="btn btn-info d-inline-block text-white mt-2 w-100" (click)="localMedVirus = medicoVirus; modalEvaluarMedico.show(); redireccion();" type="submit">
+                      Valorar Consultorio
+                    </div>
+                  </div>
+                  <!--info en general-->
+                  <div class="col">
+                    <!--Medico-->
+                    <div>
+                      <h3 class="text-right drName">{{medicoVirus.medico.nombreDoctor}}</h3>
+                      <p class="sm-font text-right gray">Cédula: {{medicoVirus.medico.cedulaProfesional}}</p>
+                    </div>
+                    <!--Virus que atiende-->
+                    <div class="mb-2">
+                      Experiencia en {{virus.nombre}}
+                    </div>
+                    <!--consultorio nombre-->
+                    <div class="div-wrap">{{medicoVirus.medico.nombreConsultorio}} </div>
+                    <!--ubicacion-->
+                    <div class="flex-row">
+                      <div class="div-wrap">{{medicoVirus.medico.direccionConsultorio}} </div> 
+                      <div class="sm-font div-wrap ml-1">({{medicoVirus.medico.ubicacion.nombre}})</div> 
+                    </div>
+                    <!--Telefono-->
+                    <div class="mb-2">{{medicoVirus.medico.telefonoConsultorio}}</div>
+                    <!--Valoraciones-->
+                    <div>
+                      <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
+                      <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                      <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                <!--descripcion-->
+                <div class="row">
+                  <div class="col">{{medicoVirus.medico.descripcion}}</div>
+                </div>
+                <!--otros virus que conoce el medico-->
+                <div *ngIf="medicoVirus.medico.viruss.length > 0" class="">
+                    <div class="">
+                      <i class="fas fa-asterisk"></i>
+                      Este consultorio tambien atiende 
+                      <div class="div-wrap" *ngFor="let v of medicoVirus.medico.viruss; let i = index">
+                        <p *ngIf="i < medicoVirus.medico.viruss.length-2" class="div-wrap">{{v.nombre}}, </p>
+                        <p *ngIf="i === medicoVirus.medico.viruss.length-2" class="div-wrap">{{v.nombre}} y </p>
+                        <p *ngIf="i === medicoVirus.medico.viruss.length-1" class="div-wrap">&nbsp; {{ v.nombre}}. </p>
+                      </div>
+                    </div>
+                </div>
+              </div>  
+            <!--END CARD-->
           </div>
         </div>
       </div>
@@ -104,3 +145,46 @@
     </ion-content>
   </ion-router-outlet>
 </ion-split-pane>
+
+
+<!--
+
+            <div class="card text-center">
+              <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center ta">
+                <div class="tamanoTitulo">
+                  {{medicoVirus.medico.nombreDoctor}}
+                </div>
+                <div>
+                  <span *ngIf="medicoVirus.localPromValoracion>=1" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="1>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=2" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="2>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=3" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="3>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=4" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="4>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <span *ngIf="medicoVirus.localPromValoracion>=5" class="fa fa-star checked tamanoEstrellaCard"></span>
+                  <span *ngIf="5>medicoVirus.localPromValoracion" class="fa fa-star tamanoEstrellaCard"></span>
+                  <p>{{medicoVirus.localPromValoracion}} ({{medicoVirus.localTotalValoracion}} valoraciones)</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <p>{{medicoVirus.medico.nombreConsultorio}}</p>
+                <div class='mb-3 mt-2'>
+                  <img *ngIf="medicoVirus.medico.archivoIconoImg != null" class='imagen-icono'
+                    [src]="medicoVirus.medico.archivoIconoImg">
+                </div>
+              </div>
+              <div class="card-footer ">
+                {{medicoVirus.medico.direccionConsultorio}}
+                <div>
+                  <div class='text-center btn-primary m-3 p-2 botonAzul'
+                    (click)="localMedVirus = medicoVirus; modalEvaluarMedico.show(); redireccion();">
+                    Evaluar Médico
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+-->

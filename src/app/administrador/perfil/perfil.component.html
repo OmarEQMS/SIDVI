@@ -101,17 +101,67 @@
                 </div>
             
             </div>
-
               
         </div>
 
         <!--botones-->
         <div class="flex-row justify-content-center mt-3 ">
               <div class="flex-row justify-content-right">
-                  <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
-                    Guardar Cambios
+                  <div class="btn btn-info d-inline-block text-white" (click)="eliminarConfirmation()">
+                    Eliminar Cuenta
                   </div>
               </div>
+              <div class="flex-row justify-content-right">
+                <div class="btn btn-info d-inline-block text-white"  (click)="basicModal.show();">
+                  Restablecer Contraseña
+                </div>
+            </div>
+            <div class="flex-row justify-content-right">
+                <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
+                  Guardar Cambios
+                </div>
+            </div>
         </div>
     </div>
 </ion-content>
+
+
+<!-- MODAL AGREGAR INFORMACIÓN-->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="resetModal()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h2>Restablecer contraseña</h2>
+        </div>
+
+        <div class="modal-body">
+            <!--Contraseña vieja-->
+            <div class='label-input'>
+                <label>Contraseña antigua</label>
+                <input mdbInput type="password" class="form-control" >
+            </div>
+            <!--nueva contraseña-->
+            <div class='label-input'>
+                <label>Nueva contraseña</label>
+                <input mdbInput type="password" class="form-control" >
+            </div>
+            <!--Confirmar contraseña-->
+            <div class='label-input'>
+                <label>Confirmar nueva contraseña</label>
+                <input mdbInput type="password" class="form-control" >
+            </div>
+        </div>
+        
+        <div class=" modal-footer">
+            <div class="btn btn-info d-inline-block text-white" (click)="restablecer()">
+                Restablecer
+            </div>
+        </div>
+    </div>
+</div>

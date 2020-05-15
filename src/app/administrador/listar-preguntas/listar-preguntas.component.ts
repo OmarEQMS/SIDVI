@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SIDVIServices } from '../../../api';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TestNodo } from 'src/models';
+import { TestNodo, Virus } from 'src/models';
 import { MDBModalRef } from 'angular-bootstrap-md';
 import Swal from 'sweetalert2';
 
@@ -20,10 +20,14 @@ export class ListarPreguntasComponent implements OnInit {
   testNodos: TestNodo[];
   localTestNodo: TestNodo;
   nuevoTestNodo: TestNodo;
+  virus: Virus;
 
-  constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) {
+  constructor(private SIDVI: SIDVIServices, private router: Router, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute,
+    ) {
     this.localTestNodo = new TestNodo();
     this.nuevoTestNodo = new TestNodo();
+    this.virus = new Virus();
+    this.virus.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
   }
 
   ngOnInit() { }
@@ -33,7 +37,7 @@ export class ListarPreguntasComponent implements OnInit {
   }
 
   listarTestNodos() {
-    this.SIDVI.testNodo.listarTestNodos().subscribe(
+    this.SIDVI.testNodo.listarTestNodos(this.virus.idVirus , null).subscribe(
       res => {
         this.testNodos = res.resultados.map((item: any) => new TestNodo(item));
       },
@@ -61,6 +65,7 @@ export class ListarPreguntasComponent implements OnInit {
   }
 
   agregarTestNodo() {
+    this.nuevoTestNodo.fkVirus = this.virus.idVirus;
     this.SIDVI.testNodo.crearTestNodo(this.nuevoTestNodo).subscribe(
       res => {
         console.log(res);
@@ -73,6 +78,24 @@ export class ListarPreguntasComponent implements OnInit {
       err => {
         console.log(err);
         Swal.fire({ title: 'La Pregunta no se pudo registrar con éxito', icon: 'error', backdrop: false });
+      }
+    );
+  }
+
+  async crearNodoRaiz() {
+    const res = await this.SIDVI.virus.obtenerVirus(this.virus.idVirus).toPromise();
+    this.virus = new Virus(res);
+    this.virus.fkTestNodo = this.localTestNodo.idTestNodo;
+
+    this.SIDVI.virus.actualizarVirus(this.virus.idVirus, this.virus).subscribe(
+      res => {
+        Swal.fire({ title: 'La Pregunta raíz se actualizó con éxito', icon: 'success', backdrop: false });
+        this.listarTestNodos();
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La Pregunta raíz no se actualizó con éxito', icon: 'error', backdrop: false });
+
       }
     );
   }

@@ -23,7 +23,7 @@ const routes: Routes = [
         { path: 'virus/:idVirus/estadistica', component: EditarEstadisticaComponent },
         { path: 'consultorios', component: EditarMedicosComponent},
         { path: 'catalogos/:area', component: EditarCatalogosComponent },
-        { path: 'editTest/:idTestNodo', component: EditarTestComponent },
+        { path: 'editTest/:idTestNodo/:idVirus', component: EditarTestComponent },
         { path: 'listarPreguntas/:idVirus', component: ListarPreguntasComponent },
         { path: 'administradores', component: EditarAdministradoresComponent },
         { path: 'usuarios', component: EditarUsuarioComponent },

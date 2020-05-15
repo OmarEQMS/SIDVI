@@ -88,7 +88,7 @@ export class EditarAdministradoresComponent implements OnInit {
 
     this.sidvi.usuario.crearUsuario(this.administradorModal).subscribe(
       res => {
-        this.administradorModal.idUsuario = res.idUsuario;
+        this.administradorModal.idUsuario = res.extra.insertedId;
 
         // Checar si se subió un doc
         if (this.administradorModal.localFile != null) {

@@ -24,3 +24,42 @@ ion-header{
 .table-content {
     width: 80%;
 }
+
+.label-input {
+    margin: 10px;
+}
+
+.imagen-icono {
+    max-width: 125px;
+    max-height: 125px;
+    object-fit: contain;
+}
+
+.image-div {
+    margin: 5px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.table-title{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.table-title2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.table-title2 p{
+    margin-bottom: 0 !important;
+}
+.btn-mas{
+    display: flex;
+    flex-direction: row;
+}

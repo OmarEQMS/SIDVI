@@ -1,4 +1,4 @@
-import {  Estadistica } from './Estadistica';
+import { Estadistica } from './Estadistica';
 import { ContentTypeEnum, Defaults } from '../api';
 import { CategoriaEstadistica } from './CategoriaEstadistica';
 import { Ubicacion } from './Ubicacion';
@@ -27,8 +27,8 @@ export class SubcategoriaEstadistica implements ISubcategoriaEstadistica {
     estadisticas: Estadistica[];
 
     // Local
-    localSubcategoriaEstadisticas: SubcategoriaEstadistica[];
-    localEstadistica: Estadistica;
+    localCategoriaEstadistica: CategoriaEstadistica;
+    localUbicaciones: Ubicacion[];
 
     // Constructor
     constructor(subcategoriaEstadistica?: any) {
@@ -37,10 +37,11 @@ export class SubcategoriaEstadistica implements ISubcategoriaEstadistica {
             this.fkCategoriaEstadistica = subcategoriaEstadistica.fkCategoriaEstadistica;
             this.nombre = subcategoriaEstadistica.nombre;
 
-            if (subcategoriaEstadistica.localSubcategoriaEstadisticas != null) {
-                this.localSubcategoriaEstadisticas = subcategoriaEstadistica.localSubcategoriaEstadisticas.map((item) => new SubcategoriaEstadistica(item));
+            if (subcategoriaEstadistica.localUbicaciones != null) {
+                this.localUbicaciones = subcategoriaEstadistica.localUbicaciones.map((item) => new Ubicacion(item));
+            } else {
+                this.localUbicaciones = new Array(0);
             }
-            this.localEstadistica = subcategoriaEstadistica.localEstadistica != null ? new Estadistica(subcategoriaEstadistica.localEstadistica) : null;
         }
     }
 

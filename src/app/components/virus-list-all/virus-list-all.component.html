@@ -1,37 +1,4 @@
 <ion-content class="mt-5">
-<!--
-  <div class="d-flex justify-content-center contenedor">
-    <div class="d-flex justify-content-center contenedorVirus">
-      <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
-        <div class="card text-center" >
-          <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            {{virus.nombre}}
-          </div>
-          <div class="card-body">
-            <p>{{virus.clave}}</p>
-              <div class='mb-3 mt-2'>
-                <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono' [src]="virus.archivoIconoImg">
-              </div>
-             <div>
-              <a class="btn btn-info d-inline-block text-white m-1" routerLink='/informacion/{{virus.idVirus}}'>
-                Información
-              </a>
-              <a class="btn btn-info d-inline-block text-white m-1" routerLink='/estadistica/{{virus.idVirus}}'>
-                Estadísticas
-              </a>
-              <a class="btn btn-info d-inline-block text-white m-1" routerLink="/medicos/{{virus.idVirus}}">
-                Médicos disponibles
-              </a>
-              <a class="btn btn-info d-inline-block text-white m-1" (click)="abrirTest(virus.fkTestNodo)">
-                Test de síntomas
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  
--->
 <div class="flex-row justify-content-center mt-5">
   <div class="flex-row  justify-content-center wrap contenedorVirus mt-5">
     <div class=" d-inline-block cartaVirus  m-3"  *ngFor="let virus of viruss">
@@ -67,7 +34,7 @@
           <!--buttons-->
           <div class="flex-row justify-content-center">
             <a routerLink="/medicos/{{virus.idVirus}}"  class="btn btn-info d-inline-block text-white m-1" mdbWavesEffect>Médicos disponibles</a>
-            <a routerLink='/estadistica/{{virus.idVirus}}'  class="btn btn-info d-inline-block text-white m-1" mdbWavesEffect >Estadísticas</a>
+            <a routerLink='/estadistica/{{virus.idVirus}}'  class="btn btn-info text-white m-1 flex-row center-vertically" mdbWavesEffect >Estadísticas</a>
           </div>
         </mdb-card-body>
       </mdb-card>
@@ -75,14 +42,27 @@
   </div>
 </div> 
 
-  <div id="mi-comsultorio-linker" class="footer justify-content-center center-vertically flex-column">
-    <div>
-      ¿Eres médico y tienes un consultorio? Regístrate aqui para anunciarte en la página
-    </div>
-    <div>
-      <div class="btn btn-info d-inline-block text-white m-1" (click) = RegistrarConsultorio()>
-        Registrar consultorio
-      </div>
-    </div>
+  <div id="mi-comsultorio-linker" class="footer flex-column  justify-content-center center-vertically mt-5">
+
+    <div class="flex-column align-items-center" style=" position: absolute;">
+     <div>
+       ¿Eres médico y tienes un consultorio? Regístrate aqui para anunciarte en la página
+     </div>
+     <div>
+       <div class="btn btn-info d-inline-block text-white m-1" (click) = registrarConsultorio()>
+         Registrar consultorio
+       </div>
+     </div>
+   </div>
+
+   <div #alert class="alert alert-warning alert-dismissible fade inBack" style=" position: absolute" role="alert">
+     <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+     <strong>¡No tan rapido!</strong> Necesitas <a (click)="logout()" class="alert-link">iniciar tu cuenta de usuario</a> para realizar esta accion.
+   </div>
+
   </div>
+
+
 </ion-content>

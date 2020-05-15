@@ -3,6 +3,7 @@ import { Ubicacion } from './Ubicacion';
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { DatePipe } from '@angular/common';
 import { SubcategoriaEstadistica } from './SubcategoriaEstadistica';
+import { createDate } from 'src/api/Tools';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Estadistica {
@@ -49,7 +50,7 @@ export class Estadistica implements IEstadistica {
             this.fkSubcategoriaEstadistica1 = estadistica.fkSubcategoriaEstadistica1;
             this.fkSubcategoriaEstadistica2 = estadistica.fkSubcategoriaEstadistica2;
             this.valor = estadistica.valor;
-            this.fecha = new Date(estadistica.fecha);
+            this.fecha = estadistica.fecha;
             this.localFecha = this.localDatePipe.transform(this.fecha, 'yyyy-MM-dd');
         }
     }
@@ -63,7 +64,7 @@ export class Estadistica implements IEstadistica {
             fkSubcategoriaEstadistica1: this.fkSubcategoriaEstadistica1,
             fkSubcategoriaEstadistica2: this.fkSubcategoriaEstadistica2,
             valor: this.valor,
-            fecha: this.fecha // new Date(this.localFecha);
+            fecha: this.localFecha
         };
     }
 }

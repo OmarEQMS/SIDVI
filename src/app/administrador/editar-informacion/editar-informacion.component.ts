@@ -4,7 +4,8 @@ import { SIDVIServices, Defaults, ContentTypeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faSearchPlus, faSearchMinus, faChevronRight, faChevronDown, faMinus } 
+                from '@fortawesome/free-solid-svg-icons';
 import { VgAPI } from 'videogular2/compiled/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -29,8 +30,12 @@ export class EditarInformacionComponent implements OnInit {
 
     icons: { [id: string]: IconDefinition } = {
         zoomIn: faSearchPlus,
-        zoomOut: faSearchMinus
+        zoomOut: faSearchMinus,
+        plus: faChevronRight,
+        minus: faChevronDown,
+        guion: faMinus
     };
+
 
     constructor(
         private sidvi: SIDVIServices,
@@ -258,4 +263,11 @@ export class EditarInformacionComponent implements OnInit {
         );
     }
 
+    expandir(info: Informacion) {
+        if (info.localIcon === this.icons.minus) {
+            info.localIcon = this.icons.plus;
+        } else if (info.localIcon === this.icons.plus) {
+            info.localIcon = this.icons.minus;
+        }
+    }
 }

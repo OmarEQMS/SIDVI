@@ -5,3 +5,27 @@ ion-header{
 .textHeader{
     color: white;
 }
+
+.card {
+    background-color: #C5ECFC;
+}
+
+.cardzote {
+    border-radius: 10px;
+    background-color: rgb(243, 243, 243);
+}
+
+.btn-accion {
+    font-size: 20px;
+    padding: 4px;
+    border-radius: 3px;
+    margin: 5px;
+    background-color: rgb(218, 240, 219);;
+}
+
+table.table td {
+    padding: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}

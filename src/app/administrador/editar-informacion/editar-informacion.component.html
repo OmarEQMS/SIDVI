@@ -24,8 +24,10 @@
             <!-- BOTÓN PARA EXPANDIR BLOQUE -->
             <div class="boton-expand" data-toggle="collapse"
                 [attr.data-target]="'#InformacionBloque-' + informacion.idInformacion" aria-expanded="false"
-                aria-controls="collapseExample">
+                aria-controls="collapseExample" (click)="expandir(informacion)">
                 <div class='titulo-bloque'>{{informacion.texto}} </div>
+                <fa-icon class='btn-zoom d-block none-interactable' [icon]="informacion.localIcon">
+                </fa-icon>
             </div>
 
             <!-- INFORMACIÓN DEL BLOQUE -->

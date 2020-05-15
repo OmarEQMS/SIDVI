@@ -73,6 +73,14 @@
 .footer{
     width: 100%;
     padding-right: 16px;
+    position: relative;
+}
+.inFront{
+    z-index: 9;
+}
+
+.inBack{
+    z-index: -10;
 }
 /*
 

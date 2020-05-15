@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SIDVIServices, Defaults, ContentTypeEnum, ManagerService } from 'src/api';
-import { Medico, MedicoVirus, Ubicacion, IUbicacion, Valoracion } from 'src/models';
+import { Medico, MedicoVirus, Ubicacion, IUbicacion, Valoracion, Virus, _Medico, Usuario } from 'src/models';
 import { faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { async } from '@angular/core/testing';
@@ -31,6 +31,9 @@ export class MedicoVirusListComponent implements OnInit {
     promedioValoracion: number;
     yaEvaluo: boolean;
     localIdValoracion: number;
+
+    // tarjeta
+    virus: Virus;
 
 
     icons: { [id: string]: IconDefinition } = {
@@ -93,19 +96,52 @@ export class MedicoVirusListComponent implements OnInit {
     }
 
     filtraUbicaciones() {
+        console.log("filtro");
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
-        this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds).subscribe(
+        this.obtenerVirus(this.idVirus);
+        this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds, _Medico.Estatus.HABILITADO).subscribe(
         res => {
             this.medicosVirus = res.resultados.map((item: any) => new MedicoVirus(item));
             this.obtenerEvaluacion();
             for (const medicoVirus of this.medicosVirus) {
+
+                // obtener la imagen del medico
                 if (medicoVirus.medico.archivoFoto != null) {
-                    medicoVirus.medico.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(
-                        medicoVirus.medico.archivoFoto as string);
+                    medicoVirus.medico.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl( medicoVirus.medico.archivoFoto as string);
                 }
+
+                // Obtener los virus con los que tiene experiencia el medico
+                this.sidvi.medicoVirus.listarMedicosVirus(medicoVirus.medico.idMedico)
+                .subscribe( mv => {
+                    mv.resultados.forEach(el => {
+                        this.sidvi.virus.obtenerVirus(el.fkVirus)
+                            .subscribe( v => {
+                                if ( v.idVirus !== this.idVirus) {
+                                    medicoVirus.medico.viruss.push(v);
+                                }
+                            });
+                    });
+                });
+
+                // obtener la ubicacion del medico
+                this.sidvi.ubicacion.obtenerUbicacion(medicoVirus.medico.fkUbicacion)
+                    .subscribe( ubi => {
+                        medicoVirus.medico.ubicacion = new Ubicacion(ubi);
+                    });
+
+                // obtener la imagen del usuario del medico
+                this.sidvi.usuario.obtenerUsuario(medicoVirus.medico.fkUsuario)
+                .subscribe( usu => {
+                    medicoVirus.medico.usuario = new Usuario(usu);
+                });
+                // console.log(medicoVirus);
             }
         },
         err => { console.log(err); });
+    }
+
+    obtenerVirus(id: number) {
+        this.sidvi.virus.obtenerVirus(id).subscribe(v => { this.virus = v; });
     }
 
     evaluarMedico(valor: number) {
@@ -206,4 +242,7 @@ export class MedicoVirusListComponent implements OnInit {
 
     }
 
+    otrosVirus() {
+
+    }
 }

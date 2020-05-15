@@ -3,6 +3,8 @@ import { CategoriaInformacion } from './CategoriaInformacion';
 import { ContentTypeEnum, Defaults } from '../api/API';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { VgAPI } from 'videogular2/compiled/core';
+import { faMinus, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Informacion {
@@ -43,6 +45,7 @@ export class Informacion implements IInformacion {
     archivoPdfZoom: number;
     archivoVideo: string;
     archivoVideoAPI: VgAPI;
+    localIcon: IconDefinition;
 
     // Local
     localFile: FileList;
@@ -61,6 +64,10 @@ export class Informacion implements IInformacion {
             // Relations
             this.categoriaInformacion = new CategoriaInformacion(informacion.categoriaInformacion);
             this.localFileName = 'Choose File';
+            this.localIcon = informacion.localIcono != null ? informacion.localIcono : faChevronRight;
+
+        } else {
+            this.localIcon = faChevronRight;
         }
     }
 

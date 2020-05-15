@@ -121,3 +121,6 @@ ion-header{
     -webkit-border-bottom-left-radius: 50px;
     -moz-border-bottom-left-radius: 50px;
 }
+.none-interactable{
+    pointer-events: none;
+}

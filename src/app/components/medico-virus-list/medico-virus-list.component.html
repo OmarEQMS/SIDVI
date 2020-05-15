@@ -23,7 +23,7 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>
-          <span>Médicos</span>
+          <span>Médicos de {{virus.nombre}}</span>
         </ion-title>
       </ion-toolbar>
     </ion-header>
@@ -37,17 +37,17 @@
                   <!--fotos y boton para valorae-->
                   <div class="col">
                     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                      <mdb-carousel-item *ngIf="medicoVirus.medico.archivoFoto">
-                        <img [src]="medicoVirus.medico.archivoFoto" alt="imagen del consultorio" height="200px">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.archivoFoto">
+                        <img class="cover" [src]="medicoVirus.medico.archivoFoto" alt="imagen del consultorio" height="200px">
                       </mdb-carousel-item>
-                      <mdb-carousel-item *ngIf="medicoVirus.medico.archivoFoto === null || medicoVirus.medico.archivoFoto === undefined">
-                        <img  src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.archivoFoto === null || medicoVirus.medico.archivoFoto === undefined">
+                        <img class="cover" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
                       </mdb-carousel-item>
-                      <mdb-carousel-item *ngIf="medicoVirus.medico.usuario.archivoFoto">
-                        <img [src]="medicoVirus.medico.usuario.archivoFoto" alt="imagen del consultorio" height="200px">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario.archivoFoto">
+                        <img class="cover" [src]="medicoVirus.medico.usuario.archivoFoto" alt="imagen del consultorio" height="200px">
                       </mdb-carousel-item>
-                      <mdb-carousel-item *ngIf="medicoVirus.medico.usuario.archivoFoto === null || medicoVirus.medico.usuario.archivoFoto === undefined">
-                        <img  src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario.archivoFoto === null || medicoVirus.medico.usuario.archivoFoto === undefined">
+                        <img class="cover" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
                       </mdb-carousel-item>
                     </mdb-carousel>
                     <div class="btn btn-info d-inline-block text-white mt-2 w-100" (click)="localMedVirus = medicoVirus; modalEvaluarMedico.show(); redireccion();" type="submit">

@@ -262,6 +262,7 @@ export class MiConsultorioComponent implements OnInit {
         if (this.validateAll() === false) { return; }
         delete this.consultorio.mimetypeFoto;
         delete this.consultorio.archivoFoto;
+        this.consultorio.estatus = _Medico.Estatus.EN_ESPERA;
         this.sidvi.medico.actualizarMedico(this.consultorio.idMedico, this.consultorio)
         .subscribe( res => {
             if (res.type === _APIResponse.TypeEnum.SUCCESS) {

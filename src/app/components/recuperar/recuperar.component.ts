@@ -11,13 +11,16 @@ import Swal from 'sweetalert2';
 export class RecuperarComponent implements OnInit {
 
   usuario: string;
-
+  
   constructor(private sidvi: SIDVIServices, private router: Router) {
   }
 
   ngOnInit() { }
 
   enviarCorreo() {
+    if (this.usuario.length <= 0) {
+      return;
+    }
     this.sidvi.usuario.recuperacion(this.usuario).subscribe(
       res => {
 
@@ -31,6 +34,7 @@ export class RecuperarComponent implements OnInit {
         console.error(error);
       }
     );
+  
   }
 
 }

@@ -54,6 +54,7 @@ export class MedicoVirusListComponent implements OnInit {
         this.yaEvaluo = false;
         this.acumValoracion = 0;
         this.promedioValoracion = 0;
+        this.virus = new Virus();
 
     }
 
@@ -141,7 +142,7 @@ export class MedicoVirusListComponent implements OnInit {
     }
 
     obtenerVirus(id: number) {
-        this.sidvi.virus.obtenerVirus(id).subscribe(v => { this.virus = v; });
+        this.sidvi.virus.obtenerVirus(id).subscribe(v => { this.virus = new Virus(v); });
     }
 
     evaluarMedico(valor: number) {

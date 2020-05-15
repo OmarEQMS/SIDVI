@@ -13,9 +13,14 @@ export class RestablecerComponent implements OnInit {
   usuario: string;
   token: string;
   contrasena: string;
-  contrasena2: string;
+  contrasenaCopy: string;
+  coinciden: boolean;
 
-  constructor(private sidvi: SIDVIServices, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private sidvi: SIDVIServices, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.contrasena = '';
+    this.contrasenaCopy = '';
+    this.coinciden = true;
+   }
 
   ngOnInit() { }
 
@@ -26,7 +31,11 @@ export class RestablecerComponent implements OnInit {
 
   restablecer() {
 
-    // TODO: Validar que las contraseñas coincidan
+    // Validar que las contraseñas coincidan
+    if (this.contrasena !== this.contrasenaCopy || this.contrasena === '') {
+        this.coinciden = false;
+        return;
+    }
 
     this.sidvi.usuario.restablecer(this.token, this.usuario, this.contrasena).subscribe(
       res => {

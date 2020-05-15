@@ -8,11 +8,8 @@
   }
   
   .pagina {
-    background-image: url("../../../assets/images/LoginBackground.jpg");
-  
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  
+    background-image: url("../../../assets/images/bg2.jpg");
+
     height: 100vh;
   
     background-position: center;
@@ -47,8 +44,8 @@
       height: 100%;
       max-height: 350px;
       
-      background-color: rgba(230, 230, 230, 0.6); /* Black w/opacity/see-through */
-      
+      background-color: ghostwhite; /* Black w/opacity/see-through */
+          
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -72,5 +69,9 @@
       width: 100%; 
       font-size: 11px; 
       
-      --background-hover: rgb(0,0,0,0);
+    color: black;
   }
+  .feedback{
+    color:red;
+    font-size: smaller;
+}

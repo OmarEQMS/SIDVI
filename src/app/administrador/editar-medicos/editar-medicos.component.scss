@@ -1,6 +1,10 @@
 ion-header{
     --ion-background-color: rgb(23, 82, 107);
 }
+.scroll{
+    max-height: 345px;
+    overflow-y: scroll;
+}
 .textHeader{
     color: white;
 }

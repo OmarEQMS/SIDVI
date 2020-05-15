@@ -17,12 +17,15 @@ import { MDBModalRef } from 'angular-bootstrap-md';
 })
 export class EditarTestComponent implements OnInit {
   @ViewChild('modalEditarOpcion', null) modalEditarOpcion: MDBModalRef;
+  @ViewChild('modalEliminarTestOpcion', null) modalEliminarTestOpcion: MDBModalRef;
+  @ViewChild('modalAgregarOpcion', null) modalAgregarOpcion: MDBModalRef;
 
   testNodo: TestNodo;
+  newTestNodo: TestNodo;
   localOpcion: TestOpcion;
   testNodos: TestNodo[];
-  nuevaOpcionTexto: string;
-
+  newLocalOpcion: TestOpcion;
+  nuevaOpcion: TestOpcion;
 
   icons: { [id: string]: IconDefinition } = {
     zoomIn: faSearchPlus,
@@ -37,12 +40,35 @@ export class EditarTestComponent implements OnInit {
     private router: Router
   ) {
     this.testNodo = new TestNodo();
+    this.newTestNodo = new TestNodo();
     this.localOpcion = new TestOpcion();
+    this.newLocalOpcion = new TestOpcion();
+    this.nuevaOpcion = new TestOpcion();
+
   }
 
   ngOnInit() { }
   ionViewWillEnter() {
     this.listarTestNodos();
+    this.listarTestOpciones();
+  }
+
+  onPlayerReady(api: VgAPI) {
+    this.testNodo.archivoVideoAPI = api;
+    this.testNodo.archivoVideoAPI.getDefaultMedia().subscriptions.ended.subscribe(
+      () => {
+        this.testNodo.archivoVideoAPI.getDefaultMedia().currentTime = 0;
+      }
+    );
+  }
+  pdfZoomIn() {
+    this.testNodo.archivoPdfZoom += 0.1;
+  }
+  pdfZoomOut() {
+    this.testNodo.archivoPdfZoom -= 0.1;
+  }
+
+  listarTestOpciones() {
     this.testNodo = new TestNodo();
     this.testNodo.idTestNodo = parseInt(this.activatedRoute.snapshot.paramMap.get('idTestNodo'), 10);
     this.sidvi.testNodo.obtenerTestNodo(this.testNodo.idTestNodo).subscribe(
@@ -72,22 +98,6 @@ export class EditarTestComponent implements OnInit {
           });
       });
   }
-
-  onPlayerReady(api: VgAPI) {
-    this.testNodo.archivoVideoAPI = api;
-    this.testNodo.archivoVideoAPI.getDefaultMedia().subscriptions.ended.subscribe(
-      () => {
-        this.testNodo.archivoVideoAPI.getDefaultMedia().currentTime = 0;
-      }
-    );
-  }
-  pdfZoomIn() {
-    this.testNodo.archivoPdfZoom += 0.1;
-  }
-  pdfZoomOut() {
-    this.testNodo.archivoPdfZoom -= 0.1;
-  }
-
   listarTestNodos() {
     this.sidvi.testNodo.listarTestNodos().subscribe(
       res => {
@@ -106,9 +116,15 @@ export class EditarTestComponent implements OnInit {
 
     this.sidvi.testOpcion.actualizarTestOpcion(this.localOpcion.idTestOpcion,
       this.localOpcion).subscribe(
-        res => {
-          console.log(res);
+        async res => {
+          // Checar si se subio un doc
+          if (this.localOpcion.localFile != null) {
+            await this.actualizarTestOpcionArchivo(this.localOpcion);
+            this.localOpcion.localFile = null;
+            this.localOpcion.localFileName = 'Choose file';
+          }
           this.modalEditarOpcion.hide();
+          this.listarTestOpciones();
           Swal.fire({ title: 'La Opción se actualizó con éxito', icon: 'success', backdrop: false });
         },
         err => {
@@ -116,6 +132,91 @@ export class EditarTestComponent implements OnInit {
           Swal.fire({ title: 'La Opción no se pudo actualizar con éxito', icon: 'error', backdrop: false });
         }
       );
+
   }
+
+  handleFileInput(testOpcion: TestOpcion, files: FileList) {
+    if (files[0] != null) {
+      testOpcion.localFile = files;
+      testOpcion.localFileName = files[0].name;
+    }
+  }
+
+  async actualizarTestOpcionArchivo(testOpcion: TestOpcion) {
+    await this.sidvi.testOpcion.cargarTestOpcionArchivo(testOpcion.idTestOpcion, testOpcion.localFile[0]).toPromise();
+    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false });
+
+  }
+
+  eliminarTestOpcion() {
+    this.sidvi.testOpcion.eliminarTestOpcion(this.localOpcion.idTestOpcion).subscribe(
+      res => {
+        console.log(res);
+        this.modalEliminarTestOpcion.hide();
+        Swal.fire({ title: 'La Opción se eliminó con éxito', icon: 'success', backdrop: false });
+        this.listarTestOpciones();
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La Opción no se pudo eliminar con éxito', icon: 'error', backdrop: false });
+
+      }
+    );
+  }
+
+  // TestNodo edicion
+
+
+  async actualizarTestNodoArchivo(testNodo: TestNodo) {
+    await this.sidvi.testNodo.cargarTestNodoArchivo(testNodo.idTestNodo, testNodo.localFile[0]).toPromise();
+    Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false });
+
+  }
+
+  handleFileInputNodo(testNodo: TestNodo, files: FileList) {
+    if (files[0] != null) {
+      testNodo.localFile = files;
+      testNodo.localFileName = files[0].name;
+    }
+  }
+
+  actualizarTestNodo() {
+    this.sidvi.testNodo.actualizarTestNodo(this.testNodo.idTestNodo,
+      this.testNodo).subscribe(
+        async res => {
+          // Checar si se subio un doc
+          if (this.testNodo.localFile != null) {
+            await this.actualizarTestNodoArchivo(this.testNodo);
+            this.testNodo.localFile = null;
+            this.testNodo.localFileName = 'Choose file';
+            this.listarTestOpciones();
+          }
+          Swal.fire({ title: 'La Pregunta se actualizó con éxito', icon: 'success', backdrop: false });
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Pregunta no se pudo actualizar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+
+  }
+
+  agregarOpcion() {
+    this.nuevaOpcion.fkTestNodo = this.testNodo.idTestNodo;
+    this.sidvi.testOpcion.crearTestOpcion(this.nuevaOpcion).subscribe(
+      res => {
+        console.log(res);
+        this.modalAgregarOpcion.hide();
+        Swal.fire({ title: 'La Opción se creó con éxito', icon: 'success', backdrop: false });
+        this.listarTestNodos();
+        this.listarTestOpciones();
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La Opción no se pudo registrar con éxito', icon: 'error', backdrop: false });
+      }
+    );
+  }
+
 
 }

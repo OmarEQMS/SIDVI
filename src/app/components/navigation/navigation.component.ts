@@ -11,26 +11,28 @@ import { SIDVIServices } from 'src/api';
 export class NavigationComponent implements OnInit {
 
   rout: string;
-  haySesion: boolean = false;
+  haySesion = false;
   rol: _Usuario.Rol;
   constructor(private router: Router, private sidvi: SIDVIServices) {
-    this.rol = this.sidvi.manager.usuario.rol;
+
+    if (this.sidvi.manager.usuario != null) {
+      this.haySesion = true;
+      this.rol = this.sidvi.manager.usuario.rol;
+    } else {
+      this.haySesion = false;
+    }
+
     console.log('cons ' + this.haySesion);
   }
 
   ngOnInit(): void {
     this.rout = localStorage.getItem('rout');
-    if ( this.sidvi.manager.usuario !== null) {
-      this.haySesion = true;
-    } else {
-      this.haySesion = false;
-    }
     console.log('cons ' + this.haySesion);
-
   }
 
   logout() {
-    localStorage.clear();
+    this.sidvi.manager.unsetItems();
+    this.sidvi.usuario.cerrarSesion().subscribe();
     this.haySesion = false;
     this.router.navigate(['./login']);
   }
@@ -38,12 +40,12 @@ export class NavigationComponent implements OnInit {
   miPerfil() {
     if (this.rol === _Usuario.Rol.ADMINISTRADOR) {
       this.router.navigate(['./administrador/perfil']);
-    } else {
+    } else if (this.rol === _Usuario.Rol.USUARIO) {
       this.router.navigate(['./perfil']);
     }
   }
-  verOpciones(){
-    console.log("opciones");
+  verOpciones() {
+    console.log('opciones');
     console.log(this.haySesion);
   }
 }

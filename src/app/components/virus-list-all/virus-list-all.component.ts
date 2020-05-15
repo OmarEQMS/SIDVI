@@ -14,8 +14,8 @@ export class VirusListAllComponent implements OnInit {
     viruss: Virus[];
     rol: _Usuario.Rol;
 
-    constructor(private sidvi: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) { 
-        this.rol = this.sidvi.manager.usuario.rol;
+    constructor(private sidvi: SIDVIServices, private router: Router, private sanitizer: DomSanitizer) {
+        this.rol = this.sidvi.manager.usuario != null ? this.sidvi.manager.usuario.rol : null;
     }
 
     ngOnInit() {
@@ -43,7 +43,7 @@ export class VirusListAllComponent implements OnInit {
 
     registrarConsultorio() {
         // Revisar si el usuario ya inicio sesion
-        if (this.sidvi.manager.tokenUsuario && this.rol !== _Usuario.Rol.ADMINISTRADOR) {
+        if (this.sidvi.manager.tokenUsuario && this.rol === _Usuario.Rol.USUARIO) {
             this.router.navigate(['/mi-consultorio']);
         } else if (this.sidvi.manager.tokenUsuario && this.rol === _Usuario.Rol.ADMINISTRADOR) {
             this.openAlert();

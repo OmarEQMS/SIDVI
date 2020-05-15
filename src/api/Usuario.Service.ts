@@ -45,7 +45,7 @@ export class UsuarioService {
         );
     }
 
-    public cerrarSesion(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public cerrarSesion(): Observable<any> {
         // Headers
         let headers = this.defaultHeaders;
         if (this.manager.tokenUsuario) {

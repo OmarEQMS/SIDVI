@@ -122,9 +122,8 @@ export class EstadisticaComponent implements OnInit {
 
     agregarGrafica() {
         const grafica = new GraficaEstadistica(this.idVirus, this.graficasEstadisticas.length);
-        grafica.ubicacion = new Ubicacion();
+        grafica.ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas.push(grafica);
-
     }
 
     editarGrafica(grafica: GraficaEstadistica) {

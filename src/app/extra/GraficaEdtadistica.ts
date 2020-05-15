@@ -31,6 +31,8 @@ export class GraficaEstadistica {
     // Data
     categoriaEstadistica: CategoriaEstadistica;
 
+    resultado: boolean;
+
     // Grafica
     identificador: number;
     nombre: string;
@@ -81,6 +83,8 @@ export class GraficaEstadistica {
         this.tipoGrafica = '-1';
         this.idVirus = idVirus;
         this.identificador = identificador;
+
+        this.resultado = false;
     }
 
     filtrarEstadisticas(sidvi: SIDVIServices) {
@@ -212,8 +216,10 @@ export class GraficaEstadistica {
                     }
                     this.setEstadisticasUbicaciones();
                     this.setDataChart();
+                    this.resultado = true;
                 } else {
                     this.unsetDataChart();
+                    this.resultado = false;
                 }
                 console.log(this.categoriaEstadistica);
         });

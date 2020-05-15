@@ -14,6 +14,8 @@ export class EditarAdministradoresComponent implements OnInit {
 
   administradores: Usuario[];
   administradorModal: Usuario = new Usuario();
+  editar: boolean;
+  contrasena: string;
 
   constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) { }
 
@@ -35,8 +37,16 @@ export class EditarAdministradoresComponent implements OnInit {
     });
   }
 
-  detallesModal(administrador: Usuario) {
-    this.administradorModal = new Usuario(administrador);
+  detallesModal(administrador?: Usuario) {
+    if (administrador != null) {
+      this.administradorModal = new Usuario(administrador);
+      this.editar = true;
+    } else {
+      this.administradorModal = new Usuario();
+      this.administradorModal.rol = _Usuario.Rol.ADMINISTRADOR;
+      this.editar = false;
+      this.contrasena = '';
+    }
   }
 
   handleFileInput(files: FileList) {
@@ -55,13 +65,12 @@ export class EditarAdministradoresComponent implements OnInit {
       res => {
         // Checar si se subió un doc
         if (this.administradorModal.localFile != null) {
-          this.actualizarUsuarioImagen();
+          this.actualizarUsuarioImagen('actualizado');
           return;
         }
 
         Swal.fire({ title: '¡Listo!', text: 'Administrador actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
           if (result.value) {
-            console.log('AQUÍ');
             this.listarAdministradores();
           }
         });
@@ -70,10 +79,38 @@ export class EditarAdministradoresComponent implements OnInit {
     );
   }
 
-  actualizarUsuarioImagen() {
+  guardarAdmin() {
+    delete this.administradorModal.archivoFoto;
+    delete this.administradorModal.mimetypeFoto;
+
+    if (this.administradorModal.contrasena !== this.contrasena) {
+      console.error('Las contraseñas no coinciden');
+    }
+
+    this.sidvi.usuario.crearUsuario(this.administradorModal).subscribe(
+      res => {
+        this.administradorModal.idUsuario = res.idUsuario;
+
+        // Checar si se subió un doc
+        /*if (this.administradorModal.localFile != null) {
+          this.actualizarUsuarioImagen('creado');
+          return;
+        }*/
+
+        Swal.fire({ title: '¡Listo!', text: 'Administrador creado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+          if (result.value) {
+            this.listarAdministradores();
+          }
+        });
+      },
+      error => console.error(error)
+      );
+  }
+
+  actualizarUsuarioImagen(verbo: string) {
     this.sidvi.usuario.cargarUsuarioFoto(this.administradorModal.idUsuario, this.administradorModal.localFile[0]).subscribe(
       res => {
-        Swal.fire({ title: '¡Listo!', text: 'Administrador actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
+        Swal.fire({ title: '¡Listo!', text: 'Administrador ' + verbo + ' correctamente', icon: 'success', heightAuto: false }).then((result) => {
           if (result.value) {
             this.listarAdministradores();
           }

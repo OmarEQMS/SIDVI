@@ -67,8 +67,8 @@ export class Usuario implements IUsuario {
             this.mimetypeFoto = usuario.mimetypeFoto;
             this.archivoFoto = usuario.archivoFoto;
             this.rol = usuario.rol;
-            this.localFileName = 'Selecciona una imagen';
         }
+        this.localFileName = 'Selecciona una imagen';
     }
 
     // ToObjectDB

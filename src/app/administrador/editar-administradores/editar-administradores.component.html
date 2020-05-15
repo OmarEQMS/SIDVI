@@ -11,6 +11,19 @@
 
 <ion-content>
   <div class='page-content'>
+
+    <!--title-->
+    <div class="table-title">
+      <div class="table-title2">
+        <p>LISTA DE ADMINISTRADORES</p>
+      </div>
+      <div class="btn-mas">
+        <div class="btn btn-info d-inline-block text-white" (click)="basicModal.show(); detallesModal();">
+          Agregar
+        </div>
+      </div>
+    </div>
+
     <div class="table-content">
       <table mdbTable class="z-depth-1" striped="true">
         <thead class="black white-text">
@@ -65,7 +78,7 @@
               <span aria-hidden="true">×</span>
             </button>
             <div>
-              <h2>Editar Usuario "{{administradorModal.nombreCompleto}}"</h2>
+              <h2>Editar Usuario</h2>
             </div>
           </div>
         </div>
@@ -75,7 +88,7 @@
         <!--Image display-->
         <div class='label-input'>
           <label>Imagen</label>
-          <div class="image-div">
+          <div class="image-div" *ngIf="editar">
             <img *ngIf="administradorModal.archivoFoto != null" [src]="administradorModal.archivoFoto"
               alt="imagen de virus" class="imagen-icono">
             <img *ngIf="administradorModal.archivoFoto == null" src="../../../assets/images/no-imagen.jpg"
@@ -89,24 +102,40 @@
         </div>
         <div class='label-input'>
           <label>Nombre</label>
-          <input mdbInput type="text" class="form-control" value="{{administradorModal.nombreCompleto}}" [(ngModel)]="administradorModal.nombreCompleto">
+          <input mdbInput type="text" class="form-control" value="{{administradorModal.nombreCompleto}}"
+            placeholder="Nombre..." [(ngModel)]="administradorModal.nombreCompleto">
         </div>
         <div class='label-input'>
           <label>Usuario</label>
-          <input mdbInput type="text" class="form-control" value="{{administradorModal.usuario}}" [(ngModel)]="administradorModal.usuario">
+          <input mdbInput type="text" class="form-control" value="{{administradorModal.usuario}}"
+            placeholder="Usuario..." [(ngModel)]="administradorModal.usuario">
         </div>
         <div class='label-input'>
           <label>Correo</label>
-          <input mdbInput type="text" class="form-control" value="{{administradorModal.correo}}" [(ngModel)]="administradorModal.correo">
+          <input mdbInput type="text" class="form-control" value="{{administradorModal.correo}}" placeholder="Correo..."
+            [(ngModel)]="administradorModal.correo">
         </div>
         <div class='label-input'>
           <label>Celular</label>
-          <input mdbInput type="text" class="form-control" value="{{administradorModal.celular}}" [(ngModel)]="administradorModal.celular">
+          <input mdbInput type="text" class="form-control" value="{{administradorModal.celular}}"
+            placeholder="Contraseña..." [(ngModel)]="administradorModal.celular">
+        </div>
+        <div class='label-input' *ngIf="!editar">
+          <label>Contraseña</label>
+          <input mdbInput type="password" class="form-control" value="{{administradorModal.contrasena}}"
+            placeholder="Contraseña..." [(ngModel)]="administradorModal.contrasena">
+        </div>
+        <div class='label-input' *ngIf="!editar">
+          <label>Confirmar contraseña</label>
+          <input mdbInput type="password" class="form-control" value="{{contrasena}}"
+            placeholder="Celular..." [(ngModel)]="contrasena">
         </div>
 
         <div class=" modal-footer">
-          <button type="submit" mdbBtn color="success" (click)="basicModal.hide(); editarAdmin()" class="relative waves-light"
-            mdbWavesEffect>Guardar cambios</button>
+          <button type="submit" mdbBtn color="success" *ngIf="editar" (click)="basicModal.hide(); editarAdmin()"
+            class="relative waves-light" mdbWavesEffect>Guardar cambios</button>
+          <button type="submit" mdbBtn color="success" *ngIf="!editar" (click)="basicModal.hide(); guardarAdmin()"
+            class="relative waves-light" mdbWavesEffect>Guardar</button>
         </div>
       </div>
     </div>

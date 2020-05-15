@@ -18,9 +18,14 @@
       </button>
       <div class='card mt-2 mb-2'>
         <div class='card-header bg-dark text-white'>
-          <div class='d-inline-block titulo-contenido'>{{testNodo.texto}}</div>
+          <div class="form-group">
+            <label for="nuevoTexto">Cambiar texto</label>
+            <input [(ngModel)]="newTestNodo.texto" class="form-control" type="text" id="nuevoTexto"
+              value={{testNodo.texto}} (change)="testNodo.texto = newTestNodo.texto;">
+          </div>
+
         </div>
-        <div class='card-body'>
+        <div class='card-body '>
           <div class='d-flex justify-content-center mb-3 mt-1' *ngIf="testNodo.archivoImg!=null">
             <img class='img-contenido' [src]="testNodo.archivoImg">
           </div>
@@ -54,9 +59,38 @@
               <fa-icon class='btn-zoom d-block' [icon]="icons.zoomIn" (click)="pdfZoomIn()"></fa-icon>
             </div>
           </div>
-          <span class='contenido-descripcion pt-3 pb-2'>{{testNodo.descripcion}}</span>
+
+          <div class="form-group">
+            <label>Cambiar Archivo</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile02"
+                aria-describedby="inputGroupFileAddon02" (change)="handleFileInputNodo(testNodo, $event.target.files)">
+              <label class="custom-file-label" for="inputGroupFile01">{{testNodo.localFileName}}</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nuevaDescripcion">Cambiar descripción</label>
+            <input [(ngModel)]="newTestNodo.descripcion" class="form-control" type="text" id="nuevaDescripcion"
+              value={{testNodo.descripcion}} (change)="testNodo.descripcion = newTestNodo.descripcion;">
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <a class="anchoBoton d-flex justify-content-center btn btn-success blanco" (click)="actualizarTestNodo();">
+              Guardar
+              cambios </a>
+          </div>
         </div>
+
+
+
+
       </div>
+
+      <a class="btn btn-info blanco d-flex justify-content-center anchoBoton"
+        (click)="modalAgregarOpcion.show();">
+        Agregar opción </a>
+
 
       <div class='contenedor-opcion'>
         <div class='card m-2 opcion' *ngFor="let opcion of testNodo.testOpciones">
@@ -73,6 +107,9 @@
                 (click)="localOpcion=opcion; modalEditarOpcion.show();">
                 Editar
               </a>
+              <a class="btn btn-danger blanco d-flex justify-content-center"
+                (click)="localOpcion = opcion; modalEliminarTestOpcion.show();">
+                Eliminar </a>
             </div>
           </div>
         </div>
@@ -86,9 +123,12 @@
       <span class='mb-3'>&nbsp;</span>
     </div>
   </div>
+
+
+
 </ion-content>
 
-<!-- Modal Eliminar Ubicacion -->
+<!-- Modal Editar Opcion -->
 <div mdbModal #modalEditarOpcion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
   [config]="{backdrop: false, ignoreBackdropClick: true}">
   <div class='modal-dialog' role='document'>
@@ -101,23 +141,88 @@
       </div>
       <div class='modal-body pl-3 pr-3 pb-3'>
         <div class="form-group">
-          <label for="nuevoTexto">Nuevo texto</label>
-          <input [(ngModel)]="nuevaOpcionTexto" class="form-control" type="text" id="nuevoTexto"
-            placeholder={{localOpcion.texto}}>
-          <label class="mt-2" for="sigPregunta">Siguiente pregunta</label>
-          <div class='form-group'>
-            <select id='sigPregunta' class='form-control' [(ngModel)]="localOpcion.fkTestNodoSig">
-              <option disabled selected [value]="null">SELECCIONA LA SIGUIENTE PREGUNTA</option>
-              <option *ngFor="let testNodo of testNodos" [value]="testNodo.idTestNodo">{{testNodo.texto}}</option>
-            </select>
-          </div>
-
+          <label for="nuevoTexto">Cambiar texto</label>
+          <input [(ngModel)]="newLocalOpcion.texto" class="form-control" type="text" id="nuevoTexto"
+            value={{localOpcion.texto}} (change)="localOpcion.texto = newLocalOpcion.texto;">
         </div>
+
+        <div class="form-group">
+          <label for="nuevoTexto">Cambiar descripcion</label>
+          <input [(ngModel)]="newLocalOpcion.descripcion" class="form-control" type="text" id="nuevoTexto"
+            value={{localOpcion.descripcion}} (change)="localOpcion.descripcion = newLocalOpcion.descripcion;">
+        </div>
+
+        <div class="form-group">
+          <label class="mt-2" for="sigPregunta">Siguiente pregunta</label>
+          <select id='sigPregunta' class='form-control' [(ngModel)]="localOpcion.fkTestNodoSig">
+            <option disabled selected [value]="null">SELECCIONA LA SIGUIENTE PREGUNTA</option>
+            <option *ngFor="let testNodo of testNodos" [value]="testNodo.idTestNodo">{{testNodo.texto}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Archivo</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
+              (change)="handleFileInput(localOpcion, $event.target.files)">
+            <label class="custom-file-label" for="inputGroupFile01">{{localOpcion.localFileName}}</label>
+          </div>
+        </div>
+
       </div>
       <div class='modal-footer d-flex justify-content-center'>
-        <a class="d-flex justify-content-center btn btn-success blanco ml-4"
-          (click)="localOpcion.texto=nuevaOpcionTexto; actualizarTestOpcion();"> Guardar cambios </a>
+        <a class="d-flex justify-content-center btn btn-success blanco ml-4" (click)="actualizarTestOpcion();"> Guardar
+          cambios </a>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal Eliminar Opción -->
+<div mdbModal #modalEliminarTestOpcion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <span class='modal-title tamanoTitulo'>¿Está seguro que desea eliminar {{localOpcion.texto}}?</span>
+        <button type='button' class='close pull-right' aria-label='Close' (click)="modalEliminarTestOpcion.hide()">
+          <span aria-hidden='true'>×</span>
+        </button>
+      </div>
+      <div class='modal-body pl-3 pr-3 pb-3 d-flex justify-content-center'>
+        <a class="btn btn-danger ml-4 blanco" (click)="eliminarTestOpcion();"> Eliminar </a>
+        <a class="btn btn-success ml-4 blanco" (click)="modalEliminarTestOpcion.hide()"> Cancelar </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal Agregar Opcion -->
+  <div mdbModal #modalAgregarOpcion="mdbModal" class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'
+    [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <span class='modal-title tamanoTitulo'>Agregar Opción</span>
+          <button type='button' class='close pull-right' aria-label='Close' (click)="modalAgregarOpcion.hide()">
+            <span aria-hidden='true'>×</span>
+          </button>
+        </div>
+        <div class='modal-body pl-3 pr-3 pb-3'>
+          <div class="form-group">
+            <label for="texto">Texto </label>
+              <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaOpcion.texto" type="text"
+              id="texto" placeholder="nombre">
+              <label for="descripcion" class="mt-2">Descripción </label>
+              <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaOpcion.descripcion" type="text"
+              id="descripcion" placeholder="Descripción">
+          </div>  
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <a class="d-flex justify-content-center btn btn-success ml-4 blanco" (click)=agregarOpcion();> Agregar
+            Opción </a>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -142,7 +142,7 @@ export class EditarInformacionComponent implements OnInit {
     actualizarInformacionArchivo(informacion: Informacion) {
         this.sidvi.informacion.cargarInformacionArchivo(informacion.idInformacion, informacion.localFile[0]).subscribe(
             res => {
-                
+
                 Swal.fire({ title: '¡Listo!', text: 'Bloque actualizado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.listarVirus();

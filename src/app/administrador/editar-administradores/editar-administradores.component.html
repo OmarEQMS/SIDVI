@@ -132,6 +132,8 @@
         </div>
 
         <div class=" modal-footer">
+          <button type="submit" mdbBtn color="primary" *ngIf="editar" (click)="basicModal.hide(); recuperarContrasena()"
+            class="relative waves-light" mdbWavesEffect>Enviar correo de recuperación</button>
           <button type="submit" mdbBtn color="success" *ngIf="editar" (click)="basicModal.hide(); editarAdmin()"
             class="relative waves-light" mdbWavesEffect>Guardar cambios</button>
           <button type="submit" mdbBtn color="success" *ngIf="!editar" (click)="basicModal.hide(); guardarAdmin()"

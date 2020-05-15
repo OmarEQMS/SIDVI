@@ -121,6 +121,17 @@ export class EditarAdministradoresComponent implements OnInit {
     );
   }
 
+  recuperarContrasena() {
+    this.sidvi.usuario.recuperacion(this.administradorModal.usuario).subscribe(
+      res => {
+        Swal.fire({ title: '¡Listo!', text: 'Revisa el correo para poder reestablecer tu contraseña', icon: 'success', heightAuto: false });
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   eliminar(administrador: Usuario) {
     // Mostrar mensaje de confirmación
     Swal.fire({

@@ -30,7 +30,6 @@ export class EditarAdministradoresComponent implements OnInit {
       for (const administrador of this.administradores) {
         // Obtener imagen
         if (Defaults.allowBase64Types.includes(this.administradorModal.mimetypeFoto)) {
-          console.log('ENTRA');
           this.administradorModal.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(this.administradorModal.archivoFoto as string);
         }
       }
@@ -92,10 +91,10 @@ export class EditarAdministradoresComponent implements OnInit {
         this.administradorModal.idUsuario = res.idUsuario;
 
         // Checar si se subió un doc
-        /*if (this.administradorModal.localFile != null) {
+        if (this.administradorModal.localFile != null) {
           this.actualizarUsuarioImagen('creado');
           return;
-        }*/
+        }
 
         Swal.fire({ title: '¡Listo!', text: 'Administrador creado correctamente', icon: 'success', heightAuto: false }).then((result) => {
           if (result.value) {

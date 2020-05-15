@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Usuario, _Usuario } from 'src/models';
 import { SIDVIServices, Defaults } from 'src/api';
 import Swal from 'sweetalert2';
 import { _APIResponse } from 'src/api/APIResponse';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalContainerComponent } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -12,10 +13,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class EditarUsuarioComponent implements OnInit {
 
+  @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
   usuarios: Usuario[];
   usuarioModal: Usuario = new Usuario();
   editar: boolean;
   contrasena: string;
+  validacionUsuario: boolean;
+  validacionContrasena: boolean;
 
   constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) { }
 
@@ -56,7 +60,17 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   editarUsuario() {
-    console.log(this.usuarioModal);
+
+    if (this.usuarioModal.nombreCompleto === '' || this.usuarioModal.nombreCompleto == null ||
+      this.usuarioModal.usuario === '' || this.usuarioModal.usuario == null ||
+      this.usuarioModal.correo === '' || this.usuarioModal.correo == null ||
+      this.usuarioModal.celular === '' || this.usuarioModal.celular == null) {
+      this.validacionUsuario = true;
+      return;
+    }
+    this.validacionUsuario = false;
+    this.basicModal.hide();
+
     delete this.usuarioModal.archivoFoto;
     delete this.usuarioModal.mimetypeFoto;
 
@@ -82,9 +96,23 @@ export class EditarUsuarioComponent implements OnInit {
     delete this.usuarioModal.archivoFoto;
     delete this.usuarioModal.mimetypeFoto;
 
+
     if (this.usuarioModal.contrasena !== this.contrasena) {
-      console.error('Las contraseñas no coinciden');
+      this.validacionContrasena = true;
+      return;
     }
+    this.validacionContrasena = false;
+
+    if (this.usuarioModal.nombreCompleto === '' || this.usuarioModal.nombreCompleto == null ||
+      this.usuarioModal.usuario === '' || this.usuarioModal.usuario == null ||
+      this.usuarioModal.correo === '' || this.usuarioModal.correo == null ||
+      this.usuarioModal.celular === '' || this.usuarioModal.celular == null ||
+      this.usuarioModal.contrasena === '' || this.usuarioModal.contrasena == null) {
+      this.validacionUsuario = true;
+      return;
+    }
+    this.validacionUsuario = false;
+    this.basicModal.hide();
 
     this.sidvi.usuario.crearUsuario(this.usuarioModal).subscribe(
       res => {
@@ -124,6 +152,8 @@ export class EditarUsuarioComponent implements OnInit {
   recuperarContrasena() {
     this.sidvi.usuario.recuperacion(this.usuarioModal.usuario).subscribe(
       res => {
+        this.validacionUsuario = false;
+        this.basicModal.hide();
         Swal.fire({ title: '¡Listo!', text: 'Revisa el correo para poder reestablecer tu contraseña', icon: 'success', heightAuto: false });
       },
       error => {

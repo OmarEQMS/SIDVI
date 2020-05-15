@@ -118,7 +118,7 @@
         <div class='label-input'>
           <label>Celular</label>
           <input mdbInput type="text" class="form-control" value="{{usuarioModal.celular}}"
-            placeholder="Contraseña..." [(ngModel)]="usuarioModal.celular">
+            placeholder="Celular..." [(ngModel)]="usuarioModal.celular">
         </div>
         <div class='label-input' *ngIf="!editar">
           <label>Contraseña</label>
@@ -128,15 +128,21 @@
         <div class='label-input' *ngIf="!editar">
           <label>Confirmar contraseña</label>
           <input mdbInput type="password" class="form-control" value="{{contrasena}}"
-            placeholder="Celular..." [(ngModel)]="contrasena">
+            placeholder="Contraseña..." [(ngModel)]="contrasena">
+        </div>
+        <div class="feedback" *ngIf="validacionContrasena">
+          Las contraseñas no coinciden
+        </div>
+        <div class="feedback" *ngIf="validacionUsuario">
+          Faltan campos por completar
         </div>
 
         <div class=" modal-footer">
-          <button type="submit" mdbBtn color="primary" *ngIf="editar" (click)="basicModal.hide(); recuperarContrasena()"
+          <button type="submit" mdbBtn color="primary" *ngIf="editar" (click)="recuperarContrasena()"
             class="relative waves-light" mdbWavesEffect>Enviar correo de recuperación</button>
-          <button type="submit" mdbBtn color="success" *ngIf="editar" (click)="basicModal.hide(); editarUsuario()"
+          <button type="submit" mdbBtn color="success" *ngIf="editar" (click)="editarUsuario()"
             class="relative waves-light" mdbWavesEffect>Guardar cambios</button>
-          <button type="submit" mdbBtn color="success" *ngIf="!editar" (click)="basicModal.hide(); guardarUsuario()"
+          <button type="submit" mdbBtn color="success" *ngIf="!editar" (click)="guardarUsuario()"
             class="relative waves-light" mdbWavesEffect>Guardar</button>
         </div>
       </div>

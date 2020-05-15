@@ -113,10 +113,6 @@ export class EditarAdministradoresComponent implements OnInit {
     this.validacionAdmin = false;
     this.basicModal.hide();
 
-    if (this.administradorModal.contrasena !== this.contrasena) {
-      console.error('Las contraseñas no coinciden');
-    }
-
     this.sidvi.usuario.crearUsuario(this.administradorModal).subscribe(
       res => {
         this.administradorModal.idUsuario = res.extra.insertedId;

@@ -118,7 +118,7 @@
         <div class='label-input'>
           <label>Celular</label>
           <input mdbInput type="text" class="form-control" value="{{administradorModal.celular}}"
-            placeholder="Contraseña..." [(ngModel)]="administradorModal.celular">
+            placeholder="Celular..." [(ngModel)]="administradorModal.celular">
         </div>
         <div class='label-input' *ngIf="!editar">
           <label>Contraseña</label>
@@ -127,7 +127,7 @@
         </div>
         <div class='label-input' *ngIf="!editar">
           <label>Confirmar contraseña</label>
-          <input mdbInput type="password" class="form-control" value="{{contrasena}}" placeholder="Celular..."
+          <input mdbInput type="password" class="form-control" value="{{contrasena}}" placeholder="Contraseña..."
             [(ngModel)]="contrasena">
         </div>
         <div class="feedback" *ngIf="validacionContrasena">

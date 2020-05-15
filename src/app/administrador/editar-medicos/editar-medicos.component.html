@@ -96,11 +96,11 @@
         </div>
         <div class='label-input'>
           <label>Localidad</label>
-          <input mdbInput type="text" class="form-control" readonly value="POR IMPLEMENTAR">
+          <input mdbInput type="text" class="form-control" readonly value="{{medicoLocalidad}}">
         </div>
         <div class='label-input'>
           <label>Virus que puede tratar</label>
-          <input mdbInput type="text" class="form-control" readonly value="POR IMPLEMENTAR">
+          <input mdbInput type="text" class="form-control" readonly value="{{virusesTratamiento}}">
         </div>
         <div class='label-input'>
           <label>Descripción</label>
@@ -113,9 +113,9 @@
             mdbWavesEffect>Aceptar</button>
           <button *ngIf="medicoModal.estatus == 'DESHABILITADO'" type="submit" mdbBtn color="success"
             (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Habilitar</button>
-          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="warning"
+          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="primary"
             (click)="deshabilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Deshabilitar</button>
-          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="warning"
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="secondary"
             (click)="rechazarConsultorio()" class="relative waves-light" mdbWavesEffect>Rechazar</button>
           <button type="submit" mdbBtn color="danger" (click)="eliminarConsultorio()" class="relative waves-light"
             mdbWavesEffect>Eliminar</button>

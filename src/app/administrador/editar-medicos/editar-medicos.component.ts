@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Medico, _Medico } from 'src/models';
+import { Medico, _Medico, MedicoVirus, Virus } from 'src/models';
 import { SIDVIServices, Defaults } from 'src/api';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalContainerComponent } from 'angular-bootstrap-md';
@@ -14,8 +14,9 @@ export class EditarMedicosComponent implements OnInit {
 
     @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
     medicos: Medico[] = [new Medico()];
-    elements: any = [];
     medicoModal: Medico;
+    virusesTratamiento: string;
+    medicoLocalidad: string;
 
     constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) {
         this.medicoModal = new Medico();
@@ -39,13 +40,53 @@ export class EditarMedicosComponent implements OnInit {
     }
 
     detallesModal(idMedico) {
+        console.log(idMedico);
         this.sidvi.medico.obtenerMedico(idMedico).subscribe(
             medico => {
                 this.medicoModal = new Medico(medico);
-            }, error => {
-                console.error(error);
-            }
+
+                // Obtener imagen del médico
+                if (this.medicoModal.archivoFoto != null) {
+                    this.medicoModal.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(this.medicoModal.archivoFoto as string);
+                }
+
+                // Obtener los virus que trata ese médico
+                this.virusesTratamiento = '';
+                this.sidvi.medicoVirus.listarMedicosVirus(idMedico).subscribe(mv => {
+
+                    if (mv.resultados.length === 0) {
+                        this.virusesTratamiento = 'Ningún virus registrado';
+                    }
+
+                    for (let i = 0; i < mv.resultados.length; i++) {
+                        this.sidvi.virus.obtenerVirus(mv.resultados[i].fkVirus).subscribe(v => {
+                            this.medicoModal.viruss.push(v);
+                            this.virusesTratamiento = this.virusesTratamiento.concat(v.nombre);
+                            if (i < mv.resultados.length - 1) {
+                                this.virusesTratamiento = this.virusesTratamiento.concat(', ');
+                            }
+                        },
+                            error => console.error(error)
+                        );
+                    }
+                },
+                    error => console.error(error)
+                );
+
+                // Obtener la ubicación del médico
+                this.sidvi.ubicacion.obtenerUbicacion(this.medicoModal.idMedico).subscribe(ubicacion => {
+                    this.medicoModal.ubicacion = ubicacion;
+                    this.medicoLocalidad = ubicacion.nombre;
+                },
+                    error => console.error(error)
+                );
+            }, error => console.error(error)
         );
+    }
+
+    habilitarConsultorio() {
+        this.medicoModal.estatus = _Medico.Estatus.HABILITADO;
+        this.actualizarConsultorio('habilitado');
     }
 
     aceptarConsultorio() {

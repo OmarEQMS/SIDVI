@@ -20,8 +20,12 @@ export class EditarAdministradoresComponent implements OnInit {
   contrasena: string;
   validacionAdmin: boolean;
   validacionContrasena: boolean;
+  idUsuario: number;
 
-  constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) { }
+  constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) {
+    this.idUsuario = this.sidvi.manager.usuario.idUsuario;
+    this.administradores = new Array();
+  }
 
   ngOnInit() {
     this.listarAdministradores();
@@ -29,7 +33,11 @@ export class EditarAdministradoresComponent implements OnInit {
 
   listarAdministradores() {
     this.sidvi.usuario.listarUsuarios(undefined, undefined, undefined, undefined, _Usuario.Rol.ADMINISTRADOR).subscribe(administradores => {
-      this.administradores = administradores.resultados.map((item: any) => new Usuario(item));
+      for (const admin of administradores.resultados) {
+        if (admin.idUsuario !== this.idUsuario) {
+          this.administradores.push(new Usuario(admin));
+        }
+      }
 
       for (const administrador of this.administradores) {
         // Obtener imagen

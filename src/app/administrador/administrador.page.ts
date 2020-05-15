@@ -27,6 +27,7 @@ export class AdministradorPage implements OnInit {
         bell: faBell,
         users: faUsers
     };
+    validacionVirus: boolean;
 
     constructor(
         private sidvi: SIDVIServices,
@@ -64,15 +65,15 @@ export class AdministradorPage implements OnInit {
             });
     }
 
-    obtenerUsuario( id: number ) {
+    obtenerUsuario(id: number) {
         this.sidvi.usuario.obtenerUsuario(id)
-        .subscribe(
-          res => {
-            this.usuario = new Usuario(res);
-            this.usuario.localFileName = 'Seleccione una nueva imagen';
-            }, err => { console.log(err); }
-          );
-      }
+            .subscribe(
+                res => {
+                    this.usuario = new Usuario(res);
+                    this.usuario.localFileName = 'Seleccione una nueva imagen';
+                }, err => { console.log(err); }
+            );
+    }
 
     abrirPerfil() {
         this.router.navigate(['./administrador/perfil/']);
@@ -94,7 +95,7 @@ export class AdministradorPage implements OnInit {
     }
 
     abrirTest(virus: Virus) {
-        this.router.navigate(['./administrador/listarPreguntas/' + virus.idVirus ]);
+        this.router.navigate(['./administrador/listarPreguntas/' + virus.idVirus]);
     }
 
     abrirCatalogo(area: string) {
@@ -118,6 +119,13 @@ export class AdministradorPage implements OnInit {
     }
 
     agregarVirus() {
+
+        if (this.newVirus.nombre === '' || this.newVirus.nombre == null || this.newVirus.clave === '' || this.newVirus.clave == null) {
+            this.validacionVirus = true;
+            return;
+        }
+        this.validacionVirus = false;
+
         this.sidvi.virus.crearVirus(this.newVirus).subscribe(
             res => {
                 // Checar si subió un doc
@@ -126,7 +134,6 @@ export class AdministradorPage implements OnInit {
                     return;
                 }
 
-                
                 Swal.fire({ title: '¡Listo!', text: 'Virus agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarListaVirus();
@@ -146,7 +153,7 @@ export class AdministradorPage implements OnInit {
 
         this.sidvi.virus.cargarVirusIcono(idVirus, this.newVirus.localFile[0]).subscribe(
             res => {
-                
+
                 Swal.fire({ title: '¡Listo!', text: 'Virus agregado correctamente', icon: 'success', heightAuto: false }).then((result) => {
                     if (result.value) {
                         this.cargarListaVirus();
@@ -166,6 +173,7 @@ export class AdministradorPage implements OnInit {
         this.newVirus.clave = '';
         this.newVirus.localFileName = 'Choose file';
         this.newVirus.localFile = null;
+        this.validacionVirus = false;
     }
 
     abrirAdministradores() {
@@ -173,7 +181,7 @@ export class AdministradorPage implements OnInit {
     }
 
     abrirUsuarios() {
-        
+
     }
 
 }

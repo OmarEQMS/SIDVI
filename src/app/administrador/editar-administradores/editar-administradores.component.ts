@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SIDVIServices, Defaults } from 'src/api';
 import { _Usuario, Usuario } from 'src/models';
 import Swal from 'sweetalert2';
 import { _APIResponse } from 'src/api/APIResponse';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalContainerComponent } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-editar-administradores',
@@ -12,10 +13,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class EditarAdministradoresComponent implements OnInit {
 
+  @ViewChild('basicModal', { static: true }) basicModal: ModalContainerComponent;
   administradores: Usuario[];
   administradorModal: Usuario = new Usuario();
   editar: boolean;
   contrasena: string;
+  validacionAdmin: boolean;
+  validacionContrasena: boolean;
 
   constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) { }
 
@@ -56,7 +60,17 @@ export class EditarAdministradoresComponent implements OnInit {
   }
 
   editarAdmin() {
-    console.log(this.administradorModal);
+
+    if (this.administradorModal.nombreCompleto === '' || this.administradorModal.nombreCompleto == null ||
+      this.administradorModal.usuario === '' || this.administradorModal.usuario == null ||
+      this.administradorModal.correo === '' || this.administradorModal.correo == null ||
+      this.administradorModal.celular === '' || this.administradorModal.celular == null) {
+      this.validacionAdmin = true;
+      return;
+    }
+    this.validacionAdmin = false;
+    this.basicModal.hide();
+
     delete this.administradorModal.archivoFoto;
     delete this.administradorModal.mimetypeFoto;
 
@@ -83,6 +97,23 @@ export class EditarAdministradoresComponent implements OnInit {
     delete this.administradorModal.mimetypeFoto;
 
     if (this.administradorModal.contrasena !== this.contrasena) {
+      this.validacionContrasena = true;
+      return;
+    }
+    this.validacionContrasena = false;
+
+    if (this.administradorModal.nombreCompleto === '' || this.administradorModal.nombreCompleto == null ||
+      this.administradorModal.usuario === '' || this.administradorModal.usuario == null ||
+      this.administradorModal.correo === '' || this.administradorModal.correo == null ||
+      this.administradorModal.celular === '' || this.administradorModal.celular == null ||
+      this.administradorModal.contrasena === '' || this.administradorModal.contrasena == null) {
+      this.validacionAdmin = true;
+      return;
+    }
+    this.validacionAdmin = false;
+    this.basicModal.hide();
+
+    if (this.administradorModal.contrasena !== this.contrasena) {
       console.error('Las contraseñas no coinciden');
     }
 
@@ -103,7 +134,7 @@ export class EditarAdministradoresComponent implements OnInit {
         });
       },
       error => console.error(error)
-      );
+    );
   }
 
   actualizarUsuarioImagen(verbo: string) {
@@ -124,6 +155,8 @@ export class EditarAdministradoresComponent implements OnInit {
   recuperarContrasena() {
     this.sidvi.usuario.recuperacion(this.administradorModal.usuario).subscribe(
       res => {
+        this.validacionAdmin = false;
+        this.basicModal.hide();
         Swal.fire({ title: '¡Listo!', text: 'Revisa el correo para poder reestablecer tu contraseña', icon: 'success', heightAuto: false });
       },
       error => {

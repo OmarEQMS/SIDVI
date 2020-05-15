@@ -121,7 +121,11 @@ export class EstadisticaComponent implements OnInit {
     }
 
     agregarGrafica() {
-        const grafica = new GraficaEstadistica(this.idVirus, this.graficasEstadisticas.length);
+        let id = 0;
+        if (this.graficasEstadisticas.length > 0) {
+            id = this.graficasEstadisticas[this.graficasEstadisticas.length - 1].identificador + 1;
+        }
+        const grafica = new GraficaEstadistica(this.idVirus, id);
         grafica.ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas.push(grafica);
     }
@@ -131,6 +135,6 @@ export class EstadisticaComponent implements OnInit {
     }
 
     eliminarGrafica(grafica: GraficaEstadistica) {
-        this.graficasEstadisticas.splice(grafica.identificador, 1);
+        this.graficasEstadisticas = this.graficasEstadisticas.filter((item: GraficaEstadistica) => grafica.identificador !== item.identificador);
     }
 }

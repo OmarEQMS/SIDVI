@@ -8,10 +8,7 @@
 }
 
 .pagina {
-  background-image: url("../../../assets/images/LoginBackground.jpg");
-
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
+  background-image: url("../../../assets/images/pills.jpg");
 
   height: 100vh;
 
@@ -40,7 +37,7 @@
     height: 100%;
     max-height: 500px;
     
-    background-color: rgba(230, 230, 230, 0.6); /* Black w/opacity/see-through */
+    background-color: cornsilk; /* Black w/opacity/see-through */
     
     display: flex;
     flex-direction: column;
@@ -65,5 +62,11 @@
     width: 100%; 
     font-size: 11px; 
     
-    --background-hover: rgb(0,0,0,0);
+    color:black;
+}
+
+
+.logo{
+  max-width: 200px;
+  cursor: pointer;
 }

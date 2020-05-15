@@ -26,6 +26,7 @@ export class EditarTestComponent implements OnInit {
   testNodos: TestNodo[];
   newLocalOpcion: TestOpcion;
   nuevaOpcion: TestOpcion;
+  idVirus: number;
 
   icons: { [id: string]: IconDefinition } = {
     zoomIn: faSearchPlus,
@@ -44,6 +45,7 @@ export class EditarTestComponent implements OnInit {
     this.localOpcion = new TestOpcion();
     this.newLocalOpcion = new TestOpcion();
     this.nuevaOpcion = new TestOpcion();
+    this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
 
   }
 
@@ -190,6 +192,7 @@ export class EditarTestComponent implements OnInit {
             this.testNodo.localFile = null;
             this.testNodo.localFileName = 'Choose file';
             this.listarTestOpciones();
+            this.listarTestNodos();
           }
           Swal.fire({ title: 'La Pregunta se actualizó con éxito', icon: 'success', backdrop: false });
         },

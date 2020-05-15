@@ -23,8 +23,11 @@
           </div>
           <div class="card-body">
             <div>
+              <a class="btn btn-success d-inline-block text-white m-1"  (click)="localTestNodo = testNodo; crearNodoRaiz();">
+                Seleccionar como pregunta raíz
+              </a>
               <a class="btn btn-info d-inline-block text-white m-1"
-                routerLink='/administrador/editTest/{{testNodo.idTestNodo}}'>
+                routerLink='/administrador/editTest/{{testNodo.idTestNodo}}/{{virus.idVirus}}'>
                 Editar
               </a>
               <a class="btn btn-danger d-inline-block text-white m-1"  (click)="localTestNodo = testNodo; modalEliminarTestNodo.show();">
@@ -73,7 +76,7 @@
             <label for="texto">Texto </label>
               <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevoTestNodo.texto" type="text"
               id="texto" placeholder="nombre">
-              <label for="descripcion">Descripción </label>
+              <label for="descripcion" class="mt-2">Descripción </label>
               <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevoTestNodo.descripcion" type="text"
               id="descripcion" placeholder="Descripción">
           </div>  

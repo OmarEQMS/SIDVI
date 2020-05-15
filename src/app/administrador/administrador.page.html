@@ -4,35 +4,35 @@
         <ion-content class='sidebar-menu'>
 
             <!-- tarjeta usuario-->
-            <div id='card-usuario'>
+            <div id='card-usuario context-menu'>
                 <div id='user-img' class='d-inline-block'>
                     <img *ngIf="usuario.archivoFoto != null" class='imagen-perfil' [src]="usuario.archivoFoto" alt="imagen de perfil administrador">
                     <img *ngIf="usuario.archivoFoto == null" class='imagen-perfil' src='../../assets/images/user.png' alt="imagen de perfil administrador">
                 </div>
-                <div id='user-data' class='d-inline-block'>
-                    <span id='user-name' class='d-block'>{{usuario.nombreCompleto}}</span>
-                    <span id='user-role' class='d-block'>{{usuario.correo}}</span>
+                <div id='user-data' class='d-inline-block context-menu'>
+                    <span id='user-name' class='d-block context-menu'>{{usuario.nombreCompleto}}</span>
+                    <span id='user-role' class='d-block context-menu'>{{usuario.correo}}</span>
                 </div>
             </div>
 
             <!--lista-->
             <div id="lista" class="flex-column">
+                <!--Ir s SIDVI-->
+                <div class="list-header header-text flex-row center-vertically pointer" style="background-color: #2B94C0;" routerLink="/virus">
+                    <img src="../../assets/icon/icon.png" alt="logo" height="20px" class="mr-2">
+                    <h5 style="color:white">SIDVI</h5>
+                </div>
                 <!--cuenta-->
-                <div class="list-header header-text flex-row center-vertically">
+                <div class="list-header header-text flex-row center-vertically context-menu ">
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.user"></fa-icon> 
                     <h5>CUENTA</h5>
                 </div>
                 <div class="list-item item-text flex-row center-vertically" (click)="abrirPerfil()" >
                     <p>Mi perfil</p>
                 </div>
-                <!--
-                    <div class="list-item item-text flex-row center-vertically">
-                        <p>Restablecer contraseña</p>
-                    </div>
-                -->
 
                 <!--Catalogos-->
-                <div class="list-header header-text flex-row center-vertically">
+                <div class="list-header header-text flex-row center-vertically context-menu ">
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.edit"></fa-icon> 
                     <h5>CATÁLOGOS</h5>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
 
                 <!--Gestion-->
-                <div class="list-header header-text flex-row center-vertically">
+                <div class="list-header header-text flex-row center-vertically context-menu ">
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.bell"></fa-icon> 
                     <h5>GESTIÓN</h5>
                 </div>
@@ -62,7 +62,7 @@
                 </div>
 
                 <!--Virus-->
-                <div class="list-header header-text flex-row center-vertically">
+                <div class="list-header header-text flex-row center-vertically context-menu ">
                     <fa-icon class='btn-icono d-inline-block' [icon]="icons.virus"></fa-icon> 
                     <h5>VIRUS</h5>
                 </div>
@@ -78,16 +78,11 @@
                         <a class="dropdown-item" (click)="abrirTest(virus)">Test de síntomas</a>
                         </div>
                     </div>         
-                    <!--
-                        <div class='list-item item-text flex-row center-vertically' (click)="abrirVirus(virus)">
-                            <p>{{virus.nombre}}</p>
-                        </div>
-                    -->
                 </div>
                 <!--Salir-->
                 <div class="list-header header-text flex-row center-vertically" style="height: 5px;">
                 </div>
-                <div class='list-item item-text flex-row center-vertically' (click)="cerrarSesion()" style="border: 1px solid #d5d5d5;">
+                <div class='list-item item-text flex-row center-vertically pointer' (click)="cerrarSesion()" style="border: 1px solid #d5d5d5;">
                     <p style="color:red">Cerrar Sesión</p>
                 </div>
             </div>

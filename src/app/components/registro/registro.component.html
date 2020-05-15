@@ -5,61 +5,84 @@
 
     <h1>Registro</h1>
 
+    <!--nombre completo-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-user"></i></span>
         </div>
-        <input [(ngModel)]="usuario.nombreCompleto" type="text" placeholder="Nombre Completo" class="form-control" aria-describedby="inputGroupPrepend"
-          required>
+        <input [(ngModel)]="usuario.nombreCompleto" (ngModelChange)="validateField('nombreCompleto', usuario.nombreCompleto)" type="text" placeholder="Nombre Completo" class="form-control" aria-describedby="inputGroupPrepend">
+      </div>
+      <div class="feedback" *ngIf="fieldValidations.nombreCompleto === false">
+        Ingresa el nombre completo.            
       </div>
     </div>
 
+    <!--correo-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="far fa-envelope"></i></span>
         </div>
-        <input [(ngModel)]="usuario.correo" type="text" placeholder="Correo" class="form-control" aria-describedby="inputGroupPrepend" required>
+        <input [(ngModel)]="usuario.correo" (ngModelChange)="validateField('correo', usuario.correo)" type="text" placeholder="Correo" class="form-control" aria-describedby="inputGroupPrepend" >
       </div>
+      <div class="feedback" *ngIf="fieldValidations.correo === false">
+        Ingresa un correo.            
+    </div>
     </div>
 
+    <!--celular-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-phone-alt"></i></span>
         </div>
-        <input [(ngModel)]="usuario.celular" type="text" placeholder="Celular" class="form-control" aria-describedby="inputGroupPrepend" required>
+        <input [(ngModel)]="usuario.celular" (ngModelChange)="validateField('celular', usuario.celular)" type="text" placeholder="Celular" class="form-control" aria-describedby="inputGroupPrepend" >
       </div>
+      <div class="feedback" *ngIf="fieldValidations.celular === false">
+        Ingresa un numero de celular.            
+    </div>
     </div>
 
+    <!--usuario-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-at"></i></span>
         </div>
-        <input [(ngModel)]="usuario.usuario" type="text" placeholder="Usuario" class="form-control" aria-describedby="inputGroupPrepend" required>
+        <input [(ngModel)]="usuario.usuario" (ngModelChange)="validateField('usuario', usuario.usuario)" type="text" placeholder="Usuario" class="form-control" aria-describedby="inputGroupPrepend">
       </div>
+      <div class="feedback" *ngIf="fieldValidations.usuario === false">
+        Ingresa el nombre de usuario.            
+    </div>
     </div>
 
+    <!--password-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-key"></i></span>
         </div>
-        <input [(ngModel)]="usuario.contrasena" type="password" placeholder="Contraseña" class="form-control" aria-describedby="inputGroupPrepend" required>
+        <input [(ngModel)]="usuario.contrasena" (ngModelChange)="validateField('contrasena', usuario.contrasena)" type="password" placeholder="Contraseña" class="form-control" aria-describedby="inputGroupPrepend">
       </div>
+      <div class="feedback" *ngIf="fieldValidations.contrasena === false">
+        Debes ingresar una contraseña y deben coincidir          
+    </div>
     </div>
 
+    <!--password-->
     <div class="input-group columna">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-key"></i></span>
         </div>
-        <input [(ngModel)]="contrasena" type="password" placeholder="Confirmar contraseña" class="form-control" aria-describedby="inputGroupPrepend"
-          required>
+        <input [(ngModel)]="contrasenaCopy" (ngModelChange)="validateField('contrasena', contrasenaCopy)" type="password" placeholder="Confirmar contraseña" class="form-control" aria-describedby="inputGroupPrepend">
+      </div>
+      <div class="feedback" *ngIf="fieldValidations.contrasena === false">
+        Debes ingresar una contraseña y deben coincidir          
       </div>
     </div>
-    <ion-button expand="block" class="ion-no-margin" (click)="registrar()">Crear cuenta</ion-button>
+    <button expand="block" class="btn btn-info d-inline-block text-white m-1" (click)="validateAll()">Crear cuenta</button>
+  
   </div>
 </div>

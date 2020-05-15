@@ -10,16 +10,18 @@
         <ion-label position="floating">Nueva contraseña</ion-label>
         <ion-input required type="text" [(ngModel)]="contrasena"></ion-input>
       </ion-item>
+      <p class="feedback" *ngIf="!coinciden">No coincide la contraseña o esta vacia</p>
 
       <ion-item class="recuperar-input">
         <ion-label position="floating">Confirmar contraseña</ion-label>
-        <ion-input required type="text" [(ngModel)]="contrasena2"></ion-input>
+        <ion-input required type="text" [(ngModel)]="contrasenaCopy"></ion-input>
       </ion-item>
+      <p class="feedback" *ngIf="!coinciden">No coincide la contraseña o esta vacia</p>
     </div>
 
     <div class="formularioRecuperar">
-      <ion-button expand="block" class="recuperar-boton" (click)="restablecer()">Restablecer
-      </ion-button>
+      <button expand="block" class="btn btn-info d-inline-block text-white m-1" (click)="restablecer()">Restablecer
+      </button>
       <div>
         <div>
           <h6 style="display: inline-block;">¿Ya tienes cuenta?</h6>

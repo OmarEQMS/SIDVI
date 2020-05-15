@@ -96,6 +96,8 @@ ion-header{
 .list-item:hover{
     cursor: pointer;
 }
+.context-menu {cursor: context-menu;}
+.pointer {cursor: pointer}
 .list-header, .list-item{
     border-top: 1px solid #d5d5d5;
     padding-left: 15px;

@@ -1,13 +1,30 @@
 <ion-content>
     <div class='pagina'>
-        <div class='contenedor'>
-            <div class='card'>
-                <div class='card-header bg-dark text-white '>
-                    <div>
-                        <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono d-inline-block' [src]="virus.archivoIconoImg">
-                        <div class='d-inline-block text-center titulo-virus'>
-                            <span class='d-block titulo-contenido'>{{virus.nombre}}</span>
-                            <span class='d-block contenido-descripcion'>{{virus.clave}}</span>
+        <div class='contenedor mb-5'>
+            <div class='card title-card flex-row center-vertically justify-content-center'>
+                <div class='flex-column justify-content-center center-vertically '>
+                    <!--info titulo-->
+                    <div class="flex-row justify-content-center wrap-reverse">
+                        <div>
+                            <img *ngIf="virus.archivoIconoImg!=null" class='imagen-icono d-inline-block m-2' [src]="virus.archivoIconoImg">
+                        </div>
+                        <div class='titulo-virus flex-column text-center justify-content-center'>
+                            <h1 class='d-block titulo-contenido'>{{virus.nombre}}</h1>
+                            <h3 class='d-block contenido-descripcion'>{{virus.clave}}</h3>
+                        </div>
+                    </div>
+                    <!--botones-->
+                    <div class="form-row justify-content-center m-1 mt-3 ">
+                        <div class="col-sm-11 col-md-10 flex-row justify-content-right">
+                            <div class="btn btn-info d-inline-block text-white mr-2">
+                              Buscar Consultorios
+                            </div>
+                            <div class="btn btn-info d-inline-block text-white mr-2" >
+                                Ver Estadisticas 
+                            </div>
+                            <div class="btn btn-info d-inline-block text-white" >
+                                Hacer Test 
+                            </div>
                         </div>
                     </div>
                 </div>

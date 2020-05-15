@@ -1,0 +1,450 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200514.185007.5196.0.001.json",
+    "dumpEventTime": "2020-05-14T18:50:11Z",
+    "dumpEventTimeStamp": "1589500211316",
+    "processId": 5196,
+    "cwd": "C:\\Users\\Angélica\\Desktop\\Semestre VIII\\Bases de datos avanzadas\\ProyectoFinal\\SIDVI",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Angélica\\Desktop\\Semestre VIII\\Bases de datos avanzadas\\ProyectoFinal\\SIDVI\\node_modules\\@ngtools\\webpack\\src\\type_checker_worker.js",
+      "9d93e901-158a-4cf9-ba1b-2f0582ffcfeb"
+    ],
+    "nodejsVersion": "v12.16.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.16.0",
+      "v8": "7.8.279.23-node.31",
+      "uv": "1.34.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.4",
+      "http_parser": "2.9.3",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.16.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.16299",
+    "osVersion": "Windows 10 Enterprise",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz",
+        "speed": 2893,
+        "user": 55178625,
+        "nice": 0,
+        "sys": 22041906,
+        "idle": 37173953,
+        "irq": 1492062
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz",
+        "speed": 2893,
+        "user": 55382000,
+        "nice": 0,
+        "sys": 19640703,
+        "idle": 39371609,
+        "irq": 659109
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz",
+        "speed": 2893,
+        "user": 57627140,
+        "nice": 0,
+        "sys": 18439750,
+        "idle": 38327421,
+        "irq": 625640
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz",
+        "speed": 2893,
+        "user": 56471203,
+        "nice": 0,
+        "sys": 19623515,
+        "idle": 38299593,
+        "irq": 555968
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "2806:103e:17:31b5::2",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "2806:103e:17:31b5:58fb:604c:5caf:24af",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "fd80:6933:8d1d:1d00:58fb:604c:5caf:24af",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "2806:103e:17:31b5:1c2a:164d:1f81:7934",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "2806:103e:17:31b5:f885:43ab:9294:e135",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "fd80:6933:8d1d:1d00:8907:41ca:3be9:adef",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "fe80::58fb:604c:5caf:24af",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 17
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "a8:bb:cf:1e:42:e2",
+        "address": "192.168.100.14",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "vEthernet (Modificador pre)",
+        "internal": false,
+        "mac": "82:15:6e:60:a5:18",
+        "address": "fe80::31b3:9c7f:9317:1048",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 8
+      },
+      {
+        "name": "vEthernet (Modificador pre)",
+        "internal": false,
+        "mac": "82:15:6e:60:a5:18",
+        "address": "172.20.8.189",
+        "netmask": "255.255.255.240",
+        "family": "IPv4"
+      }
+    ],
+    "host": "DESKTOP-LFUQ4ET"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff6f8bf19f9",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f8bf5e1c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f8bf4dd8",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f8cf364b",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f950a11e",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f94f21f1",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f93be74c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f93c66f1",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f93bbce3",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f93ba354",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f93db53d",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f9140e21",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6f9954fad",
+      "symbol": ""
+    },
+    {
+      "pc": "0x0000014112a69e3c",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 204009472,
+    "totalCommittedMemory": 204009472,
+    "usedMemory": 196481928,
+    "availableMemory": 2001250088,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 32808,
+        "used": 32808,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 1048576,
+        "committedMemory": 1048576,
+        "capacity": 1047456,
+        "used": 1045112,
+        "available": 2344
+      },
+      "old_space": {
+        "memorySize": 165822464,
+        "committedMemory": 165822464,
+        "capacity": 165184392,
+        "used": 164402200,
+        "available": 782192
+      },
+      "code_space": {
+        "memorySize": 2789376,
+        "committedMemory": 2789376,
+        "capacity": 2654208,
+        "used": 2245696,
+        "available": 408512
+      },
+      "map_space": {
+        "memorySize": 6033408,
+        "committedMemory": 6033408,
+        "capacity": 6026640,
+        "used": 822880,
+        "available": 5203760
+      },
+      "large_object_space": {
+        "memorySize": 28004352,
+        "committedMemory": 28004352,
+        "capacity": 27930448,
+        "used": 27930448,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 2784,
+        "used": 2784,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047456,
+        "used": 0,
+        "available": 1047456
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 332.375,
+    "kernelCpuSeconds": 25.156,
+    "cpuConsumptionPercent": 2.35326,
+    "maxRss": 367796224,
+    "pageFaults": {
+      "IORequired": 1014013,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 10218,
+      "writes": 98
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "allusersprofile": "C:\\ProgramData",
+    "appdata": "C:\\Users\\Angélica\\AppData\\Roaming",
+    "BROWSERSLIST_IGNORE_OLD_DATA": "1",
+    "colorterm": "truecolor",
+    "commonprogramfiles": "C:\\Program Files\\Common Files",
+    "commonprogramfiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "commonprogramw6432": "C:\\Program Files\\Common Files",
+    "computername": "DESKTOP-LFUQ4ET",
+    "comspec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "dp0": "C:\\Users\\Angélica\\Desktop\\Semestre VIII\\Bases de datos avanzadas\\ProyectoFinal\\SIDVI\\node_modules\\.bin\\",
+    "force_color": "1",
+    "git_askpass": "c:\\Users\\Angélica\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "gtk_basepath": "C:\\Program Files (x86)\\GtkSharp\\2.12\\",
+    "homedrive": "C:",
+    "homepath": "\\Users\\Angélica",
+    "ionic_cli_bin": "C:\\Users\\Angélica\\AppData\\Roaming\\npm\\node_modules\\ionic\\bin\\ionic",
+    "ionic_cli_lib": "C:\\Users\\Angélica\\AppData\\Roaming\\npm\\node_modules\\ionic",
+    "ionic_cli_local_error": "LOCAL_CLI_NOT_FOUND",
+    "lang": "es_419.UTF-8",
+    "localappdata": "C:\\Users\\Angélica\\AppData\\Local",
+    "logonserver": "\\\\DESKTOP-LFUQ4ET",
+    "number_of_processors": "4",
+    "onedrive": "C:\\Users\\Angélica\\OneDrive",
+    "os": "Windows_NT",
+    "path": "C:\\Users\\Angélica\\Desktop\\Semestre VIII\\Bases de datos avanzadas\\ProyectoFinal\\SIDVI\\node_modules\\.bin;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files\\PuTTY\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\150\\DTS\\Binn\\;C:\\Program Files\\nodejs\\;C:\\xampp\\mysql\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\BaseX\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\150\\DTS\\Binn\\;C:\\Users\\Angélica\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Python36;C:\\Program Files\\Python36\\Scripts;C:\\Users\\Angélica\\AppData\\Roaming\\npm;C:\\Program Files\\nodejs;C:\\xampp\\mysql\\bin;C:\\Program Files\\Git\\bin;;C:\\Users\\Angélica\\AppData\\Local\\Programs\\Microsoft VS Code\\bin",
+    "pathext": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.CPL",
+    "processor_architecture": "AMD64",
+    "processor_identifier": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
+    "processor_level": "6",
+    "processor_revision": "3a09",
+    "programdata": "C:\\ProgramData",
+    "programfiles": "C:\\Program Files",
+    "programfiles(x86)": "C:\\Program Files (x86)",
+    "programw6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "psmodulepath": "C:\\Users\\Angélica\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\;C:\\Program Files (x86)\\Microsoft SQL Server\\150\\Tools\\PowerShell\\Modules\\",
+    "pt7home": "C:\\Program Files\\Cisco Packet Tracer 7.0",
+    "public": "C:\\Users\\Public",
+    "qt_device_pixel_ratio": "auto",
+    "sessionname": "Console",
+    "systemdrive": "C:",
+    "systemroot": "C:\\WINDOWS",
+    "temp": "C:\\Users\\ANGLIC~1\\AppData\\Local\\Temp",
+    "term_program": "vscode",
+    "term_program_version": "1.45.0",
+    "tmp": "C:\\Users\\ANGLIC~1\\AppData\\Local\\Temp",
+    "userdomain": "DESKTOP-LFUQ4ET",
+    "userdomain_roamingprofile": "DESKTOP-LFUQ4ET",
+    "username": "Angélica",
+    "userprofile": "C:\\Users\\Angélica",
+    "vs110comntools": "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\",
+    "vs120comntools": "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\",
+    "vs140comntools": "C:\\Users\\Angélica\\Desktop\\Common7\\Tools\\",
+    "vscode_git_askpass_main": "c:\\Users\\Angélica\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+    "vscode_git_askpass_node": "C:\\Users\\Angélica\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "vscode_git_ipc_handle": "\\\\.\\pipe\\vscode-git-bdc9895195-sock",
+    "WEBPACK_DEV_SERVER": "true",
+    "windir": "C:\\WINDOWS",
+    "_prog": "node"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\SYSTEM32\\apphelp.dll",
+    "C:\\WINDOWS\\System32\\SYSFER.DLL",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\SYSTEM32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\System32\\wshbth.dll"
+  ]
+}

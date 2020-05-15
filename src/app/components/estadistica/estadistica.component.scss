@@ -24,3 +24,55 @@ ion-split-pane {
     max-width: 450px;
     background: rgb(181, 255, 185);
 }
+.selected-graph{
+    background-color: ghostwhite;
+    padding: 20px;
+}
+.mouse{
+    cursor: pointer;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.justify-content-right{
+    justify-content: flex-end;
+}
+.justify-content-left{
+    justify-content: flex-start;
+}
+.justify-content-center{
+    justify-content: center;
+}
+.justify-content-space{
+    justify-content: space-between;
+}
+.justify-content-even{
+    justify-content: space-evenly;
+}
+.justify-content-space-around{
+    justify-content: space-around;
+}
+.center-vertically{
+    align-items: center;
+}
+.center-text{
+    text-align: center;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+.wrap-reverse{
+    flex-wrap: wrap-reverse;
+}
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
+}

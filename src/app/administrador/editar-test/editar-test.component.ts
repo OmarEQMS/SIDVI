@@ -208,8 +208,9 @@ export class EditarTestComponent implements OnInit {
         console.log(res);
         this.modalAgregarOpcion.hide();
         Swal.fire({ title: 'La Opción se creó con éxito', icon: 'success', backdrop: false });
-        this.listarTestNodos();
         this.listarTestOpciones();
+        this.nuevaOpcion.texto = '';
+        this.nuevaOpcion.descripcion = '';
       },
       err => {
         console.log(err);

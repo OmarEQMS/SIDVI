@@ -136,6 +136,7 @@ export class EditarCatalogosComponent implements OnInit {
         console.log(res);
         this.modalEditarUbicacion.hide();
         Swal.fire({ title: 'La Ubicación se renombró con éxito', icon: 'success', backdrop: false });
+        this.nuevoNombre = '';
       },
       err => {
         console.log(err);
@@ -150,6 +151,8 @@ export class EditarCatalogosComponent implements OnInit {
         console.log(res);
         this.modalAgregarUbicacion.hide();
         Swal.fire({ title: 'La Ubicación se creó con éxito', icon: 'success', backdrop: false });
+        this.nuevaUbicacion.nombre = '';
+        this.nuevaUbicacion.clave = '';
         this.getUbicacionesHijo(this.ubicacion);
       },
       err => {
@@ -166,6 +169,8 @@ export class EditarCatalogosComponent implements OnInit {
         this.modalAgregarHijo.hide();
         Swal.fire({ title: 'La Ubicación Hijo se creó con éxito', icon: 'success', backdrop: false });
         this.getUbicacionesHijo(this.ubicacion);
+        this.hijoUbicacion.nombre = '';
+        this.hijoUbicacion.clave = '';
       },
       err => {
         console.log(err);
@@ -204,6 +209,7 @@ export class EditarCatalogosComponent implements OnInit {
           console.log(res);
           this.modalEditarInformacion.hide();
           Swal.fire({ title: 'La Información se renombró con éxito', icon: 'success', backdrop: false });
+          this.nuevoNombreInformacion = '';
         },
         err => {
           console.log(err);
@@ -220,6 +226,8 @@ export class EditarCatalogosComponent implements OnInit {
         this.modalAgregarInformacion.hide();
         Swal.fire({ title: 'La Información se creó con éxito', icon: 'success', backdrop: false });
         this.getInformacion();
+        this.nuevaInformacion.nombre = '';
+        this.nuevaInformacion.clave = '';
       },
       err => {
         console.log(err);
@@ -251,6 +259,7 @@ export class EditarCatalogosComponent implements OnInit {
           console.log(res);
           this.modalEditarEstadistica.hide();
           Swal.fire({ title: 'La Estadística se renombró con éxito', icon: 'success', backdrop: false });
+          this.nuevoNombreEstadistica = '';
         },
         err => {
           console.log(err);
@@ -266,6 +275,7 @@ export class EditarCatalogosComponent implements OnInit {
         this.modalAgregarEstadistica.hide();
         Swal.fire({ title: 'La Estadística se creó con éxito', icon: 'success', backdrop: false });
         this.getEstadistica();
+        this.nuevaEstadistica.nombre = '';
       },
       err => {
         console.log(err);

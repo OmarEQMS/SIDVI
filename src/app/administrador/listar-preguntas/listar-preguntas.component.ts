@@ -67,6 +67,8 @@ export class ListarPreguntasComponent implements OnInit {
         this.modalAgregarPregunta.hide();
         Swal.fire({ title: 'La Pregunta se creó con éxito', icon: 'success', backdrop: false });
         this.listarTestNodos();
+        this.nuevoTestNodo.texto = '';
+        this.nuevoTestNodo.descripcion = '';
       },
       err => {
         console.log(err);

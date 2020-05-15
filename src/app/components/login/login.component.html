@@ -3,7 +3,9 @@
 <div class="centrado">
 	<div class="formBox">
 
-		<h1 class="title">Acceder</h1>
+		<div routerLink="/virus">
+			<img src="../../../assets/icon/sidvi-icon.png" class="logo" alt="">
+		</div>
 
 		<form [formGroup]="loginForm" (ngSubmit)="login()" class="formularioLogin">
 			<div class="form-input">

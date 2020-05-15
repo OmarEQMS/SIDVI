@@ -18,14 +18,14 @@ export class EditarCatalogosComponent implements OnInit {
   @ViewChild('modalAgregarUbicacion', null) modalAgregarUbicacion: MDBModalRef;
   @ViewChild('modalAgregarInformacion', null) modalAgregarInformacion: MDBModalRef;
   @ViewChild('modalAgregarEstadistica', null) modalAgregarEstadistica: MDBModalRef;
-  @ViewChild('modalAgregarSubcategoriaEstadistica', null) modalAgregarSubcategoriaEstadistica: MDBModalRef;
+  @ViewChild('modalAgregarSubestadistica', null) modalAgregarSubestadistica: MDBModalRef;
   @ViewChild('modalEditarUbicacion', null) modalEditarUbicacion: MDBModalRef;
   @ViewChild('modalEditarInformacion', null) modalEditarInformacion: MDBModalRef;
   @ViewChild('modalEditarEstadistica', null) modalEditarEstadistica: MDBModalRef;
-  @ViewChild('modalEditarSubcategoriaEstadistica', null) modalEditarSubcategoriaEstadistica: MDBModalRef;
+  @ViewChild('modalEditarSubestadistica', null) modalEditarSubestadistica: MDBModalRef;
   @ViewChild('modalEliminarInformacion', null) modalEliminarInformacion: MDBModalRef;
   @ViewChild('modalEliminarEstadistica', null) modalEliminarEstadistica: MDBModalRef;
-  @ViewChild('modalEliminarSubcategoriaEstadistica', null) modalEliminarSubcategoriaEstadistica: MDBModalRef;
+  @ViewChild('modalEliminarSubestadistica', null) modalEliminarSubestadistica: MDBModalRef;
   @ViewChild('modalEliminarUbicacion', null) modalEliminarUbicacion: MDBModalRef;
   @ViewChild('modalAgregarHijo', null) modalAgregarHijo: MDBModalRef;
 
@@ -48,6 +48,15 @@ export class EditarCatalogosComponent implements OnInit {
   area: string;
   localSubcategoriaEstadistica: SubcategoriaEstadistica;
   newSubcategoriaEstadistica: SubcategoriaEstadistica;
+  validacionUbicacion: boolean;
+  validacionEstadistica: boolean;
+  validacionSubcategoria: boolean;
+  validacionInformacion: boolean;
+  validacionUbicacionEditar: boolean;
+  validacionEstadisticaEditar: boolean;
+  validacionSubcategoriaEditar: boolean;
+  validacionInformacionEditar: boolean;
+  validacionUbicacionHijo: boolean;
 
   icons: { [id: string]: IconDefinition } = {
     plus: faChevronRight,
@@ -71,6 +80,16 @@ export class EditarCatalogosComponent implements OnInit {
     this.hijoUbicacion = new Ubicacion();
     this.localSubcategoriaEstadistica = new SubcategoriaEstadistica();
     this.newSubcategoriaEstadistica = new SubcategoriaEstadistica();
+    this.validacionUbicacion = false;
+    this.validacionEstadistica = false;
+    this.validacionSubcategoria = false;
+    this.validacionInformacion = false;
+    this.validacionUbicacionEditar = false;
+    this.validacionEstadisticaEditar = false;
+    this.validacionSubcategoriaEditar = false;
+    this.validacionInformacionEditar = false;
+    this.validacionUbicacionHijo = false;
+
   }
 
   ngOnInit() {
@@ -131,52 +150,66 @@ export class EditarCatalogosComponent implements OnInit {
     }
   }
   renombrar() {
-    this.sidvi.ubicacion.actualizarUbicacion(this.localUbicacion.idUbicacion, this.localUbicacion).subscribe(
-      res => {
-        console.log(res);
-        this.modalEditarUbicacion.hide();
-        Swal.fire({ title: 'La Ubicación se renombró con éxito', icon: 'success', backdrop: false });
-        this.nuevoNombre = '';
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La Ubicación no se pudo renombrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+    if (this.nuevoNombre === '' || this.nuevoNombre == null) {
+      this.validacionUbicacionEditar = true;
+    } else {
+      this.sidvi.ubicacion.actualizarUbicacion(this.localUbicacion.idUbicacion, this.localUbicacion).subscribe(
+        res => {
+          console.log(res);
+          this.modalEditarUbicacion.hide();
+          Swal.fire({ title: 'La Ubicación se renombró con éxito', icon: 'success', backdrop: false });
+          this.nuevoNombre = '';
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Ubicación no se pudo renombrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   agregarUbicacion() {
-    this.sidvi.ubicacion.crearUbicacion(this.nuevaUbicacion).subscribe(
-      res => {
-        console.log(res);
-        this.modalAgregarUbicacion.hide();
-        Swal.fire({ title: 'La Ubicación se creó con éxito', icon: 'success', backdrop: false });
-        this.nuevaUbicacion.nombre = '';
-        this.nuevaUbicacion.clave = '';
-        this.getUbicacionesHijo(this.ubicacion);
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La Ubicación no se pudo registrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+
+    if (this.nuevaUbicacion.nombre === '' || this.nuevaUbicacion.nombre == null || this.nuevaUbicacion.clave === '' || this.nuevaUbicacion.clave == null) {
+      this.validacionUbicacion = true;
+    } else {
+      this.validacionUbicacion = false;
+      this.sidvi.ubicacion.crearUbicacion(this.nuevaUbicacion).subscribe(
+        res => {
+          console.log(res);
+          this.modalAgregarUbicacion.hide();
+          Swal.fire({ title: 'La Ubicación se creó con éxito', icon: 'success', backdrop: false });
+          this.nuevaUbicacion.nombre = '';
+          this.nuevaUbicacion.clave = '';
+          this.getUbicacionesHijo(this.ubicacion);
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Ubicación no se pudo registrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   agregarUbicacionHijo() {
-    this.sidvi.ubicacion.crearUbicacion(this.hijoUbicacion).subscribe(
-      res => {
-        console.log(res);
-        this.modalAgregarHijo.hide();
-        Swal.fire({ title: 'La Ubicación Hijo se creó con éxito', icon: 'success', backdrop: false });
-        this.getUbicacionesHijo(this.ubicacion);
-        this.hijoUbicacion.nombre = '';
-        this.hijoUbicacion.clave = '';
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La Ubicación Hijo no se pudo registrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+    if (this.hijoUbicacion.nombre === '' || this.hijoUbicacion.nombre == null || this.hijoUbicacion.clave === '' || this.hijoUbicacion.clave == null) {
+      this.validacionUbicacionHijo = true;
+    } else {
+      this.sidvi.ubicacion.crearUbicacion(this.hijoUbicacion).subscribe(
+        res => {
+          console.log(res);
+          this.modalAgregarHijo.hide();
+          Swal.fire({ title: 'La Ubicación Hijo se creó con éxito', icon: 'success', backdrop: false });
+          this.getUbicacionesHijo(this.ubicacion);
+          this.hijoUbicacion.nombre = '';
+          this.hijoUbicacion.clave = '';
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Ubicación Hijo no se pudo registrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   async eliminarUbicacion() {
@@ -203,37 +236,46 @@ export class EditarCatalogosComponent implements OnInit {
   }
 
   renombrarInformacion() {
-    this.sidvi.categoriaInformacion.actualizarCategoriaInformacion(this.localInformacion.idCategoriaInformacion,
-      this.localInformacion).subscribe(
-        res => {
-          console.log(res);
-          this.modalEditarInformacion.hide();
-          Swal.fire({ title: 'La Información se renombró con éxito', icon: 'success', backdrop: false });
-          this.nuevoNombreInformacion = '';
-        },
-        err => {
-          console.log(err);
-          Swal.fire({ title: 'La Información no se pudo renombrar con éxito', icon: 'error', backdrop: false });
+    if (this.nuevoNombreInformacion === '' || this.nuevoNombreInformacion == null) {
+      this.validacionInformacionEditar = true;
+    } else {
+      this.sidvi.categoriaInformacion.actualizarCategoriaInformacion(this.localInformacion.idCategoriaInformacion,
+        this.localInformacion).subscribe(
+          res => {
+            console.log(res);
+            this.modalEditarInformacion.hide();
+            Swal.fire({ title: 'La Información se renombró con éxito', icon: 'success', backdrop: false });
+            this.nuevoNombreInformacion = '';
+          },
+          err => {
+            console.log(err);
+            Swal.fire({ title: 'La Información no se pudo renombrar con éxito', icon: 'error', backdrop: false });
 
-        }
-      );
+          }
+        );
+    }
   }
 
   agregarInformacion() {
-    this.sidvi.categoriaInformacion.crearCategoriaInformacion(this.nuevaInformacion).subscribe(
-      res => {
-        console.log(res);
-        this.modalAgregarInformacion.hide();
-        Swal.fire({ title: 'La Información se creó con éxito', icon: 'success', backdrop: false });
-        this.getInformacion();
-        this.nuevaInformacion.nombre = '';
-        this.nuevaInformacion.clave = '';
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La Información no se pudo registrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+    if (this.nuevaInformacion.nombre === '' || this.nuevaInformacion.nombre == null || this.nuevaInformacion.clave === '' || this.nuevaInformacion.clave == null) {
+      this.validacionInformacion = true;
+    } else {
+      this.validacionInformacion = false;
+      this.sidvi.categoriaInformacion.crearCategoriaInformacion(this.nuevaInformacion).subscribe(
+        res => {
+          console.log(res);
+          this.modalAgregarInformacion.hide();
+          Swal.fire({ title: 'La Información se creó con éxito', icon: 'success', backdrop: false });
+          this.getInformacion();
+          this.nuevaInformacion.nombre = '';
+          this.nuevaInformacion.clave = '';
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Información no se pudo registrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   eliminarInformacion() {
@@ -253,35 +295,43 @@ export class EditarCatalogosComponent implements OnInit {
   }
 
   renombrarEstadistica() {
-    this.sidvi.categoriaEstadistica.actualizarCategoriaEstadistica(this.localEstadistica.idCategoriaEstadistica,
-      this.localEstadistica).subscribe(
-        res => {
-          console.log(res);
-          this.modalEditarEstadistica.hide();
-          Swal.fire({ title: 'La Estadística se renombró con éxito', icon: 'success', backdrop: false });
-          this.nuevoNombreEstadistica = '';
-        },
-        err => {
-          console.log(err);
-          Swal.fire({ title: 'La Estadística no se pudo renombrar con éxito', icon: 'error', backdrop: false });
-        }
-      );
+    if (this.nuevoNombreEstadistica === '' || this.nuevoNombreEstadistica == null) {
+      this.validacionEstadisticaEditar = true;
+    } else {
+      this.sidvi.categoriaEstadistica.actualizarCategoriaEstadistica(this.localEstadistica.idCategoriaEstadistica,
+        this.localEstadistica).subscribe(
+          res => {
+            console.log(res);
+            this.modalEditarEstadistica.hide();
+            Swal.fire({ title: 'La Estadística se renombró con éxito', icon: 'success', backdrop: false });
+            this.nuevoNombreEstadistica = '';
+          },
+          err => {
+            console.log(err);
+            Swal.fire({ title: 'La Estadística no se pudo renombrar con éxito', icon: 'error', backdrop: false });
+          }
+        );
+    }
   }
 
   agregarEstadistica() {
-    this.sidvi.categoriaEstadistica.crearCategoriaEstadistica(this.nuevaEstadistica).subscribe(
-      res => {
-        console.log(res);
-        this.modalAgregarEstadistica.hide();
-        Swal.fire({ title: 'La Estadística se creó con éxito', icon: 'success', backdrop: false });
-        this.getEstadistica();
-        this.nuevaEstadistica.nombre = '';
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La Estadística no se pudo registrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+    if (this.nuevaEstadistica.nombre === '' || this.nuevaEstadistica.nombre == null) {
+      this.validacionEstadistica = true;
+    } else {
+      this.sidvi.categoriaEstadistica.crearCategoriaEstadistica(this.nuevaEstadistica).subscribe(
+        res => {
+          console.log(res);
+          this.modalAgregarEstadistica.hide();
+          Swal.fire({ title: 'La Estadística se creó con éxito', icon: 'success', backdrop: false });
+          this.getEstadistica();
+          this.nuevaEstadistica.nombre = '';
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Estadística no se pudo registrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   eliminarEstadistica() {
@@ -300,33 +350,42 @@ export class EditarCatalogosComponent implements OnInit {
   }
 
   renombrarSubcategoriaEstadistica() {
-    this.sidvi.subcategoriaEstadisticaService.actualizarSubcategoriaEstadistica(this.localSubcategoriaEstadistica.idSubcategoriaEstadistica,
-      this.localSubcategoriaEstadistica).subscribe(
-        res => {
-          console.log(res);
-          this.modalEditarSubcategoriaEstadistica.hide();
-          Swal.fire({ title: 'La Subcategoría Estadística se renombró con éxito', icon: 'success', backdrop: false });
-        },
-        err => {
-          console.log(err);
-          Swal.fire({ title: 'La Subcategoría Estadística no se pudo renombrar con éxito', icon: 'error', backdrop: false });
-        }
-      );
+    if (this.newSubcategoriaEstadistica.nombre === '' || this.newSubcategoriaEstadistica.nombre == null) {
+      this.validacionSubcategoriaEditar = true;
+    } else {
+      this.sidvi.subcategoriaEstadisticaService.actualizarSubcategoriaEstadistica(this.localSubcategoriaEstadistica.idSubcategoriaEstadistica,
+        this.localSubcategoriaEstadistica).subscribe(
+          res => {
+            console.log(res);
+            this.modalEditarSubestadistica.hide();
+            Swal.fire({ title: 'La Subcategoría Estadística se renombró con éxito', icon: 'success', backdrop: false });
+          },
+          err => {
+            console.log(err);
+            Swal.fire({ title: 'La Subcategoría Estadística no se pudo renombrar con éxito', icon: 'error', backdrop: false });
+          }
+        );
+    }
   }
 
   agregarSubcategoriaEstadistica() {
-    this.sidvi.subcategoriaEstadisticaService.crearSubcategoriaEstadistica(this.newSubcategoriaEstadistica).subscribe(
-      res => {
-        console.log(res);
-        this.modalEditarSubcategoriaEstadistica.hide();
-        Swal.fire({ title: 'La Subcategoría Estadística se creó con éxito', icon: 'success', backdrop: false });
-        this.getEstadistica();
-      },
-      err => {
-        console.log(err);
-        Swal.fire({ title: 'La SubcategoríaEstadística no se pudo registrar con éxito', icon: 'error', backdrop: false });
-      }
-    );
+    if (this.newSubcategoriaEstadistica.nombre === '' || this.newSubcategoriaEstadistica.nombre == null) {
+      this.validacionSubcategoria = true;
+    } else {
+      this.newSubcategoriaEstadistica.fkCategoriaEstadistica = this.localEstadistica.idCategoriaEstadistica;
+      this.sidvi.subcategoriaEstadisticaService.crearSubcategoriaEstadistica(this.newSubcategoriaEstadistica).subscribe(
+        res => {
+          console.log(res);
+          this.modalAgregarSubestadistica.hide();
+          Swal.fire({ title: 'La Subcategoría Estadística se creó con éxito', icon: 'success', backdrop: false });
+          this.getEstadistica();
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La SubcategoríaEstadística no se pudo registrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+    }
   }
 
   eliminarSubcategoriaEstadistica() {
@@ -334,7 +393,7 @@ export class EditarCatalogosComponent implements OnInit {
       res => {
         console.log(res);
         this.getEstadistica();
-        this.modalEliminarSubcategoriaEstadistica.hide();
+        this.modalEliminarSubestadistica.hide();
         Swal.fire({ title: 'La Subcategoría Estadística se eliminó con éxito', icon: 'success', backdrop: false });
       },
       err => {

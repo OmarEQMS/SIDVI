@@ -26,6 +26,8 @@ import { ListarPreguntasComponent } from './listar-preguntas/listar-preguntas.co
 import {_Usuario} from '../../models/Usuario';
 import { Router } from '@angular/router';
 import { SIDVIServices } from 'src/api';
+import { EditarAdministradoresComponent } from './editar-administradores/editar-administradores.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @NgModule({
   imports: [
@@ -53,7 +55,9 @@ import { SIDVIServices } from 'src/api';
     EditarMedicosComponent,
     EditarTestComponent,
     ListarPreguntasComponent,
-    UbicacionListComponent
+    UbicacionListComponent,
+    EditarAdministradoresComponent,
+    EditarUsuarioComponent
   ]
 })
 export class AdministradorPageModule {

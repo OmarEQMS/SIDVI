@@ -10,6 +10,8 @@ import { EditarCatalogosComponent } from './editar-catalogos/editar-catalogos.co
 import { EditarMedicosComponent } from './editar-medicos/editar-medicos.component';
 import { EditarTestComponent } from './editar-test/editar-test.component';
 import { ListarPreguntasComponent } from './listar-preguntas/listar-preguntas.component';
+import { EditarAdministradoresComponent } from './editar-administradores/editar-administradores.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
   { path: '', component: AdministradorPage,
@@ -23,6 +25,8 @@ const routes: Routes = [
         { path: 'catalogos/:area', component: EditarCatalogosComponent },
         { path: 'editTest/:idTestNodo', component: EditarTestComponent },
         { path: 'listarPreguntas/:idVirus', component: ListarPreguntasComponent },
+        { path: 'administradores', component: EditarAdministradoresComponent },
+        { path: 'usuarios', component: EditarUsuarioComponent },
     ]
   }
 ];

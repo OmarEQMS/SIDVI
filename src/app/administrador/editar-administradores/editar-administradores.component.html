@@ -1,0 +1,52 @@
+<ion-header id='encabezado'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="textHeader">Administrares</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class='page-content'>
+    <div class="table-content">
+      <table mdbTable class="z-depth-1" striped="true">
+        <thead class="black white-text">
+          <tr>
+            <th [mdbTableSort]="administradores" sortBy="nombreCompleto" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Nombre Completo
+            </th>
+            <th [mdbTableSort]="administradores" sortBy="usuario" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Usuario
+            </th>
+            <th [mdbTableSort]="administradores" sortBy="correo" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Correo
+            </th>
+            <th [mdbTableSort]="administradores" sortBy="celular" class="sort">
+              <mdb-icon fas icon="sort"></mdb-icon>
+              Celular
+            </th>
+            <th>Más información</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr mdbTableCol *ngFor="let administrador of administradores">
+            <th scope="row">{{administrador.nombreCompleto}}</th>
+            <td>{{administrador.usuario}}</td>
+            <td>{{administrador.correo}}</td>
+            <td>{{administrador.celular}}</td>
+            <td>
+              <button type="button" class="btn btn-info">Editar</button>
+              <button type="button" class="btn btn-danger" (click)="eliminar(administrador)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

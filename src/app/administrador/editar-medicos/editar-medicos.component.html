@@ -51,60 +51,80 @@
 <!-- MODAL AGREGAR INFORMACIÓN-->
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
   [config]="{backdrop: false, ignoreBackdropClick: true}">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-          <span aria-hidden="true">×</span>
-        </button>
         <div>
-          <h2>Consultorio "{{medicoModal.nombreConsultorio}}"</h2>
-          <div>
-            <h5 style="display: inline-block; white-space: pre;">Estado - </h5>
+          <!--Image display-->
+          <div class="d-inline-block image-div">
+            <img *ngIf="medicoModal.archivoIconoImg != null" [src]="medicoModal.archivoIconoImg" alt="imagen de virus"
+              class="imagen-icono">
+            <img *ngIf="medicoModal.archivoIconoImg == null" src="../../../assets/images/no-imagen.jpg"
+              alt="no hay imagen de perfil" class="imagen-icono">
+          </div>
 
-            <div [ngSwitch]="medicoModal.estatus" style="display: inline-block;">
-              <h5 style="color: green;" *ngSwitchCase="'HABILITADO'">HABILITADO</h5>
-              <h5 style="color: gray;" *ngSwitchCase="'DESHABILITADO'">DESHABILITADO</h5>
-              <h5 style="color: rgb(172, 172, 2);" *ngSwitchCase="'EN_ESPERA'">EN_ESPERA</h5>
-              <h5 style="color: red;" *ngSwitchCase="'RECHAZADO'">RECHAZADO</h5>
+          <div class="d-inline-block">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div>
+              <h2>Consultorio "{{medicoModal.nombreConsultorio}}"</h2>
+              <div>
+                <h5 style="display: inline-block; white-space: pre;">Estado - </h5>
+
+                <div [ngSwitch]="medicoModal.estatus" style="display: inline-block;">
+                  <h5 style="color: green;" *ngSwitchCase="'HABILITADO'">HABILITADO</h5>
+                  <h5 style="color: gray;" *ngSwitchCase="'DESHABILITADO'">DESHABILITADO</h5>
+                  <h5 style="color: rgb(172, 172, 2);" *ngSwitchCase="'EN_ESPERA'">EN_ESPERA</h5>
+                  <h5 style="color: red;" *ngSwitchCase="'RECHAZADO'">RECHAZADO</h5>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-body">
-        <div class='label-input'>
-          <label>Nombre del doctor</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreDoctor}}">
+        <div class="form-group">
+          <div class='label-input'>
+            <label>Nombre del consultorio</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreConsultorio}}">
+          </div>
+          <div class='label-input'>
+            <label>Teléfono del consultorio</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.telefonoConsultorio}}">
+          </div>
         </div>
-        <div class='label-input'>
-          <label>Cédula profesional</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.cedulaProfesional}}">
+        <div class="form-group">
+          <div class='label-input'>
+            <label>Nombre del doctor</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreDoctor}}">
+          </div>
+          <div class='label-input'>
+            <label>Cédula profesional</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.cedulaProfesional}}">
+          </div>
         </div>
-        <div class='label-input'>
-          <label>Nombre del consultorio</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.nombreConsultorio}}">
+        <div class="form-group">
+          <div class='label-input'>
+            <label>Dirección del consultorio</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.direccionConsultorio}}">
+          </div>
+          <div class='label-input'>
+            <label>Localidad</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoLocalidad}}">
+          </div>
         </div>
-        <div class='label-input'>
-          <label>Teléfono del consultorio</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.telefonoConsultorio}}">
-        </div>
-        <div class='label-input'>
-          <label>Dirección del consultorio</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.direccionConsultorio}}">
-        </div>
-        <div class='label-input'>
-          <label>Localidad</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoLocalidad}}">
-        </div>
-        <div class='label-input'>
-          <label>Virus que puede tratar</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{virusesTratamiento}}">
-        </div>
-        <div class='label-input'>
-          <label>Descripción</label>
-          <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.descripcion}}">
+        <div class="form-group">
+          <div class='label-input'>
+            <label>Virus que puede tratar</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{virusesTratamiento}}">
+          </div>
+          <div class='label-input'>
+            <label>Descripción</label>
+            <input mdbInput type="text" class="form-control" readonly value="{{medicoModal.descripcion}}">
+          </div>
         </div>
 
         <div class=" modal-footer">

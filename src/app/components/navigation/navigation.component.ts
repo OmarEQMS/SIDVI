@@ -31,8 +31,11 @@ export class NavigationComponent implements OnInit {
   }
 
   logout() {
-    this.sidvi.manager.unsetItems();
-    this.sidvi.usuario.cerrarSesion().subscribe();
+    this.sidvi.usuario.cerrarSesion().subscribe(res => {
+      this.sidvi.manager.unsetItems();
+    },
+      error => console.error(error)
+    );
     this.haySesion = false;
     this.router.navigate(['./login']);
   }

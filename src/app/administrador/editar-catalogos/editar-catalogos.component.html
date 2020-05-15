@@ -4,7 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <span class="textHeader">Editar catálogo</span>
+      <span *ngIf="area === 'informacion'" class="textHeader">Editar catálogo información</span>
+      <span *ngIf="area === 'ubicaciones'" class="textHeader">Editar catálogo ubicaciones</span>
+      <span *ngIf="area === 'estadistica'" class="textHeader">Editar catálogo estadística</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -314,7 +316,7 @@
         <div class='modal-body pl-3 pr-3 pb-3'>
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            Nombre: <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaEstadistica.nombre" type="text"
+            <input class="d-flex justify-content-center form-control" [(ngModel)]="nuevaEstadistica.nombre" type="text"
               id="nombre" placeholder="nombre">
           </div>
         </div>

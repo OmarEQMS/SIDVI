@@ -168,4 +168,12 @@ export class AdministradorPage implements OnInit {
         this.newVirus.localFile = null;
     }
 
+    abrirAdministradores() {
+
+    }
+
+    abrirUsuarios() {
+        
+    }
+
 }

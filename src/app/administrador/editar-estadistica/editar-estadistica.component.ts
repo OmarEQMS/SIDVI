@@ -3,7 +3,7 @@ import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
 import { IUbicacion, Ubicacion, Virus, CategoriaEstadistica, SubcategoriaEstadistica, Estadistica } from 'src/models';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { GraficaEdtadistica } from 'src/app/extra/GraficaEdtadistica';
+import { GraficaEstadistica } from 'src/app/extra/GraficaEdtadistica';
 import { faTimesCircle, faPencilAlt, faChevronRight, faChevronDown, faMinus } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { MDBModalRef } from 'angular-bootstrap-md';

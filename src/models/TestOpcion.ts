@@ -40,6 +40,8 @@ export class TestOpcion implements ITestOpcion {
 
     // Extras
     archivoImg: SafeResourceUrl;
+    localFile: FileList;
+    localFileName: string;
 
     // Constructor
     constructor(testOpcion?: any) {
@@ -53,6 +55,8 @@ export class TestOpcion implements ITestOpcion {
             this.mimetype = testOpcion.mimetype;
             this.archivo = testOpcion.archivo;
         }
+        this.localFileName = 'Choose file';
+
     }
 
     // ToObjectDB
@@ -60,7 +64,7 @@ export class TestOpcion implements ITestOpcion {
         return {
             idTestOpcion: this.idTestOpcion,
             fkTestNodo: this.fkTestNodo,
-            fkTestNodoSig: this.descripcion,
+            fkTestNodoSig: this.fkTestNodoSig,
             clave: this.clave,
             texto: this.texto,
             descripcion: this.descripcion,

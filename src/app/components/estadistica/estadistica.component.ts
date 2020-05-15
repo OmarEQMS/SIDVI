@@ -6,7 +6,7 @@ import { faChevronRight, faChevronDown, faMinus, faTimesCircle, faPencilAlt } fr
 import { SIDVIServices, OrderModeEnum } from 'src/api';
 import { DatePipe } from '@angular/common';
 import { parse } from 'querystring';
-import { GraficaEdtadistica } from 'src/app/extra/GraficaEdtadistica';
+import { GraficaEstadistica } from 'src/app/extra/GraficaEdtadistica';
 
 @Component({
   selector: 'app-estadistica',
@@ -20,8 +20,8 @@ export class EstadisticaComponent implements OnInit {
     idVirus: number;
     virus: Virus;
 
-    graficasEstadisticas: GraficaEdtadistica[];
-    editandoGrafica: GraficaEdtadistica;
+    graficasEstadisticas: GraficaEstadistica[];
+    editandoGrafica: GraficaEstadistica;
 
     icons: { [id: string]: IconDefinition } = {
         plus: faChevronRight,
@@ -50,7 +50,7 @@ export class EstadisticaComponent implements OnInit {
 
         this.graficasEstadisticas = new Array();
         // Casos Activos por tiempo
-        this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
+        this.graficasEstadisticas.push(new GraficaEstadistica(this.idVirus, this.graficasEstadisticas.length));
         this.graficasEstadisticas[0].ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas[0].categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.nombre === 'Casos');
         this.graficasEstadisticas[0].idCategoriaSelected = this.graficasEstadisticas[0].categoriaSelected.idCategoriaEstadistica.toString();
@@ -62,7 +62,7 @@ export class EstadisticaComponent implements OnInit {
         this.graficasEstadisticas[0].filtrarEstadisticas(this.sidvi);
 
         // Edad por Genero
-        this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
+        this.graficasEstadisticas.push(new GraficaEstadistica(this.idVirus, this.graficasEstadisticas.length));
         this.graficasEstadisticas[1].ubicacion = new Ubicacion(this.ubicacion);
         this.graficasEstadisticas[1].categoriaSelected = this.categorias.find((item: CategoriaEstadistica) => item.nombre === 'Edad');
         this.graficasEstadisticas[1].idCategoriaSelected = this.graficasEstadisticas[1].categoriaSelected.idCategoriaEstadistica.toString();
@@ -121,14 +121,17 @@ export class EstadisticaComponent implements OnInit {
     }
 
     agregarGrafica() {
-        this.graficasEstadisticas.push(new GraficaEdtadistica(this.idVirus, this.graficasEstadisticas.length));
+        const grafica = new GraficaEstadistica(this.idVirus, this.graficasEstadisticas.length);
+        grafica.ubicacion = new Ubicacion();
+        this.graficasEstadisticas.push(grafica);
+
     }
 
-    editarGrafica(grafica: GraficaEdtadistica) {
+    editarGrafica(grafica: GraficaEstadistica) {
         this.editandoGrafica = grafica;
     }
 
-    eliminarGrafica(grafica: GraficaEdtadistica) {
+    eliminarGrafica(grafica: GraficaEstadistica) {
         this.graficasEstadisticas.splice(grafica.identificador, 1);
     }
 }

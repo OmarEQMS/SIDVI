@@ -12,7 +12,7 @@ class EstadisticaValue {
     }
 }
 
-export class GraficaEdtadistica {
+export class GraficaEstadistica {
     // Settings
     ubicacion: Ubicacion;
     idCategoriaSelected: string;

@@ -43,6 +43,8 @@ export class TestNodo implements ITestNodo {
     archivoPdfZoom: number;
     archivoVideo: string;
     archivoVideoAPI: VgAPI;
+    localFile: FileList;
+    localFileName: string;
 
     // Constructor
     constructor(testNodo?: any) {
@@ -55,6 +57,7 @@ export class TestNodo implements ITestNodo {
             this.archivo = testNodo.archivo;
         }
         this.testOpciones = new Array(0);
+        this.localFileName = 'Choose file';
     }
 
     // ToObjectDB

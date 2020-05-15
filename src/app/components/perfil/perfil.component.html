@@ -100,12 +100,60 @@
                     <div class="btn btn-danger d-inline-block text-white mr-2" (click)="eliminarConfirmation()">
                       Eliminar Cuenta
                     </div>
+                    <div class="btn btn-info d-inline-block text-white mr-2" (click)="basicModal.show();">
+                        Restablecer Contraseña 
+                    </div>
                     <div class="btn btn-info d-inline-block text-white" (click)="validateAll()">
                         Guardar Cambios
-                      </div>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
 </ion-content>
+
+
+<!-- MODAL AGREGAR INFORMACIÓN-->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="resetModal()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h2>Restablecer contraseña</h2>
+        </div>
+
+        <div class="modal-body">
+            <!--Contraseña vieja-->
+            <div class='label-input'>
+                <label>Contraseña antigua</label>
+                <input mdbInput [(ngModel)]="contrasenaAntigua" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasena === false">No es la contraseña</p>
+            </div>
+            <!--nueva contraseña-->
+            <div class='label-input'>
+                <label>Nueva contraseña</label>
+                <input mdbInput [(ngModel)]="contrasenaNueva" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasenaCopy === false">La contraseña debe coincidir y no puede estar vacio el campo</p>
+
+            </div>
+            <!--Confirmar contraseña-->
+            <div class='label-input'>
+                <label>Confirmar nueva contraseña</label>
+                <input mdbInput [(ngModel)]="contrasenaCopy" type="password" class="form-control" >
+                <p class="feedback" *ngIf="fieldValidations.contrasenaCopy === false">La contraseña debe coincidir</p>
+            </div>
+        </div>
+        
+        <div class=" modal-footer">
+            <div class="btn btn-info d-inline-block text-white" (click)="restablecer()">
+                Restablecer
+            </div>
+        </div>
+    </div>
+</div>

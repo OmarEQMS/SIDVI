@@ -1,4 +1,5 @@
 <ion-split-pane contentId='main'>
+    <!--side menu-->
     <ion-menu menuId='sidebar' contentId='main'>
         <ion-content class='sidebar-menu'>
             <div class='m-3' *ngIf="editandoGrafica != null">
@@ -7,7 +8,7 @@
                 </div>            
                 <app-ubicacion-list [ubicacion]="editandoGrafica.ubicacion"></app-ubicacion-list>
                 <div class='card text-center p-2 mt-3 mb-2'>
-                    Categoria
+                    Categoría
                 </div>
                 <div class='form-group'>
                     <select class='form-control' [(ngModel)]="editandoGrafica.idCategoriaSelected" #idCategoriaSelected (change)="updateCategoria(idCategoriaSelected.value)">
@@ -73,39 +74,47 @@
                     </div>
                     <div class='form-group'>
                         <select id='input-categoria' class='form-control' [(ngModel)]="editandoGrafica.tipoGrafica">
-                            <option disabled selected value='-1'>SELECCIONA TIPO DE GRAFICA</option>
+                            <option disabled selected value='-1'>SELECCIONA TIPO DE GRÁFICA</option>
                             <option value='bar'>Barras</option>
                         </select>
                     </div>
                 </div>
                 <div class='text-center btn-info p-2 filtro mt-4' (click)="filtrarEstadisticas()">
-                    Actualizar Grafica
+                    Actualizar Gráfica
                 </div>
             </div> 
             <div class='m-3' *ngIf="editandoGrafica == null">
                 <div class='card text-center p-2 mt-3 mb-2'>
-                    En esta parte podras editar la configuraion de una grafica
+                    Selecciona una gráfica para personalizar los datos que quieres conocer con ayuda de los filtros proporcionados.
                 </div>
             </div>
         </ion-content>
     </ion-menu>
+   
     <ion-router-outlet id="main">
+        <!--Page header-->
         <ion-header>
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-menu-button></ion-menu-button>
                 </ion-buttons>
                 <ion-title>
-                    <span>Estadisticas ({{virus.nombre}})</span>
+                    <span>Estadisticas de {{virus.nombre}}</span>
                 </ion-title>
             </ion-toolbar>
         </ion-header>
+
         <ion-content>
-            <div class='m-5' *ngFor="let grafica of graficasEstadisticas">                
-                <div class='d-flex justify-content-center titulo'>{{grafica.nombre}}</div>
-                <div class='d-flex justify-content-end'>
-                    <fa-icon class='btn-editar d-inline-block mr-2' [icon]="icons.editar" (click)="editarGrafica(grafica)"></fa-icon> 
-                    <fa-icon class='btn-eliminar d-inline-block' [icon]="icons.delete" (click)="eliminarGrafica(grafica)"></fa-icon> 
+            <div class='m-5' *ngFor="let grafica of graficasEstadisticas" class="mouse m-3 p-3" 
+            [ngClass]="{'card': grafica == editandoGrafica, 'selected-graph': grafica == editandoGrafica}" 
+            (click)="editarGrafica(grafica)"  >                
+                <div class='titulo flex-row'>
+                    <div class="w-100 text-center">
+                        {{grafica.nombre}}
+                    </div >
+                    <div class="">
+                        <i class="fas fa-times-circle" (click)="eliminarGrafica(grafica)"></i>
+                    </div>
                 </div>
                 <div style="display: block;">
                   <canvas mdbChart height='100px'
@@ -117,13 +126,14 @@
                   </canvas>
                 </div>
             </div>
-            <div class='d-flex justify-content-center'>
-                <div class='text-center btn-grafica p-3 m-4' (click)="agregarGrafica()">
+
+            <!--Agregar btn-->
+            <div class='d-flex justify-content-center mb-5'>
+                <div class='btn btn-info d-inline-block text-white mb-5' (click)="agregarGrafica()">
                     Agregar Grafica
                 </div>
             </div>
 
-            <div class='mb-4'> &nbsp; </div>
         </ion-content>
     </ion-router-outlet>
 </ion-split-pane>

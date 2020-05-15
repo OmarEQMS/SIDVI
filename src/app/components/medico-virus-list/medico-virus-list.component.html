@@ -43,10 +43,10 @@
                       <mdb-carousel-item class="" *ngIf="medicoVirus.medico.archivoFoto === null || medicoVirus.medico.archivoFoto === undefined">
                         <img class="cover" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
                       </mdb-carousel-item>
-                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario.archivoFoto">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario != null && medicoVirus.medico.usuario.archivoFoto">
                         <img class="cover" [src]="medicoVirus.medico.usuario.archivoFoto" alt="imagen del consultorio" height="200px">
                       </mdb-carousel-item>
-                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario.archivoFoto === null || medicoVirus.medico.usuario.archivoFoto === undefined">
+                      <mdb-carousel-item class="" *ngIf="medicoVirus.medico.usuario != null && (medicoVirus.medico.usuario.archivoFoto === null || medicoVirus.medico.usuario.archivoFoto === undefined)">
                         <img class="cover" src="../../../assets/images/no-imagen.jpg" alt="no hay imagen" height="200px">
                       </mdb-carousel-item>
                     </mdb-carousel>
@@ -70,7 +70,7 @@
                     <!--ubicacion-->
                     <div class="flex-row">
                       <div class="div-wrap">{{medicoVirus.medico.direccionConsultorio}} </div> 
-                      <div class="sm-font div-wrap ml-1">({{medicoVirus.medico.ubicacion.nombre}})</div> 
+                      <div class="sm-font div-wrap ml-1" *ngIf="medicoVirus.medico.ubicacion != null">({{medicoVirus.medico.ubicacion.nombre}})</div> 
                     </div>
                     <!--Telefono-->
                     <div class="mb-2">{{medicoVirus.medico.telefonoConsultorio}}</div>

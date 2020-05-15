@@ -55,7 +55,7 @@ export class MedicoVirusListComponent implements OnInit {
         this.acumValoracion = 0;
         this.promedioValoracion = 0;
         this.virus = new Virus();
-
+        this.medicosVirus = new Array();
     }
 
     ngOnInit() { }

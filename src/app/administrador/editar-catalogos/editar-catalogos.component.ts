@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import { Ubicacion, IUbicacion, Informacion, CategoriaInformacion, CategoriaEstadistica, Estadistica } from 'src/models';
+import { Ubicacion, IUbicacion, Informacion, CategoriaInformacion, CategoriaEstadistica, Estadistica, SubcategoriaEstadistica } from 'src/models';
 import { SIDVIServices } from 'src/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,11 +18,14 @@ export class EditarCatalogosComponent implements OnInit {
   @ViewChild('modalAgregarUbicacion', null) modalAgregarUbicacion: MDBModalRef;
   @ViewChild('modalAgregarInformacion', null) modalAgregarInformacion: MDBModalRef;
   @ViewChild('modalAgregarEstadistica', null) modalAgregarEstadistica: MDBModalRef;
+  @ViewChild('modalAgregarSubcategoriaEstadistica', null) modalAgregarSubcategoriaEstadistica: MDBModalRef;
   @ViewChild('modalEditarUbicacion', null) modalEditarUbicacion: MDBModalRef;
   @ViewChild('modalEditarInformacion', null) modalEditarInformacion: MDBModalRef;
   @ViewChild('modalEditarEstadistica', null) modalEditarEstadistica: MDBModalRef;
+  @ViewChild('modalEditarSubcategoriaEstadistica', null) modalEditarSubcategoriaEstadistica: MDBModalRef;
   @ViewChild('modalEliminarInformacion', null) modalEliminarInformacion: MDBModalRef;
   @ViewChild('modalEliminarEstadistica', null) modalEliminarEstadistica: MDBModalRef;
+  @ViewChild('modalEliminarSubcategoriaEstadistica', null) modalEliminarSubcategoriaEstadistica: MDBModalRef;
   @ViewChild('modalEliminarUbicacion', null) modalEliminarUbicacion: MDBModalRef;
   @ViewChild('modalAgregarHijo', null) modalAgregarHijo: MDBModalRef;
 
@@ -43,6 +46,8 @@ export class EditarCatalogosComponent implements OnInit {
   nuevaEstadistica: CategoriaEstadistica;
   hijoUbicacion: Ubicacion;
   area: string;
+  localSubcategoriaEstadistica: SubcategoriaEstadistica;
+  newSubcategoriaEstadistica: SubcategoriaEstadistica;
 
   icons: { [id: string]: IconDefinition } = {
     plus: faChevronRight,
@@ -64,6 +69,8 @@ export class EditarCatalogosComponent implements OnInit {
     this.localInformacion = new CategoriaInformacion();
     this.nuevaInformacion = new CategoriaInformacion();
     this.hijoUbicacion = new Ubicacion();
+    this.localSubcategoriaEstadistica = new SubcategoriaEstadistica();
+    this.newSubcategoriaEstadistica = new SubcategoriaEstadistica();
   }
 
   ngOnInit() {
@@ -278,6 +285,51 @@ export class EditarCatalogosComponent implements OnInit {
       err => {
         console.log(err);
         Swal.fire({ title: 'La Estadística no se pudo eliminar con éxito', icon: 'error', backdrop: false });
+      }
+    );
+  }
+
+  renombrarSubcategoriaEstadistica() {
+    this.sidvi.subcategoriaEstadisticaService.actualizarSubcategoriaEstadistica(this.localSubcategoriaEstadistica.idSubcategoriaEstadistica,
+      this.localSubcategoriaEstadistica).subscribe(
+        res => {
+          console.log(res);
+          this.modalEditarSubcategoriaEstadistica.hide();
+          Swal.fire({ title: 'La Subcategoría Estadística se renombró con éxito', icon: 'success', backdrop: false });
+        },
+        err => {
+          console.log(err);
+          Swal.fire({ title: 'La Subcategoría Estadística no se pudo renombrar con éxito', icon: 'error', backdrop: false });
+        }
+      );
+  }
+
+  agregarSubcategoriaEstadistica() {
+    this.sidvi.subcategoriaEstadisticaService.crearSubcategoriaEstadistica(this.newSubcategoriaEstadistica).subscribe(
+      res => {
+        console.log(res);
+        this.modalEditarSubcategoriaEstadistica.hide();
+        Swal.fire({ title: 'La Subcategoría Estadística se creó con éxito', icon: 'success', backdrop: false });
+        this.getEstadistica();
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La SubcategoríaEstadística no se pudo registrar con éxito', icon: 'error', backdrop: false });
+      }
+    );
+  }
+
+  eliminarSubcategoriaEstadistica() {
+    this.sidvi.subcategoriaEstadisticaService.eliminarSubcategoriaEstadistica(this.localSubcategoriaEstadistica.idSubcategoriaEstadistica).subscribe(
+      res => {
+        console.log(res);
+        this.getEstadistica();
+        this.modalEliminarSubcategoriaEstadistica.hide();
+        Swal.fire({ title: 'La Subcategoría Estadística se eliminó con éxito', icon: 'success', backdrop: false });
+      },
+      err => {
+        console.log(err);
+        Swal.fire({ title: 'La Subcategoría Estadística no se pudo eliminar con éxito', icon: 'error', backdrop: false });
       }
     );
   }

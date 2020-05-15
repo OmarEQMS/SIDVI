@@ -3,6 +3,7 @@ import { SIDVIServices } from 'src/api';
 import { _Usuario, Usuario } from 'src/models';
 import Swal from 'sweetalert2';
 import { _APIResponse } from 'src/api/APIResponse';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-editar-administradores',
@@ -12,8 +13,9 @@ import { _APIResponse } from 'src/api/APIResponse';
 export class EditarAdministradoresComponent implements OnInit {
 
   administradores: Usuario[];
+  administradorModal: Usuario = new Usuario();
 
-  constructor(private sidvi: SIDVIServices) { }
+  constructor(private sidvi: SIDVIServices, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.listarAdministradores();
@@ -23,6 +25,15 @@ export class EditarAdministradoresComponent implements OnInit {
     this.sidvi.usuario.listarUsuarios(undefined, undefined, undefined, undefined, _Usuario.Rol.ADMINISTRADOR).subscribe(administradores => {
       this.administradores = administradores.resultados.map((item: any) => new Usuario(item));
     });
+  }
+
+  detallesModal(administrador: Usuario) {
+    this.administradorModal = administrador;
+
+    // Obtener imagen
+    if (this.administradorModal.archivoFoto != null) {
+      this.administradorModal.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(this.administradorModal.archivoFoto as string);
+    }
   }
 
   eliminar(administrador: Usuario) {

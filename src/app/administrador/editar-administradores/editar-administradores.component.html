@@ -41,7 +41,8 @@
             <td>{{administrador.correo}}</td>
             <td>{{administrador.celular}}</td>
             <td>
-              <button type="button" class="btn btn-info">Editar</button>
+              <button type="button" class="btn btn-info"
+                (click)="basicModal.show(); detallesModal(administrador);">Editar</button>
               <button type="button" class="btn btn-danger" (click)="eliminar(administrador)">Eliminar</button>
             </td>
           </tr>
@@ -50,3 +51,57 @@
     </div>
   </div>
 </ion-content>
+
+<!-- MODAL MÁS INFORMACIÓN ADMINISTRADOR -->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <!--Image display-->
+          <div class="d-inline-block image-div">
+            <img *ngIf="administradorModal.archivoIconoImg != null" [src]="administradorModal.archivoIconoImg" alt="imagen de virus"
+              class="imagen-icono">
+            <img *ngIf="administradorModal.archivoIconoImg == null" src="../../../assets/images/no-imagen.jpg"
+              alt="no hay imagen de perfil" class="imagen-icono">
+          </div>
+
+          <div class="d-inline-block">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div>
+              <h2>Usuario "{{administradorModal.nombreCompleto}}"</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class='label-input'>
+          <label>Nombre</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{administradorModal.nombreCompleto}}">
+        </div>
+        <div class='label-input'>
+          <label>Usuario</label>
+          <input mdbInput type="text" class="form-control" readonly value="{{administradorModal.usuario}}">
+        </div>
+
+        <div class=" modal-footer">
+          <!--button *ngIf="medicoModal.estatus == 'EN_ESPERA' || medicoModal.estatus == 'RECHAZADO'" type="submit" mdbBtn
+            color="success" (click)="habilitarConsultorio()" class="relative waves-light"
+            mdbWavesEffect>Aceptar</button>
+          <button *ngIf="medicoModal.estatus == 'DESHABILITADO'" type="submit" mdbBtn color="success"
+            (click)="habilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Habilitar</button>
+          <button *ngIf="medicoModal.estatus == 'HABILITADO'" type="submit" mdbBtn color="primary"
+            (click)="deshabilitarConsultorio()" class="relative waves-light" mdbWavesEffect>Deshabilitar</button>
+          <button *ngIf="medicoModal.estatus == 'EN_ESPERA'" type="submit" mdbBtn color="secondary"
+            (click)="rechazarConsultorio()" class="relative waves-light" mdbWavesEffect>Rechazar</button>
+          <button type="submit" mdbBtn color="danger" (click)="eliminarConsultorio()" class="relative waves-light"
+            mdbWavesEffect>Eliminar</button-->
+        </div>
+      </div>
+    </div>
+  </div>

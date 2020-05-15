@@ -2,6 +2,7 @@ import { ContentTypeEnum, Defaults } from '../api/API';
 
 import { Medico } from './Medico';
 import { Valoracion } from './Valoracion';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 // tslint:disable-next-line:no-namespace
 export namespace _Usuario {
@@ -48,7 +49,8 @@ export class Usuario implements IUsuario {
     medicos: Medico[];
     valoraciones?: Valoracion[];
 
-    // Local
+    // Extras
+    archivoIconoImg: SafeResourceUrl;
     localFile: FileList;
     localFileName: string;
 

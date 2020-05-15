@@ -24,3 +24,14 @@ ion-header{
 .table-content {
     width: 80%;
 }
+
+.imagen-icono {
+    max-width: 125px;
+    max-height: 125px;
+    object-fit: contain;
+}
+
+.image-div {
+    margin: 5px;
+    margin-right: 20px;
+}

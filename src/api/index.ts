@@ -3,7 +3,6 @@ export * from './Manager.Service';
 export * from './CategoriaEstadistica.Service';
 export * from './CategoriaInformacion.Service';
 export * from './SubcategoriaEstadistica.Service';
-export * from './CelularEstado.Service';
 export * from './Estadistica.Service';
 export * from './Informacion.Service';
 export * from './Medico.Service';
@@ -23,7 +22,6 @@ import { CategoriaEstadisticaService } from './CategoriaEstadistica.Service';
 import { CategoriaInformacionService } from './CategoriaInformacion.Service';
 import { SubcategoriaEstadisticaService } from './SubcategoriaEstadistica.Service';
 
-import { CelularEstadoService } from './CelularEstado.Service';
 import { EstadisticaService } from './Estadistica.Service';
 import { InformacionService } from './Informacion.Service';
 import { MedicoService } from './Medico.Service';
@@ -45,7 +43,6 @@ export class SIDVIServices {
         public categoriaEstadistica: CategoriaEstadisticaService,
         public categoriaInformacion: CategoriaInformacionService,
         public subcategoriaEstadisticaService: SubcategoriaEstadisticaService,
-        public celularEstado: CelularEstadoService,
         public estadistica: EstadisticaService,
         public informacion: InformacionService,
         public medico: MedicoService,

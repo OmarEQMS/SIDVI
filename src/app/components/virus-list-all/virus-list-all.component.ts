@@ -27,10 +27,8 @@ export class VirusListAllComponent implements OnInit {
         res => {
             this.viruss = res.resultados;
             for (const virus of this.viruss) {
-            virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
-            // console.log(virus.archivoIconoImg);
+                virus.archivoIconoImg = this.sanitizer.bypassSecurityTrustResourceUrl(virus.archivoIcono as string);
             }
-            // console.log(this.viruss);
         },
         err => { console.log(err); }
         );

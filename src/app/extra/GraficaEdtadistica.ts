@@ -221,7 +221,6 @@ export class GraficaEstadistica {
                     this.unsetDataChart();
                     this.resultado = false;
                 }
-                console.log(this.categoriaEstadistica);
         });
     }
 

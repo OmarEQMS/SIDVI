@@ -71,7 +71,6 @@ export class MedicoVirusListComponent implements OnInit {
     filtrar() {
         this.ubicacionesIds = new Array(0);
         this.collectIds(this.ubicacion);
-        console.log(this.ubicacionesIds);
         this.filtraUbicaciones();
     }
 
@@ -97,7 +96,6 @@ export class MedicoVirusListComponent implements OnInit {
     }
 
     filtraUbicaciones() {
-        console.log("filtro");
         this.idVirus = parseInt(this.activatedRoute.snapshot.paramMap.get('idVirus'), 10);
         this.obtenerVirus(this.idVirus);
         this.sidvi.medicoVirus.listarMedicosVirus(null, this.idVirus, this.nombre, this.ubicacionesIds, _Medico.Estatus.HABILITADO).subscribe(
@@ -135,7 +133,6 @@ export class MedicoVirusListComponent implements OnInit {
                 .subscribe( usu => {
                     medicoVirus.medico.usuario = new Usuario(usu);
                 });
-                // console.log(medicoVirus);
             }
         },
         err => { console.log(err); });
@@ -204,8 +201,6 @@ export class MedicoVirusListComponent implements OnInit {
                     this.valoracionUsuario = res.resultados[0].valoracion;
                     this.localIdValoracion = res.resultados[0].idValoracion;
                     this.yaEvaluo = true;
-                    console.log(this.valoracionUsuario);
-                    console.log(this.localIdValoracion);
                 }
             },
             err => {

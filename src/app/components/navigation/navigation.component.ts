@@ -21,13 +21,10 @@ export class NavigationComponent implements OnInit {
     } else {
       this.haySesion = false;
     }
-
-    console.log('cons ' + this.haySesion);
   }
 
   ngOnInit(): void {
     this.rout = localStorage.getItem('rout');
-    console.log('cons ' + this.haySesion);
   }
 
   logout() {
@@ -48,8 +45,7 @@ export class NavigationComponent implements OnInit {
     }
   }
   verOpciones() {
-    console.log('opciones');
-    console.log(this.haySesion);
+
   }
 }
 

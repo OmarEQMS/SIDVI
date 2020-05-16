@@ -87,7 +87,6 @@ export class Medico implements IMedico {
 
     // ToObjectDB
     toObjectDB() {
-        console.log(this);
         return {
             idMedico: this.idMedico,
             fkUsuario: this.fkUsuario,

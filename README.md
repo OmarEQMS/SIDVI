@@ -48,8 +48,5 @@ $ ionic serve
 
 * Omar Quintero Marmol Sánchez - [perfil](https://github.com/OmarEQMS)
 * Diego Montoya Martinez - [perfil](https://github.com/diegommtz)
-* Fernanda Orduña Reingel - [perfil](https://github.com/FerOrduna28)
+* Fernanda Orduña Rangel - [perfil](https://github.com/FerOrduna28)
 * Ariadna Angélica Guemes Estrada - [perfil](https://github.com/AngieGE)
-
-
-

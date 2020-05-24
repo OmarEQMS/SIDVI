@@ -19,10 +19,10 @@ Todo es gestionable desde la vista del administrador.
 └── src
     ├── api          		# Los servicios, para comunicarse con el back
     │   └── ...
-    ├── app        			# Proyecto Angular
+    ├── app        		# Proyecto Angular
     │   ├── administrador	# Proyecto Angular, vista de administrador
-	|	└── ...
-	|
+    |	└── ...
+    |
     └── ...          		# Assets, models...
         
 ```
@@ -34,13 +34,13 @@ Nota importante: Necesitará instalar el back-end para contar con todas las func
 
 1. Descargar el archivo zip o clonar el proyecto con el siguiente comando
 ```
-git clone https://github.com/OmarEQMS/SIDVI.git
+$ git clone https://github.com/OmarEQMS/SIDVI.git
 ```
 2. Navegar a **SIDVI/** y ejecutar los siguientes comandos
 
 ```
-npm i
-ionic serve
+$ npm i
+$ ionic serve
 ```
 
 

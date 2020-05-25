@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginForm);
     this.sidvi.usuario.autenticacion(this.loginForm.value.usuario, this.loginForm.value.password).subscribe(
       res => {
 

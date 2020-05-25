@@ -114,7 +114,6 @@ export class EditarTestComponent implements OnInit {
 
   actualizarTestOpcion() {
     this.localOpcion.fkTestNodoSig = parseInt(this.localOpcion.fkTestNodoSig as any, 10);
-    console.log(this.localOpcion);
 
     this.sidvi.testOpcion.actualizarTestOpcion(this.localOpcion.idTestOpcion,
       this.localOpcion).subscribe(

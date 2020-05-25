@@ -40,7 +40,6 @@ export class EditarMedicosComponent implements OnInit {
     }
 
     detallesModal(idMedico) {
-        console.log(idMedico);
         this.sidvi.medico.obtenerMedico(idMedico).subscribe(
             medico => {
                 this.medicoModal = new Medico(medico);

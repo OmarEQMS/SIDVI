@@ -30,7 +30,6 @@ export class RegistroComponent implements OnInit {
    }
 
   registrar() {
-    console.log("registrando");
     this.sidvi.usuario.crearUsuario(this.usuario).subscribe(
       res => {
         if (res.type === _APIResponse.TypeEnum.SUCCESS) {

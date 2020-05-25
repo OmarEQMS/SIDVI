@@ -257,8 +257,6 @@ export class MiConsultorioComponent implements OnInit {
     }
 
     editar(con: Medico) {
-        console.log(this.consultorio);
-        console.log(this.virusList);
         if (this.validateAll() === false) { return; }
         delete this.consultorio.mimetypeFoto;
         delete this.consultorio.archivoFoto;
@@ -291,20 +289,18 @@ export class MiConsultorioComponent implements OnInit {
 
     decisionVirus(isInMVList: boolean,  idMV: number, virus: Virus) {
         if (isInMVList === false && virus.selected === true) { // Agregar relacion de Medico Virus
-            console.log('agregando ' + virus.nombre);
             const newMV = new MedicoVirus({fkMedico: this.consultorio.idMedico, fkVirus: virus.idVirus});
             this.sidvi.medicoVirus.crearMedicoVirus(newMV)
                 .subscribe( resMV => {
                     console.log(resMV);
                 });
         } else if (isInMVList === true && (virus.selected === false || virus.selected == null) ) {  // Eliminar relacion de Medico Virus
-            console.log('eliminando ' + virus.nombre);
             this.sidvi.medicoVirus.eliminarMedicoVirus(idMV)
                 .subscribe( resMV => {
                     console.log(resMV);
                 });
         } else {
-                console.log('no le hago nada a ' + virus.nombre);
+            // Nada
         }
     }
 

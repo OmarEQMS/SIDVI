@@ -107,9 +107,6 @@ export class TestOpcionService {
         headers = headers.set('Accept', 'application/json');
         headers = headers.set('Content-Type', 'application/json');
 
-        console.log('Servicio front');
-        console.log(testOpcion);
-
         // Request
         return this.httpClient.put<APIResponse>(`${this.manager.basePath}/testOpcion/${encodeURIComponent(String(idTestOpcion))}`,
             testOpcion.toObjectDB(), { headers, observe: 'body', reportProgress: true }

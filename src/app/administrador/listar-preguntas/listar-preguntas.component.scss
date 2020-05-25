@@ -5,3 +5,9 @@
 ion-header{
     --ion-background-color: rgb(23, 82, 107);
 }
+
+.contenedorPreguntas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -115,8 +115,6 @@ export class EditarInformacionComponent implements OnInit {
         delete informacion.archivo;
         delete informacion.mimetype;
 
-        console.log(informacion);
-
         this.sidvi.informacion.actualizarInformacion(informacion.idInformacion, informacion).subscribe(
             res => {
                 // Checar si se subio un doc

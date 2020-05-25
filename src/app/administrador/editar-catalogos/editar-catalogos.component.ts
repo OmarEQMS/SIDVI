@@ -94,7 +94,6 @@ export class EditarCatalogosComponent implements OnInit {
 
   ngOnInit() {
     this.area = this.activatedRoute.snapshot.paramMap.get('area');
-    console.log(this.area);
   }
 
   async ionViewWillEnter() {
@@ -215,8 +214,6 @@ export class EditarCatalogosComponent implements OnInit {
   async eliminarUbicacion() {
     this.ubicacionesIds = new Array(0);
     this.collectIds(this.localUbicacion);
-    console.log('LOS ID HIJOS SON ');
-    console.log(this.ubicacionesIds);
 
     for (const ubicacionId of this.ubicacionesIds) {
       this.sidvi.ubicacion.eliminarUbicacion(ubicacionId).subscribe(

@@ -139,10 +139,9 @@ export class EditarEstadisticaComponent implements OnInit {
             fkSubcategoriaEstadistica2 = null;
         }
 
-        this.sidvi.estadistica.listarEstadisticas(this.idVirus, null, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, null, null, null, null, 'fecha', OrderModeEnum.DESC).subscribe(
+        this.sidvi.estadistica.listarEstadisticas(this.idVirus, this.idUbicacion, fkSubcategoriaEstadistica1, fkSubcategoriaEstadistica2, null, null, null, null, 'fecha', OrderModeEnum.DESC).subscribe(
             estadis => {
                 this.estadisticas = estadis.resultados.map((item: any) => new Estadistica(item));
-                console.log(this.estadisticas);
         });
     }
 

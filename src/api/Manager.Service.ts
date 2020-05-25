@@ -44,6 +44,7 @@ export class ManagerService {
         localStorage.setItem('sidvi-tokenUsuario', null);
         localStorage.setItem('sidvi-usuario', null);
     }
+    
     getTokenItems() {
         try {
             this.tokenUsuario = localStorage.getItem('sidvi-tokenUsuario');

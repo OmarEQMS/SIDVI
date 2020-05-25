@@ -13,6 +13,7 @@ import { TestComponent } from './components/test/test.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { RestablecerComponent } from './components/restablecer/restablecer.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'virus', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'recuperar', component: RecuperarComponent },
     { path: 'restablecer/:usuario/:token', component: RestablecerComponent},
     { path: 'perfil', component: PerfilComponent},
+    { path: 'acercaDe', component: AcercaDeComponent},
     { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then(m => m.AdministradorPageModule) },
 ];
 

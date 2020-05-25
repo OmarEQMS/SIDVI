@@ -28,6 +28,7 @@ import { UbicacionListComponent } from './components/ubicacion-list/ubicacion-li
 import { MiConsultorioComponent} from './components/mi-consultorio/mi-consultorio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 
 // Services
 import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService,
@@ -53,7 +54,8 @@ import { RestablecerComponent } from './components/restablecer/restablecer.compo
     TestComponent,
     RecuperarComponent,
     RestablecerComponent,
-    PerfilComponent
+    PerfilComponent,
+    AcercaDeComponent
   ],
   entryComponents: [],
   imports: [

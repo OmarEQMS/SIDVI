@@ -30,7 +30,7 @@
                     Filtrar por Categoría
                 </div>
                 <div class='form-group'>
-                    <select class='form-control' [(ngModel)]="editandoGrafica.idCategoriaSelected" #idCategoriaSelected (change)="updateCategoria(idCategoriaSelected.value)">
+                    <select class='form-control' [(ngModel)]="editandoGrafica.idCategoriaSelected" #idCategoriaSelected (change)="updateCategoria()">
                         <option disabled selected [value]="-1">SELECCIONA TU CATEGORIA</option>
                         <option *ngFor="let cat of categorias" [value]="cat.idCategoriaEstadistica">{{cat.nombre}}</option>
                     </select>

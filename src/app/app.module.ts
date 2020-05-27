@@ -38,6 +38,7 @@ import { SIDVIServices, CategoriaEstadisticaService, CategoriaInformacionService
 import { TestComponent } from './components/test/test.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { RestablecerComponent } from './components/restablecer/restablecer.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,6 @@ import { RestablecerComponent } from './components/restablecer/restablecer.compo
 })
 export class AppModule {
   constructor(private manager: ManagerService) {
-    manager.basePath = 'http://localhost:8000';
-    // manager.basePath = 'http://sidvi.omarquintero.com/api';
+    manager.basePath = environment.apiBasePath;
   }
 }
